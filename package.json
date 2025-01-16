@@ -1,5 +1,5 @@
 {
-  "name": "companyscore-front",
+  "name": "companyscore-next-app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@next/swc-darwin-arm64": "^15.1.4",
     "axios": "^1.7.9",
     "js-cookie": "^3.0.5",
     "next": "^15.1.4",

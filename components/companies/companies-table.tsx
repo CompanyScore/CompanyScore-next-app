@@ -34,15 +34,15 @@ export default function CompaniesTable({ companies }: CompaniesProps) {
         <tbody>
           {companies.map(company => (
             <tr key={company.id}>
-              {/* <td>
-                <Image
+              <td>
+                {/* <Image
                   src={company.logo}
                   alt="Company logo"
                   width={30}
                   height={30}
-                />
+                /> */}
                 {company.name}
-              </td> */}
+              </td>
               <td>{company.country}</td>
               <td>{company.city}</td>
               <td>{company.commentsIds.length}</td>
