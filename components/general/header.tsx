@@ -1,8 +1,10 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
 import LanguageController from "./language-controller";
+import Enter from "./enter";
 
 export default function Header() {
   return (
@@ -19,12 +21,16 @@ export default function Header() {
         <Link href="/blog">Блог</Link>
       </div>
       <div className="flex justify-end max-w-96 w-full">
+        <label htmlFor="modal_enter" className="btn">
+          Войти
+        </label>
         <Link href="/">
           <Image src="/icons/user.svg" alt="User Icon" width={24} height={24} />
         </Link>
         <LanguageController />
         <ThemeController />
       </div>
+      <Enter />
     </div>
   );
 }
