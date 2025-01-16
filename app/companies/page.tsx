@@ -1,4 +1,5 @@
 "use client";
+import CompaniesFilter from "@/components/companies/companies-filter";
 import CompaniesTable from "@/components/companies/companies-table";
 import Pagination from "@/components/general/pagination";
 import ShowBy from "@/components/general/show-by";
@@ -45,14 +46,9 @@ export default function Companies() {
         <p className="text-center text-red-600 text-lg">Ошибка: {error}</p>
       ) : (
         <div className="flex flex-col gap-6">
-          <div className="flex justify-between">
-            <h1 className="text-4xl">Компаний: {companies.length}</h1>
-            <input
-              type="text"
-              placeholder="Type here"
-              className="input input-bordered input-primary w-full max-w-xs"
-            />
-          </div>
+          <div className="flex justify-between"></div>
+          <h1 className="text-4xl">Компаний: {companies.length}</h1>
+          <CompaniesFilter />
           <CompaniesTable companies={companies} />
           <div className="flex justify-between">
             <ShowBy />

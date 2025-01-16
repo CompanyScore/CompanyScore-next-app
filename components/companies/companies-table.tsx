@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-// import Image from "next/image";
+import Image from "next/image";
+import Link from "next/link";
 
 type Company = {
   id: number;
@@ -20,35 +21,41 @@ export default function CompaniesTable({ companies }: CompaniesProps) {
   return (
     <div className="overflow-x-auto">
       <table className="table">
-        {/* head */}
         <thead>
-          <tr>
+          <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Компания</th>
             <th>Страна</th>
             <th>Город</th>
-            <th>Количество комментариев</th>
+            <th>Комментариии</th>
             <th>Рэйтинг</th>
-            <th>Оставить комментарий</th>
+            <th>Действия</th>
           </tr>
         </thead>
         <tbody>
           {companies.map(company => (
-            <tr key={company.id}>
-              <td>
-                {/* <Image
-                  src={company.logo}
-                  alt="Company logo"
-                  width={30}
-                  height={30}
-                /> */}
-                {company.name}
-              </td>
+            <tr
+              key={company.id}
+              className="text-center border-b border-gray-500"
+            >
+              <Link href={`/companies/${company.id}`}>
+                <td className="flex items-center gap-2">
+                  <img src={company.logo} alt="Company logo" width={100} />
+                  <p>{company.name}</p>
+                </td>
+              </Link>
               <td>{company.country}</td>
               <td>{company.city}</td>
               <td>{company.commentsIds.length}</td>
               <td>{company.rating}</td>
               <td>
-                <button className="btn btn-primary">Оставить</button>
+                <button className="btn btn-primary">
+                  <Image
+                    src="/icons/pencil.svg"
+                    alt="Pencil"
+                    width={25}
+                    height={25}
+                  />
+                </button>
               </td>
             </tr>
           ))}
