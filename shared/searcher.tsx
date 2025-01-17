@@ -16,9 +16,5 @@ export function Searcher({ onSearch, debounceDelay = 500 }: SearcherProps) {
     onSearch(debouncedValue);
   }, [debouncedValue, onSearch]);
 
-  return (
-    <div className="w-full max-w-44">
-      <Input changeSearchedValue={setSearchValue} />
-    </div>
-  );
+  return <Input changeSearchedValue={setSearchValue} />;
 }

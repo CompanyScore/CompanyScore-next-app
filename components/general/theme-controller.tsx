@@ -88,6 +88,16 @@ export default function ThemeController() {
             onClick={() => handleChangeTheme("luxury")}
           />
         </li>
+        <li>
+          <input
+            type="radio"
+            name="theme-dropdown"
+            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
+            aria-label="Valentine"
+            value="valentine"
+            onClick={() => handleChangeTheme("valentine")}
+          />
+        </li>
       </ul>
     </div>
   );
