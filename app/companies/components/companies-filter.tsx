@@ -1,33 +1,30 @@
 "use client";
 import { Searcher } from "@/shared";
 import { Select } from "@/ui";
-import React, { useState } from "react";
 
-const ratingOptions = ["1", "2", "3", "4", "5"];
+const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const countryOptions = ["Казахстан", "USA", "Кыргызстан", "Узбекистан"];
 const cityOptions = ["Алматы", "Астана", "Караганда", "Шимкент"];
 
 type CompaniesFilterType = {
+  onSearchCompanyByName: (searchedName: string) => void;
   selectedCountry: string;
+  onSelectCountry: (selectedCountry: string) => void;
   selectedCity: string;
   onSelectCity: (selectedCity: string) => void;
-  onSearchCompanyByName: (searchedName: string) => void;
-  onSelectCountry: (selectedCountry: string) => void;
+  selectedRating: string;
+  onSelectRating: (selectedRating: string) => void;
 };
 
 export function CompaniesFilter({
-  selectedCountry,
-  selectedCity,
   onSearchCompanyByName,
+  selectedCountry,
   onSelectCountry,
+  selectedCity,
   onSelectCity,
+  selectedRating,
+  onSelectRating,
 }: CompaniesFilterType) {
-  const [selectedRating, setSelectedRating] = useState("");
-
-  const changeRatingValue = (newValue: string) => {
-    setSelectedRating(newValue);
-  };
-
   return (
     <div className="flex items-center gap-4">
       <Searcher onSearch={onSearchCompanyByName} />
@@ -48,7 +45,7 @@ export function CompaniesFilter({
         defaultValue="Все рэйтинги"
         options={ratingOptions}
         value={selectedRating}
-        onSelect={changeRatingValue}
+        onSelect={onSelectRating}
       />
     </div>
   );

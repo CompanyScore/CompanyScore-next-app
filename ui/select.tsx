@@ -1,9 +1,9 @@
 import React from "react";
 
 type SelectProps = {
-  defaultValue: string;
-  options: string[];
-  value: string;
+  defaultValue: string | number;
+  options: string[] | number[];
+  value: string | number;
   onSelect: (newValue: string) => void;
 };
 
@@ -20,7 +20,7 @@ export function Select({
       onChange={e => onSelect(e.target.value)}
     >
       <option value="">{defaultValue}</option>
-      {options.map((option: string) => (
+      {options.map((option: string | number) => (
         <option value={option} key={option}>
           {option}
         </option>

@@ -20,20 +20,21 @@ export default function CompaniesPage() {
   const [searchedCompanyName, setSearchedCompanyName] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  // const [selectedRating, setSelectedRating] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  console.log(selectedCity);
+  console.log(selectedRating);
 
   const fetchCompanies = async (
     searchedCompanyName: string,
     selectedCountry: string,
     selectedCity: string,
+    selectedRating: string,
   ) => {
     try {
       const response = await axios.get<Company[]>(
-        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}&city=${selectedCity}`,
+        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}&city=${selectedCity}&rating=${selectedRating}`,
       );
       setCompanies(response.data);
     } catch (err: any) {
@@ -55,13 +56,18 @@ export default function CompaniesPage() {
     setSelectedCity(newValue);
   };
 
-  // const onSelectCityValue = (newValue: string) => {
-  //   setSelectedRating(newValue);
-  // };
+  const onSelectRating = (newValue: string) => {
+    setSelectedRating(newValue);
+  };
 
   useEffect(() => {
-    fetchCompanies(searchedCompanyName, selectedCountry, selectedCity);
-  }, [searchedCompanyName, selectedCountry, selectedCity]);
+    fetchCompanies(
+      searchedCompanyName,
+      selectedCountry,
+      selectedCity,
+      selectedRating,
+    );
+  }, [searchedCompanyName, selectedCountry, selectedCity, selectedRating]);
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -70,9 +76,11 @@ export default function CompaniesPage() {
         <CompaniesFilter
           onSearchCompanyByName={onSearchCompanyByName}
           selectedCountry={selectedCountry}
-          selectedCity={selectedCity}
           onSelectCountry={onSelectCountry}
+          selectedCity={selectedCity}
           onSelectCity={onSelectCity}
+          selectedRating={selectedRating}
+          onSelectRating={onSelectRating}
         />
         <CompaniesTable
           companies={companies}
