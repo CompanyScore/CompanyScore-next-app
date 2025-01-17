@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { CompaniesFilter, CompaniesTable } from "./components";
 import { Pagination, ShowBy } from "@/shared";
+import { Title } from "@/ui";
 
 type Company = {
   id: number;
@@ -38,9 +39,8 @@ export default function Companies() {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="flex flex-col gap-6">
-        <div className="flex justify-between"></div>
-        <h1 className="text-4xl">Компаний: {companies.length}</h1>
+      <div className="flex flex-col gap-8">
+        <Title text={`Компаний: ${companies.length}`} />
         <CompaniesFilter />
         <CompaniesTable
           companies={companies}

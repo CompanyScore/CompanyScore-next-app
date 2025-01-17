@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ErrorMessage, Loading } from "@/ui";
 
 type Company = {
   id: number;
@@ -19,13 +20,17 @@ type CompaniesProps = {
   errorMessage: string | null;
 };
 
-export function CompaniesTable({ companies, loading, errorMessage }: CompaniesProps) {
+export function CompaniesTable({
+  companies,
+  loading,
+  errorMessage,
+}: CompaniesProps) {
   return (
-    <div className="overflow-x-auto">
+    <div className="flex flex-col items-center overflow-x-auto">
       {loading ? (
-        <p className="text-center text-lg">Загрузка...</p>
+        <Loading />
       ) : errorMessage ? (
-        <p className="text-center text-red-600 text-lg">Ошибка: {errorMessage}</p>
+        <ErrorMessage text={` Ошибка: ${errorMessage}`} />
       ) : (
         <table className="table">
           <thead>
