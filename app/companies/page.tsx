@@ -18,18 +18,21 @@ type Company = {
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [searchedCompanyName, setSearchedCompanyName] = useState("");
-  // const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
   // const [selectedCity, setSelectedCity] = useState("");
   // const [selectedRating, setSelectedRating] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  console.log(searchedCompanyName);
+  console.log(selectedCountry);
 
-  const fetchCompanies = async (searchedCompanyName: string) => {
+  const fetchCompanies = async (
+    searchedCompanyName: string,
+    selectedCountry: string,
+  ) => {
     try {
       const response = await axios.get<Company[]>(
-        `http://localhost:8080/api/companies?searchedCompanyName=${searchedCompanyName}`,
+        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}`,
       );
       setCompanies(response.data);
     } catch (err: any) {
@@ -43,9 +46,9 @@ export default function CompaniesPage() {
     setSearchedCompanyName(newValue);
   };
 
-  // const changeCountryValue = (newValue: string) => {
-  //   setSelectedCountry(newValue);
-  // };
+  const onSelectCountryValue = (newValue: string) => {
+    setSelectedCountry(newValue);
+  };
 
   // const changeCityValue = (newValue: string) => {
   //   setSelectedRating(newValue);
@@ -56,8 +59,8 @@ export default function CompaniesPage() {
   // };
 
   useEffect(() => {
-    fetchCompanies(searchedCompanyName);
-  }, [searchedCompanyName]);
+    fetchCompanies(searchedCompanyName, selectedCountry);
+  }, [searchedCompanyName, selectedCountry]);
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -65,6 +68,8 @@ export default function CompaniesPage() {
         <Title text={`Компаний: ${companies.length}`} />
         <CompaniesFilter
           onSearchCompanyByName={onSearchCompanyByName}
+          selectedCountry={selectedCountry}
+          onSelectCountryValue={onSelectCountryValue}
         />
         <CompaniesTable
           companies={companies}

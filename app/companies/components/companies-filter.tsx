@@ -4,23 +4,22 @@ import { Select } from "@/ui";
 import React, { useState } from "react";
 
 const ratingOptions = ["1", "2", "3", "4", "5"];
-const countryOptions = ["Казахстан", "Россия", "Кыргызстан", "Узбекистан"];
+const countryOptions = ["Казахстан", "USA", "Кыргызстан", "Узбекистан"];
 const cityOptions = ["Алматы", "Астана", "Караганда", "Шимкент"];
 
 type CompaniesFilterType = {
+  selectedCountry: string;
   onSearchCompanyByName: (newSearchedCompanyName: string) => void;
+  onSelectCountryValue: (selectedCompanyCountry: string) => void;
 };
 
 export function CompaniesFilter({
+  selectedCountry,
   onSearchCompanyByName,
+  onSelectCountryValue,
 }: CompaniesFilterType) {
-  const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
-
-  const changeCountryValue = (newValue: string) => {
-    setSelectedCountry(newValue);
-  };
 
   const changeCityValue = (newValue: string) => {
     setSelectedRating(newValue);
@@ -35,10 +34,10 @@ export function CompaniesFilter({
       <Searcher onSearch={onSearchCompanyByName} />
 
       <Select
-        defaultValue="Страна"
+        defaultValue="Все страны"
         options={countryOptions}
         value={selectedCountry}
-        changeValue={changeCountryValue}
+        changeValue={onSelectCountryValue}
       />
       <Select
         defaultValue="Город"

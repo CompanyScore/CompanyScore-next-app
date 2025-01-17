@@ -19,9 +19,7 @@ export function Select({
       value={value}
       onChange={e => changeValue(e.target.value)}
     >
-      <option disabled value="">
-        {defaultValue}
-      </option>
+      <option value="">{defaultValue}</option>
       {options.map((option: string) => (
         <option value={option} key={option}>
           {option}
