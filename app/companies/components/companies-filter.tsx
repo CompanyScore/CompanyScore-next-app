@@ -1,12 +1,19 @@
 "use client";
-import { Select, Input } from "@/ui";
+import { Searcher } from "@/shared";
+import { Select } from "@/ui";
 import React, { useState } from "react";
 
 const ratingOptions = ["1", "2", "3", "4", "5"];
 const countryOptions = ["Казахстан", "Россия", "Кыргызстан", "Узбекистан"];
 const cityOptions = ["Алматы", "Астана", "Караганда", "Шимкент"];
 
-export function CompaniesFilter() {
+type CompaniesFilterType = {
+  onSearchCompanyByName: (newSearchedCompanyName: string) => void;
+};
+
+export function CompaniesFilter({
+  onSearchCompanyByName,
+}: CompaniesFilterType) {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
@@ -25,7 +32,7 @@ export function CompaniesFilter() {
 
   return (
     <div className="flex items-center gap-4">
-      <Input />
+      <Searcher onSearch={onSearchCompanyByName} />
 
       <Select
         defaultValue="Страна"
