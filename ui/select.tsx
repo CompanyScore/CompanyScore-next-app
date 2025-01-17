@@ -15,7 +15,7 @@ export function Select({
 }: SelectProps) {
   return (
     <select
-      className="select select-primary w-full max-w-44"
+      className="select select-primary w-full max-w-xs"
       value={value}
       onChange={e => onSelect(e.target.value)}
     >
