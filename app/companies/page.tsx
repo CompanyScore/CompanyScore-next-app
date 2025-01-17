@@ -70,27 +70,25 @@ export default function CompaniesPage() {
   }, [searchedCompanyName, selectedCountry, selectedCity, selectedRating]);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      <div className="flex flex-col gap-8">
-        <Title text={`Компаний: ${companies.length}`} />
-        <CompaniesFilter
-          onSearchCompanyByName={onSearchCompanyByName}
-          selectedCountry={selectedCountry}
-          onSelectCountry={onSelectCountry}
-          selectedCity={selectedCity}
-          onSelectCity={onSelectCity}
-          selectedRating={selectedRating}
-          onSelectRating={onSelectRating}
-        />
-        <CompaniesTable
-          companies={companies}
-          loading={loading}
-          errorMessage={errorMessage}
-        />
-        <div className="flex justify-between">
-          <ShowBy />
-          <Pagination />
-        </div>
+    <section className="flex flex-col items-stretch justify-center gap-4 py-8 md:py-10 m-auto">
+      <Title text={`Компаний: ${companies.length}`} />
+      <CompaniesFilter
+        onSearchCompanyByName={onSearchCompanyByName}
+        selectedCountry={selectedCountry}
+        onSelectCountry={onSelectCountry}
+        selectedCity={selectedCity}
+        onSelectCity={onSelectCity}
+        selectedRating={selectedRating}
+        onSelectRating={onSelectRating}
+      />
+      <CompaniesTable
+        companies={companies}
+        loading={loading}
+        errorMessage={errorMessage}
+      />
+      <div className="flex justify-between">
+        <ShowBy />
+        <Pagination />
       </div>
     </section>
   );

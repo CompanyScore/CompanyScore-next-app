@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/general/header";
 import Footer from "@/components/general/footer";
 import ThemeProvider from "@/shared/theme-provider";
+import Enter from "@/components/general/enter";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +35,7 @@ export default function RootLayout({
           <Header />
           <main className="flex-1 container mx-auto h-full px-4">
             {children}
+            <Enter />
           </main>
           <Footer />
         </ThemeProvider>

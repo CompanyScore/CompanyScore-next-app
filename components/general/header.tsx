@@ -4,7 +4,6 @@ import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
 import LanguageController from "./language-controller";
-import Enter from "./enter";
 
 export default function Header() {
   return (
@@ -13,7 +12,7 @@ export default function Header() {
         <Image src="/icons/logo.svg" alt="Logo" width={24} height={24} />
         <h2 className=" text-3xl">CompanyScore</h2>
       </div>
-      <div className="flex gap-4 text-xl">
+      <div className="flex gap-10 text-xl">
         <Link href="/">Главная</Link>
         <Link href="/companies">Компании</Link>
         <Link href="/about">О нас</Link>
@@ -30,7 +29,6 @@ export default function Header() {
         <LanguageController />
         <ThemeController />
       </div>
-      <Enter />
     </div>
   );
 }

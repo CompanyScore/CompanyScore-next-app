@@ -26,7 +26,7 @@ export function CompaniesTable({
   errorMessage,
 }: CompaniesProps) {
   return (
-    <div className="flex flex-col items-center overflow-x-auto">
+    <div className="flex flex-col items-center max-w-[1200px] w-full m-auto">
       {loading ? (
         <Loading />
       ) : errorMessage ? (
