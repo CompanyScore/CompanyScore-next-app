@@ -20,7 +20,7 @@ export function Select({
       onChange={e => onSelect(e.target.value)}
     >
       <option value="">{defaultValue}</option>
-      {options.map((option: string | number) => (
+      {options?.map((option: string | number) => (
         <option value={option} key={option}>
           {option}
         </option>
