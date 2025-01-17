@@ -37,12 +37,12 @@ export default function CompaniesTable({ companies }: CompaniesProps) {
               key={company.id}
               className="text-center border-b border-gray-500"
             >
-              <Link href={`/companies/${company.id}`}>
-                <td className="flex items-center gap-2">
+              <td className="flex items-center gap-2">
+                <Link href={`/companies/${company.id}`}>
                   <img src={company.logo} alt="Company logo" width={100} />
                   <p>{company.name}</p>
-                </td>
-              </Link>
+                </Link>
+              </td>
               <td>{company.country}</td>
               <td>{company.city}</td>
               <td>{company.commentsIds.length}</td>

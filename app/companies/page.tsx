@@ -1,10 +1,10 @@
 "use client";
-import CompaniesFilter from "@/components/companies/companies-filter";
-import CompaniesTable from "@/components/companies/companies-table";
-import Pagination from "@/components/general/pagination";
-import ShowBy from "@/components/general/show-by";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import CompaniesFilter from "./components/companies-filter";
+import CompaniesTable from "./components/companies-table";
+import Pagination from "@/shared/pagination";
+import ShowBy from "@/shared/show-by";
 
 type Company = {
   id: number;
