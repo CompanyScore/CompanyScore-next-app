@@ -19,20 +19,21 @@ export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [searchedCompanyName, setSearchedCompanyName] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
-  // const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   // const [selectedRating, setSelectedRating] = useState("");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  console.log(selectedCountry);
+  console.log(selectedCity);
 
   const fetchCompanies = async (
     searchedCompanyName: string,
     selectedCountry: string,
+    selectedCity: string,
   ) => {
     try {
       const response = await axios.get<Company[]>(
-        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}`,
+        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}&city=${selectedCity}`,
       );
       setCompanies(response.data);
     } catch (err: any) {
@@ -46,21 +47,21 @@ export default function CompaniesPage() {
     setSearchedCompanyName(newValue);
   };
 
-  const onSelectCountryValue = (newValue: string) => {
+  const onSelectCountry = (newValue: string) => {
     setSelectedCountry(newValue);
   };
 
-  // const changeCityValue = (newValue: string) => {
+  const onSelectCity = (newValue: string) => {
+    setSelectedCity(newValue);
+  };
+
+  // const onSelectCityValue = (newValue: string) => {
   //   setSelectedRating(newValue);
   // };
 
-  // const changeRatingValue = (newValue: string) => {
-  //   setSelectedCity(newValue);
-  // };
-
   useEffect(() => {
-    fetchCompanies(searchedCompanyName, selectedCountry);
-  }, [searchedCompanyName, selectedCountry]);
+    fetchCompanies(searchedCompanyName, selectedCountry, selectedCity);
+  }, [searchedCompanyName, selectedCountry, selectedCity]);
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
@@ -69,7 +70,9 @@ export default function CompaniesPage() {
         <CompaniesFilter
           onSearchCompanyByName={onSearchCompanyByName}
           selectedCountry={selectedCountry}
-          onSelectCountryValue={onSelectCountryValue}
+          selectedCity={selectedCity}
+          onSelectCountry={onSelectCountry}
+          onSelectCity={onSelectCity}
         />
         <CompaniesTable
           companies={companies}

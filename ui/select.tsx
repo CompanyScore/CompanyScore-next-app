@@ -4,20 +4,20 @@ type SelectProps = {
   defaultValue: string;
   options: string[];
   value: string;
-  changeValue: (newValue: string) => void;
+  onSelect: (newValue: string) => void;
 };
 
 export function Select({
   defaultValue,
   options,
   value,
-  changeValue,
+  onSelect,
 }: SelectProps) {
   return (
     <select
       className="select select-primary w-full max-w-44"
       value={value}
-      onChange={e => changeValue(e.target.value)}
+      onChange={e => onSelect(e.target.value)}
     >
       <option value="">{defaultValue}</option>
       {options.map((option: string) => (

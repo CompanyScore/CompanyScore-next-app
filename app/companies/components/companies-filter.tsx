@@ -9,24 +9,23 @@ const cityOptions = ["Алматы", "Астана", "Караганда", "Ши
 
 type CompaniesFilterType = {
   selectedCountry: string;
-  onSearchCompanyByName: (newSearchedCompanyName: string) => void;
-  onSelectCountryValue: (selectedCompanyCountry: string) => void;
+  selectedCity: string;
+  onSelectCity: (selectedCity: string) => void;
+  onSearchCompanyByName: (searchedName: string) => void;
+  onSelectCountry: (selectedCountry: string) => void;
 };
 
 export function CompaniesFilter({
   selectedCountry,
+  selectedCity,
   onSearchCompanyByName,
-  onSelectCountryValue,
+  onSelectCountry,
+  onSelectCity,
 }: CompaniesFilterType) {
-  const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
 
-  const changeCityValue = (newValue: string) => {
-    setSelectedRating(newValue);
-  };
-
   const changeRatingValue = (newValue: string) => {
-    setSelectedCity(newValue);
+    setSelectedRating(newValue);
   };
 
   return (
@@ -37,19 +36,19 @@ export function CompaniesFilter({
         defaultValue="Все страны"
         options={countryOptions}
         value={selectedCountry}
-        changeValue={onSelectCountryValue}
+        onSelect={onSelectCountry}
       />
       <Select
-        defaultValue="Город"
+        defaultValue="Все города"
         options={cityOptions}
         value={selectedCity}
-        changeValue={changeCityValue}
+        onSelect={onSelectCity}
       />
       <Select
-        defaultValue="Рэйтинг"
+        defaultValue="Все рэйтинги"
         options={ratingOptions}
         value={selectedRating}
-        changeValue={changeRatingValue}
+        onSelect={changeRatingValue}
       />
     </div>
   );
