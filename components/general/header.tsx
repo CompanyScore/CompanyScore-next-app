@@ -10,12 +10,12 @@ export default function Header() {
     <div className="flex justify-between navbar bg-neutral text-neutral-content px-4">
       <div className="max-w-96 w-full">
         <Image src="/icons/logo.svg" alt="Logo" width={24} height={24} />
-        <h2 className=" text-3xl">CompanyScore</h2>
+        <h1 className=" text-3xl">CompanyScore</h1>
       </div>
       <div className="flex gap-10 text-xl">
         <Link href="/">Главная</Link>
-        <Link href="/companies">Компании</Link>
         <Link href="/about">О нас</Link>
+        <Link href="/companies">Компании</Link>
         <Link href="/analytic">Аналитика</Link>
         <Link href="/blog">Блог</Link>
       </div>

@@ -1,7 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { CompaniesFilter, CompaniesTable } from "./components";
+import {
+  CompaniesFilter,
+  CompaniesTable,
+  WriteCommentModal,
+} from "./components";
 import { Pagination, ShowBy } from "@/shared";
 import { Title } from "@/ui";
 
@@ -70,7 +74,7 @@ export default function CompaniesPage() {
   }, [searchedCompanyName, selectedCountry, selectedCity, selectedRating]);
 
   return (
-    <section className="flex flex-col items-stretch justify-center gap-4 py-8 md:py-10 m-auto">
+    <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
       <Title text={`Компаний: ${companies.length}`} />
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}
@@ -90,6 +94,7 @@ export default function CompaniesPage() {
         <ShowBy />
         <Pagination />
       </div>
+      <WriteCommentModal />
     </section>
   );
 }

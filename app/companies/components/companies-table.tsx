@@ -49,28 +49,33 @@ export function CompaniesTable({
                 key={company.id}
                 className="text-center border-b border-gray-500"
               >
-                <td>
-                  <Link
-                    href={`/companies/${company.id}`}
-                    className="flex items-center gap-2"
-                  >
-                    <img src={company.logo} alt="Company logo" width={100} />
-                    <p>{company.name}</p>
-                  </Link>
+                <td className="flex items-center gap-2">
+                  <img src={company.logo} alt="Company logo" width={100} />
+                  <p>{company.name}</p>
                 </td>
                 <td>{company.country}</td>
                 <td>{company.city}</td>
                 <td>{company.commentsIds.length}</td>
                 <td>{company.rating}</td>
-                <td>
+                <td className="flex justify-center items-center gap-2">
                   <button className="btn btn-primary">
+                    <Link href={`/companies/${company.id}`}>
+                      <Image
+                        src="/icons/file.svg"
+                        alt="File"
+                        width={25}
+                        height={25}
+                      />
+                    </Link>
+                  </button>
+                  <label htmlFor="modal_write_comment" className="btn btn-primary">
                     <Image
                       src="/icons/pencil.svg"
                       alt="Pencil"
                       width={25}
                       height={25}
                     />
-                  </button>
+                  </label>
                 </td>
               </tr>
             ))}
