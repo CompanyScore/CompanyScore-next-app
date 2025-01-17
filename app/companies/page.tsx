@@ -1,10 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import CompaniesFilter from "./components/companies-filter";
-import CompaniesTable from "./components/companies-table";
-import Pagination from "@/shared/pagination";
-import ShowBy from "@/shared/show-by";
+import { CompaniesFilter, CompaniesTable } from "./components";
+import { Pagination, ShowBy } from "@/shared";
 
 type Company = {
   id: number;
@@ -19,7 +17,7 @@ type Company = {
 export default function Companies() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const fetchCompanies = async () => {
     try {
@@ -28,7 +26,7 @@ export default function Companies() {
       );
       setCompanies(response.data);
     } catch (err: any) {
-      setError(err.message || "Ошибка загрузки данных");
+      setErrorMessage(err.message || "Ошибка загрузки данных");
     } finally {
       setLoading(false);
     }
@@ -40,22 +38,20 @@ export default function Companies() {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
-      {loading ? (
-        <p className="text-center text-lg">Загрузка...</p>
-      ) : error ? (
-        <p className="text-center text-red-600 text-lg">Ошибка: {error}</p>
-      ) : (
-        <div className="flex flex-col gap-6">
-          <div className="flex justify-between"></div>
-          <h1 className="text-4xl">Компаний: {companies.length}</h1>
-          <CompaniesFilter />
-          <CompaniesTable companies={companies} />
-          <div className="flex justify-between">
-            <ShowBy />
-            <Pagination />
-          </div>
+      <div className="flex flex-col gap-6">
+        <div className="flex justify-between"></div>
+        <h1 className="text-4xl">Компаний: {companies.length}</h1>
+        <CompaniesFilter />
+        <CompaniesTable
+          companies={companies}
+          loading={loading}
+          errorMessage={errorMessage}
+        />
+        <div className="flex justify-between">
+          <ShowBy />
+          <Pagination />
         </div>
-      )}
+      </div>
     </section>
   );
 }

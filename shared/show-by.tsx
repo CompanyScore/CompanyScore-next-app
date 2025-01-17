@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const numberOptions = ["5", "10", "15", "20"];
 
-export default function ShowBy() {
+export function ShowBy() {
   const [selectedNumber, setSelectedNumber] = useState("");
 
   const changeNumberValue = (newValue: string) => {

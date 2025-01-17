@@ -1,4 +1,4 @@
-import CompanyCard from "./components/companyCard";
+import { CompanyCard } from "./components";
 
 export default function CompanyDetail() {
   return (

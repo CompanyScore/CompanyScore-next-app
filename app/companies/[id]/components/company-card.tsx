@@ -15,7 +15,7 @@ type CompanyType = {
   rating: number;
 };
 
-export default function CompanyCard() {
+export function CompanyCard() {
   const params = useParams<{ tag: string; id: string }>();
 
   const [company, setCompany] = useState<CompanyType>();

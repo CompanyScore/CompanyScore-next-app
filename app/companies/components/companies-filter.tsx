@@ -6,7 +6,7 @@ const ratingOptions = ["1", "2", "3", "4", "5"];
 const countryOptions = ["Казахстан", "Россия", "Кыргызстан", "Узбекистан"];
 const cityOptions = ["Алматы", "Астана", "Караганда", "Шимкент"];
 
-export default function CompaniesFilter() {
+export function CompaniesFilter() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");

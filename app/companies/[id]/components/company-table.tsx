@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function CompanyTable() {
+export function CompanyTable() {
   return <div>CompanyTable</div>;
 }
