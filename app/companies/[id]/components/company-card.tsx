@@ -15,10 +15,17 @@ type CompanyType = {
   rating: number;
 };
 
+type CommentType = {
+  id: number;
+  text: string;
+  rating: number;
+};
+
 export function CompanyCard() {
   const params = useParams<{ tag: string; id: string }>();
 
   const [company, setCompany] = useState<CompanyType>();
+  const [comments, setComments] = useState<CommentType[]>([]);
 
   const fetchUser = async () => {
     try {
@@ -32,8 +39,20 @@ export function CompanyCard() {
     }
   };
 
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/api/comments?companyId=${params.id}`,
+      );
+      setComments(response.data);
+    } catch {
+      console.log("Error fetching comments");
+    }
+  };
+
   useEffect(() => {
     fetchUser();
+    fetchComments();
   }, []);
 
   return (
@@ -63,6 +82,26 @@ export function CompanyCard() {
               height={25}
             />
           </button>
+          <div className="mt-8">
+            <div className="overflow-x-auto">
+              <table className="table w-full">
+                <thead>
+                  <tr>
+                    <th>Text</th>
+                    <th>Rating</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comments.map((comment) => (
+                    <tr key={comment.id}>
+                      <td>{comment.text}</td>
+                      <td>{comment.rating}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
