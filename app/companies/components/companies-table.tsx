@@ -1,8 +1,9 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ErrorMessage, Loading } from "@/ui";
+import CommentModal from "@/components/comment-modal/CommentModal";
 
 type Company = {
   id: number;
@@ -25,12 +26,25 @@ export function CompaniesTable({
   loading,
   errorMessage,
 }: CompaniesProps) {
+  const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (company: Company) => {
+    setSelectedCompany(company);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedCompany(null);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex flex-col items-center max-w-[1200px] w-full m-auto">
       {loading ? (
         <Loading />
       ) : errorMessage ? (
-        <ErrorMessage text={` Ошибка: ${errorMessage}`} />
+        <ErrorMessage text={`Ошибка: ${errorMessage}`} />
       ) : (
         <table className="table">
           <thead>
@@ -38,13 +52,13 @@ export function CompaniesTable({
               <th>Компания</th>
               <th>Страна</th>
               <th>Город</th>
-              <th>Комментариии</th>
-              <th>Рэйтинг</th>
+              <th>Комментарии</th>
+              <th>Рейтинг</th>
               <th>Действия</th>
             </tr>
           </thead>
           <tbody>
-            {companies.map(company => (
+            {companies.map((company) => (
               <tr
                 key={company.id}
                 className="text-center border-b border-gray-500"
@@ -68,19 +82,30 @@ export function CompaniesTable({
                       />
                     </Link>
                   </button>
-                  <label htmlFor="modal_write_comment" className="btn btn-primary">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => openModal(company)}
+                  >
                     <Image
                       src="/icons/pencil.svg"
                       alt="Pencil"
                       width={25}
                       height={25}
                     />
-                  </label>
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      )}
+      {isModalOpen && selectedCompany && (
+        <CommentModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          companyId={selectedCompany.id}
+          userId={1}
+        />
       )}
     </div>
   );
