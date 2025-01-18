@@ -16,8 +16,8 @@ export default function Header() {
         <Link href="/">Главная</Link>
         <Link href="/about">О нас</Link>
         <Link href="/companies">Компании</Link>
-        <Link href="/analytic">Аналитика</Link>
-        <Link href="/blog">Блог</Link>
+        {/* <Link href="/analytic">Аналитика</Link>
+        <Link href="/blog">Блог</Link> */}
       </div>
       <div className="flex justify-end max-w-96 w-full">
         <label htmlFor="modal_enter" className="btn">
