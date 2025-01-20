@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
-import LanguageController from "./language-controller";
+import LanguageController from "../components/general/language-controller";
 
 export default function Header() {
   return (
