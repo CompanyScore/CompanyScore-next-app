@@ -10,10 +10,10 @@ type CommentType = {
   rating: number;
   createDate: Date;
   text: string;
-  user: {
+  company: {
     id: number;
+    logo: string;
     name: string;
-    photo: string;
   };
 };
 
@@ -21,13 +21,13 @@ type CommentsProps = {
   comments: CommentType[];
 };
 
-export function CompanyTable({ comments }: CommentsProps) {
+export function ProfileTable({ comments }: CommentsProps) {
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
-            <th>Пользователь</th>
+            <th>Компания</th>
             <th>Рейтинг</th>
             <th>Комментарий</th>
             <th>Дата</th>
@@ -41,15 +41,17 @@ export function CompanyTable({ comments }: CommentsProps) {
               className="text-center align-middle border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={comment.user.photo} width={70} />
-                <p>{comment.user.name}</p>
+                <Avatar src={comment.company.logo} width={70} />
+                <p>{comment.company.name}</p>
               </td>
               <td>{comment.rating}</td>
               <td>{comment.text}</td>
               <td> {moment(comment.createDate).format("MMM Do YY")}</td>
               <td>
                 <Tooltip>
-                  <Button onClick={() => redirect(`/users/${comment.user.id}`)}>
+                  <Button
+                    onClick={() => redirect(`/companies/${comment.company.id}`)}
+                  >
                     <Image
                       src="/icons/file.svg"
                       alt="File"

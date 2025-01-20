@@ -20,7 +20,7 @@ export function CompanyCard() {
   const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<CompanyType>();
 
-  const fetchUser = async (id: string) => {
+  const fetchCompany = async (id: string) => {
     try {
       const response = await axios.get(
         `http://localhost:8080/api/companies/${id}`,
@@ -33,7 +33,7 @@ export function CompanyCard() {
   };
 
   useEffect(() => {
-    fetchUser(id);
+    fetchCompany(id);
   }, [id]);
 
   return (
