@@ -10,7 +10,7 @@ type ButtonType = {
 export function Button({
   children,
   disabled,
-  color = "primary",
+  color = "neutral",
   onClick,
 }: ButtonType) {
   return (

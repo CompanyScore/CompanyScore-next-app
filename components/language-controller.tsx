@@ -29,15 +29,15 @@ export default function LanguageController() {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52"
+        className="dropdown-content z-[1] p-2 shadow-2xl bg-neutral rounded-box w-52"
       >
         <li>
           <input
             type="radio"
             name="lang-dropdown"
             className="btn btn-sm btn-block btn-ghost justify-start text-white"
-            aria-label="Russian"
-            value="Русский"
+            aria-label="Русский"
+            value="ru"
             onClick={() => handleChangeLanguage("english")}
           />
         </li>

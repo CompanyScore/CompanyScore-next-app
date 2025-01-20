@@ -8,16 +8,12 @@ export default function ThemeProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, setTheme] = useState("valentine");
+  const [theme, setTheme] = useState(Cookies.get("theme") || "valentine");
 
   useEffect(() => {
     const storedTheme = Cookies.get("theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    } else {
-      Cookies.set("theme", "valentine");
-    }
-  }, []);
+    if (!storedTheme) Cookies.set("theme", "valentine");
+  }, [Cookies.get("theme")]);
 
   return (
     <div data-theme={theme} className="min-h-screen flex flex-col">

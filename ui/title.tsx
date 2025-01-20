@@ -5,5 +5,5 @@ type TitleType = {
 };
 
 export function Title({ text }: TitleType) {
-  return <h2 className="text-3xl">{text}</h2>;
+  return <h2 className="text-4xl">{text}</h2>;
 }

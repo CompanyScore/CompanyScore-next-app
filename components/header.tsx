@@ -7,9 +7,9 @@ import LanguageController from "./language-controller";
 
 export default function Header() {
   return (
-    <div className="flex justify-between navbar bg-primary text-neutral-content p-10">
+    <div className="flex justify-between navbar bg-neutral text-neutral-content p-10">
       <div className="max-w-96 w-full">
-        <Image src="/icons/logo.svg" alt="Logo" width={24} height={24} />
+        <Image src="/icons/logo.svg" alt="Logo" width={40} height={40} />
         <h1 className="text-5xl">CompanyScore</h1>
       </div>
       <div className="flex gap-10 text-2xl">

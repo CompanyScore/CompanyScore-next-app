@@ -43,49 +43,9 @@ export default function ThemeController() {
             type="radio"
             name="theme-dropdown"
             className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Synthwave"
-            value="synthwave"
-            onClick={() => handleChangeTheme("synthwave")}
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Pastel"
-            value="pastel"
-            onClick={() => handleChangeTheme("pastel")}
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Cyberpunk"
-            value="cyberpunk"
-            onClick={() => handleChangeTheme("cyberpunk")}
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Black"
-            value="Black"
-            onClick={() => handleChangeTheme("black")}
-          />
-        </li>
-        <li>
-          <input
-            type="radio"
-            name="theme-dropdown"
-            className="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-            aria-label="Luxury"
-            value="luxury"
-            onClick={() => handleChangeTheme("luxury")}
+            aria-label="light"
+            value="light"
+            onClick={() => handleChangeTheme("light")}
           />
         </li>
         <li>
