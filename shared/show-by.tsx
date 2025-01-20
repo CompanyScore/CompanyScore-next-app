@@ -1,21 +1,29 @@
+import React from "react";
 import { Select } from "@/ui";
-import React, { useState } from "react";
 
 const numberOptions = ["5", "10", "15", "20"];
 
-export function ShowBy() {
-  const [selectedNumber, setSelectedNumber] = useState("");
+type ShowByProps = {
+  limit: number;
+  onLimitChange: (newLimit: number) => void;
+};
 
-  const changeNumberValue = (newValue: string) => {
-    setSelectedNumber(newValue);
+export function ShowBy({ limit, onLimitChange }: ShowByProps) {
+  const handleSelect = (newValue: string) => {
+    onLimitChange(Number(newValue));
   };
 
   return (
-    <Select
-      defaultValue="10"
-      options={numberOptions}
-      value={selectedNumber}
-      changeValue={changeNumberValue}
-    />
+    <div className="form-control">
+      <label className="label">
+        <span className="label-text">Показать по:</span>
+      </label>
+      <Select
+        defaultValue="Выберите количество"
+        options={numberOptions}
+        value={String(limit)}
+        onSelect={handleSelect}
+      />
+    </div>
   );
 }

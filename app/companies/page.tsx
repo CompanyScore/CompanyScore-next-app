@@ -19,6 +19,13 @@ type Company = {
   commentsIds: string[];
 };
 
+type CompaniesResponse = {
+  data: Company[];
+  total: number;
+  page: number;
+  limit: number;
+};
+
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [searchedCompanyName, setSearchedCompanyName] = useState("");
@@ -28,19 +35,38 @@ export default function CompaniesPage() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  console.log(selectedRating);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [total, setTotal] = useState(0);
+
+  console.log(page, limit, total);
 
   const fetchCompanies = async (
     searchedCompanyName: string,
     selectedCountry: string,
     selectedCity: string,
     selectedRating: string,
+    page: number,
+    limit: number,
   ) => {
     try {
-      const response = await axios.get<Company[]>(
-        `http://localhost:8080/api/companies?name=${searchedCompanyName}&country=${selectedCountry}&city=${selectedCity}&rating=${selectedRating}`,
+      setLoading(true);
+      const response = await axios.get<CompaniesResponse>(
+        `http://localhost:8080/api/companies`,
+        {
+          params: {
+            name: searchedCompanyName,
+            country: selectedCountry,
+            city: selectedCity,
+            rating: selectedRating,
+            page,
+            limit,
+          },
+        },
       );
-      setCompanies(response.data);
+
+      setCompanies(response.data.data);
+      setTotal(response.data.total);
     } catch (err: any) {
       setErrorMessage(err.message || "Ошибка загрузки данных");
     } finally {
@@ -54,6 +80,7 @@ export default function CompaniesPage() {
 
   const onSelectCountry = (newValue: string) => {
     setSelectedCountry(newValue);
+    setSelectedCity("");
   };
 
   const onSelectCity = (newValue: string) => {
@@ -64,14 +91,32 @@ export default function CompaniesPage() {
     setSelectedRating(newValue);
   };
 
+  const onLimitChange = (newLimit: number) => {
+    setLimit(newLimit);
+    setPage(1); // Сбрасываем страницу при изменении лимита
+  };
+
+  const onPageChange = (newPage: number) => {
+    setPage(newPage);
+  };
+
   useEffect(() => {
     fetchCompanies(
       searchedCompanyName,
       selectedCountry,
       selectedCity,
       selectedRating,
+      page,
+      limit,
     );
-  }, [searchedCompanyName, selectedCountry, selectedCity, selectedRating]);
+  }, [
+    searchedCompanyName,
+    selectedCountry,
+    selectedCity,
+    selectedRating,
+    page,
+    limit,
+  ]);
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
@@ -91,8 +136,13 @@ export default function CompaniesPage() {
         errorMessage={errorMessage}
       />
       <div className="flex justify-between">
-        <ShowBy />
-        <Pagination />
+        <ShowBy limit={limit} onLimitChange={onLimitChange} />
+        <Pagination
+          currentPage={page}
+          totalItems={total}
+          itemsPerPage={limit}
+          onPageChange={onPageChange}
+        />
       </div>
       <WriteCommentModal />
     </section>

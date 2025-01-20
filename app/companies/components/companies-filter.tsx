@@ -2,11 +2,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Searcher } from "@/shared";
-import { Button, Select } from "@/ui";
+import { Button, ErrorMessage, Loading, Select } from "@/ui";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-// const countryOptions = ["Казахстан", "USA", "Кыргызстан", "Узбекистан"];
-// const cityOptions = ["Алматы", "Астана", "Караганда", "Шимкент"];
 
 type CompaniesFilterType = {
   onSearchCompanyByName: (searchedName: string) => void;
@@ -64,18 +62,26 @@ export function CompaniesFilter({
     <div className="flex items-center gap-4">
       <Searcher onSearch={onSearchCompanyByName} />
 
-      <Select
-        defaultValue="Все страны"
-        options={countryOptions}
-        value={selectedCountry}
-        onSelect={onSelectCountry}
-      />
-      <Select
-        defaultValue="Все города"
-        options={cityOptions}
-        value={selectedCity}
-        onSelect={onSelectCity}
-      />
+      {loading ? (
+        <Loading />
+      ) : errorMessage ? (
+        <ErrorMessage text={`Ошибка: ${errorMessage}`} />
+      ) : (
+        <>
+          <Select
+            defaultValue="Все страны"
+            options={countryOptions}
+            value={selectedCountry}
+            onSelect={onSelectCountry}
+          />
+          <Select
+            defaultValue="Все города"
+            options={cityOptions}
+            value={selectedCity}
+            onSelect={onSelectCity}
+          />
+        </>
+      )}
       <Select
         defaultValue="Все рэйтинги"
         options={ratingOptions}
