@@ -15,7 +15,7 @@ export function Button({
 }: ButtonType) {
   return (
     <button
-      className={`btn btn-${color} h-10 w-10 p-5 text-center`}
+      className={`btn btn-${color}`}
       onClick={onClick}
       disabled={disabled}
     >

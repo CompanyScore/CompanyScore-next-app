@@ -9,21 +9,17 @@ type ShowByProps = {
 };
 
 export function ShowBy({ limit, onLimitChange }: ShowByProps) {
-  const handleSelect = (newValue: string) => {
+  const handleSelect = (newValue = "10") => {
     onLimitChange(Number(newValue));
   };
 
   return (
-    <div className="form-control">
-      <label className="label">
-        <span className="label-text">Показать по:</span>
-      </label>
-      <Select
-        defaultValue="Выберите количество"
-        options={numberOptions}
-        value={String(limit)}
-        onSelect={handleSelect}
-      />
-    </div>
+    <Select
+      defaultValue="Выберите кол-во элементов"
+      defaultDisabled={true}
+      options={numberOptions}
+      value={String(limit)}
+      onSelect={handleSelect}
+    />
   );
 }
