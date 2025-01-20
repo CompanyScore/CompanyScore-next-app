@@ -1,4 +1,6 @@
 export { Button } from "./button";
+export { Tooltip } from "./tooltip";
+export { Avatar } from "./avatar";
 export { Title } from "./title";
 export { Input } from "./input";
 export { Select } from "./select";

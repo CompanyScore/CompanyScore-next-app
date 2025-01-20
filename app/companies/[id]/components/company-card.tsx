@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Button } from "@/ui";
 
 type CompanyType = {
   id: number;
@@ -15,22 +16,14 @@ type CompanyType = {
   rating: number;
 };
 
-type CommentType = {
-  id: number;
-  text: string;
-  rating: number;
-};
-
 export function CompanyCard() {
-  const params = useParams<{ tag: string; id: string }>();
-
+  const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<CompanyType>();
-  const [comments, setComments] = useState<CommentType[]>([]);
 
-  const fetchUser = async () => {
+  const fetchUser = async (id: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/companies/${params.id}`,
+        `http://localhost:8080/api/companies/${id}`,
       );
 
       setCompany(response.data);
@@ -39,69 +32,39 @@ export function CompanyCard() {
     }
   };
 
-  const fetchComments = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/api/comments?companyId=${params.id}`,
-      );
-      setComments(response.data);
-    } catch {
-      console.log("Error fetching comments");
-    }
-  };
-
   useEffect(() => {
-    fetchUser();
-    fetchComments();
-  }, []);
+    fetchUser(id);
+  }, [id]);
 
   return (
-    <div className="hero bg-base-200 min-h-screen">
+    <div className="hero bg-base-200 py-10">
       <div className="hero-content flex-col lg:flex-row items-start">
         <div className="flex flex-col items-center gap-4">
           <img src={company?.logo} className="max-w-sm rounded-lg shadow-2xl" />
           <div className="stats shadow">
-            <div className="stat">
-              <div className="stat-title">Total Page Views</div>
-              <div className="stat-value">89,400</div>
-              <div className="stat-desc">21% more than last month</div>
+            <div className="stat flex flex-col items-center">
+              <div className="stat-title">Средний балл:</div>
+              <div className="stat-value">5</div>
+              <div className="stat-desc">Общее число комментариев: 25</div>
             </div>
           </div>
         </div>
         <div>
-          <h1 className="text-5xl font-bold">{company?.name}</h1>
+          <div className="flex justify-between items-start">
+            <h1 className="text-5xl font-bold">{company?.name}</h1>
+            <Button onClick={() => {}}>
+              <Image
+                src="/icons/pencil.svg"
+                alt="Pencil"
+                width={25}
+                height={25}
+              />
+            </Button>
+          </div>
           <p className="pt-4">
             {company?.city}, {company?.country}
           </p>
           <p className="pt-4">{company?.description}</p>
-          <button className="btn btn-secondary mt-4">
-            <Image
-              src="/icons/pencil.svg"
-              alt="Pencil"
-              width={25}
-              height={25}
-            />
-          </button>
-          <div className="mt-8">
-            <div className="overflow-x-auto">
-              <table className="table w-full">
-                <thead>
-                  <tr>
-                    <th>Text</th>
-                    <th>Rating</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comments.map((comment) => (
-                    <tr key={comment.id}>
-                      <td>{comment.text}</td>
-                      <td>{comment.rating}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       </div>
     </div>

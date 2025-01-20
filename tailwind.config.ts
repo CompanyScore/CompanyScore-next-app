@@ -17,6 +17,7 @@ export default {
   // },
   plugins: [daisyui],
   daisyui: {
-    themes: ["synthwave", "black", "luxury", "pastel", "cyberpunk", "valentine"],
+    themes: ["valentine"],
+    // synthwave", "black", "luxury", "pastel", "cyberpunk",
   },
 } satisfies Config;

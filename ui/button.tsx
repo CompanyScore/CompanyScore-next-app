@@ -1,7 +1,7 @@
 import React from "react";
 
 type ButtonType = {
-  children: string | number;
+  children: any;
   disabled?: boolean;
   color?: string;
   onClick: () => void;

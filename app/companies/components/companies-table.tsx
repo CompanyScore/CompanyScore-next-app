@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ErrorMessage, Loading } from "@/ui";
+import { ErrorMessage, Loading, Button, Avatar, Tooltip } from "@/ui";
 import CommentModal from "@/components/comment-modal/CommentModal";
+import { redirect } from "next/navigation";
 
 type Company = {
   id: number;
@@ -58,41 +59,40 @@ export function CompaniesTable({
             </tr>
           </thead>
           <tbody>
-            {companies.map((company) => (
+            {companies.map(company => (
               <tr
                 key={company.id}
                 className="text-center border-b border-gray-500"
               >
-                <td className="flex items-center gap-2">
-                  <img src={company.logo} alt="Company logo" width={100} />
+                <td className="flex items-center gap-4">
+                  <Avatar src={company.logo} width={70} />
                   <p>{company.name}</p>
                 </td>
                 <td>{company.country}</td>
                 <td>{company.city}</td>
                 <td>{company.commentsIds.length}</td>
                 <td>{company.rating}</td>
-                <td className="flex justify-center items-center gap-2">
-                  <button className="btn btn-primary">
-                    <Link href={`/companies/${company.id}`}>
+                <td className="flex justify-center gap-2">
+                  <Tooltip>
+                    <Button
+                      onClick={() => redirect(`/companies/${company.id}`)}
+                    >
                       <Image
                         src="/icons/file.svg"
                         alt="File"
                         width={25}
                         height={25}
                       />
-                    </Link>
-                  </button>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => openModal(company)}
-                  >
+                    </Button>
+                  </Tooltip>
+                  <Button onClick={() => openModal(company)}>
                     <Image
                       src="/icons/pencil.svg"
                       alt="Pencil"
                       width={25}
                       height={25}
                     />
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}

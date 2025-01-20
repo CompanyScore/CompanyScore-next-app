@@ -16,14 +16,15 @@ export default function Header() {
         <Link href="/">Главная</Link>
         <Link href="/about">О нас</Link>
         <Link href="/companies">Компании</Link>
-        {/* <Link href="/analytic">Аналитика</Link>
-        <Link href="/blog">Блог</Link> */}
+        <Link href="/users">Пользователи</Link>
+        <Link href="/analytic">Аналитика</Link>
+        <Link href="/blog">Блог</Link>
       </div>
       <div className="flex justify-end max-w-96 w-full">
         <label htmlFor="modal_enter" className="btn">
           Войти
         </label>
-        <Link href="/">
+        <Link href="/profile">
           <Image src="/icons/user.svg" alt="User Icon" width={24} height={24} />
         </Link>
         <LanguageController />

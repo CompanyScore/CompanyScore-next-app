@@ -39,8 +39,6 @@ export default function CompaniesPage() {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
 
-  console.log(page, limit, total);
-
   const fetchCompanies = async (
     searchedCompanyName: string,
     selectedCountry: string,
@@ -120,7 +118,7 @@ export default function CompaniesPage() {
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <Title text={`Компаний: ${companies.length}`} />
+      <Title text={`Компаний: ${total}`} />
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}
         selectedCountry={selectedCountry}

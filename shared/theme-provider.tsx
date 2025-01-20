@@ -8,14 +8,14 @@ export default function ThemeProvider({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("valentine");
 
   useEffect(() => {
     const storedTheme = Cookies.get("theme");
     if (storedTheme) {
       setTheme(storedTheme);
     } else {
-      Cookies.set("theme", "dark");
+      Cookies.set("theme", "valentine");
     }
   }, []);
 
