@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
+  CompaniesCarousel,
   CompaniesFilter,
   CompaniesTable,
+  CompaniesText,
   WriteCommentModal,
 } from "./components";
 import { Pagination, ShowBy } from "@/shared";
@@ -118,6 +120,9 @@ export default function CompaniesPage() {
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
+      <CompaniesText />
+      <Title text={`Новые компании`} />
+      <CompaniesCarousel />
       <Title text={`Компаний: ${total}`} />
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}

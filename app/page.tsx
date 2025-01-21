@@ -10,5 +10,11 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   // const [count, setCount] = useState();
-  return <div className="text-6xl text-center mt-20">В разработке</div>;
+  return (
+    <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
+      <div>Наши Донатеры!</div>
+      <div>Новые Компании!</div>
+      <div>Новые Пользователи!</div>
+    </section>
+  );
 }
