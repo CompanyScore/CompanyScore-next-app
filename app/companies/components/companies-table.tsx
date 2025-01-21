@@ -72,7 +72,7 @@ export function CompaniesTable({
                 <td>{company.city}</td>
                 <td>{company.commentsIds.length}</td>
                 <td>{company.rating}</td>
-                <td className="flex justify-center gap-2">
+                <td className="space-x-2">
                   <Tooltip tip="Посмотреть">
                     <Button
                       onClick={() => redirect(`/companies/${company.id}`)}
