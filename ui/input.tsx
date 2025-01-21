@@ -10,8 +10,8 @@ export function Input({ changeSearchedValue }: InputType) {
     <input
       type="text"
       placeholder="Компания"
-      className="input input-bordered input-primary w-full max-w-44"
-      onChange={e => changeSearchedValue(e.target.value)}
+      className="input input-bordered input-primary max-w-44"
+      onChange={(e) => changeSearchedValue(e.target.value)}
     />
   );
 }
