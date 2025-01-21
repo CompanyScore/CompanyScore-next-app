@@ -1,8 +1,13 @@
 import React from "react";
 
-export function Tooltip({ children }: any) {
+type TooltipProps = {
+  tip: string;
+  children: React.ReactNode;
+};
+
+export function Tooltip({ tip, children }: TooltipProps) {
   return (
-    <div className="tooltip" data-tip="hello">
+    <div className="tooltip" data-tip={tip}>
       {children}
     </div>
   );

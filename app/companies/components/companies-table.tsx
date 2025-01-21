@@ -59,7 +59,7 @@ export function CompaniesTable({
             </tr>
           </thead>
           <tbody>
-            {companies.map(company => (
+            {companies.map((company) => (
               <tr
                 key={company.id}
                 className="text-center border-b border-gray-500"
@@ -73,7 +73,7 @@ export function CompaniesTable({
                 <td>{company.commentsIds.length}</td>
                 <td>{company.rating}</td>
                 <td className="flex justify-center gap-2">
-                  <Tooltip>
+                  <Tooltip tip="Посмотреть">
                     <Button
                       onClick={() => redirect(`/companies/${company.id}`)}
                     >
@@ -85,14 +85,16 @@ export function CompaniesTable({
                       />
                     </Button>
                   </Tooltip>
-                  <Button onClick={() => openModal(company)}>
-                    <Image
-                      src="/icons/pencil.svg"
-                      alt="Pencil"
-                      width={25}
-                      height={25}
-                    />
-                  </Button>
+                  <Tooltip tip="Оставить отзыв">
+                    <Button onClick={() => openModal(company)}>
+                      <Image
+                        src="/icons/pencil.svg"
+                        alt="Pencil"
+                        width={25}
+                        height={25}
+                      />
+                    </Button>
+                  </Tooltip>
                 </td>
               </tr>
             ))}

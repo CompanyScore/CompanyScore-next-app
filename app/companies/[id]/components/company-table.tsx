@@ -35,7 +35,7 @@ export function CompanyTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center align-middle border-b border-gray-500"
@@ -48,7 +48,7 @@ export function CompanyTable({ comments }: CommentsProps) {
               <td>{comment.text}</td>
               <td> {moment(comment.createDate).format("MMM Do YY")}</td>
               <td>
-                <Tooltip>
+                <Tooltip tip="Посмотреть">
                   <Button onClick={() => redirect(`/users/${comment.user.id}`)}>
                     <Image
                       src="/icons/file.svg"
