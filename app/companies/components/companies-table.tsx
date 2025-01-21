@@ -41,7 +41,7 @@ export function CompaniesTable({
   };
 
   return (
-    <div className="flex flex-col items-center max-w-[1200px] w-full m-auto">
+    <div className="flex flex-col items-center w-full m-auto">
       {loading ? (
         <Loading />
       ) : errorMessage ? (
