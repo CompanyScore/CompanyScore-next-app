@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 type DropdownFilterProps = {
   label: string;
   options: string[];
   selectedValue: string;
   onSelect: (value: string) => void;
+  isFirstDisabled?: boolean;
 };
 
 export const DropdownFilter = ({
@@ -12,7 +13,15 @@ export const DropdownFilter = ({
   options,
   selectedValue,
   onSelect,
+  isFirstDisabled = false,
 }: DropdownFilterProps) => {
+  const [disabled, setDisabled] = useState(isFirstDisabled);
+  const selectRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    setDisabled(isFirstDisabled);
+  }, [isFirstDisabled]);
+
   const handleSelect = (value: string) => {
     onSelect(value);
 
@@ -20,10 +29,29 @@ export const DropdownFilter = ({
     activeElement?.blur();
   };
 
+  const selectWidth = selectRef.current?.offsetWidth;
+
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn m-1">
-        {selectedValue || label}
+      <div
+        ref={selectRef}
+        tabIndex={0}
+        role="button"
+        className="btn m-1"
+        style={{
+          width: "fit-content",
+          minWidth: "150px",
+        }}
+      >
+        <span
+          style={{
+            textAlign: "left",
+            display: "inline-block",
+            width: "auto",
+          }}
+        >
+          {selectedValue || label}
+        </span>
         <svg
           width="12px"
           height="12px"
@@ -36,12 +64,20 @@ export const DropdownFilter = ({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-52 bg-neutral"
+        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral"
+        style={{
+          width: selectWidth ? `${selectWidth}px` : "auto",
+        }}
       >
         <li>
           <button
             className="btn btn-sm btn-block btn-ghost justify-start"
-            onClick={() => handleSelect("")}
+            onClick={() => {}}
+            disabled={disabled}
+            style={{
+              textAlign: "left",
+              display: "block",
+            }}
           >
             {label}
           </button>
@@ -51,6 +87,10 @@ export const DropdownFilter = ({
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"
               onClick={() => handleSelect(option)}
+              style={{
+                textAlign: "left",
+                display: "block",
+              }}
             >
               {option}
             </button>
