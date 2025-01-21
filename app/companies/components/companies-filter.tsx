@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Searcher } from "@/shared";
-import { Button, ErrorMessage, Loading, Select } from "@/ui";
+import { Button, ErrorMessage, Loading, DropdownFilter } from "@/ui";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
@@ -35,8 +35,8 @@ export function CompaniesFilter({
       const response = await axios.get(
         `http://localhost:8080/api/companies/countries-with-cities`,
       );
-      const fetchedCountries = await Object.keys(response.data);
-      const fetchedCities = await response.data[selectedCountry];
+      const fetchedCountries = Object.keys(response.data);
+      const fetchedCities = response.data[selectedCountry] || [];
 
       setCountryOptions(fetchedCountries);
       setCityOptions(fetchedCities);
@@ -59,36 +59,37 @@ export function CompaniesFilter({
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex items-center justify-between gap-4">
       <Searcher onSearch={onSearchCompanyByName} />
-
-      {loading ? (
-        <Loading />
-      ) : errorMessage ? (
-        <ErrorMessage text={`Ошибка: ${errorMessage}`} />
-      ) : (
-        <>
-          <Select
-            defaultValue="Все страны"
-            options={countryOptions}
-            value={selectedCountry}
-            onSelect={onSelectCountry}
-          />
-          <Select
-            defaultValue="Все города"
-            options={cityOptions}
-            value={selectedCity}
-            onSelect={onSelectCity}
-          />
-        </>
-      )}
-      <Select
-        defaultValue="Все рэйтинги"
-        options={ratingOptions}
-        value={selectedRating}
-        onSelect={onSelectRating}
-      />
-      <Button onClick={onReset}>Сбросить</Button>
+      <div className="space-x-3">
+        {loading ? (
+          <Loading />
+        ) : errorMessage ? (
+          <ErrorMessage text={`Ошибка: ${errorMessage}`} />
+        ) : (
+          <>
+            <DropdownFilter
+              label="Все страны"
+              options={countryOptions}
+              selectedValue={selectedCountry}
+              onSelect={onSelectCountry}
+            />
+            <DropdownFilter
+              label="Все города"
+              options={cityOptions}
+              selectedValue={selectedCity}
+              onSelect={onSelectCity}
+            />
+            <DropdownFilter
+              label="Все рейтинги"
+              options={ratingOptions}
+              selectedValue={selectedRating}
+              onSelect={onSelectRating}
+            />
+          </>
+        )}
+        <Button onClick={onReset}>Сбросить</Button>
+      </div>
     </div>
   );
 }
