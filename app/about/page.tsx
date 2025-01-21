@@ -68,7 +68,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <button className="btn bg-purple-500 mt-6 self-start hover:bg-purple-600">
+          <button className="btn bg-purple-500 text-white mt-6 self-start hover:bg-purple-600">
             Поддержать нас
           </button>
         </div>

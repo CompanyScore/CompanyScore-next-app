@@ -38,7 +38,7 @@ export function ProfileTable({ comments }: CommentsProps) {
           {comments.map((comment) => (
             <tr
               key={comment.id}
-              className="text-center align-middle border-b border-gray-500"
+              className="text-center border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
                 <Avatar src={comment.company.logo} width={70} />
