@@ -13,7 +13,7 @@ type CommentType = {
   user: {
     id: number;
     name: string;
-    photo: string;
+    avatar: string;
   };
 };
 
@@ -41,7 +41,7 @@ export function CompanyTable({ comments }: CommentsProps) {
               className="text-center align-middle border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={comment.user.photo} width={70} />
+                <Avatar src={comment.user.avatar} width={70} />
                 <p>{comment.user.name}</p>
               </td>
               <td>{comment.rating}</td>

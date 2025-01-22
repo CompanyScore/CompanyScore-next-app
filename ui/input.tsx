@@ -2,16 +2,17 @@
 import React from "react";
 
 type InputType = {
-  changeSearchedValue: (newSearchedValue: string) => void;
+  placeholder: string;
+  onChange: (newSearchedValue: string) => void;
 };
 
-export function Input({ changeSearchedValue }: InputType) {
+export function Input({ placeholder, onChange }: InputType) {
   return (
     <input
       type="text"
-      placeholder="Компания"
+      placeholder={placeholder}
       className="input input-bordered input-primary max-w-44"
-      onChange={(e) => changeSearchedValue(e.target.value)}
+      onChange={e => onChange(e.target.value)}
     />
   );
 }

@@ -121,9 +121,9 @@ export default function CompaniesPage() {
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
       <CompaniesText />
-      <Title text={`Новые компании`} />
+      <Title>Новые компании</Title>
       <CompaniesCarousel />
-      <Title text={`Компаний: ${total}`} />
+      <Title>Компаний: {total}</Title>
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}
         selectedCountry={selectedCountry}

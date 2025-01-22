@@ -6,7 +6,7 @@ export function CompaniesText() {
     <div className="hero bg-base-200">
       <div className="hero-content flex-col items-start gap-8">
         <div className="m-auto">
-          <Title text="Краткое описание" />
+          <Title>Краткое описание</Title>
         </div>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid fuga

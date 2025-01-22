@@ -16,5 +16,5 @@ export function Searcher({ onSearch, debounceDelay = 500 }: SearcherProps) {
     onSearch(debouncedValue);
   }, [debouncedValue, onSearch]);
 
-  return <Input changeSearchedValue={setSearchValue} />;
+  return <Input placeholder="Поиск" onChange={setSearchValue} />;
 }

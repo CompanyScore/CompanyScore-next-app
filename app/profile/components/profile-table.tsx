@@ -4,18 +4,7 @@ import moment from "moment";
 import { Avatar, Button, Tooltip } from "@/ui";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-
-type CommentType = {
-  id: number;
-  rating: number;
-  createDate: Date;
-  text: string;
-  company: {
-    id: number;
-    logo: string;
-    name: string;
-  };
-};
+import { CommentType } from "../types/profile-type";
 
 type CommentsProps = {
   comments: CommentType[];
@@ -35,7 +24,7 @@ export function ProfileTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"

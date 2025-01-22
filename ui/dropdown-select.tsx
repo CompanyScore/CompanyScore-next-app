@@ -37,7 +37,7 @@ export const DropdownFilter = ({
         ref={selectRef}
         tabIndex={0}
         role="button"
-        className="btn m-1"
+        className="btn m-1 text-base-content"
         style={{
           width: "fit-content",
           minWidth: "150px",
@@ -64,7 +64,7 @@ export const DropdownFilter = ({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral"
+        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral text-white"
         style={{
           width: selectWidth ? `${selectWidth}px` : "auto",
         }}
@@ -82,7 +82,7 @@ export const DropdownFilter = ({
             {label}
           </button>
         </li>
-        {options.map((option) => (
+        {options.map(option => (
           <li key={option}>
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"

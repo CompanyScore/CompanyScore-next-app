@@ -1,9 +1,11 @@
 import React from "react";
 
-type TitleType = {
-  text: string;
-};
-
-export function Title({ text }: TitleType) {
-  return <h2 className="text-4xl">{text}</h2>;
+export function Title({
+  children,
+  position = "start",
+}: Readonly<{
+  children: React.ReactNode;
+  position?: string;
+}>) {
+  return <h2 className={`text-${position} text-5xl`}>{children}</h2>;
 }

@@ -13,7 +13,7 @@ type CommentType = {
   user: {
     id: number;
     name: string;
-    photo: string;
+    avatar: string;
   };
 };
 

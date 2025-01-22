@@ -1,22 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ProfileCard, ProfileTable } from "./components";
+import { ProfileCard, ProfileEditModal, ProfileTable } from "./components";
 import axios from "axios";
-import { useParams } from "next/navigation";
 import { Pagination, ShowBy } from "@/shared";
-
-type CommentType = {
-  id: number;
-  rating: number;
-  createDate: Date;
-  text: string;
-  company: {
-    id: number;
-    logo: string;
-    name: string;
-  };
-};
+import { CommentType } from "./types/profile-type";
 
 type CommentsResponse = {
   data: CommentType[];
@@ -27,7 +15,6 @@ type CommentsResponse = {
 
 export default function ProfilePage() {
   const id = "1";
-
   const [comments, setComments] = useState<CommentType[]>([]);
 
   const [page, setPage] = useState(1);
@@ -74,6 +61,7 @@ export default function ProfilePage() {
           itemsPerPage={limit}
           onPageChange={onPageChange}
         />
+        <ProfileEditModal />
       </div>
     </section>
   );
