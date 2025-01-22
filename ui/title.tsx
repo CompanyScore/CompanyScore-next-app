@@ -7,5 +7,5 @@ export function Title({
   children: React.ReactNode;
   position?: string;
 }>) {
-  return <h2 className={`text-${position} text-5xl`}>{children}</h2>;
+  return <h2 className={`text-${position} text-3xl`}>{children}</h2>;
 }
