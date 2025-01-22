@@ -123,7 +123,7 @@ export default function CompaniesPage() {
       <CompaniesText />
       <Title>Новые компании</Title>
       <CompaniesCarousel />
-      <Title>Компаний: {total}</Title>
+      <Title>{`Компаний: ${total}`}</Title>
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}
         selectedCountry={selectedCountry}
