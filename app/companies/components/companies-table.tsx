@@ -64,7 +64,7 @@ export function CompaniesTable({
                 key={company.id}
                 className="text-center border-b border-gray-500"
               >
-                <td className="flex items-center gap-4">
+                <td>
                   <Avatar src={company.logo} width={70} />
                   <p>{company.name}</p>
                 </td>
@@ -72,29 +72,31 @@ export function CompaniesTable({
                 <td>{company.city}</td>
                 <td>{company.commentsIds.length}</td>
                 <td>{company.rating}</td>
-                <td className="flex justify-center space-x-2">
-                  <Tooltip tip="Посмотреть">
-                    <Button
-                      onClick={() => redirect(`/companies/${company.id}`)}
-                    >
-                      <Image
-                        src="/icons/file.svg"
-                        alt="File"
-                        width={25}
-                        height={25}
-                      />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip tip="Оставить отзыв">
-                    <Button onClick={() => openModal(company)}>
-                      <Image
-                        src="/icons/pencil.svg"
-                        alt="Pencil"
-                        width={25}
-                        height={25}
-                      />
-                    </Button>
-                  </Tooltip>
+                <td>
+                  <div className="flex justify-center items-center space-x-2 h-full">
+                    <Tooltip tip="Посмотреть">
+                      <Button
+                        onClick={() => redirect(`/companies/${company.id}`)}
+                      >
+                        <Image
+                          src="/icons/file.svg"
+                          alt="File"
+                          width={25}
+                          height={25}
+                        />
+                      </Button>
+                    </Tooltip>
+                    <Tooltip tip="Оставить отзыв">
+                      <Button onClick={() => openModal(company)}>
+                        <Image
+                          src="/icons/pencil.svg"
+                          alt="Pencil"
+                          width={25}
+                          height={25}
+                        />
+                      </Button>
+                    </Tooltip>
+                  </div>
                 </td>
               </tr>
             ))}
