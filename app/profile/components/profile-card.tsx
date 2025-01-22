@@ -30,22 +30,22 @@ export function ProfileCard() {
   }, [id]);
 
   return (
-    <div className="relative hero bg-base-200 min-h-screen">
+    <div className="relative hero bg-base-200">
       {loading ? (
         <Loading />
       ) : errorMessage ? (
         <ErrorMessage text={`Ошибка: ${errorMessage}`} />
       ) : (
-        <div className="hero-content flex-col lg:flex-row items-start gap-20 w-full">
+        <div className="hero-content flex-col lg:flex-row items-start justify-start gap-20 w-full">
           <label
             htmlFor="profile_edit_modal"
-            className="btn absolute top-10 right-10"
+            className="btn absolute top-4 right-10"
           >
             <Image
               src="/icons/settings.svg"
               alt="Settings Icon"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               className="cursor-pointer"
             />
           </label>
@@ -61,7 +61,7 @@ export function ProfileCard() {
             <div className="skeleton h-32 w-32"></div>
           )}
 
-          <div className=" w-[500px]">
+          <div className="w-full">
             <h1 className="text-5xl font-bold">{user?.name}</h1>
             <p className="mt-4">{user?.position}</p>
             <p className="mt-4">{user?.description}</p>

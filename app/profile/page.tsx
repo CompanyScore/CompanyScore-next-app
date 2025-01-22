@@ -2,16 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { ProfileCard, ProfileEditModal, ProfileTable } from "./components";
-import axios from "axios";
+import { CommentType, CommentsResponse } from "./types/profile-type";
 import { Pagination, ShowBy } from "@/shared";
-import { CommentType } from "./types/profile-type";
-
-type CommentsResponse = {
-  data: CommentType[];
-  page: number;
-  total: number;
-  limit: number;
-};
+import axios from "axios";
 
 export default function ProfilePage() {
   const id = "1";

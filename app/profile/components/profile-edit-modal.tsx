@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input, Modal, Toast } from "@/ui";
+import { Button, Input, Modal } from "@/ui";
 import axios from "axios";
-import ToastModal from "@/shared/toast-modal";
 
 export function ProfileEditModal() {
   const [name, setName] = useState("");
@@ -52,9 +51,9 @@ export function ProfileEditModal() {
         onChange={handleFileChange}
         className="file-input file-input-bordered file-input-primary w-full max-w-xs text-center m-auto"
       />
-      <label htmlFor="toast_modal">
-        <Button onClick={onSubmit}>Сохранить</Button>
-      </label>
+      <Button onClick={onSubmit}>
+        <label htmlFor="toast_modal">Сохранить</label>
+      </Button>
     </Modal>
   );
 }
