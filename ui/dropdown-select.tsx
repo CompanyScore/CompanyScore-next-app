@@ -72,7 +72,7 @@ export const DropdownFilter = ({
         <li>
           <button
             className="btn btn-sm btn-block btn-ghost justify-start"
-            onClick={() => {}}
+            onClick={() => handleSelect("")}
             disabled={disabled}
             style={{
               textAlign: "left",
@@ -82,7 +82,7 @@ export const DropdownFilter = ({
             {label}
           </button>
         </li>
-        {options.map(option => (
+        {options.map((option) => (
           <li key={option}>
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"
