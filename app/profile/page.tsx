@@ -54,8 +54,8 @@ export default function ProfilePage() {
           itemsPerPage={limit}
           onPageChange={onPageChange}
         />
-        <ProfileEditModal />
       </div>
+      <ProfileEditModal />
     </section>
   );
 }
