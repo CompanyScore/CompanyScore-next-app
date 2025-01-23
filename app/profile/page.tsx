@@ -19,7 +19,7 @@ export default function ProfilePage() {
       // setLoading(true);
 
       const response = await axios.get<CommentsResponse>(
-        `http://localhost:8080/api/comments/?userId=${id}`,
+        `http://localhost:8080/comments/?userId=${id}`,
       );
 
       setComments(response.data.data);

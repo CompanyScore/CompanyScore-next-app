@@ -32,7 +32,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
 
     try {
       // Отправляем данные в формате CreateCommentDto
-      await axios.post("http://localhost:8080/api/comments", {
+      await axios.post("http://localhost:8080/comments", {
         text: comment,
         rating,
         userId,
@@ -61,7 +61,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
         <form onSubmit={handleSubmit}>
           <textarea
             value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            onChange={e => setComment(e.target.value)}
             placeholder="Ваш комментарий..."
             className="w-full p-2 border border-gray-300 rounded-md mb-4"
             rows={4}
@@ -73,7 +73,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
             <select
               id="rating"
               value={rating ?? ""}
-              onChange={(e) => setRating(Number(e.target.value))}
+              onChange={e => setRating(Number(e.target.value))}
               className="w-full p-2 border border-gray-300 rounded-md"
             >
               <option value="">Выберите оценку</option>

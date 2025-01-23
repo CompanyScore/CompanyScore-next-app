@@ -52,7 +52,7 @@ export default function CompaniesPage() {
     try {
       setLoading(true);
       const response = await axios.get<CompaniesResponse>(
-        `http://localhost:8080/api/companies`,
+        `http://localhost:8080/companies`,
         {
           params: {
             name: searchedCompanyName,
