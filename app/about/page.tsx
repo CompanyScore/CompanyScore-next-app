@@ -43,8 +43,7 @@ export default function AboutPage() {
         </div>
 
         <div className="flex flex-col w-full lg:w-1/2 mt-12 lg:mt-0 lg:mr-10">
-          <p className="text-xl font-bold text-purple-500">О нас</p>
-          <p className="text-2xl font-semibold text-gray-700 mt-2">
+          <p className="text-2xl font-bold text-purple-500">
             Делитесь опытом, влияйте на выбор!
           </p>
           <div className="text-lg text-gray-500 mt-4 space-y-4 [p]:indent-6 text-justify">
