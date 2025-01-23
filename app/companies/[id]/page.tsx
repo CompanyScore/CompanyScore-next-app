@@ -38,7 +38,7 @@ export default function CompanyDetail() {
       // setLoading(true);
 
       const response = await axios.get<CommentsResponse>(
-        `http://localhost:8080/api/comments/?companyId=${id}`,
+        `http://localhost:8080/comments/?companyId=${id}`,
       );
 
       setComments(response.data.data);

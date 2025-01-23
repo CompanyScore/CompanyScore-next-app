@@ -33,7 +33,7 @@ export function CompaniesFilter({
   const fetchCountriesAndCities = async (selectedCountry: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/companies/countries-with-cities`,
+        `http://localhost:8080/companies/locations`,
       );
       const fetchedCountries = Object.keys(response.data);
       const fetchedCities = response.data[selectedCountry] || [];

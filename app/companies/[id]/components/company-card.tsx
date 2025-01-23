@@ -22,9 +22,7 @@ export function CompanyCard() {
 
   const fetchCompany = async (id: string) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/companies/${id}`,
-      );
+      const response = await axios.get(`http://localhost:8080/companies/${id}`);
 
       setCompany(response.data);
     } catch {

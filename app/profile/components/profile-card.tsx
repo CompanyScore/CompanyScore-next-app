@@ -15,7 +15,7 @@ export function ProfileCard() {
   const fetchProfile = async (id: string) => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/api/users/${id}`);
+      const response = await axios.get(`http://localhost:8080/users/${id}`);
 
       setUser(response.data);
     } catch (err: any) {
