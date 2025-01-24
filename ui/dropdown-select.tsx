@@ -67,6 +67,8 @@ export const DropdownFilter = ({
         className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral text-white"
         style={{
           width: selectWidth ? `${selectWidth}px` : "auto",
+          maxHeight: "300px",
+          overflowY: "auto",
         }}
       >
         <li>
