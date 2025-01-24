@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
-import LanguageController from "./language-controller";
+// import LanguageController from "./language-controller";
 
 export default function Header() {
   return (
@@ -27,7 +27,7 @@ export default function Header() {
         <Link href="/profile">
           <Image src="/icons/user.svg" alt="User Icon" width={24} height={24} />
         </Link>
-        <LanguageController />
+        {/* <LanguageController /> */}
         <ThemeController />
       </div>
     </div>
