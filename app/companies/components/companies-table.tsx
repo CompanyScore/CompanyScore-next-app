@@ -1,10 +1,10 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ErrorMessage, Loading, Button, Avatar, Tooltip } from "@/ui";
-import CommentModal from "@/components/comment-modal/CommentModal";
+import { Button, Avatar, Tooltip } from "@/ui";
 import { redirect } from "next/navigation";
+import CommentModal from "@/app/companies/[id]/components/comment-modal";
 
 type Company = {
   id: number;
@@ -28,24 +28,28 @@ export function CompaniesTable({
   errorMessage,
 }: CompaniesProps) {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = (company: Company) => {
     setSelectedCompany(company);
-    setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setSelectedCompany(null);
-    setIsModalOpen(false);
+  };
+
+  const handleClickOutside = (e: React.MouseEvent) => {
+    const modalContainer = document.getElementById("modal-container");
+    if (modalContainer && !modalContainer.contains(e.target as Node)) {
+      closeModal();
+    }
   };
 
   return (
     <div className="flex flex-col items-center w-full m-auto">
       {loading ? (
-        <Loading />
+        <div>Loading...</div>
       ) : errorMessage ? (
-        <ErrorMessage text={`Ошибка: ${errorMessage}`} />
+        <div>{`Ошибка: ${errorMessage}`}</div>
       ) : (
         <table className="table">
           <thead>
@@ -105,13 +109,26 @@ export function CompaniesTable({
           </tbody>
         </table>
       )}
-      {isModalOpen && selectedCompany && (
-        <CommentModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          companyId={selectedCompany.id}
-          userId={1}
-        />
+
+      {selectedCompany && (
+        <div
+          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+          onClick={handleClickOutside}
+        >
+          <div
+            id="modal-container"
+            className="modal modal-open"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-box">
+              <CommentModal
+                companyId={selectedCompany.id}
+                userId={1}
+                closeModal={closeModal}
+              />
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
