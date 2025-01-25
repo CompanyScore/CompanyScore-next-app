@@ -2,16 +2,34 @@
 import { Title } from "@/ui";
 import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Enter() {
-  const getUser = async () => {
-    const response = await axios.get("http://localhost:8080/auth/github", {
-      withCredentials: true, // Для отправки и получения cookies
-    });
-    const data = response.data;
-    console.log(data);
+  // const getUser = async () => {
+  //   const response = await axios.get("http://localhost:8080/auth/github", {
+  //     withCredentials: true, // Для отправки и получения cookies
+  //   });
+  //   const data = response.data;
+  //   console.log(data);
+  // };
+
+  const redirectToGitHub = () => {
+    window.location.href = "http://localhost:8080/auth/github";
   };
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/auth/check", {
+          withCredentials: true, // Для передачи cookies
+        });
+        console.log("User data:", response.data);
+      } catch (error) {
+        console.error("User not authenticated:", error);
+      }
+    };
+    checkAuth();
+  }, []);
 
   return (
     <div>
@@ -31,7 +49,7 @@ export default function Enter() {
               alt="github"
               width={60}
               height={60}
-              onClick={getUser}
+              onClick={redirectToGitHub}
               className="cursor-pointer"
             />
           </div>
