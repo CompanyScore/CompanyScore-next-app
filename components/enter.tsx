@@ -6,11 +6,10 @@ import React from "react";
 
 export default function Enter() {
   const getUser = async () => {
-    const response = await axios.get("http://localhost:8080/auth/github", {
-      withCredentials: true, // Для отправки и получения cookies
-    });
+    const response = await axios.post("http://localhost:8080/auth/login");
     const data = response.data;
     console.log(data);
+    // window.location.href = "http://localhost:8080/auth/github";
   };
 
   return (
