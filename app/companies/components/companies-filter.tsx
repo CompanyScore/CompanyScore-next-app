@@ -4,7 +4,7 @@ import axios from "axios";
 import { Searcher } from "@/shared";
 import { Button, ErrorMessage, Loading, DropdownFilter } from "@/ui";
 
-const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+const ratingOptions = ["1", "2", "3", "4", "5"];
 
 type CompaniesFilterType = {
   onSearchCompanyByName: (searchedName: string) => void;
