@@ -20,12 +20,14 @@ type CompaniesProps = {
   companies: Company[];
   loading: boolean;
   errorMessage: string | null;
+  refetch: () => void;
 };
 
 export function CompaniesTable({
   companies,
   loading,
   errorMessage,
+  refetch,
 }: CompaniesProps) {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
 
@@ -125,6 +127,7 @@ export function CompaniesTable({
                 companyId={selectedCompany.id}
                 userId={1}
                 closeModal={closeModal}
+                refetch={refetch}
               />
             </div>
           </div>
