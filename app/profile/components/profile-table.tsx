@@ -3,14 +3,38 @@
 import moment from "moment";
 import { Avatar, Button, Tooltip } from "@/ui";
 import Image from "next/image";
-import { redirect } from "next/navigation";
+import { useState } from "react";
 import { CommentType } from "../types/profile-type";
+import EditCommentModal from "@/app/companies/[id]/components/edit-comment-modal";
+import axios from "axios";
 
 type CommentsProps = {
   comments: CommentType[];
+  refetch: (id: string) => void;
 };
 
-export function ProfileTable({ comments }: CommentsProps) {
+export function ProfileTable({ comments, refetch }: CommentsProps) {
+  const [selectedComment, setSelectedComment] = useState<CommentType | null>(
+    null,
+  );
+
+  const openEditModal = (comment: CommentType) => {
+    setSelectedComment(comment);
+  };
+
+  const closeEditModal = () => {
+    setSelectedComment(null);
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:8080/comments/${id}`);
+      refetch("1");
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -24,7 +48,7 @@ export function ProfileTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
@@ -35,25 +59,60 @@ export function ProfileTable({ comments }: CommentsProps) {
               </td>
               <td>{comment.rating}</td>
               <td>{comment.text}</td>
-              <td> {moment(comment.createDate).format("MMM Do YY")}</td>
+              <td>{moment(comment.createDate).format("MMM Do YY")}</td>
               <td>
-                <Tooltip tip="Посмотреть">
-                  <Button
-                    onClick={() => redirect(`/companies/${comment.company.id}`)}
-                  >
-                    <Image
-                      src="/icons/file.svg"
-                      alt="File"
-                      width={25}
-                      height={25}
-                    />
-                  </Button>
-                </Tooltip>
+                <div className="space-x-2">
+                  <Tooltip tip="Посмотреть">
+                    <Button
+                      onClick={() =>
+                        redirect(`/companies/${comment.company.id}`)
+                      }
+                    >
+                      <Image
+                        src="/icons/file.svg"
+                        alt="File"
+                        width={25}
+                        height={25}
+                      />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip tip="Редактировать">
+                    <Button onClick={() => openEditModal(comment)}>
+                      <Image
+                        src="/icons/pencil.svg"
+                        alt="Pencil"
+                        width={25}
+                        height={25}
+                      />
+                    </Button>
+                  </Tooltip>
+                  <Tooltip tip="Удалить">
+                    <Button
+                      color="error"
+                      onClick={() => handleDelete(comment.id)}
+                    >
+                      <Image
+                        src="/icons/pencil.svg"
+                        alt="Pencil"
+                        width={25}
+                        height={25}
+                      />
+                    </Button>
+                  </Tooltip>
+                </div>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {selectedComment && (
+        <EditCommentModal
+          comment={selectedComment}
+          closeModal={closeEditModal}
+          refetch={refetch}
+        />
+      )}
     </div>
   );
 }
