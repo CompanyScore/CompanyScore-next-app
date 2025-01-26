@@ -20,7 +20,7 @@ export default function Enter() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/auth/check", {
+        const response = await axios.post("http://localhost:8080/auth/login", {
           withCredentials: true, // Для передачи cookies
         });
         console.log("User data:", response.data);
