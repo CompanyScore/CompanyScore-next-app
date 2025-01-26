@@ -45,7 +45,7 @@ export default function ProfilePage() {
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
       <ProfileCard />
-      <ProfileTable comments={comments} />
+      <ProfileTable refetch={fetchComments} comments={comments} />
       <div className="flex justify-between">
         <ShowBy limit={limit} onLimitChange={onLimitChange} />
         <Pagination

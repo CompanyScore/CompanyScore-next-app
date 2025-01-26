@@ -8,6 +8,7 @@ type CommentModalProps = {
   companyId: number;
   userId: number;
   closeModal: () => void;
+  refetch: () => void;
 };
 
 const positions = [
@@ -30,6 +31,7 @@ export function CommentModal({
   companyId,
   userId,
   closeModal,
+  refetch,
 }: CommentModalProps) {
   const [comment, setComment] = useState<string>("Отзыв: \nПлюсы: \nМинусы: ");
   const [rating, setRating] = useState<number>(0);
@@ -69,11 +71,17 @@ export function CommentModal({
       setComment("");
       setRating(0);
       setPosition("");
-    } catch (err) {
-      console.error("Ошибка при отправке комментария:", err);
-      setError(
-        "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
-      );
+      refetch();
+      closeModal();
+    } catch (error) {
+      // console.error("Ошибка при отправке комментария:", error);
+      if (error.response.data.errorCode === "comment_already_exists") {
+        setError("Вы уже оставляли комментарий на эту компанию");
+      } else {
+        setError(
+          "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
+        );
+      }
     } finally {
       setLoading(false);
     }

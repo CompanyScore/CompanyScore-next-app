@@ -41,6 +41,17 @@ export default function CompaniesPage() {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
 
+  const refetch = () => {
+    fetchCompanies(
+      searchedCompanyName,
+      selectedCountry,
+      selectedCity,
+      selectedRating,
+      page,
+      limit,
+    );
+  };
+
   const fetchCompanies = async (
     searchedCompanyName: string,
     selectedCountry: string,
@@ -137,6 +148,7 @@ export default function CompaniesPage() {
         companies={companies}
         loading={loading}
         errorMessage={errorMessage}
+        refetch={refetch}
       />
       <div className="flex justify-between">
         <ShowBy limit={limit} onLimitChange={onLimitChange} />
