@@ -11,7 +11,7 @@ export function Input({ placeholder, onChange }: InputType) {
     <input
       type="text"
       placeholder={placeholder}
-      className="input input-bordered input-primary max-w-44"
+      className="input input-bordered input-primary w-full max-w-sm"
       onChange={e => onChange(e.target.value)}
     />
   );

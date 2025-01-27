@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Button, Avatar, Tooltip } from "@/ui";
 import { redirect } from "next/navigation";
-import CommentModal from "@/app/companies/components/companies-add-comment-modal";
+import { CompaniesAddCommentModal } from "./index";
 
 type Company = {
   id: number;
@@ -65,7 +65,7 @@ export function CompaniesTable({
             </tr>
           </thead>
           <tbody>
-            {companies.map((company) => (
+            {companies.map(company => (
               <tr
                 key={company.id}
                 className="text-center border-b border-gray-500"
@@ -120,10 +120,10 @@ export function CompaniesTable({
           <div
             id="modal-container"
             className="modal modal-open"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <div className="modal-box">
-              <CommentModal
+              <CompaniesAddCommentModal
                 companyId={selectedCompany.id}
                 userId={1}
                 closeModal={closeModal}

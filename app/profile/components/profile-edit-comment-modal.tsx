@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { DropdownFilter } from "@/ui"; // Импортируем DropdownFilter
+import { Dropdown } from "@/ui";
 
-type EditCommentModalProps = {
-  comment: { id: number; text: string; rating: number; position: string }; // добавляем position
+type ProfileEditCommentModalProps = {
+  comment: { id: number; text: string; rating: number; position?: string }; // добавляем position
   closeModal: () => void;
   refetch: (id: string) => void;
 };
@@ -26,11 +26,11 @@ const positions = [
   "UX-дизайнер",
 ];
 
-export function EditCommentModal({
+export function ProfileEditCommentModal({
   comment,
   closeModal,
   refetch,
-}: EditCommentModalProps) {
+}: ProfileEditCommentModalProps) {
   const [editedText, setEditedText] = useState(comment.text);
   const [editedRating, setEditedRating] = useState(comment.rating);
   const [editedPosition, setEditedPosition] = useState(comment.position); // Добавляем состояние для должности
@@ -74,7 +74,7 @@ export function EditCommentModal({
               <label htmlFor="position" className="block mb-2">
                 Должность
               </label>
-              <DropdownFilter
+              <Dropdown
                 label="Выберите должность"
                 isFirstDisabled={true}
                 options={positions}
@@ -86,7 +86,7 @@ export function EditCommentModal({
             <div className="mb-4">
               <textarea
                 value={editedText}
-                onChange={(e) => setEditedText(e.target.value)}
+                onChange={e => setEditedText(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded-md mb-4"
                 rows={5}
               />
@@ -142,4 +142,4 @@ export function EditCommentModal({
   );
 }
 
-export default EditCommentModal;
+export default ProfileEditCommentModal;

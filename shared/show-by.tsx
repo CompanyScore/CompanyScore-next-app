@@ -1,5 +1,5 @@
 import React from "react";
-import { DropdownFilter } from "@/ui";
+import { Dropdown} from "@/ui";
 
 const numberOptions = ["5", "10", "15", "20"];
 
@@ -14,7 +14,7 @@ export function ShowBy({ limit, onLimitChange }: ShowByProps) {
   };
 
   return (
-    <DropdownFilter
+    <Dropdown
       label="Выберите кол-во элементов"
       isFirstDisabled={true}
       options={numberOptions}

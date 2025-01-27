@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input, Modal } from "@/ui";
+import { Button, Input, Modal, Title } from "@/ui";
 import axios from "axios";
 
 export function ProfileEditModal() {
@@ -42,10 +42,12 @@ export function ProfileEditModal() {
 
   return (
     <Modal id="profile_edit_modal">
-      <h3 className="text-2xl text-center">Редактирование профиля</h3>
-      <Input placeholder="Имя" onChange={setName} />
-      <Input placeholder="Должность" onChange={setPosition} />
-      <Input placeholder="Описание" onChange={setDescription} />
+      <Title position="center">Редактирование профиля</Title>
+      <div className="flex flex-col items-center gap-4">
+        <Input placeholder="Имя" onChange={setName} />
+        <Input placeholder="Должность" onChange={setPosition} />
+        <Input placeholder="Описание" onChange={setDescription} />
+      </div>
       <input
         type="file"
         onChange={handleFileChange}

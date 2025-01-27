@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-type DropdownFilterProps = {
+type DropdownProps = {
   label: string;
   options: string[];
   selectedValue: string;
@@ -8,13 +8,13 @@ type DropdownFilterProps = {
   isFirstDisabled?: boolean;
 };
 
-export const DropdownFilter = ({
+export const Dropdown = ({
   label,
   options,
   selectedValue,
   onSelect,
   isFirstDisabled = false,
-}: DropdownFilterProps) => {
+}: DropdownProps) => {
   const [disabled, setDisabled] = useState(isFirstDisabled);
   const selectRef = useRef<HTMLDivElement | null>(null);
 

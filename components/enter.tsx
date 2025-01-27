@@ -17,19 +17,19 @@ export default function Enter() {
     window.location.href = "http://localhost:8080/auth/github";
   };
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const response = await axios.post("http://localhost:8080/auth/login", {
-          withCredentials: true, // Для передачи cookies
-        });
-        console.log("User data:", response.data);
-      } catch (error) {
-        console.error("User not authenticated:", error);
-      }
-    };
-    checkAuth();
-  }, []);
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const response = await axios.post("http://localhost:8080/auth/login", {
+  //         withCredentials: true, // Для передачи cookies
+  //       });
+  //       console.log("User data:", response.data);
+  //     } catch (error) {
+  //       console.error("User not authenticated:", error);
+  //     }
+  //   };
+  //   checkAuth();
+  // }, []);
 
   return (
     <div>

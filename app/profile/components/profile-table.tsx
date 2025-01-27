@@ -5,15 +5,16 @@ import { Avatar, Button, Tooltip } from "@/ui";
 import Image from "next/image";
 import { useState } from "react";
 import { CommentType } from "../types/profile-type";
-import EditCommentModal from "@/app/profile/components/profile-edit-comment-modal";
+import { ProfileEditCommentModal } from "./index";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
-type CommentsProps = {
+type ProfileTableProps = {
   comments: CommentType[];
   refetch: (id: string) => void;
 };
 
-export function ProfileTable({ comments, refetch }: CommentsProps) {
+export function ProfileTable({ comments, refetch }: ProfileTableProps) {
   const [selectedComment, setSelectedComment] = useState<CommentType | null>(
     null,
   );
@@ -48,7 +49,7 @@ export function ProfileTable({ comments, refetch }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
@@ -107,7 +108,7 @@ export function ProfileTable({ comments, refetch }: CommentsProps) {
       </table>
 
       {selectedComment && (
-        <EditCommentModal
+        <ProfileEditCommentModal
           comment={selectedComment}
           closeModal={closeEditModal}
           refetch={refetch}

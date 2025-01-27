@@ -6,6 +6,6 @@ export { Input } from "./input";
 export { Select } from "./select";
 export { Loading } from "./loading";
 export { ErrorMessage } from "./error-message";
-export { DropdownFilter } from "./dropdown-select";
+export { Dropdown } from "./dropdown";
 export { Modal } from "./modal";
 export { Toast } from "./toast";

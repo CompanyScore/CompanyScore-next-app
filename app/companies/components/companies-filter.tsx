@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Searcher } from "@/shared";
-import { Button, ErrorMessage, Loading, DropdownFilter } from "@/ui";
+import { Button, ErrorMessage, Loading, Dropdown } from "@/ui";
 
 const ratingOptions = ["1", "2", "3", "4", "5"];
 
@@ -68,19 +68,19 @@ export function CompaniesFilter({
           <ErrorMessage text={`Ошибка: ${errorMessage}`} />
         ) : (
           <>
-            <DropdownFilter
+            <Dropdown
               label="Все страны"
               options={countryOptions}
               selectedValue={selectedCountry}
               onSelect={onSelectCountry}
             />
-            <DropdownFilter
+            <Dropdown
               label="Все города"
               options={cityOptions}
               selectedValue={selectedCity}
               onSelect={onSelectCity}
             />
-            <DropdownFilter
+            <Dropdown
               label="Все рейтинги"
               options={ratingOptions}
               selectedValue={selectedRating}

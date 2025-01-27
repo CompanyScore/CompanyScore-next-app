@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { DropdownFilter } from "@/ui";
+import { Dropdown } from "@/ui";
 
-type CommentModalProps = {
+type CompaniesAddCommentModalProps = {
   companyId: number;
   userId: number;
   closeModal: () => void;
@@ -27,12 +27,12 @@ const positions = [
   "UX-дизайнер",
 ];
 
-export function CommentModal({
+export function CompaniesAddCommentModal({
   companyId,
   userId,
   closeModal,
   refetch,
-}: CommentModalProps) {
+}: CompaniesAddCommentModalProps) {
   const [comment, setComment] = useState<string>("Отзыв: \nПлюсы: \nМинусы: ");
   const [rating, setRating] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -99,7 +99,7 @@ export function CommentModal({
         <label htmlFor="position" className="block mb-2">
           Должность
         </label>
-        <DropdownFilter
+        <Dropdown
           label="Выберите должность"
           isFirstDisabled={true}
           options={positions}
@@ -156,4 +156,4 @@ export function CommentModal({
   );
 }
 
-export default CommentModal;
+export default CompaniesAddCommentModal;
