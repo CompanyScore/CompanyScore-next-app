@@ -6,7 +6,6 @@ import {
   CompaniesFilter,
   CompaniesTable,
   CompaniesText,
-  WriteCommentModal,
 } from "./components";
 import { Pagination, ShowBy } from "@/shared";
 import { Title } from "@/ui";
@@ -159,7 +158,6 @@ export default function CompaniesPage() {
           onPageChange={onPageChange}
         />
       </div>
-      <WriteCommentModal />
     </section>
   );
 }
