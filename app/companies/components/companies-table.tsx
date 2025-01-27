@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Button, Avatar, Tooltip } from "@/ui";
 import { redirect } from "next/navigation";
-import CommentModal from "@/app/companies/[id]/components/comment-modal";
+import CommentModal from "@/app/companies/components/companies-add-comment-modal";
 
 type Company = {
   id: number;

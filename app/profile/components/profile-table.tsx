@@ -5,7 +5,7 @@ import { Avatar, Button, Tooltip } from "@/ui";
 import Image from "next/image";
 import { useState } from "react";
 import { CommentType } from "../types/profile-type";
-import EditCommentModal from "@/app/companies/[id]/components/edit-comment-modal";
+import EditCommentModal from "@/app/profile/components/profile-edit-comment-modal";
 import axios from "axios";
 
 type CommentsProps = {
