@@ -13,22 +13,16 @@ export default function Enter() {
   //   console.log(data);
   // };
 
-  const redirectToGitHub = () => {
+  const redirectToGitHub = async() => {
     window.location.href = "http://localhost:8080/auth/github";
   };
+    // const data = await axios.get("http://localhost:8080/auth/github", {
+    //   withCredentials: true, // Включить отправку куков
+    // });
+    // console.log(data);
 
   // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const response = await axios.post("http://localhost:8080/auth/login", {
-  //         withCredentials: true, // Для передачи cookies
-  //       });
-  //       console.log("User data:", response.data);
-  //     } catch (error) {
-  //       console.error("User not authenticated:", error);
-  //     }
-  //   };
-  //   checkAuth();
+
   // }, []);
 
   return (
