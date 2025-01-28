@@ -89,7 +89,7 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
                   </Tooltip>
                   <Tooltip tip="Удалить">
                     <Button
-                      color="error"
+                      color="danger"
                       onClick={() => handleDelete(comment.id)}
                     >
                       <Image
