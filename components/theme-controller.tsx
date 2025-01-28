@@ -36,8 +36,8 @@ export default function ThemeController() {
         tabIndex={0}
         className="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-52 bg-neutral text-white"
       >
-        {["light", "valentine", "dracula", "dark", "dim", "coffee"].map(
-          themeOption => (
+        {["light", "valentine", "dark", "mytheme", "mytheme2"].map(
+          (themeOption) => (
             <li key={themeOption}>
               <button
                 className="btn btn-sm btn-block btn-ghost justify-start"

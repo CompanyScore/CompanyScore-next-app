@@ -49,7 +49,7 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
@@ -78,7 +78,10 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
                     </Button>
                   </Tooltip>
                   <Tooltip tip="Редактировать">
-                    <Button onClick={() => openEditModal(comment)}>
+                    <Button
+                      color="warning"
+                      onClick={() => openEditModal(comment)}
+                    >
                       <Image
                         src="/icons/pencil.svg"
                         alt="Pencil"
