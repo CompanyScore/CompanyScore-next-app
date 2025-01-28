@@ -9,6 +9,7 @@ type Company = {
   city: string;
   rating: number;
   logo: string;
+  description: string;
   commentsIds: string[];
 };
 
@@ -42,9 +43,17 @@ export function CompaniesCarousel({
     return () => clearInterval(interval);
   }, [companies.length]);
 
-  if (loading) <Loading />;
-  if (errorMessage) <ErrorMessage text={errorMessage} />;
-  if (companies.length === 0) <Title size="4">No companies available</Title>;
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (errorMessage) {
+    return <ErrorMessage text={errorMessage} />;
+  }
+
+  if (companies.length === 0) {
+    return <Title size="4">No companies available</Title>;
+  }
 
   return (
     <div className="relative w-full py-10 flex items-center justify-center bg-base-200 overflow-hidden">
@@ -60,7 +69,7 @@ export function CompaniesCarousel({
       <div className="w-4/5 h-80 flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
-            key={companies[currentIndex].id}
+            key={companies[currentIndex]?.id}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
@@ -68,18 +77,21 @@ export function CompaniesCarousel({
             className="flex justify-between w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
             <img
-              src={companies[currentIndex].logo}
-              alt={companies[currentIndex].name}
+              src={companies[currentIndex]?.logo}
+              alt={companies[currentIndex]?.name}
               className="object-cover max-w-md"
             />
             <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
               <Title size="3">{companies[currentIndex].name}</Title>
               <p className="text-lg font-semibold">
-                {companies[currentIndex].city},{" "}
-                {companies[currentIndex].country}
+                {companies[currentIndex]?.city},{" "}
+                {companies[currentIndex]?.country}
               </p>
               <p className="text-lg font-semibold ">
-                {companies[currentIndex].rating}
+                {companies[currentIndex]?.rating}
+              </p>
+              <p className="">
+                {companies[currentIndex]?.description}
               </p>
             </div>
           </motion.div>
