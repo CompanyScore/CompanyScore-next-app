@@ -17,6 +17,7 @@ type Company = {
   city: string;
   rating: number;
   logo: string;
+  description: string;
   commentsIds: string[];
 };
 
