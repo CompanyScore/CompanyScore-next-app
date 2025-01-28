@@ -7,10 +7,9 @@ import ThemeController from "./theme-controller";
 
 export default function Header() {
   return (
-    <div className="flex justify-between navbar bg-neutral text-neutral-content p-10">
+    <div className="flex justify-between navbar bg-neutral text-neutral-content px-10">
       <div className="max-w-96 w-full">
-        <Image src="/icons/logo.svg" alt="Logo" width={40} height={40} />
-        <h1 className="text-5xl">CompanyScore</h1>
+        <Image src="/imgs/logo.png" alt="Logo" width={340} height={200} />
       </div>
       <div className="flex gap-10 text-2xl">
         <Link href="/">Главная</Link>
