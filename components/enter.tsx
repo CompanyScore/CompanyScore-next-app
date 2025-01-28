@@ -16,6 +16,10 @@ export default function Enter() {
   const redirectToGitHub = async() => {
     window.location.href = "http://localhost:8080/auth/github";
   };
+
+  const redirectToLinkedin = async() => {
+    window.location.href = "http://localhost:8080/auth/linkedin";
+  };
     // const data = await axios.get("http://localhost:8080/auth/github", {
     //   withCredentials: true, // Включить отправку куков
     // });
@@ -37,6 +41,7 @@ export default function Enter() {
               alt="linkedin"
               width={60}
               height={60}
+              onClick={redirectToLinkedin}
             />
             <Image
               src="/icons/github.svg"
