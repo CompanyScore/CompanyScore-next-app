@@ -132,7 +132,11 @@ export default function CompaniesPage() {
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
       <CompaniesText />
       <Title>Новые компании</Title>
-      <CompaniesCarousel />
+      <CompaniesCarousel
+        companies={companies}
+        loading={loading}
+        errorMessage={errorMessage}
+      />
       <Title>{`Компаний: ${total}`}</Title>
       <CompaniesFilter
         onSearchCompanyByName={onSearchCompanyByName}
