@@ -1,33 +1,16 @@
 "use client";
 import { Title } from "@/ui";
-import axios from "axios";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React from "react";
 
 export default function Enter() {
-  // const getUser = async () => {
-  //   const response = await axios.get("http://localhost:8080/auth/github", {
-  //     withCredentials: true, // Для отправки и получения cookies
-  //   });
-  //   const data = response.data;
-  //   console.log(data);
-  // };
-
-  const redirectToGitHub = async() => {
+  const redirectToGitHub = async () => {
     window.location.href = "http://localhost:8080/auth/github";
   };
 
-  const redirectToLinkedin = async() => {
+  const redirectToLinkedin = async () => {
     window.location.href = "http://localhost:8080/auth/linkedin";
   };
-    // const data = await axios.get("http://localhost:8080/auth/github", {
-    //   withCredentials: true, // Включить отправку куков
-    // });
-    // console.log(data);
-
-  // useEffect(() => {
-
-  // }, []);
 
   return (
     <div>
