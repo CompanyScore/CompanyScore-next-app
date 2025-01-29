@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ErrorMessage, Loading, Title } from "@/ui";
+import Image from "next/image";
 
 type Company = {
   id: number;
@@ -76,9 +77,13 @@ export function CompaniesCarousel({
             transition={{ duration: 1 }}
             className="flex justify-between w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
-            <img
-              src={companies[currentIndex]?.logo}
-              alt={companies[currentIndex]?.name}
+            <Image
+              src={
+                process.env.NEXT_PUBLIC_API_URL + companies[currentIndex]?.logo
+              }
+              alt="Company Logo"
+              width={448}
+              height={40}
               className="object-cover max-w-md"
             />
             <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
@@ -90,9 +95,7 @@ export function CompaniesCarousel({
               <p className="text-lg font-semibold ">
                 {companies[currentIndex]?.rating}
               </p>
-              <p className="">
-                {companies[currentIndex]?.description}
-              </p>
+              <p className="">{companies[currentIndex]?.description}</p>
             </div>
           </motion.div>
         </AnimatePresence>

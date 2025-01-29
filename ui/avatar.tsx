@@ -1,17 +1,18 @@
+import Image from "next/image";
 import React from "react";
 
 type AvatarType = {
   src: string;
-  width: number;
 };
 
-export function Avatar({ src, width = 70 }: AvatarType) {
+export function Avatar({ src }: AvatarType) {
   return (
-    <img
+    <Image
       src={src}
       alt="Avatar"
-      width={width}
-      className="object-cover max-w-[70px] w-[70px] h-[70px]"
+      width={70}
+      height={70}
+      className="object-cover"
     />
   );
 }

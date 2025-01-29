@@ -51,7 +51,7 @@ export function ProfileCard() {
           </label>
           {user?.avatar ? (
             <Image
-              src={"http://localhost:8080" + user?.avatar}
+              src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
               alt="Avatar"
               width={400}
               height={400}
