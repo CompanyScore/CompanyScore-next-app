@@ -5,18 +5,28 @@ import Image from "next/image";
 import { ProfileType } from "../types/profile-type";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export function ProfileCard() {
-  const id = "1";
   const [user, setUser] = useState<ProfileType>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const fetchProfile = async (id: string) => {
+  const fetchProfile = async () => {
+    const userId = Cookies.get("userId");
+
+    if (!userId) {
+      setErrorMessage("Не найден userId в cookie");
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/users/${id}`);
-
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
+        { withCredentials: true },
+      );
       setUser(response.data);
     } catch (err: any) {
       setErrorMessage(err.message || "Ошибка загрузки данных");
@@ -26,8 +36,8 @@ export function ProfileCard() {
   };
 
   useEffect(() => {
-    fetchProfile(id);
-  }, [id]);
+    fetchProfile();
+  }, []);
 
   return (
     <div className="relative hero bg-base-200">
@@ -50,8 +60,8 @@ export function ProfileCard() {
             />
           </label>
           {user?.avatar ? (
-            <Image
-              src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
+            <img
+              src={`${process.env.NEXT_PUBLIC_API_URL}${user.avatar}`}
               alt="Avatar"
               width={400}
               height={400}
