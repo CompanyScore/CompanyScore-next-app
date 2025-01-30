@@ -8,6 +8,7 @@ import { CommentType } from "../types/profile-type";
 import { ProfileEditCommentModal } from "./index";
 import axios from "axios";
 import { redirect } from "next/navigation";
+import { IoIosCloseCircleOutline } from "react-icons/io";
 
 type ProfileTableProps = {
   comments: CommentType[];
@@ -90,7 +91,7 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
                       />
                     </Button>
                   </Tooltip>
-                  <Tooltip tip="Удалить">
+                  {/* <Tooltip tip="Удалить">
                     <Button
                       color="danger"
                       onClick={() => handleDelete(comment.id)}
@@ -101,6 +102,14 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
                         width={25}
                         height={25}
                       />
+                    </Button>
+                  </Tooltip> */}
+                  <Tooltip tip="Удалить">
+                    <Button
+                      color="danger"
+                      onClick={() => handleDelete(comment.id)}
+                    >
+                      <IoIosCloseCircleOutline className="w-6 h-6" />
                     </Button>
                   </Tooltip>
                 </div>

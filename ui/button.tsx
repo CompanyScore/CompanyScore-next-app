@@ -3,7 +3,13 @@ import React from "react";
 type ButtonProps = {
   children: React.ReactNode;
   disabled?: boolean;
-  color?: "primary" | "secondary" | "success" | "danger" | "neutral"; // Ограничиваем возможные значения
+  color?:
+    | "primary"
+    | "secondary"
+    | "success"
+    | "warning"
+    | "danger"
+    | "neutral"; // Ограничиваем возможные значения
   onClick: () => void;
 };
 

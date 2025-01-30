@@ -36,18 +36,16 @@ export default function ThemeController() {
         tabIndex={0}
         className="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-52 bg-neutral text-white"
       >
-        {["light", "valentine", "dark", "mytheme", "mytheme2"].map(
-          (themeOption) => (
-            <li key={themeOption}>
-              <button
-                className="btn btn-sm btn-block btn-ghost justify-start"
-                onClick={() => handleChangeTheme(themeOption)}
-              >
-                {themeOption.charAt(0).toUpperCase() + themeOption.slice(1)}
-              </button>
-            </li>
-          ),
-        )}
+        {["light", "valentine", "dark"].map((themeOption) => (
+          <li key={themeOption}>
+            <button
+              className="btn btn-sm btn-block btn-ghost justify-start"
+              onClick={() => handleChangeTheme(themeOption)}
+            >
+              {themeOption.charAt(0).toUpperCase() + themeOption.slice(1)}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

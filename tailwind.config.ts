@@ -8,6 +8,7 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./ui/**/*.{js,ts,jsx,tsx,mdx}",
     "./shared/**/*.{js,ts,jsx,tsx,mdx}",
+    "./public/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   // theme: {
   //   extend: {
@@ -19,37 +20,7 @@ export default {
   // },
   plugins: [daisyui],
   daisyui: {
-    themes: [
-      {
-        mytheme: {
-          primary: "#a3c8ed",
-          secondary: "#9fdcef",
-          accent: "#00ffff",
-          neutral: "#51a2ff",
-          "base-100": "#e4f6fe",
-          info: "#73d4ff",
-          success: "#33d399",
-          warning: "#fdc800",
-          error: "#f33a6a",
-        },
-      },
-      {
-        mytheme2: {
-          primary: "#8c6d7d",
-          secondary: "#9c828f",
-          accent: "#ad97a2",
-          neutral: "#7b586a",
-          "base-100": "#efeaec",
-          info: "#73d4ff",
-          success: "#58d158",
-          warning: "#d1a358",
-          error: "#d15858",
-        },
-      },
-      "valentine",
-      "dark",
-      "light",
-    ],
+    themes: ["valentine", "dark", "light"],
 
     // themes: ["valentine", "light", "coffee", "dark", "dim", "drakula"],
     // synthwave", "black", "luxury", "pastel", "cyberpunk",

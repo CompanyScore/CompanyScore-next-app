@@ -33,7 +33,7 @@ export function Pagination({
       {[...Array(totalPages)].map((_, index) => (
         <Button
           key={index}
-          color={`${currentPage === index + 1 ? "secondary" : ""}`}
+          color={`${currentPage === index + 1 ? "primary" : ""}`}
           onClick={() => changePage(index + 1)}
         >
           {index + 1}

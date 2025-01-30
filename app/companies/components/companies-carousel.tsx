@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ErrorMessage, Loading, Title } from "@/ui";
 import Image from "next/image";
+import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 
 type Company = {
   id: number;
@@ -28,12 +29,12 @@ export function CompaniesCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex(prevIndex => (prevIndex + 1) % companies.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      prevIndex => (prevIndex - 1 + companies.length) % companies.length,
+      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
     );
   };
 
@@ -63,7 +64,7 @@ export function CompaniesCarousel({
         onClick={handlePrev}
         className="absolute left-4 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
       >
-        &#8592;
+        <FaChevronLeft className="w-5 h-11" />
       </button>
 
       {/* Carousel Items */}
@@ -106,7 +107,7 @@ export function CompaniesCarousel({
         onClick={handleNext}
         className="absolute right-4 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
       >
-        &#8594;
+        <FaAngleRight className="w-5 h-11" />
       </button>
     </div>
   );

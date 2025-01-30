@@ -77,6 +77,7 @@ export const Dropdown = ({
             onClick={() => handleSelect("")}
             disabled={disabled}
             style={{
+              color: "white",
               textAlign: "left",
               display: "block",
             }}
