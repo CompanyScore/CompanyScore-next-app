@@ -30,15 +30,14 @@ export default function ProfilePage() {
         `http://localhost:8080/comments/?userId=${userId}`,
         {
           headers: {
-            "Authorization": `Bearer ${accessToken}`, // Передаём токен
+            Authorization: `Bearer ${accessToken}`, // Передаём токен
             "Content-Type": "application/json",
-            'Cache-Control': 'no-cache',
-            'Pragma': 'no-cache',
-            'Expires': '0',
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
           },
         },
       );
-      console.log(accessToken);
 
       setComments(response.data.data);
       setTotal(response.data.total);

@@ -6,9 +6,11 @@ import { ProfileType } from "../types/profile-type";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUserStore } from "@/store/userId";
+import { useAccessTokenStore } from "@/store/accessToken";
 
 export function ProfileCard() {
   const { userId, setUserId, clearUserId } = useUserStore();
+  const { accessToken } = useAccessTokenStore();
   const [user, setUser] = useState<ProfileType>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -19,6 +21,15 @@ export function ProfileCard() {
 
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // Передаём токен
+            "Content-Type": "application/json",
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+        },
       );
 
       setUser(response.data);
@@ -30,7 +41,7 @@ export function ProfileCard() {
   };
 
   useEffect(() => {
-    if (userId) {
+    if (userId && accessToken) {
       fetchProfile(userId);
     }
   }, [userId]);
