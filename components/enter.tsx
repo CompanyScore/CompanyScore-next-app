@@ -1,9 +1,13 @@
 "use client";
+import { useUserStore } from "@/store/userId";
 import { Title } from "@/ui";
+import axios from "axios";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Enter() {
+  const { setUserId } = useUserStore();
+
   const redirectToGitHub = async () => {
     window.location.href = "http://localhost:8080/auth/github";
   };
@@ -11,6 +15,22 @@ export default function Enter() {
   const redirectToLinkedin = async () => {
     window.location.href = "http://localhost:8080/auth/linkedin";
   };
+
+  const getUserData = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8080/auth/me", {
+        withCredentials: true,
+      });
+
+      setUserId(data.userId);
+    } catch (error) {
+      console.error("Ошибка получения данных:", error);
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
     <div>
@@ -31,7 +51,7 @@ export default function Enter() {
               alt="github"
               width={60}
               height={60}
-              onClick={redirectToGitHub}
+              onClick={getUserData}
               className="cursor-pointer"
             />
           </div>

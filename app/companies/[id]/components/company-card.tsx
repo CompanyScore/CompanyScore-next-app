@@ -38,7 +38,13 @@ export function CompanyCard() {
     <div className="hero bg-base-200 py-10">
       <div className="hero-content flex-col lg:flex-row items-start">
         <div className="flex flex-col items-center gap-4">
-          <img src={company?.logo} className="max-w-sm rounded-lg shadow-2xl" />
+          <Image
+            width={70}
+            height={70}
+            alt="Company logo"
+            src={`${process.env.NEXT_PUBLIC_API_URL}${company?.logo}`}
+            className="max-w-sm rounded-lg shadow-2xl"
+          />
           <div className="stats shadow">
             <div className="stat flex flex-col items-center">
               <div className="stat-title">Средний балл:</div>

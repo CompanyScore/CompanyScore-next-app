@@ -5,28 +5,22 @@ import Image from "next/image";
 import { ProfileType } from "../types/profile-type";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useUserStore } from "@/store/userId";
 
 export function ProfileCard() {
+  const { userId, setUserId, clearUserId } = useUserStore();
   const [user, setUser] = useState<ProfileType>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const fetchProfile = async () => {
-    const userId = Cookies.get("userId");
-
-    if (!userId) {
-      setErrorMessage("Не найден userId в cookie");
-      setLoading(false);
-      return;
-    }
-
+  const fetchProfile = async (userId: number) => {
     try {
       setLoading(true);
+
       const response = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
-        { withCredentials: true },
       );
+
       setUser(response.data);
     } catch (err: any) {
       setErrorMessage(err.message || "Ошибка загрузки данных");
@@ -36,8 +30,10 @@ export function ProfileCard() {
   };
 
   useEffect(() => {
-    fetchProfile();
-  }, []);
+    if (userId) {
+      fetchProfile(userId);
+    }
+  }, [userId]);
 
   return (
     <div className="relative hero bg-base-200">

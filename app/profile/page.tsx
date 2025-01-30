@@ -5,9 +5,11 @@ import { ProfileCard, ProfileEditModal, ProfileTable } from "./components";
 import { CommentType, CommentsResponse } from "./types/profile-type";
 import { Pagination, ShowBy } from "@/shared";
 import axios from "axios";
-import Cookies from "js-cookie";
+import { useUserStore } from "@/store/userId";
 
 export default function ProfilePage() {
+  const { userId, setUserId, clearUserId } = useUserStore();
+
   const [comments, setComments] = useState<CommentType[]>([]);
 
   const [page, setPage] = useState(1);
@@ -15,8 +17,6 @@ export default function ProfilePage() {
   const [total, setTotal] = useState(0);
 
   const fetchComments = async () => {
-    const userId = Cookies.get("userId");
-
     try {
       // setLoading(true);
 
@@ -42,7 +42,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     fetchComments();
-  }, [page, limit]);
+  }, [page, limit, userId]);
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">

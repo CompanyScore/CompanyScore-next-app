@@ -56,7 +56,7 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
               className="text-center border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={comment.company.logo} width={70} />
+                <Avatar src={comment.company.logo} />
                 <p>{comment.company.name}</p>
               </td>
               <td>{comment.rating}</td>
