@@ -6,6 +6,7 @@ import { CommentType, CommentsResponse } from "./types/profile-type";
 import { Pagination, ShowBy } from "@/shared";
 import axios from "axios";
 import { useUserStore } from "@/store/userId";
+import { ErrorMessage, Loading } from "@/ui";
 
 export default function ProfilePage() {
   const { userId, setUserId, clearUserId } = useUserStore();
@@ -16,9 +17,12 @@ export default function ProfilePage() {
   const [limit, setLimit] = useState(5);
   const [total, setTotal] = useState(0);
 
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const fetchComments = async () => {
     try {
-      // setLoading(true);
+      setLoading(true);
 
       const response = await axios.get<CommentsResponse>(
         `http://localhost:8080/comments/?userId=${userId}`,
@@ -26,8 +30,10 @@ export default function ProfilePage() {
 
       setComments(response.data.data);
       setTotal(response.data.total);
-    } catch {
-      console.log("Ошибка при получении комментариев");
+    } catch (error) {
+      setErrorMessage(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,8 +47,18 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    fetchComments();
+    if (userId) {
+      fetchComments();
+    }
   }, [page, limit, userId]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (errorMessage) {
+    return <ErrorMessage text={errorMessage} />;
+  }
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">

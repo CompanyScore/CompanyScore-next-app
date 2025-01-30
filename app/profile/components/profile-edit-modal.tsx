@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { Button, Input, Modal, Title } from "@/ui";
 import axios from "axios";
+import { useUserStore } from "@/store/userId";
 
 export function ProfileEditModal() {
+  const { userId, setUserId, clearUserId } = useUserStore();
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
@@ -30,7 +32,7 @@ export function ProfileEditModal() {
     if (avatar) formData.append("avatarFile", avatar);
 
     try {
-      await axios.patch("http://localhost:8080/users/1", formData);
+      await axios.patch(`http://localhost:8080/users/${userId}`, formData);
       setToast({ message: "Профиль обновлен!", type: "success" });
     } catch (error) {
       setToast({ message: "Ошибка обновления профиля.", type: "error" });

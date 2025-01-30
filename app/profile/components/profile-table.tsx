@@ -9,13 +9,16 @@ import { ProfileEditCommentModal } from "./index";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useUserStore } from "@/store/userId";
 
 type ProfileTableProps = {
   comments: CommentType[];
-  refetch: (id: string) => void;
+  refetch: () => void;
 };
 
 export function ProfileTable({ comments, refetch }: ProfileTableProps) {
+  const { userId, setUserId, clearUserId } = useUserStore();
+
   const [selectedComment, setSelectedComment] = useState<CommentType | null>(
     null,
   );
@@ -31,7 +34,10 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
   const handleDelete = async (id: number) => {
     try {
       await axios.delete(`http://localhost:8080/comments/${id}`);
-      refetch("1");
+
+      if (userId) {
+        refetch();
+      }
     } catch (error) {
       console.log("Error:", error);
     }
