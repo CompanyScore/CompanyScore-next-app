@@ -7,9 +7,11 @@ import { Pagination, ShowBy } from "@/shared";
 import axios from "axios";
 import { useUserStore } from "@/store/userId";
 import { ErrorMessage, Loading } from "@/ui";
+import { useAccessTokenStore } from "@/store/accessToken";
 
 export default function ProfilePage() {
   const { userId, setUserId, clearUserId } = useUserStore();
+  const { accessToken } = useAccessTokenStore();
 
   const [comments, setComments] = useState<CommentType[]>([]);
 
@@ -26,7 +28,13 @@ export default function ProfilePage() {
 
       const response = await axios.get<CommentsResponse>(
         `http://localhost:8080/comments/?userId=${userId}`,
+        {
+          headers: {
+            Authorization: accessToken ? `Bearer ${accessToken}` : "", // Передаём токен
+          },
+        },
       );
+      console.log(accessToken);
 
       setComments(response.data.data);
       setTotal(response.data.total);
@@ -47,10 +55,10 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    if (userId) {
+    if (userId && accessToken) {
       fetchComments();
     }
-  }, [page, limit, userId]);
+  }, [page, limit, userId, accessToken]);
 
   if (loading) {
     return <Loading />;

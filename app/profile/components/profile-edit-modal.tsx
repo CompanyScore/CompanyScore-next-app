@@ -44,11 +44,11 @@ export function ProfileEditModal() {
 
   return (
     <Modal id="profile_edit_modal">
-      <Title position="center">Редактирование профиля</Title>
+      <Title size="3" position="center">Редактирование профиля</Title>
       <div className="flex flex-col items-center gap-4">
         <Input placeholder="Имя" onChange={setName} />
         <Input placeholder="Должность" onChange={setPosition} />
-        <Input placeholder="Описание" onChange={setDescription} />
+        <Input placeholder="О себе" onChange={setDescription} />
       </div>
       <input
         type="file"

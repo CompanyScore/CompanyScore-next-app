@@ -94,7 +94,7 @@ export function CompaniesCarousel({
             )}
 
             <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
-              <Title size="3">{companies[currentIndex].name}</Title>
+              <Title size="3">{companies[currentIndex]?.name}</Title>
               <p className="text-lg font-semibold">
                 {companies[currentIndex]?.city},{" "}
                 {companies[currentIndex]?.country}

@@ -4,8 +4,11 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
+import { useUserStore } from "@/store/userId";
 
 export default function Header() {
+  const { userId, setUserId, clearUserId } = useUserStore();
+
   const pathname = usePathname();
 
   return (
@@ -34,12 +37,20 @@ export default function Header() {
         ))}
       </div>
       <div className="flex justify-end max-w-96 w-full">
-        <label htmlFor="modal_enter" className="btn">
-          Войти
-        </label>
-        <Link href="/profile">
-          <Image src="/icons/user.svg" alt="User Icon" width={24} height={24} />
-        </Link>
+        {userId ? (
+          <Link href="/profile">
+            <Image
+              src="/icons/user.svg"
+              alt="User Icon"
+              width={24}
+              height={24}
+            />
+          </Link>
+        ) : (
+          <label htmlFor="modal_enter" className="btn">
+            Войти
+          </label>
+        )}
         <ThemeController />
       </div>
     </div>

@@ -1,4 +1,5 @@
 "use client";
+import { useAccessTokenStore } from "@/store/accessToken";
 import { useUserStore } from "@/store/userId";
 import { Title } from "@/ui";
 import axios from "axios";
@@ -7,6 +8,7 @@ import React, { useEffect } from "react";
 
 export default function Enter() {
   const { setUserId } = useUserStore();
+  const { setAccessToken } = useAccessTokenStore();
 
   const redirectToGitHub = async () => {
     window.location.href = "http://localhost:8080/auth/github";
@@ -18,11 +20,12 @@ export default function Enter() {
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/auth/me", {
+      const { data } = await axios.get("http://localhost:8080/auth/cookies", {
         withCredentials: true,
       });
 
       setUserId(data.userId);
+      setAccessToken(data.accessToken);
     } catch (error) {
       console.error("Ошибка получения данных:", error);
     }
