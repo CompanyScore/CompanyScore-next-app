@@ -65,16 +65,20 @@ export function CompaniesTable({
             </tr>
           </thead>
           <tbody>
-            {companies.map((company) => (
+            {companies.map(company => (
               <tr
                 key={company.id}
                 className="text-center border-b border-gray-500"
               >
                 <td>
                   <div className="flex items-center space-x-2">
-                    <Avatar
-                      src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
-                    />
+                    {company?.logo ? (
+                      <Avatar
+                        src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
+                      />
+                    ) : (
+                      <div className="skeleton h-32 w-32"></div>
+                    )}
 
                     <p>{company.name}</p>
                   </div>
@@ -126,7 +130,7 @@ export function CompaniesTable({
           <div
             id="modal-container"
             className="modal modal-open"
-            onClick={(e) => e.stopPropagation()}
+            onClick={e => e.stopPropagation()}
           >
             <div className="modal-box">
               <CompaniesAddCommentModal

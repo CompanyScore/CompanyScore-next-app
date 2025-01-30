@@ -29,12 +29,12 @@ export function CompaniesCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
+    setCurrentIndex(prevIndex => (prevIndex + 1) % companies.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
+      prevIndex => (prevIndex - 1 + companies.length) % companies.length,
     );
   };
 
@@ -78,15 +78,21 @@ export function CompaniesCarousel({
             transition={{ duration: 1 }}
             className="flex justify-between w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
-            <Image
-              src={
-                process.env.NEXT_PUBLIC_API_URL + companies[currentIndex]?.logo
-              }
-              alt="Company Logo"
-              width={448}
-              height={40}
-              className="object-cover max-w-md"
-            />
+            {companies[currentIndex]?.logo ? (
+              <Image
+                src={
+                  process.env.NEXT_PUBLIC_API_URL +
+                  companies[currentIndex]?.logo
+                }
+                alt="Company Logo"
+                width={448}
+                height={40}
+                className="object-cover max-w-md"
+              />
+            ) : (
+              <div className="skeleton h-32 w-32"></div>
+            )}
+
             <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
               <Title size="3">{companies[currentIndex].name}</Title>
               <p className="text-lg font-semibold">

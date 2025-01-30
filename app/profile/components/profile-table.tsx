@@ -50,13 +50,15 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={comment.company.logo} />
+                <Avatar
+                  src={process.env.NEXT_PUBLIC_API_URL + comment.company.logo}
+                />
                 <p>{comment.company.name}</p>
               </td>
               <td>{comment.rating}</td>

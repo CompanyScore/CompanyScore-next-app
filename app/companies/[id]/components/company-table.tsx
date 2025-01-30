@@ -22,6 +22,10 @@ type CommentsProps = {
 };
 
 export function CompanyTable({ comments }: CommentsProps) {
+  if (comments.length === 0) {
+    return <div>asd</div>;
+  }
+
   return (
     <div className="overflow-x-auto">
       <table className="table w-full">
@@ -35,13 +39,21 @@ export function CompanyTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center align-middle border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={comment.user.avatar} width={70} />
+                {comment?.user?.avatar ? (
+                  <Avatar
+                    src={
+                      process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar
+                    }
+                  />
+                ) : (
+                  <div className="skeleton h-32 w-32"></div>
+                )}
                 <p>{comment.user.name}</p>
               </td>
               <td>{comment.rating}</td>
