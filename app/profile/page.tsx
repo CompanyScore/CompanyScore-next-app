@@ -4,14 +4,12 @@ import React, { useEffect, useState } from "react";
 import { ProfileCard, ProfileEditModal, ProfileTable } from "./components";
 import { CommentType, CommentsResponse } from "./types/profile-type";
 import { Pagination, ShowBy } from "@/shared";
-import axios from "axios";
-import { useUserStore } from "@/store/userId";
+import { useUserStore } from "@/store/user-id";
 import { ErrorMessage, Loading } from "@/ui";
-import { useAccessTokenStore } from "@/store/accessToken";
+import { useApi } from "@/hook";
 
 export default function ProfilePage() {
   const { userId, setUserId, clearUserId } = useUserStore();
-  const { accessToken } = useAccessTokenStore();
 
   const [comments, setComments] = useState<CommentType[]>([]);
 
@@ -26,18 +24,9 @@ export default function ProfilePage() {
     try {
       setLoading(true);
 
-      const response = await axios.get<CommentsResponse>(
-        `http://localhost:8080/comments/?userId=${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Передаём токен
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-            Expires: "0",
-          },
-        },
-      );
+      const response = await useApi.get(`/comments/?userId=${userId}`);
+
+      console.log(response);
 
       setComments(response.data.data);
       setTotal(response.data.total);
@@ -58,10 +47,10 @@ export default function ProfilePage() {
   };
 
   useEffect(() => {
-    if (userId && accessToken) {
+    if (userId) {
       fetchComments();
     }
-  }, [page, limit, userId, accessToken]);
+  }, [page, limit, userId]);
 
   if (loading) {
     return <Loading />;

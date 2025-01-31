@@ -1,6 +1,10 @@
 "use client";
-import { useAccessTokenStore } from "@/store/accessToken";
-import { useUserStore } from "@/store/userId";
+import { useApi } from "@/hook";
+import {
+  useUserStore,
+  useAccessTokenStore,
+  useRefreshTokenStore,
+} from "@/store";
 import { Title } from "@/ui";
 import axios from "axios";
 import Image from "next/image";
@@ -9,6 +13,7 @@ import React, { useEffect } from "react";
 export default function Enter() {
   const { setUserId } = useUserStore();
   const { setAccessToken } = useAccessTokenStore();
+  const { setRefreshToken } = useRefreshTokenStore();
 
   const redirectToGitHub = async () => {
     window.location.href = "http://localhost:8080/auth/github";
@@ -20,12 +25,11 @@ export default function Enter() {
 
   const getUserData = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/auth/cookies", {
-        withCredentials: true,
-      });
+      const { data } = await useApi.get("/auth/cookies");
 
       setUserId(data.userId);
       setAccessToken(data.accessToken);
+      setRefreshToken(data.refreshToken);
     } catch (error) {
       console.error("Ошибка получения данных:", error);
     }

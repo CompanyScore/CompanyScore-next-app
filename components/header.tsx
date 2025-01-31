@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import React from "react";
 import Image from "next/image";
 import ThemeController from "./theme-controller";
-import { useUserStore } from "@/store/userId";
+import { useUserStore } from "@/store/user-id";
 
 export default function Header() {
   const { userId, setUserId, clearUserId } = useUserStore();

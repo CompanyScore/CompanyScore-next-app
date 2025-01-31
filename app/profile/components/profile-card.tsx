@@ -5,33 +5,20 @@ import Image from "next/image";
 import { ProfileType } from "../types/profile-type";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useUserStore } from "@/store/userId";
-import { useAccessTokenStore } from "@/store/accessToken";
+import { useUserStore } from "@/store/user-id";
+import { useAccessTokenStore } from "@/store/access-token";
+import { useApi } from "@/hook";
 
 export function ProfileCard() {
   const { userId, setUserId, clearUserId } = useUserStore();
-  const { accessToken } = useAccessTokenStore();
   const [user, setUser] = useState<ProfileType>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const fetchProfile = async (userId: number) => {
+  const fetchProfile = async () => {
     try {
       setLoading(true);
-
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`, // Передаём токен
-            "Content-Type": "application/json",
-            "Cache-Control": "no-cache",
-            Pragma: "no-cache",
-            Expires: "0",
-          },
-        },
-      );
-
+      const response = await useApi.get(`/users/${userId}`);
       setUser(response.data);
     } catch (err: any) {
       setErrorMessage(err.message || "Ошибка загрузки данных");
@@ -41,8 +28,8 @@ export function ProfileCard() {
   };
 
   useEffect(() => {
-    if (userId && accessToken) {
-      fetchProfile(userId);
+    if (userId) {
+      fetchProfile();
     }
   }, [userId]);
 

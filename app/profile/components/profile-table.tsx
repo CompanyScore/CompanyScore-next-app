@@ -9,7 +9,7 @@ import { ProfileEditCommentModal } from "./index";
 import axios from "axios";
 import { redirect } from "next/navigation";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useUserStore } from "@/store/userId";
+import { useUserStore } from "@/store/user-id";
 
 type ProfileTableProps = {
   comments: CommentType[];

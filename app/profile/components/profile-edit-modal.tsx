@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button, Input, Modal, Title } from "@/ui";
 import axios from "axios";
-import { useUserStore } from "@/store/userId";
+import { useUserStore } from "@/store/user-id";
 
 export function ProfileEditModal() {
   const { userId, setUserId, clearUserId } = useUserStore();
@@ -44,7 +44,9 @@ export function ProfileEditModal() {
 
   return (
     <Modal id="profile_edit_modal">
-      <Title size="3" position="center">Редактирование профиля</Title>
+      <Title size="3" position="center">
+        Редактирование профиля
+      </Title>
       <div className="flex flex-col items-center gap-4">
         <Input placeholder="Имя" onChange={setName} />
         <Input placeholder="Должность" onChange={setPosition} />
