@@ -9,11 +9,6 @@ export const useApi = axios.create({
   withCredentials: true, // Включаем куки (refreshToken)
 });
 
-const refreshApi = axios.create({
-  baseURL: API_URL,
-  withCredentials: true, // Нужно, чтобы куки передавались
-});
-
 // Добавляем перехватчик для обновления accessToken
 useApi.interceptors.request.use(
   config => {
@@ -45,7 +40,7 @@ useApi.interceptors.response.use(
           { refreshToken },
           { withCredentials: true },
         );
-        console.log(refreshResponse);
+
         const newAccessToken = refreshResponse.data.accessToken;
 
         if (newAccessToken) {

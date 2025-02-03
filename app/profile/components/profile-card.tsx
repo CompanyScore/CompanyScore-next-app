@@ -10,7 +10,7 @@ import { useAccessTokenStore } from "@/store/access-token";
 import { useApi } from "@/hook";
 
 export function ProfileCard() {
-  const { userId, setUserId, clearUserId } = useUserStore();
+  const { userId, setUserId, clearUserId } = useUserStore(); // не удаляй пример
   const [user, setUser] = useState<ProfileType>();
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
