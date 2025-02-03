@@ -75,7 +75,7 @@ export function ProfileEditCommentModal({
                 Должность
               </label>
               <Dropdown
-                label="Выберите должность"
+                text="Выберите должность"
                 isFirstDisabled={true}
                 options={positions}
                 selectedValue={editedPosition}
@@ -86,7 +86,7 @@ export function ProfileEditCommentModal({
             <div className="mb-4">
               <textarea
                 value={editedText}
-                onChange={e => setEditedText(e.target.value)}
+                onChange={(e) => setEditedText(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded-md mb-4"
                 rows={5}
               />

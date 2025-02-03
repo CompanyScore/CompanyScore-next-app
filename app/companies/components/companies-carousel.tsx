@@ -29,12 +29,12 @@ export function CompaniesCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex(prevIndex => (prevIndex + 1) % companies.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      prevIndex => (prevIndex - 1 + companies.length) % companies.length,
+      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
     );
   };
 
@@ -60,11 +60,8 @@ export function CompaniesCarousel({
   return (
     <div className="relative w-full py-10 flex items-center justify-center bg-base-200 overflow-hidden">
       {/* Previous Button */}
-      <button
-        onClick={handlePrev}
-        className="absolute left-4 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
-      >
-        <FaChevronLeft className="w-5 h-11" />
+      <button onClick={handlePrev} className="absolute left-4 z-10">
+        <FaChevronLeft className="w-10 h-20" />
       </button>
 
       {/* Carousel Items */}
@@ -80,10 +77,7 @@ export function CompaniesCarousel({
           >
             {companies[currentIndex]?.logo ? (
               <Image
-                src={
-                  process.env.NEXT_PUBLIC_API_URL +
-                  companies[currentIndex]?.logo
-                }
+                src={companies[currentIndex]?.logo}
                 alt="Company Logo"
                 width={448}
                 height={40}
@@ -109,11 +103,8 @@ export function CompaniesCarousel({
       </div>
 
       {/* Next Button */}
-      <button
-        onClick={handleNext}
-        className="absolute right-4 z-10 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-700 focus:outline-none"
-      >
-        <FaAngleRight className="w-5 h-11" />
+      <button onClick={handleNext} className="absolute right-4 z-10">
+        <FaAngleRight className="w-10 h-20" />
       </button>
     </div>
   );
