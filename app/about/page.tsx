@@ -10,7 +10,7 @@ export default function AboutPage() {
     "Компания предоставляет отличные условия для роста и развития, высококвалифицированные коллеги и инновационная атмосфера. Руководство всегда поддерживает инициативу, а культура открытости и разнообразия способствует комфортной рабочей среде. Это было невероятное место для профессионального роста и обучения.",
   );
 
-  const handleInputChange = e => {
+  const handleInputChange = (e: any) => {
     setEditableText(e.target.innerText);
   };
 
@@ -105,20 +105,26 @@ export default function AboutPage() {
       </Container>
 
       <Container>
-        <div className="hero-content flex-col lg:flex-row-reverse gap-20 p-10">
+        <div className="hero-content ml-auto flex-col lg:flex-row-reverse gap-20 p-10">
           <Image
-            src="/imgs/dimash-ava.jpg"
-            alt="Dimash Ava"
+            src="/imgs/adil-ava.jpg"
+            alt="Adil Ava"
             className="max-w-sm rounded-lg shadow-2xl"
             width={300}
-            height={400}
+            height={300}
           />
           <div>
-            <h1 className="text-5xl font-bold">Box Office News!</h1>
+            <h1 className="text-5xl font-bold">Адиль</h1>
+            <p className="py-6">Frontend developer</p>
             <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              LinkedIn:
+              <Link
+                href="https://www.linkedin.com/in/adil-kemelbek/"
+                target="_blank"
+                className="underline"
+              >
+                https://www.linkedin.com/in/adil-kemelbek/
+              </Link>
             </p>
           </div>
         </div>
