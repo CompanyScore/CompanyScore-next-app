@@ -27,8 +27,6 @@ export function ProfileCard() {
 
   useEffect(() => {
     if (userId) {
-      console.log(userId);
-
       fetchProfile();
     }
   }, [userId]);

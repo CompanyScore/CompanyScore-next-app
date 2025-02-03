@@ -29,12 +29,12 @@ export function CompaniesCarousel({
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
+    setCurrentIndex(prevIndex => (prevIndex + 1) % companies.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
+      prevIndex => (prevIndex - 1 + companies.length) % companies.length,
     );
   };
 
@@ -77,7 +77,10 @@ export function CompaniesCarousel({
           >
             {companies[currentIndex]?.logo ? (
               <Image
-                src={companies[currentIndex]?.logo}
+                src={
+                  process.env.NEXT_PUBLIC_API_URL +
+                  companies[currentIndex]?.logo
+                }
                 alt="Company Logo"
                 width={448}
                 height={40}

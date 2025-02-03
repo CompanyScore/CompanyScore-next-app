@@ -32,7 +32,7 @@ export const Dropdown = ({
   );
 
   const selectedLabel =
-    normalizedOptions.find((option) => option.value === selectedValue)?.label ||
+    normalizedOptions.find((option) => option.value == selectedValue)?.label ||
     text ||
     "";
 

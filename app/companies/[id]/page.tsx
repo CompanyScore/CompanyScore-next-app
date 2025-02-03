@@ -82,9 +82,9 @@ export default function CompanyDetail() {
       <div className="flex justify-between">
         <ShowBy limit={limit} onLimitChange={onLimitChange} />
         <Pagination
-          currentPage={page}
-          totalItems={total}
-          itemsPerPage={limit}
+          page={page}
+          total={total}
+          limit={limit}
           onPageChange={onPageChange}
         />
       </div>
