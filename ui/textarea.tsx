@@ -10,6 +10,7 @@ export function Textarea({ placeholder, onChange }: TextareaTypeProps) {
     <textarea
       className="textarea textarea-primary w-full max-w-sm"
       placeholder={placeholder}
+      onChange={e => onChange(e.target.value)}
     ></textarea>
   );
 }
