@@ -4,7 +4,7 @@ import axios from "axios";
 import { Searcher } from "@/shared";
 import { Button, ErrorMessage, Loading, Dropdown } from "@/ui";
 
-const ratingOptions = ["1", "2", "3", "4", "5"];
+const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
 type CompaniesFilterType = {
   onSearchCompanyByName: (searchedName: string) => void;
@@ -69,19 +69,19 @@ export function CompaniesFilter({
         ) : (
           <>
             <Dropdown
-              label="Все страны"
+              text="Все страны"
               options={countryOptions}
               selectedValue={selectedCountry}
               onSelect={onSelectCountry}
             />
             <Dropdown
-              label="Все города"
+              text="Все города"
               options={cityOptions}
               selectedValue={selectedCity}
               onSelect={onSelectCity}
             />
             <Dropdown
-              label="Все рейтинги"
+              text="Все рейтинги"
               options={ratingOptions}
               selectedValue={selectedRating}
               onSelect={onSelectRating}

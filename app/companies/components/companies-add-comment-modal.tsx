@@ -12,19 +12,19 @@ type CompaniesAddCommentModalProps = {
 };
 
 const positions = [
-  "Разработчик",
-  "Фронтенд-разработчик",
-  "Бэкенд-разработчик",
-  "Фулл-стек разработчик",
-  "QA-инженер",
-  "Дизайнер",
-  "Менеджер проектов",
-  "DevOps-инженер",
-  "Системный администратор",
-  "Data Scientist",
-  "Продуктовый менеджер",
-  "Бизнес-аналитик",
-  "UX-дизайнер",
+  { label: "Developer", value: "developer" },
+  { label: "Frontend", value: "frontend" },
+  { label: "Backend", value: "backend" },
+  { label: "Full-stack", value: "fullstack" },
+  { label: "QA Engineer", value: "qa" },
+  { label: "Designer", value: "designer" },
+  { label: "Project Manager", value: "project-manager" },
+  { label: "DevOps Engineer", value: "devops" },
+  { label: "System Administrator", value: "system-administrator" },
+  { label: "Data Scientist", value: "data-scientist" },
+  { label: "Product Manager", value: "product-manager" },
+  { label: "Business Analyst", value: "business-analyst" },
+  { label: "UX Designer", value: "ux" },
 ];
 
 export function CompaniesAddCommentModal({
@@ -33,7 +33,7 @@ export function CompaniesAddCommentModal({
   closeModal,
   refetch,
 }: CompaniesAddCommentModalProps) {
-  const [comment, setComment] = useState<string>("Отзыв: \nПлюсы: \nМинусы: ");
+  const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,12 +42,7 @@ export function CompaniesAddCommentModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !comment.trim() ||
-      comment === "Отзыв:\nПлюсы:\nМинусы:" ||
-      rating === 0 ||
-      !position
-    ) {
+    if (!comment.trim() || rating === 0 || !position) {
       setError(
         "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
       );
@@ -100,7 +95,6 @@ export function CompaniesAddCommentModal({
           Должность
         </label>
         <Dropdown
-          label="Выберите должность"
           isFirstDisabled={true}
           options={positions}
           selectedValue={position}
@@ -114,9 +108,14 @@ export function CompaniesAddCommentModal({
         </label>
         <textarea
           value={comment}
+          placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
+
+Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
+
+Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
           onChange={handleTextareaChange}
-          className="w-full p-2 border border-gray-300 rounded-md mb-4"
-          rows={5}
+          className="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder:whitespace-pre-wrap"
+          rows={13}
         />
       </div>
 
@@ -125,15 +124,17 @@ export function CompaniesAddCommentModal({
           Оценка
         </label>
         <div className="rating flex gap-2">
-          {[...Array(5)].map((_, index) => (
+          {[...Array(10)].map((_, index) => (
             <span
               key={index + 1}
-              className={`cursor-pointer mask mask-star-2 w-8 h-8 ${
+              className={`relative cursor-pointer mask mask-star-2 w-10 h-10 flex items-center justify-center ${
                 rating >= index + 1 ? "bg-orange-400" : "bg-gray-300"
               }`}
               onClick={() => setRating(index + 1)}
             >
-              &nbsp;
+              <span className="absolute text-xs font-bold text-white">
+                {index + 1}
+              </span>
             </span>
           ))}
         </div>

@@ -1,19 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
 
+type Option = { label: string; value: string } | string;
+
 type DropdownProps = {
-  label: string;
-  options: string[];
+  text?: string; // Было label, теперь text
+  options: Option[];
   selectedValue: string;
   onSelect: (value: string) => void;
   isFirstDisabled?: boolean;
+  width?: string;
 };
 
 export const Dropdown = ({
-  label,
+  text, // Было label, теперь text
   options,
   selectedValue,
   onSelect,
   isFirstDisabled = false,
+  width = "200px",
 }: DropdownProps) => {
   const [disabled, setDisabled] = useState(isFirstDisabled);
   const selectRef = useRef<HTMLDivElement | null>(null);
@@ -22,14 +26,20 @@ export const Dropdown = ({
     setDisabled(isFirstDisabled);
   }, [isFirstDisabled]);
 
+  // Преобразуем массив строк в массив объектов { label, value }
+  const normalizedOptions = options.map((option) =>
+    typeof option === "string" ? { label: option, value: option } : option,
+  );
+
+  const selectedLabel =
+    normalizedOptions.find((option) => option.value === selectedValue)?.label ||
+    text ||
+    "";
+
   const handleSelect = (value: string) => {
     onSelect(value);
-
-    const activeElement = document.activeElement as HTMLElement | null;
-    activeElement?.blur();
+    document.activeElement?.blur(); // Закрываем список после выбора
   };
-
-  const selectWidth = selectRef.current?.offsetWidth;
 
   return (
     <div className="dropdown dropdown-end">
@@ -37,25 +47,18 @@ export const Dropdown = ({
         ref={selectRef}
         tabIndex={0}
         role="button"
-        className="btn m-1 text-base-content"
-        style={{
-          width: "fit-content",
-          minWidth: "150px",
-        }}
+        className="btn m-1 text-base-content flex items-center justify-between"
+        style={{ width }}
       >
         <span
-          style={{
-            textAlign: "left",
-            display: "inline-block",
-            width: "auto",
-          }}
+          style={{ textAlign: "left", display: "inline-block", width: "auto" }}
         >
-          {selectedValue || label}
+          {selectedLabel}
         </span>
         <svg
           width="12px"
           height="12px"
-          className="h-2 w-2 fill-current opacity-60 inline-block"
+          className="h-2 w-2 fill-current opacity-60 inline-block ml-2"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 2048 2048"
         >
@@ -66,36 +69,30 @@ export const Dropdown = ({
         tabIndex={0}
         className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral text-white"
         style={{
-          width: selectWidth ? `${selectWidth}px` : "auto",
-          maxHeight: "300px",
+          width,
+          maxHeight: "360px",
           overflowY: "auto",
         }}
       >
-        <li>
-          <button
-            className="btn btn-sm btn-block btn-ghost justify-start"
-            onClick={() => handleSelect("")}
-            disabled={disabled}
-            style={{
-              color: "white",
-              textAlign: "left",
-              display: "block",
-            }}
-          >
-            {label}
-          </button>
-        </li>
-        {options.map((option) => (
-          <li key={option}>
+        {text && (
+          <li>
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"
-              onClick={() => handleSelect(option)}
-              style={{
-                textAlign: "left",
-                display: "block",
-              }}
+              onClick={() => handleSelect("")}
+              style={{ textAlign: "left", display: "block" }}
             >
-              {option}
+              {text}
+            </button>
+          </li>
+        )}
+        {normalizedOptions.map(({ label, value }) => (
+          <li key={value}>
+            <button
+              className="btn btn-sm btn-block btn-ghost justify-start"
+              onClick={() => handleSelect(value)}
+              style={{ textAlign: "left", display: "block" }}
+            >
+              {label}
             </button>
           </li>
         ))}
