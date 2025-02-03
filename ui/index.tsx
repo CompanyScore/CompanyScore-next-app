@@ -9,3 +9,4 @@ export { ErrorMessage } from "./error-message";
 export { Dropdown } from "./dropdown";
 export { Modal } from "./modal";
 export { Toast } from "./toast";
+export { Textarea } from "./textarea";

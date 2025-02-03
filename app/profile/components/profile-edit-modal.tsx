@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input, Modal, Title } from "@/ui";
+import { Button, Input, Modal, Textarea, Title } from "@/ui";
 import axios from "axios";
 import { useUserStore } from "@/store/user-id";
 
@@ -50,7 +50,7 @@ export function ProfileEditModal() {
       <div className="flex flex-col items-center gap-4">
         <Input placeholder="Имя" onChange={setName} />
         <Input placeholder="Должность" onChange={setPosition} />
-        <Input placeholder="О себе" onChange={setDescription} />
+        <Textarea placeholder="О себе" onChange={setDescription} />
       </div>
       <input
         type="file"
