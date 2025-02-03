@@ -5,5 +5,5 @@ export function Container({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className="hero bg-base-200">{children}</div>;
+  return <div className="hero bg-base-200 place-items-start">{children}</div>;
 }

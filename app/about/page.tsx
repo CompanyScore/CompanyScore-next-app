@@ -15,9 +15,9 @@ export default function AboutPage() {
   };
 
   return (
-    <Container>
-      <div className="flex flex-col gap-20 p-10">
-        <div className="flex flex-col lg:flex-row-reverse justify-between">
+    <div className="flex flex-col gap-20 p-10">
+      <Container>
+        <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="relative w-full lg:w-1/2">
             <img
               className="w-full rounded-lg"
@@ -76,8 +76,10 @@ export default function AboutPage() {
             </button>
           </div>
         </div>
+      </Container>
 
-        <div className="flex flex-col lg:flex-row gap-20">
+      <Container>
+        <div className="hero-content flex-col lg:flex-row self-start gap-20 p-10">
           <Image
             src="/imgs/dimash-ava.jpg"
             alt="Dimash Ava"
@@ -87,19 +89,24 @@ export default function AboutPage() {
           />
           <div>
             <h1 className="text-5xl font-bold">Димаш</h1>
+            <p className="py-6">Full-stack developer</p>
             <p className="py-6">
-              Full-stack developer
-            </p>
-            <p className="py-6">
-            LinkedIn:
-              <Link href="https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/" target="_blank" className="underline">https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/</Link>
-
+              LinkedIn:
+              <Link
+                href="https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/"
+                target="_blank"
+                className="underline"
+              >
+                https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/
+              </Link>
             </p>
           </div>
         </div>
+      </Container>
 
-        <div className="flex flex-col lg:flex-row-reverse gap-20">
-        <Image
+      <Container>
+        <div className="hero-content flex-col lg:flex-row-reverse gap-20 p-10">
+          <Image
             src="/imgs/dimash-ava.jpg"
             alt="Dimash Ava"
             className="max-w-sm rounded-lg shadow-2xl"
@@ -115,7 +122,7 @@ export default function AboutPage() {
             </p>
           </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
