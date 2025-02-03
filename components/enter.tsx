@@ -1,4 +1,7 @@
 "use client";
+
+import React, { useEffect } from "react";
+import Image from "next/image";
 import { useApi } from "@/hook";
 import {
   useUserStore,
@@ -6,18 +9,11 @@ import {
   useRefreshTokenStore,
 } from "@/store";
 import { Title } from "@/ui";
-import axios from "axios";
-import Image from "next/image";
-import React, { useEffect } from "react";
 
 export default function Enter() {
   const { setUserId } = useUserStore();
   const { setAccessToken } = useAccessTokenStore();
   const { setRefreshToken } = useRefreshTokenStore();
-
-  const redirectToGitHub = async () => {
-    window.location.href = "http://localhost:8080/auth/github";
-  };
 
   const redirectToLinkedin = async () => {
     window.location.href = "http://localhost:8080/auth/linkedin";
@@ -52,14 +48,6 @@ export default function Enter() {
               width={60}
               height={60}
               onClick={redirectToLinkedin}
-            />
-            <Image
-              src="/icons/github.svg"
-              alt="github"
-              width={60}
-              height={60}
-              onClick={getUserData}
-              className="cursor-pointer"
             />
           </div>
         </div>

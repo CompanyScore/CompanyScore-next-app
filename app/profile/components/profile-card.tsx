@@ -1,13 +1,11 @@
 "use client";
 
-import { ErrorMessage, Loading } from "@/ui";
-import Image from "next/image";
-import { ProfileType } from "../types/profile-type";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useUserStore } from "@/store/user-id";
-import { useAccessTokenStore } from "@/store/access-token";
+import Image from "next/image";
+import { useUserStore } from "@/store";
 import { useApi } from "@/hook";
+import { ProfileType } from "../types/profile-type";
+import { ErrorMessage, Loading } from "@/ui";
 
 export function ProfileCard() {
   const { userId, setUserId, clearUserId } = useUserStore(); // не удаляй пример
@@ -18,8 +16,8 @@ export function ProfileCard() {
   const fetchProfile = async () => {
     try {
       setLoading(true);
-      const response = await useApi.get(`/users/${userId}`);
-      setUser(response.data);
+      const { data } = await useApi.get(`/users/${userId}`);
+      setUser(data);
     } catch (err: any) {
       setErrorMessage(err.message || "Ошибка загрузки данных");
     } finally {
@@ -29,6 +27,8 @@ export function ProfileCard() {
 
   useEffect(() => {
     if (userId) {
+      console.log(userId);
+
       fetchProfile();
     }
   }, [userId]);

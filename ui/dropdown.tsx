@@ -5,7 +5,7 @@ type Option = { label: string; value: string } | string;
 type DropdownProps = {
   text?: string; // Было label, теперь text
   options: Option[];
-  selectedValue: string;
+  selectedValue?: string | number;
   onSelect: (value: string) => void;
   isFirstDisabled?: boolean;
   width?: string;

@@ -1,23 +1,19 @@
 "use client";
 
-import moment from "moment";
-import { Avatar, Button, Tooltip } from "@/ui";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useState } from "react";
-import { CommentType } from "../types/profile-type";
-import { ProfileEditCommentModal } from "./index";
-import axios from "axios";
 import { redirect } from "next/navigation";
+import { ProfileEditCommentModal } from "./index";
+import { useUserStore, useCommentsStore } from "@/store";
+import moment from "moment";
+import { CommentType } from "../types/profile-type";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useUserStore } from "@/store/user-id";
+import { Avatar, Button, Tooltip, ErrorMessage, Loading } from "@/ui";
 
-type ProfileTableProps = {
-  comments: CommentType[];
-  refetch: () => void;
-};
-
-export function ProfileTable({ comments, refetch }: ProfileTableProps) {
-  const { userId, setUserId, clearUserId } = useUserStore();
+export function ProfileTable() {
+  const { userId } = useUserStore();
+  const { comments, loading, errorMessage, fetchComments, deleteComment } =
+    useCommentsStore();
 
   const [selectedComment, setSelectedComment] = useState<CommentType | null>(
     null,
@@ -31,17 +27,26 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
     setSelectedComment(null);
   };
 
-  const handleDelete = async (id: number) => {
-    try {
-      await axios.delete(`http://localhost:8080/comments/${id}`);
-
-      if (userId) {
-        refetch();
-      }
-    } catch (error) {
-      console.log("Error:", error);
+  const handleDeleteComment = async (commentId: number) => {
+    await deleteComment(commentId);
+    if (userId) {
+      fetchComments(userId);
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      fetchComments(userId);
+    }
+  }, [userId]);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (errorMessage) {
+    return <ErrorMessage text={errorMessage} />;
+  }
 
   return (
     <div className="overflow-x-auto">
@@ -115,7 +120,7 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
                   <Tooltip tip="Удалить">
                     <Button
                       color="danger"
-                      onClick={() => handleDelete(comment.id)}
+                      onClick={() => handleDeleteComment(comment.id)}
                     >
                       <IoIosCloseCircleOutline className="w-6 h-6" />
                     </Button>
@@ -131,7 +136,6 @@ export function ProfileTable({ comments, refetch }: ProfileTableProps) {
         <ProfileEditCommentModal
           comment={selectedComment}
           closeModal={closeEditModal}
-          refetch={refetch}
         />
       )}
     </div>

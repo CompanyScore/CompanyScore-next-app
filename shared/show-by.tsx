@@ -10,7 +10,7 @@ type ShowByProps = {
 
 export function ShowBy({ limit, onLimitChange }: ShowByProps) {
   const handleSelect = (newValue = "10") => {
-    onLimitChange(Number(newValue));
+    onLimitChange(+newValue);
   };
 
   return (
@@ -18,7 +18,7 @@ export function ShowBy({ limit, onLimitChange }: ShowByProps) {
       width="100px"
       isFirstDisabled={true}
       options={numberOptions}
-      selectedValue={String(limit)}
+      selectedValue={limit}
       onSelect={handleSelect}
     />
   );

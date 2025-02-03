@@ -6,7 +6,7 @@ import axios from "axios";
 import { useUserStore } from "@/store/user-id";
 
 export function ProfileEditModal() {
-  const { userId, setUserId, clearUserId } = useUserStore();
+  const { userId } = useUserStore();
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
@@ -33,7 +33,7 @@ export function ProfileEditModal() {
 
     try {
       await axios.patch(`http://localhost:8080/users/${userId}`, formData);
-      setToast({ message: "Профиль обновлен!", type: "success" });
+      // setToast({ message: "Профиль обновлен!", type: "success" });
     } catch (error) {
       setToast({ message: "Ошибка обновления профиля.", type: "error" });
     } finally {

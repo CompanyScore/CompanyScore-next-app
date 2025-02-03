@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
+import { useCommentsStore, useUserStore } from "@/store";
 import { Dropdown } from "@/ui";
 
 type ProfileEditCommentModalProps = {
-  comment: { id: number; text: string; rating: number; position?: string }; // добавляем position
+  comment: { id: number; text: string; rating: number; position?: string };
   closeModal: () => void;
-  refetch: (id: string) => void;
 };
 
 const positions = [
@@ -29,38 +28,28 @@ const positions = [
 export function ProfileEditCommentModal({
   comment,
   closeModal,
-  refetch,
 }: ProfileEditCommentModalProps) {
+  const { userId } = useUserStore();
+  const { loading, fetchComments, updateComment } = useCommentsStore();
+
   const [editedText, setEditedText] = useState(comment.text);
   const [editedRating, setEditedRating] = useState(comment.rating);
-  const [editedPosition, setEditedPosition] = useState(comment.position); // Добавляем состояние для должности
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [editedPosition, setEditedPosition] = useState(comment.position);
+  const [validation, setValidation] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!editedText.trim() || editedRating === 0 || !editedPosition) {
-      setError("Пожалуйста, укажите текст отзыва, рейтинг и должность.");
+      setValidation("Пожалуйста, укажите текст отзыва, рейтинг и должность.");
       return;
     }
 
-    setLoading(true);
-    setError(null);
+    await updateComment(comment.id, editedText, editedRating, editedPosition);
 
-    try {
-      await axios.patch(`http://localhost:8080/comments/${comment.id}`, {
-        text: editedText,
-        rating: editedRating,
-        position: editedPosition, // Отправляем должность на сервер
-      });
-
-      closeModal();
-      refetch("1");
-    } catch (error) {
-      setError("Произошла ошибка при обновлении комментария.");
-    } finally {
-      setLoading(false);
+    closeModal();
+    if (userId) {
+      fetchComments(userId);
     }
   };
 
@@ -86,7 +75,7 @@ export function ProfileEditCommentModal({
             <div className="mb-4">
               <textarea
                 value={editedText}
-                onChange={(e) => setEditedText(e.target.value)}
+                onChange={e => setEditedText(e.target.value)}
                 className="w-full p-2 border border-gray-300 rounded-md mb-4"
                 rows={5}
               />
@@ -113,7 +102,7 @@ export function ProfileEditCommentModal({
               </div>
             </div>
 
-            {error && <p className="text-red-500 mb-4">{error}</p>}
+            {validation && <p className="text-red-500 mb-4">{validation}</p>}
             <div className="flex justify-between">
               <button
                 type="button"
