@@ -37,7 +37,7 @@ export default function CompanyDetail() {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const fetchComments = async (id: string) => {
+  const getComments = async (id: string) => {
     try {
       setLoading(true);
 
@@ -64,7 +64,7 @@ export default function CompanyDetail() {
   };
 
   useEffect(() => {
-    fetchComments(id);
+    getComments(id);
   }, [id]);
 
   if (loading) {

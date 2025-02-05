@@ -3,16 +3,17 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { ProfileEditCommentModal } from "./index";
+import { ProfileEditCommentModal } from "../modals";
 import { useUserStore, useCommentsStore } from "@/store";
 import moment from "moment";
 import { CommentType } from "../types/profile-type";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { Avatar, Button, Tooltip, ErrorMessage, Loading } from "@/ui";
+import { Avatar, Button, Tooltip, ErrorMessage, Loading, Title } from "@/ui";
+import Link from "next/link";
 
 export function ProfileTable() {
   const { userId } = useUserStore();
-  const { comments, loading, errorMessage, fetchComments, deleteComment } =
+  const { comments, loading, errorMessage, getComments, deleteComment } =
     useCommentsStore();
 
   const [selectedComment, setSelectedComment] = useState<CommentType | null>(
@@ -30,13 +31,13 @@ export function ProfileTable() {
   const handleDeleteComment = async (commentId: number) => {
     await deleteComment(commentId);
     if (userId) {
-      fetchComments(userId);
+      getComments(userId);
     }
   };
 
   useEffect(() => {
     if (userId) {
-      fetchComments(userId);
+      getComments(userId);
     }
   }, [userId]);
 
@@ -46,6 +47,14 @@ export function ProfileTable() {
 
   if (errorMessage) {
     return <ErrorMessage text={errorMessage} />;
+  }
+
+  if (!comments.length) {
+    return (
+      <Title position="center">
+        <Link href="/companies" className="underline">Оставьте свой первый отзыв!</Link>
+      </Title>
+    );
   }
 
   return (
@@ -104,19 +113,6 @@ export function ProfileTable() {
                       />
                     </Button>
                   </Tooltip>
-                  {/* <Tooltip tip="Удалить">
-                    <Button
-                      color="danger"
-                      onClick={() => handleDelete(comment.id)}
-                    >
-                      <Image
-                        src="/icons/pencil.svg"
-                        alt="Pencil"
-                        width={25}
-                        height={25}
-                      />
-                    </Button>
-                  </Tooltip> */}
                   <Tooltip tip="Удалить">
                     <Button
                       color="danger"

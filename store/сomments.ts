@@ -20,12 +20,8 @@ interface CommentsState {
   limit: number;
   loading: boolean;
   errorMessage: string;
-  fetchComments: (
-    userId: number,
-    page?: number,
-    limit?: number,
-  ) => Promise<void>;
-  addComment: (userId: number, text: string) => Promise<void>;
+  getComments: (userId: number, page?: number, limit?: number) => Promise<void>;
+  postComment: (userId: number, text: string) => Promise<void>;
   updateComment: (
     commentId: number,
     text: string,
@@ -43,7 +39,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
   loading: false,
   errorMessage: "",
 
-  fetchComments: async (userId, page = 1, limit = 5) => {
+  getComments: async (userId, page = 1, limit = 5) => {
     set({ loading: true, errorMessage: "" });
     try {
       const { data } = await useApi.get(
@@ -62,7 +58,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  addComment: async (userId, text) => {
+  postComment: async (userId, text) => {
     try {
       await useApi.post("/comments", { userId, text });
     } catch (error: any) {

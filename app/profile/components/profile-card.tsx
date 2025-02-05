@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { ProfileEditModal } from "../modals";
 import { useUserStore } from "@/store";
 import { useApi } from "@/hook";
 import { ProfileType } from "../types/profile-type";
@@ -70,6 +71,7 @@ export function ProfileCard() {
           </div>
         </div>
       )}
+      <ProfileEditModal />
     </div>
   );
 }

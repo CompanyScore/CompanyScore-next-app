@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Button, Avatar, Tooltip } from "@/ui";
 import { redirect } from "next/navigation";
-import { CompaniesAddCommentModal } from "./index";
+import { CompaniespostCommentModal } from "./index";
 import { useUserStore } from "@/store/user-id";
 
 type Company = {
@@ -116,7 +116,7 @@ export function CompaniesTable({
         </table>
       )}
 
-      <CompaniesAddCommentModal
+      <CompaniespostCommentModal
         companyId={selectedCompany?.id}
         refetch={refetch}
       />

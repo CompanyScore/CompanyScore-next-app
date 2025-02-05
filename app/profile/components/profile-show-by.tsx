@@ -5,13 +5,17 @@ import { useCommentsStore, useUserStore } from "@/store";
 
 export function ProfileShowBy() {
   const { userId } = useUserStore();
-  const { fetchComments, limit } = useCommentsStore();
+  const { getComments, comments, limit } = useCommentsStore();
 
   const onLimitChange = (newLimit: number) => {
     if (userId) {
-      fetchComments(userId, 1, newLimit);
+      getComments(userId, 1, newLimit);
     }
   };
+
+  if (!comments.length) {
+    return;
+  }
 
   return <ShowBy limit={limit} onLimitChange={onLimitChange} />;
 }

@@ -6,15 +6,15 @@ import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
 import { useUserStore } from "@/store";
 
-type CompaniesAddCommentModalProps = {
+type CompaniespostCommentModalProps = {
   companyId?: number;
   refetch: () => void;
 };
 
-export function CompaniesAddCommentModal({
+export function CompaniespostCommentModal({
   companyId,
   refetch,
-}: CompaniesAddCommentModalProps) {
+}: CompaniespostCommentModalProps) {
   const { userId } = useUserStore();
 
   const [comment, setComment] = useState<string>("");
@@ -69,7 +69,9 @@ export function CompaniesAddCommentModal({
 
   return (
     <Modal id="companies_add_comment_modal">
-      <Title size="3" position="center">Оставьте отзыв</Title>
+      <Title size="3" position="center">
+        Оставьте отзыв
+      </Title>
 
       <div className="mb-4">
         <label htmlFor="position" className="block mb-2">
@@ -134,4 +136,4 @@ export function CompaniesAddCommentModal({
   );
 }
 
-export default CompaniesAddCommentModal;
+export default CompaniespostCommentModal;

@@ -30,7 +30,7 @@ export function ProfileEditCommentModal({
   closeModal,
 }: ProfileEditCommentModalProps) {
   const { userId } = useUserStore();
-  const { loading, fetchComments, updateComment } = useCommentsStore();
+  const { loading, getComments, updateComment } = useCommentsStore();
 
   const [editedText, setEditedText] = useState(comment.text);
   const [editedRating, setEditedRating] = useState(comment.rating);
@@ -49,7 +49,7 @@ export function ProfileEditCommentModal({
 
     closeModal();
     if (userId) {
-      fetchComments(userId);
+      getComments(userId);
     }
   };
 
