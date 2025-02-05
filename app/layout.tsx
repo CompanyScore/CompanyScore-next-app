@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import ThemeProvider from "@/components/theme-provider";
-import Enter from "@/components/enter";
+import Enter from "@/components/login";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
