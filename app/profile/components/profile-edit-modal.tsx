@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Button, Input, Modal, Textarea, Title } from "@/ui";
 import axios from "axios";
 import { useUserStore } from "@/store/user-id";
+import { Dropdown } from "@/ui";
+import { positions } from "@/shared";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
@@ -49,7 +51,17 @@ export function ProfileEditModal() {
       </Title>
       <div className="flex flex-col items-center gap-4">
         <Input placeholder="Имя" onChange={setName} />
-        <Input placeholder="Должность" onChange={setPosition} />
+
+        <Dropdown
+          width="380px"
+          text="Должность"
+          isFirstDisabled={true}
+          options={positions}
+          selectedValue={position}
+          onSelect={setPosition}
+        />
+
+        {/* <Input placeholder="Должность" onChange={setPosition} /> */}
         <Textarea placeholder="О себе" onChange={setDescription} />
       </div>
       <input
