@@ -2,22 +2,21 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { Dropdown, Textarea } from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
+import { useUserStore } from "@/store";
 
 type CompaniesAddCommentModalProps = {
-  companyId: number;
-  userId: number;
-  closeModal: () => void;
+  companyId?: number;
   refetch: () => void;
 };
 
 export function CompaniesAddCommentModal({
   companyId,
-  userId,
-  closeModal,
   refetch,
 }: CompaniesAddCommentModalProps) {
+  const { userId } = useUserStore();
+
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -25,8 +24,6 @@ export function CompaniesAddCommentModal({
   const [position, setPosition] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
     if (!comment.trim() || rating === 0 || !position) {
       setError(
         "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
@@ -52,7 +49,6 @@ export function CompaniesAddCommentModal({
       setRating(0);
       setPosition("");
       refetch();
-      closeModal();
     } catch (error) {
       // console.error("Ошибка при отправке комментария:", error);
       if (error.response.data.errorCode === "comment_already_exists") {
@@ -72,14 +68,15 @@ export function CompaniesAddCommentModal({
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className="text-2xl mb-4">Оставьте отзыв</h2>
+    <Modal id="companies_add_comment_modal">
+      <Title size="3" position="center">Оставьте отзыв</Title>
 
       <div className="mb-4">
         <label htmlFor="position" className="block mb-2">
           Должность
         </label>
         <Dropdown
+          width={"450px"}
           isFirstDisabled={true}
           options={positions}
           selectedValue={position}
@@ -100,17 +97,6 @@ export function CompaniesAddCommentModal({
           onChange={handleTextareaChange}
           rows={13}
         />
-        {/* <textarea
-          value={comment}
-          placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
-
-Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
-
-Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
-          onChange={handleTextareaChange}
-          className="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder:whitespace-pre-wrap"
-          rows={13}
-        /> */}
       </div>
 
       <div className="mb-4">
@@ -135,19 +121,16 @@ export function CompaniesAddCommentModal({
       </div>
 
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <div className="flex justify-between">
-        <button type="button" className="btn btn-ghost" onClick={closeModal}>
-          Отмена
-        </button>
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={loading || !comment.trim() || rating === 0 || !position}
-        >
+
+      <Button
+        onClick={() => handleSubmit}
+        disabled={loading || !comment.trim() || rating === 0 || !position}
+      >
+        <label htmlFor="companies_add_comment_modal">
           {loading ? "Отправка..." : "Отправить"}
-        </button>
-      </div>
-    </form>
+        </label>
+      </Button>
+    </Modal>
   );
 }
 

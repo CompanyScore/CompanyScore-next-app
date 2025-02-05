@@ -38,17 +38,6 @@ export function CompaniesTable({
     setSelectedCompany(company);
   };
 
-  const closeModal = () => {
-    setSelectedCompany(null);
-  };
-
-  const handleClickOutside = (e: React.MouseEvent) => {
-    const modalContainer = document.getElementById("modal-container");
-    if (modalContainer && !modalContainer.contains(e.target as Node)) {
-      closeModal();
-    }
-  };
-
   return (
     <div className="flex flex-col items-center w-full m-auto">
       {loading ? (
@@ -109,12 +98,14 @@ export function CompaniesTable({
                         color="success"
                         onClick={() => openModal(company)}
                       >
-                        <Image
-                          src="/icons/pencil.svg"
-                          alt="Pencil"
-                          width={25}
-                          height={25}
-                        />
+                        <label htmlFor="companies_add_comment_modal">
+                          <Image
+                            src="/icons/pencil.svg"
+                            alt="Pencil"
+                            width={25}
+                            height={25}
+                          />
+                        </label>
                       </Button>
                     </Tooltip>
                   </div>
@@ -125,27 +116,10 @@ export function CompaniesTable({
         </table>
       )}
 
-      {selectedCompany && (
-        <div
-          className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
-          onClick={handleClickOutside}
-        >
-          <div
-            id="modal-container"
-            className="modal modal-open"
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="modal-box">
-              <CompaniesAddCommentModal
-                companyId={selectedCompany.id}
-                userId={+userId}
-                closeModal={closeModal}
-                refetch={refetch}
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      <CompaniesAddCommentModal
+        companyId={selectedCompany?.id}
+        refetch={refetch}
+      />
     </div>
   );
 }

@@ -53,7 +53,7 @@ export function ProfileEditModal() {
         <Input placeholder="Имя" onChange={setName} />
 
         <Dropdown
-          width="380px"
+          width="430px"
           text="Должность"
           isFirstDisabled={true}
           options={positions}
@@ -70,7 +70,7 @@ export function ProfileEditModal() {
         className="file-input file-input-bordered file-input-primary w-full max-w-xs text-center m-auto"
       />
       <Button onClick={onSubmit}>
-        <label htmlFor="toast_modal">Сохранить</label>
+        <label htmlFor="profile_edit_modal">Сохранить</label>
       </Button>
     </Modal>
   );

@@ -78,10 +78,10 @@ export default function UsersPage() {
                 className="text-center align-middle border-b border-gray-500"
               >
                 <td className="flex items-center gap-4">
-                  <Avatar
-                    src={process.env.NEXT_PUBLIC_API_URL + user.avatar}
+                  {/* <Avatar
+                    src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
                     width={70}
-                  />
+                  /> */}
                   <p>{user.name}</p>
                 </td>
                 <td> {moment(user.createDate).format("MMM Do YY")}</td>

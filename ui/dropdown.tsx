@@ -27,12 +27,12 @@ export const Dropdown = ({
   }, [isFirstDisabled]);
 
   // Преобразуем массив строк в массив объектов { label, value }
-  const normalizedOptions = options.map((option) =>
+  const normalizedOptions = options.map(option =>
     typeof option === "string" ? { label: option, value: option } : option,
   );
 
   const selectedLabel =
-    normalizedOptions.find((option) => option.value == selectedValue)?.label ||
+    normalizedOptions.find(option => option.value == selectedValue)?.label ||
     text ||
     "";
 
@@ -47,7 +47,7 @@ export const Dropdown = ({
         ref={selectRef}
         tabIndex={0}
         role="button"
-        className="btn m-1 text-base-content flex items-center justify-between"
+        className="btn text-base-content flex items-center justify-between w-full max-w-md"
         style={{ width }}
       >
         <span
@@ -67,11 +67,12 @@ export const Dropdown = ({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box bg-neutral text-white"
+        className="dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50"
         style={{
           width,
           maxHeight: "360px",
           overflowY: "auto",
+          zIndex: "1000",
         }}
       >
         {text && (

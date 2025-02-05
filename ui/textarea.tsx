@@ -13,7 +13,7 @@ export function Textarea({
 }: TextareaTypeProps) {
   return (
     <textarea
-      className="textarea textarea-primary w-full placeholder:whitespace-pre-wrap"
+      className="textarea textarea-primary w-full max-w-md placeholder:whitespace-pre-wrap"
       placeholder={placeholder}
       rows={rows}
       onChange={(e) => onChange(e.target.value)}
