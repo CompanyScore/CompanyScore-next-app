@@ -4,11 +4,13 @@ import { Container } from "@/ui";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
+import { BsLinkedin } from "react-icons/bs";
 
 export default function AboutPage() {
   const [editableText, setEditableText] = useState(
     "Компания предоставляет отличные условия для роста и развития, высококвалифицированные коллеги и инновационная атмосфера. Руководство всегда поддерживает инициативу, а культура открытости и разнообразия способствует комфортной рабочей среде. Это было невероятное место для профессионального роста и обучения.",
   );
+  const [rating, setRating] = useState(0);
 
   const handleInputChange = (e: any) => {
     setEditableText(e.target.innerText);
@@ -34,13 +36,24 @@ export default function AboutPage() {
                 {editableText}
               </p>
               <div className="mt-3 rating rating-md flex space-x-2">
-                {[...Array(5)].map((_, index) => (
-                  <input
-                    key={index}
-                    type="radio"
-                    name="rating-5"
-                    className="mask mask-star-2 bg-white"
-                  />
+                {[...Array(10)].map((_, index) => (
+                  <label key={index} className="relative cursor-pointer group">
+                    <input
+                      type="radio"
+                      name="rating-5"
+                      className="peer hidden"
+                      onChange={() => setRating(index + 1)}
+                    />
+                    <div
+                      className={`mask mask-star-2 w-9 h-9 flex items-center justify-center ${
+                        rating >= index + 1 ? "bg-stone-50" : "bg-stone-400"
+                      }`}
+                    >
+                      <span className="text-sm font-bold text-purple-500">
+                        {index + 1}
+                      </span>
+                    </div>
+                  </label>
                 ))}
               </div>
             </div>
@@ -78,7 +91,7 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      <Container>
+      {/* <Container>
         <div className="hero-content flex-col lg:flex-row self-start gap-20 p-10">
           <Image
             src="/imgs/dimash-ava.jpg"
@@ -114,21 +127,75 @@ export default function AboutPage() {
             height={300}
           />
           <div>
-            <h1 className="text-5xl font-bold">Адиль</h1>
-            <p className="py-6">Frontend developer</p>
-            <p className="py-6">
-              LinkedIn:
+            <h1 className="text-5xl font-bold">Adil</h1>
+            <p className="py-6">Full-stack developer</p>
+            <p className="py-6 flex items-center gap-2">
               <Link
                 href="https://www.linkedin.com/in/adil-kemelbek/"
+                rel="noopener noreferrer"
                 target="_blank"
-                className="underline"
               >
-                https://www.linkedin.com/in/adil-kemelbek/
+                <BsLinkedin size={32} />
               </Link>
             </p>
           </div>
         </div>
-      </Container>
+      </Container> */}
+
+      <div className="flex w-full justify-between gap-4">
+        <div className="card card-side bg-base-20 shadow-xl flex-1">
+          <figure>
+            <Image
+              src="/imgs/dimash-ava.jpg"
+              alt="Dimash Ava"
+              className="w-full rounded-lg shadow-2xl"
+              width={300}
+              height={400}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Dimash</h2>
+            <p>Full-stack developer</p>
+            <div className="card-actions justify-end">
+              <Link
+                href="https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <BsLinkedin size={32} />
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="card card-side bg-base-20 shadow-xl flex-1">
+          <figure>
+            <Image
+              src="/imgs/adil-ava.jpg"
+              alt="Adil Ava"
+              className="w-full rounded-lg shadow-2xl"
+              width={300}
+              height={300}
+            />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Adil</h2>
+            <p>Full-stack developer</p>
+            <div className="card-actions justify-end">
+              <Link
+                href="https://www.linkedin.com/in/adil-kemelbek/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <BsLinkedin size={32} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+}
+
+{
+  /* https://www.linkedin.com/in/adil-kemelbek/ */
 }

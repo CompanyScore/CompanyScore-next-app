@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { Dropdown } from "@/ui";
+import { Dropdown, Textarea } from "@/ui";
+import { positions } from "@/shared";
 
 type CompaniesAddCommentModalProps = {
   companyId: number;
@@ -10,22 +11,6 @@ type CompaniesAddCommentModalProps = {
   closeModal: () => void;
   refetch: () => void;
 };
-
-const positions = [
-  { label: "Developer", value: "developer" },
-  { label: "Frontend", value: "frontend" },
-  { label: "Backend", value: "backend" },
-  { label: "Full-stack", value: "fullstack" },
-  { label: "QA Engineer", value: "qa" },
-  { label: "Designer", value: "designer" },
-  { label: "Project Manager", value: "project-manager" },
-  { label: "DevOps Engineer", value: "devops" },
-  { label: "System Administrator", value: "system-administrator" },
-  { label: "Data Scientist", value: "data-scientist" },
-  { label: "Product Manager", value: "product-manager" },
-  { label: "Business Analyst", value: "business-analyst" },
-  { label: "UX Designer", value: "ux" },
-];
 
 export function CompaniesAddCommentModal({
   companyId,
@@ -82,8 +67,8 @@ export function CompaniesAddCommentModal({
     }
   };
 
-  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
+  const handleTextareaChange = (newSearchedValue: string) => {
+    setComment(newSearchedValue);
   };
 
   return (
@@ -106,7 +91,16 @@ export function CompaniesAddCommentModal({
         <label htmlFor="comment" className="block mb-2">
           Отзыв
         </label>
-        <textarea
+        <Textarea
+          placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
+
+Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
+
+Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
+          onChange={handleTextareaChange}
+          rows={13}
+        />
+        {/* <textarea
           value={comment}
           placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
 
@@ -116,7 +110,7 @@ export function CompaniesAddCommentModal({
           onChange={handleTextareaChange}
           className="w-full p-2 border border-gray-300 rounded-md mb-4 placeholder:whitespace-pre-wrap"
           rows={13}
-        />
+        /> */}
       </div>
 
       <div className="mb-4">

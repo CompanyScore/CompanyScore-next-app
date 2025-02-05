@@ -2,15 +2,21 @@ import React from "react";
 
 type TextareaTypeProps = {
   placeholder: string;
+  rows?: number;
   onChange: (newSearchedValue: string) => void;
 };
 
-export function Textarea({ placeholder, onChange }: TextareaTypeProps) {
+export function Textarea({
+  placeholder,
+  onChange,
+  rows = 5,
+}: TextareaTypeProps) {
   return (
     <textarea
-      className="textarea textarea-primary w-full max-w-sm"
+      className="textarea textarea-primary w-full placeholder:whitespace-pre-wrap"
       placeholder={placeholder}
-      onChange={e => onChange(e.target.value)}
+      rows={rows}
+      onChange={(e) => onChange(e.target.value)}
     ></textarea>
   );
 }
