@@ -6,10 +6,7 @@ type ToastModalProps = {
   type?: string;
 };
 
-export default function ToastModal({
-  message,
-  type = "success",
-}: ToastModalProps) {
+export function ToastModal({ message, type = "success" }: ToastModalProps) {
   return (
     <Modal id="toast-modal">
       <div className={`bg-${type} w-96 h-96`}>

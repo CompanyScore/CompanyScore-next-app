@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import axios from "axios";
-import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title, Toast } from "@/ui";
 import { positions } from "@/shared";
 import { useUserStore } from "@/store";
+import { useApi } from "@/hook";
 
 type CompaniespostCommentModalProps = {
   companyId?: number;
@@ -22,8 +22,37 @@ export function CompaniespostCommentModal({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [position, setPosition] = useState<string>("");
+  const [toast, setToast] = useState<{ message: string; type?: string } | null>(
+    null,
+  );
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const closeModal = () => {
+    const modal = document.getElementById(
+      "companies_add_comment_modal",
+    ) as HTMLInputElement;
+    if (modal) {
+      modal.checked = false; // Закрывает модалку в daisyUI
+    }
+  };
+
+  const resetForm = () => {
+    setComment("");
+    setRating(0);
+    setPosition("");
+    closeModal();
+  };
+
+  const onSubmit = async () => {
+    const sanitizedText = comment.replace(/\n/g, " ");
+
+    const formData = {
+      text: sanitizedText,
+      position,
+      rating,
+      userId: +userId,
+      companyId,
+    };
+
     if (!comment.trim() || rating === 0 || !position) {
       setError(
         "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
@@ -31,33 +60,30 @@ export function CompaniespostCommentModal({
       return;
     }
 
-    const sanitizedText = comment.replace(/\n/g, " ");
-
     setLoading(true);
     setError(null);
 
     try {
-      await axios.post("http://localhost:8080/comments", {
-        text: sanitizedText,
-        rating,
-        position,
-        userId,
-        companyId,
-      });
+      await useApi.post(`/comments`, formData);
 
-      setComment("");
-      setRating(0);
-      setPosition("");
+      setToast({ message: "Комментарий отправлен!" });
+      resetForm();
       refetch();
     } catch (error) {
       // console.error("Ошибка при отправке комментария:", error);
       if (error.response.data.errorCode === "comment_already_exists") {
-        setError("Вы уже оставляли комментарий на эту компанию");
+        setToast({
+          message: "Вы уже оставляли комментарий на эту компанию",
+          type: "error",
+        });
       } else {
-        setError(
-          "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
-        );
+        setToast({
+          message:
+            "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
+          type: "error",
+        });
       }
+      resetForm();
     } finally {
       setLoading(false);
     }
@@ -91,6 +117,7 @@ export function CompaniespostCommentModal({
           Отзыв
         </label>
         <Textarea
+          value={comment}
           placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
 
 Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
@@ -125,13 +152,13 @@ export function CompaniespostCommentModal({
       {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <Button
-        onClick={() => handleSubmit}
-        disabled={loading || !comment.trim() || rating === 0 || !position}
+        onClick={onSubmit}
+        disabled={!comment.trim() || rating === 0 || !position}
       >
-        <label htmlFor="companies_add_comment_modal">
-          {loading ? "Отправка..." : "Отправить"}
-        </label>
+        Сохранить
       </Button>
+
+      {toast && <Toast message={toast.message} type={toast.type} />}
     </Modal>
   );
 }
