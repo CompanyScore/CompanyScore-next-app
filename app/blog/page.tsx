@@ -2,8 +2,6 @@
 
 import { Container } from "@/ui";
 import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
 
 export default function BlogPage() {
   return (
@@ -15,7 +13,7 @@ export default function BlogPage() {
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="card bg-base-100 w-96 shadow-xl">
             <figure>
-              <img
+              <Image
                 src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg"
                 alt="money"
               />
