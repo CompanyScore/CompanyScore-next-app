@@ -1,12 +1,12 @@
-import React from "react";
-
 type TextareaTypeProps = {
+  value?: string;
   placeholder: string;
   rows?: number;
   onChange: (newSearchedValue: string) => void;
 };
 
 export function Textarea({
+  value,
   placeholder,
   onChange,
   rows = 5,
@@ -15,6 +15,7 @@ export function Textarea({
     <textarea
       className="textarea textarea-primary w-full max-w-md placeholder:whitespace-pre-wrap"
       placeholder={placeholder}
+      value={value}
       rows={rows}
       onChange={(e) => onChange(e.target.value)}
     ></textarea>
