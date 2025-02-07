@@ -1,12 +1,10 @@
-// export default function UsersPage() {
-//   return <div className="text-6xl text-center mt-20">В разработке</div>;
-// }
-
 "use client";
+
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Avatar } from "@/ui";
 import moment from "moment";
+import { useApi } from "@/hook";
 import { useParams } from "next/navigation";
 import { CompanyTable } from "../companies/[id]/components";
 import { Pagination, ShowBy } from "@/shared";
@@ -48,8 +46,8 @@ export default function UsersPage() {
       try {
         // setLoading(true);
 
-        const response = await axios.get<UsersResponse>(
-          `http://localhost:8080/users?isDeleted=false&page=${page}&limit=${limit}`,
+        const response = await useApi.get(
+          `/users?isDeleted=false&page=${page}&limit=${limit}`,
         );
 
         setUsers(response.data);
@@ -78,10 +76,10 @@ export default function UsersPage() {
                 className="text-center align-middle border-b border-gray-500"
               >
                 <td className="flex items-center gap-4">
-                  {/* <Avatar
+                  <Avatar
                     src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
                     width={70}
-                  /> */}
+                  />
                   <p>{user.name}</p>
                 </td>
                 <td> {moment(user.createDate).format("MMM Do YY")}</td>
