@@ -3,14 +3,14 @@
 import { Container } from "@/ui";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { BsLinkedin } from "react-icons/bs";
 
 export default function AboutPage() {
   const [editableText, setEditableText] = useState(
     "Компания предоставляет отличные условия для роста и развития, высококвалифицированные коллеги и инновационная атмосфера. Руководство всегда поддерживает инициативу, а культура открытости и разнообразия способствует комфортной рабочей среде. Это было невероятное место для профессионального роста и обучения.",
   );
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(8);
 
   const handleInputChange = (e: any) => {
     setEditableText(e.target.innerText);
@@ -91,57 +91,6 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      {/* <Container>
-        <div className="hero-content flex-col lg:flex-row self-start gap-20 p-10">
-          <Image
-            src="/imgs/dimash-ava.jpg"
-            alt="Dimash Ava"
-            className="max-w-sm rounded-lg shadow-2xl"
-            width={300}
-            height={400}
-          />
-          <div>
-            <h1 className="text-5xl font-bold">Димаш</h1>
-            <p className="py-6">Full-stack developer</p>
-            <p className="py-6">
-              LinkedIn:
-              <Link
-                href="https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/"
-                target="_blank"
-                className="underline"
-              >
-                https://www.linkedin.com/in/dinmukhamed-amirov-4b520726b/
-              </Link>
-            </p>
-          </div>
-        </div>
-      </Container>
-
-      <Container>
-        <div className="hero-content ml-auto flex-col lg:flex-row-reverse gap-20 p-10">
-          <Image
-            src="/imgs/adil-ava.jpg"
-            alt="Adil Ava"
-            className="max-w-sm rounded-lg shadow-2xl"
-            width={300}
-            height={300}
-          />
-          <div>
-            <h1 className="text-5xl font-bold">Adil</h1>
-            <p className="py-6">Full-stack developer</p>
-            <p className="py-6 flex items-center gap-2">
-              <Link
-                href="https://www.linkedin.com/in/adil-kemelbek/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <BsLinkedin size={32} />
-              </Link>
-            </p>
-          </div>
-        </div>
-      </Container> */}
-
       <div className="flex w-full justify-between gap-4">
         <div className="card card-side bg-base-20 shadow-xl flex-1">
           <figure>
@@ -194,8 +143,4 @@ export default function AboutPage() {
       </div>
     </div>
   );
-}
-
-{
-  /* https://www.linkedin.com/in/adil-kemelbek/ */
 }
