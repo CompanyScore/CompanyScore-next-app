@@ -65,7 +65,7 @@ export default function BlogPage() {
             </div>
 
             <button className="btn bg-purple-500 text-white mt-6 self-start hover:bg-purple-600">
-              Подкинь на доширак)
+              Подробнее
             </button>
           </div>
         </div>
