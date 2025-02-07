@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { CompanyCard, CompanyTable } from "./components";
 import { Pagination, ShowBy } from "@/shared";
-import { ErrorMessage, Loading } from "@/ui";
+import { Error, Loading } from "@/ui";
 
 type CommentType = {
   id: number;
@@ -35,7 +35,7 @@ export default function CompanyDetail() {
   const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setErrorMessage] = useState("");
 
   const getComments = async (id: string) => {
     try {
@@ -71,8 +71,8 @@ export default function CompanyDetail() {
     return <Loading />;
   }
 
-  if (errorMessage) {
-    return <ErrorMessage text={errorMessage} />;
+  if (error) {
+    return <Error text={error} />;
   }
 
   return (

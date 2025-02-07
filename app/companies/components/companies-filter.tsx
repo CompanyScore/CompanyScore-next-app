@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Searcher } from "@/shared";
-import { Button, ErrorMessage, Loading, Dropdown } from "@/ui";
+import { Button, Error, Loading, Dropdown } from "@/ui";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
@@ -28,7 +28,7 @@ export function CompaniesFilter({
   const [countryOptions, setCountryOptions] = useState<string[]>([]);
   const [cityOptions, setCityOptions] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [error, setErrorMessage] = useState<string | null>(null);
 
   const fetchCountriesAndCities = async (selectedCountry: string) => {
     try {
@@ -64,8 +64,8 @@ export function CompaniesFilter({
       <div className="space-x-3">
         {loading ? (
           <Loading />
-        ) : errorMessage ? (
-          <ErrorMessage text={`Ошибка: ${errorMessage}`} />
+        ) : error ? (
+          <Error text={`Ошибка: ${error}`} />
         ) : (
           <>
             <Dropdown

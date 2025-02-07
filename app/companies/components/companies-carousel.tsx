@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ErrorMessage, Loading, Title } from "@/ui";
+import { Error, Loading, Title } from "@/ui";
 import Image from "next/image";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 
@@ -18,13 +18,13 @@ type Company = {
 type CompaniesProps = {
   companies: Company[];
   loading: boolean;
-  errorMessage: string | null;
+  error: string | null;
 };
 
 export function CompaniesCarousel({
   companies,
   loading,
-  errorMessage,
+  error,
 }: CompaniesProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -49,8 +49,8 @@ export function CompaniesCarousel({
     return <Loading />;
   }
 
-  if (errorMessage) {
-    return <ErrorMessage text={errorMessage} />;
+  if (error) {
+    return <Error text={error} />;
   }
 
   if (companies.length === 0) {

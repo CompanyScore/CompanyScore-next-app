@@ -1,9 +1,9 @@
 import React from "react";
 
-type ErrorMessageType = {
+type ErrorType = {
   text: string;
 };
 
-export function ErrorMessage({ text }: ErrorMessageType) {
+export function Error({ text }: ErrorType) {
   return <p className="text-center text-red-600 text-lg">{text}</p>;
 }

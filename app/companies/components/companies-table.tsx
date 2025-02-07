@@ -20,14 +20,14 @@ type Company = {
 type CompaniesProps = {
   companies: Company[];
   loading: boolean;
-  errorMessage: string | null;
+  error: string | null;
   refetch: () => void;
 };
 
 export function CompaniesTable({
   companies,
   loading,
-  errorMessage,
+  error,
   refetch,
 }: CompaniesProps) {
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
@@ -42,8 +42,8 @@ export function CompaniesTable({
     <div className="flex flex-col items-center w-full m-auto">
       {loading ? (
         <div>Loading...</div>
-      ) : errorMessage ? (
-        <div>{`Ошибка: ${errorMessage}`}</div>
+      ) : error ? (
+        <div>{`Ошибка: ${error}`}</div>
       ) : (
         <table className="table">
           <thead>

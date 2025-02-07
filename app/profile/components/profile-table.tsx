@@ -8,12 +8,12 @@ import { useUserStore, useCommentsStore } from "@/store";
 import moment from "moment";
 import { CommentType } from "../types/profile-type";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { Avatar, Button, Tooltip, ErrorMessage, Loading, Title } from "@/ui";
+import { Avatar, Button, Tooltip, Error, Loading, Title } from "@/ui";
 import Link from "next/link";
 
 export function ProfileTable() {
   const { userId } = useUserStore();
-  const { comments, loading, errorMessage, getComments, deleteComment } =
+  const { comments, loading, error, getComments, deleteComment } =
     useCommentsStore();
 
   const [selectedComment, setSelectedComment] = useState<CommentType | null>(
@@ -45,14 +45,16 @@ export function ProfileTable() {
     return <Loading />;
   }
 
-  if (errorMessage) {
-    return <ErrorMessage text={errorMessage} />;
+  if (error) {
+    return <Error text={error} />;
   }
 
   if (!comments.length) {
     return (
       <Title position="center">
-        <Link href="/companies" className="underline">Оставьте свой первый отзыв!</Link>
+        <Link href="/companies" className="underline">
+          Оставьте свой первый отзыв!
+        </Link>
       </Title>
     );
   }

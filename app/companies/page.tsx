@@ -35,7 +35,7 @@ export default function CompaniesPage() {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
   const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [error, setErrorMessage] = useState<string | null>(null);
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
@@ -136,7 +136,7 @@ export default function CompaniesPage() {
       <CompaniesCarousel
         companies={companies}
         loading={loading}
-        errorMessage={errorMessage}
+        error={error}
       />
       <Title>{`Компаний: ${total}`}</Title>
       <CompaniesFilter
@@ -151,7 +151,7 @@ export default function CompaniesPage() {
       <CompaniesTable
         companies={companies}
         loading={loading}
-        errorMessage={errorMessage}
+        error={error}
         refetch={refetch}
       />
       <div className="flex justify-between">

@@ -2,22 +2,21 @@
 
 import { useState } from "react";
 import { Button, Input, Modal, Textarea, Title } from "@/ui";
-import axios from "axios";
 import { useUserStore } from "@/store/user-id";
 import { Dropdown } from "@/ui";
 import { positions } from "@/shared";
+import { useProfileStore } from "@/store";
+import Link from "next/link";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
+  const { loading, error, getProfile, updateProfile, deleteProfile } =
+    useProfileStore();
+
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState<string | Blob>("");
-  const [toast, setToast] = useState({
-    message: "",
-    type: "success",
-  }); // Состояние для тоста
-  const [isToastVisible, setIsToastVisible] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -33,15 +32,14 @@ export function ProfileEditModal() {
     if (description) formData.append("description", description);
     if (avatar) formData.append("avatarFile", avatar);
 
-    try {
-      await axios.patch(`http://localhost:8080/users/${userId}`, formData);
-      // setToast({ message: "Профиль обновлен!", type: "success" });
-    } catch (error) {
-      setToast({ message: "Ошибка обновления профиля.", type: "error" });
-    } finally {
-      setIsToastVisible(true);
-      setTimeout(() => setIsToastVisible(false), 3000); // Скрыть тост через 3 секунды
-    }
+    if (userId) await updateProfile(userId, formData);
+    if (userId) getProfile(userId);
+    // ДОБАВИТЬ ТОСТ
+  };
+
+  const onDelete = async () => {
+    if (userId) await deleteProfile(userId);
+    // ДОБАВИТЬ ТОСТ
   };
 
   return (
@@ -61,7 +59,6 @@ export function ProfileEditModal() {
           onSelect={setPosition}
         />
 
-        {/* <Input placeholder="Должность" onChange={setPosition} /> */}
         <Textarea placeholder="О себе" onChange={setDescription} />
       </div>
       <input
@@ -71,6 +68,11 @@ export function ProfileEditModal() {
       />
       <Button onClick={onSubmit}>
         <label htmlFor="profile_edit_modal">Сохранить</label>
+      </Button>
+      <Button onClick={onDelete}>
+        <label htmlFor="profile_edit_modal">
+          <Link href="/">Удалить профиль</Link>
+        </label>
       </Button>
     </Modal>
   );
