@@ -12,7 +12,7 @@ export function Avatar({ src }: AvatarType) {
       alt="Avatar"
       width={70}
       height={70}
-      className="object-cover"
+      className="object-cover rounded"
     />
   );
 }
