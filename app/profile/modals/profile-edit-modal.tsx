@@ -32,6 +32,10 @@ export function ProfileEditModal() {
     if (description) formData.append("description", description);
     if (avatar) formData.append("avatarFile", avatar);
 
+    for (let [key, value] of formData) {
+      console.log(`${key}: ${value}`)
+    }
+
     if (userId) await updateProfile(userId, formData);
     if (userId) getProfile(userId);
     // ДОБАВИТЬ ТОСТ

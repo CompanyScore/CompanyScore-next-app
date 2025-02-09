@@ -1,16 +1,25 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
 import { useUserStore } from "@/store/user-id";
+import { useProfileStore } from "@/store";
 
 export default function Header() {
   const { userId, setUserId, clearUserId } = useUserStore();
+  const { profile, loading, error, getProfile, deleteProfile } =
+    useProfileStore();
 
   const pathname = usePathname();
+
+  useEffect(() => {
+    if (userId) {
+      getProfile(userId);
+    }
+  }, [userId]);
 
   return (
     <div className="flex justify-between navbar bg-neutral text-neutral-content px-10">
@@ -41,7 +50,7 @@ export default function Header() {
         {userId ? (
           <Link href="/profile">
             <Avatar
-              src={`${process.env.NEXT_PUBLIC_API_URL}/files/users/avatars/default-ava.jpg`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}${profile?.avatar}`}
             />
           </Link>
         ) : (

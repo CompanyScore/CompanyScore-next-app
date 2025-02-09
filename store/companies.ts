@@ -49,6 +49,8 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
           country: params.selectedCountry,
           city: params.selectedCity,
           rating: params.selectedRating,
+          limit: params.limit,
+          page: params.page,
         },
       });
       set({

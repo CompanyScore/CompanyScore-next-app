@@ -3,29 +3,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Error, Loading, Title } from "@/ui";
 import Image from "next/image";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
+import { useCompaniesStore } from "@/store";
 
-type Company = {
-  id: number;
-  name: string;
-  country: string;
-  city: string;
-  rating: number;
-  logo: string;
-  description: string;
-  commentsIds: string[];
-};
-
-type CompaniesProps = {
-  companies: Company[];
-  loading: boolean;
-  error: string | null;
-};
-
-export function CompaniesCarousel({
-  companies,
-  loading,
-  error,
-}: CompaniesProps) {
+export function CompaniesCarousel() {
+  const { companies, loading, error, getCompanies } = useCompaniesStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {

@@ -51,7 +51,7 @@ export const useProfileStore = create<ProfileState>(set => ({
 
   updateProfile: async (userId, formData) => {
     try {
-      await useApi.patch(`/users/${userId}`, formData);
+      await useApi.patch(`/users/${userId}`, formData );
     } catch (error: any) {
       set({ error: error.message });
     } finally {

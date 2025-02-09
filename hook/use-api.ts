@@ -17,7 +17,13 @@ useApi.interceptors.request.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    config.headers["Content-Type"] = "application/json";
+
+    if (config.data instanceof FormData) {
+      config.headers["Content-Type"] = "multipart/form-data";
+    } else {
+      config.headers["Content-Type"] = "application/json";
+    }
+
     config.headers["Cache-Control"] = "no-cache";
     config.headers["Pragma"] = "no-cache";
     config.headers["Expires"] = "0";

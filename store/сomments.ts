@@ -6,6 +6,7 @@ export type CommentType = {
   rating: number;
   createDate: Date;
   text: string;
+  position: string;
   company: {
     id: number;
     logo: string;

@@ -2,7 +2,7 @@
 import React from "react";
 
 type InputType = {
-  value: string;
+  value?: string;
   placeholder: string;
   onChange: (newSearchedValue: string) => void;
 };
