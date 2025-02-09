@@ -34,10 +34,6 @@ export function ProfileTable() {
     setSelectedComment(comment);
   };
 
-  const closeEditModal = () => {
-    setSelectedComment(null);
-  };
-
   const handleDeleteComment = async (commentId: number) => {
     await deleteComment(commentId);
     if (userId) {
@@ -75,6 +71,7 @@ export function ProfileTable() {
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Компания</th>
+            <th>Должность</th>
             <th>Рейтинг</th>
             <th>Комментарий</th>
             <th>Дата</th>
@@ -82,17 +79,16 @@ export function ProfileTable() {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar
-                  src={process.env.NEXT_PUBLIC_API_URL + comment.company.logo}
-                />
+                <Avatar src={comment.company.logo} />
                 <p>{comment.company.name}</p>
               </td>
+              <td>{comment.position}</td>
               <td>{comment.rating}</td>
               <td>{comment.text}</td>
               <td>{moment(comment.createDate).format("MMM Do YY")}</td>
@@ -117,12 +113,14 @@ export function ProfileTable() {
                       color="warning"
                       onClick={() => openEditModal(comment)}
                     >
-                      <Image
-                        src="/icons/pencil.svg"
-                        alt="Pencil"
-                        width={25}
-                        height={25}
-                      />
+                      <label htmlFor="profile-edit-comment-modal">
+                        <Image
+                          src="/icons/pencil.svg"
+                          alt="Pencil"
+                          width={25}
+                          height={25}
+                        />
+                      </label>
                     </Button>
                   </Tooltip>
                   <Tooltip tip="Удалить">
@@ -140,12 +138,7 @@ export function ProfileTable() {
         </tbody>
       </table>
 
-      {selectedComment && (
-        <ProfileEditCommentModal
-          comment={selectedComment}
-          closeModal={closeEditModal}
-        />
-      )}
+      <ProfileEditCommentModal comment={selectedComment} />
     </div>
   );
 }

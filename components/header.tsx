@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 import Image from "next/image";
+import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
 import { useUserStore } from "@/store/user-id";
 
@@ -39,11 +40,8 @@ export default function Header() {
       <div className="flex justify-end max-w-96 w-full">
         {userId ? (
           <Link href="/profile">
-            <Image
-              src="/icons/user.svg"
-              alt="User Icon"
-              width={24}
-              height={24}
+            <Avatar
+              src={`${process.env.NEXT_PUBLIC_API_URL}/files/users/avatars/default-ava.jpg`}
             />
           </Link>
         ) : (
