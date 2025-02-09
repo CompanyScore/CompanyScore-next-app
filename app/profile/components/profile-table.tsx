@@ -6,11 +6,21 @@ import { redirect } from "next/navigation";
 import { ProfileEditCommentModal } from "../modals";
 import { useUserStore, useCommentsStore } from "@/store";
 import moment from "moment";
-import { CommentType } from "../types/profile-type";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Avatar, Button, Tooltip, Error, Loading, Title } from "@/ui";
 import Link from "next/link";
 
+export type CommentType = {
+  id: number;
+  rating: number;
+  createDate: Date;
+  text: string;
+  company: {
+    id: number;
+    logo: string;
+    name: string;
+  };
+};
 export function ProfileTable() {
   const { userId } = useUserStore();
   const { comments, loading, error, getComments, deleteComment } =

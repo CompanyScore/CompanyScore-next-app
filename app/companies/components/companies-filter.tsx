@@ -1,93 +1,97 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Searcher } from "@/shared";
 import { Button, Error, Loading, Dropdown } from "@/ui";
+import { useCompaniesStore } from "@/store";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
-type CompaniesFilterType = {
-  onSearchCompanyByName: (searchedName: string) => void;
-  selectedCountry: string;
-  onSelectCountry: (selectedCountry: string) => void;
-  selectedCity: string;
-  onSelectCity: (selectedCity: string) => void;
-  selectedRating: string;
-  onSelectRating: (selectedRating: string) => void;
-};
+export function CompaniesFilter() {
+  const { companies, loading, error, getCompanies } = useCompaniesStore();
 
-export function CompaniesFilter({
-  onSearchCompanyByName,
-  selectedCountry,
-  onSelectCountry,
-  selectedCity,
-  onSelectCity,
-  selectedRating,
-  onSelectRating,
-}: CompaniesFilterType) {
   const [countryOptions, setCountryOptions] = useState<string[]>([]);
   const [cityOptions, setCityOptions] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setErrorMessage] = useState<string | null>(null);
 
-  const fetchCountriesAndCities = async (selectedCountry: string) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/companies/locations`,
-      );
-      const fetchedCountries = Object.keys(response.data);
-      const fetchedCities = response.data[selectedCountry] || [];
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
 
-      setCountryOptions(fetchedCountries);
-      setCityOptions(fetchedCities);
-    } catch (err: any) {
-      setErrorMessage(err.message || "Ошибка загрузки данных");
-    } finally {
-      setLoading(false);
-    }
+  const fetchLocations = async () => {
+    const response = await axios.get(
+      `http://localhost:8080/companies/locations`,
+    );
+    const fetchedCountries = Object.keys(response.data);
+    const fetchedCities = response.data[selectedCountry] || [];
+
+    setCountryOptions(fetchedCountries);
+    setCityOptions(fetchedCities);
   };
 
   useEffect(() => {
-    fetchCountriesAndCities(selectedCountry);
+    fetchLocations();
   }, [selectedCountry]);
 
   const onReset = () => {
-    onSearchCompanyByName("");
-    onSelectCountry("");
-    onSelectCity("");
-    onSelectRating("");
+    getCompanies({});
+    setSelectedCountry("");
+    setSelectedCity("");
+    setSelectedRating("");
   };
+
+  // const onSearchCompanyByName = async (searchedCompanyName: string) => {
+  //   getCompanies({ searchedCompanyName });
+  // };
+
+  // useCallback предотвращает создание новой функции при каждом ререндере
+  const onSearchCompanyByName = useCallback(
+    (searchedCompanyName: string) => {
+      getCompanies({ searchedCompanyName });
+    },
+    [getCompanies],
+  );
+
+  const onSelectCountry = async (selectedCountry: string) => {
+    setSelectedCountry(selectedCountry);
+    getCompanies({ selectedCountry });
+  };
+
+  const onSelectCity = async (selectedCity: string) => {
+    setSelectedCity(selectedCity);
+    getCompanies({ selectedCity });
+  };
+
+  const onSelectRating = (selectedRating: string) => {
+    setSelectedRating(selectedRating);
+    getCompanies({ selectedRating });
+  };
+
+  if (loading) return <Loading />;
+  if (error) return <Error text={error} />;
 
   return (
     <div className="flex items-center justify-between gap-4">
       <Searcher onSearch={onSearchCompanyByName} />
       <div className="space-x-3">
-        {loading ? (
-          <Loading />
-        ) : error ? (
-          <Error text={`Ошибка: ${error}`} />
-        ) : (
-          <>
-            <Dropdown
-              text="Все страны"
-              options={countryOptions}
-              selectedValue={selectedCountry}
-              onSelect={onSelectCountry}
-            />
-            <Dropdown
-              text="Все города"
-              options={cityOptions}
-              selectedValue={selectedCity}
-              onSelect={onSelectCity}
-            />
-            <Dropdown
-              text="Все рейтинги"
-              options={ratingOptions}
-              selectedValue={selectedRating}
-              onSelect={onSelectRating}
-            />
-          </>
-        )}
+        <Dropdown
+          text="Все страны"
+          options={countryOptions}
+          selectedValue={selectedCountry}
+          onSelect={onSelectCountry}
+        />
+        <Dropdown
+          text="Все города"
+          options={cityOptions}
+          selectedValue={selectedCity}
+          onSelect={onSelectCity}
+        />
+        <Dropdown
+          text="Все рейтинги"
+          options={ratingOptions}
+          selectedValue={selectedRating}
+          onSelect={onSelectRating}
+        />
+
         <Button onClick={onReset}>Сбросить</Button>
       </div>
     </div>

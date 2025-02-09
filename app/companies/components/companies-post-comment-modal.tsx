@@ -6,15 +6,15 @@ import { positions } from "@/shared";
 import { useUserStore } from "@/store";
 import { useApi } from "@/hook";
 
-type CompaniespostCommentModalProps = {
+type CompaniesPostCommentModalProps = {
   companyId?: number;
   refetch: () => void;
 };
 
-export function CompaniespostCommentModal({
+export function CompaniesPostCommentModal({
   companyId,
   refetch,
-}: CompaniespostCommentModalProps) {
+}: CompaniesPostCommentModalProps) {
   const { userId } = useUserStore();
 
   const [comment, setComment] = useState<string>("");
@@ -49,7 +49,7 @@ export function CompaniespostCommentModal({
       text: sanitizedText,
       position,
       rating,
-      userId: +userId,
+      userId: userId && +userId,
       companyId,
     };
 
@@ -162,5 +162,3 @@ export function CompaniespostCommentModal({
     </Modal>
   );
 }
-
-export default CompaniespostCommentModal;

@@ -30,104 +30,101 @@ type CompaniesResponse = {
 
 export default function CompaniesPage() {
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [searchedCompanyName, setSearchedCompanyName] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedRating, setSelectedRating] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [error, setErrorMessage] = useState<string | null>(null);
 
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [total, setTotal] = useState(0);
+  // const [page, setPage] = useState(1);
+  // const [limit, setLimit] = useState(5);
+  // const [total, setTotal] = useState(0);
 
-  const refetch = () => {
-    fetchCompanies(
-      searchedCompanyName,
-      selectedCountry,
-      selectedCity,
-      selectedRating,
-      page,
-      limit,
-    );
-  };
+  // const refetch = () => {
+  //   fetchCompanies(
+  //     searchedCompanyName,
+  //     selectedCountry,
+  //     selectedCity,
+  //     selectedRating,
+  //     page,
+  //     limit,
+  //   );
+  // };
 
-  const fetchCompanies = async (
-    searchedCompanyName: string,
-    selectedCountry: string,
-    selectedCity: string,
-    selectedRating: string,
-    page: number,
-    limit: number,
-  ) => {
-    try {
-      setLoading(true);
-      const response = await axios.get<CompaniesResponse>(
-        `http://localhost:8080/companies`,
-        {
-          params: {
-            name: searchedCompanyName,
-            country: selectedCountry,
-            city: selectedCity,
-            rating: selectedRating,
-            page,
-            limit,
-          },
-        },
-      );
+  // const fetchCompanies = async (
+  //   searchedCompanyName: string,
+  //   selectedCountry: string,
+  //   selectedCity: string,
+  //   selectedRating: string,
+  //   page: number,
+  //   limit: number,
+  // ) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.get<CompaniesResponse>(
+  //       `http://localhost:8080/companies`,
+  //       {
+  //         params: {
+  //           name: searchedCompanyName,
+  //           country: selectedCountry,
+  //           city: selectedCity,
+  //           rating: selectedRating,
+  //           page,
+  //           limit,
+  //         },
+  //       },
+  //     );
 
-      setCompanies(response.data.data);
-      setTotal(response.data.total);
-    } catch (err: any) {
-      setErrorMessage(err.message || "Ошибка загрузки данных");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     setCompanies(response.data.data);
+  //     setTotal(response.data.total);
+  //   } catch (err: any) {
+  //     setErrorMessage(err.message || "Ошибка загрузки данных");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const onSearchCompanyByName = (newValue: string) => {
-    setSearchedCompanyName(newValue);
-  };
+  // const onSearchCompanyByName = (newValue: string) => {
+  //   setSearchedCompanyName(newValue);
+  // };
 
-  const onSelectCountry = (newValue: string) => {
-    setSelectedCountry(newValue);
-    setSelectedCity("");
-  };
+  // const onSelectCountry = (newValue: string) => {
+  //   setSelectedCountry(newValue);
+  //   setSelectedCity("");
+  // };
 
-  const onSelectCity = (newValue: string) => {
-    setSelectedCity(newValue);
-  };
+  // const onSelectCity = (newValue: string) => {
+  //   setSelectedCity(newValue);
+  // };
 
-  const onSelectRating = (newValue: string) => {
-    setSelectedRating(newValue);
-  };
+  // const onSelectRating = (newValue: string) => {
+  //   setSelectedRating(newValue);
+  // };
 
-  const onLimitChange = (newLimit: number) => {
-    setLimit(newLimit);
-    setPage(1); // Сбрасываем страницу при изменении лимита
-  };
+  // const onLimitChange = (newLimit: number) => {
+  //   setLimit(newLimit);
+  //   setPage(1); // Сбрасываем страницу при изменении лимита
+  // };
 
-  const onPageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+  // const onPageChange = (newPage: number) => {
+  //   setPage(newPage);
+  // };
 
-  useEffect(() => {
-    fetchCompanies(
-      searchedCompanyName,
-      selectedCountry,
-      selectedCity,
-      selectedRating,
-      page,
-      limit,
-    );
-  }, [
-    searchedCompanyName,
-    selectedCountry,
-    selectedCity,
-    selectedRating,
-    page,
-    limit,
-  ]);
+  // useEffect(() => {
+  //   fetchCompanies(
+  //     searchedCompanyName,
+  //     selectedCountry,
+  //     selectedCity,
+  //     selectedRating,
+  //     page,
+  //     limit,
+  //   );
+  // }, [
+  //   searchedCompanyName,
+  //   selectedCountry,
+  //   selectedCity,
+  //   selectedRating,
+  //   page,
+  //   limit,
+  // ]);
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
@@ -138,23 +135,10 @@ export default function CompaniesPage() {
         loading={loading}
         error={error}
       />
-      <Title>{`Компаний: ${total}`}</Title>
-      <CompaniesFilter
-        onSearchCompanyByName={onSearchCompanyByName}
-        selectedCountry={selectedCountry}
-        onSelectCountry={onSelectCountry}
-        selectedCity={selectedCity}
-        onSelectCity={onSelectCity}
-        selectedRating={selectedRating}
-        onSelectRating={onSelectRating}
-      />
-      <CompaniesTable
-        companies={companies}
-        loading={loading}
-        error={error}
-        refetch={refetch}
-      />
-      <div className="flex justify-between">
+      <Title>{`Компаний:`}</Title>
+      <CompaniesFilter />
+      <CompaniesTable />
+      {/* <div className="flex justify-between">
         <ShowBy limit={limit} onLimitChange={onLimitChange} />
         <Pagination
           page={page}
@@ -162,7 +146,7 @@ export default function CompaniesPage() {
           limit={limit}
           onPageChange={onPageChange}
         />
-      </div>
+      </div> */}
     </section>
   );
 }
