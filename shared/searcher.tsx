@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/ui";
 import { useDebounce } from "@/hook";
 
@@ -9,16 +9,11 @@ type SearcherProps = {
 
 export function Searcher({ onSearch }: SearcherProps) {
   const [searchValue, setSearchValue] = useState("");
-  const debouncedValue = useDebounce(searchValue, 500);
-
-  // Обернём в useCallback, чтобы зависимость в useEffect не вызывала лишние ререндеры
-  const stableOnSearch = useCallback(onSearch, []);
+  // const debouncedValue = useDebounce(searchValue, 500);
 
   useEffect(() => {
-    if (debouncedValue.trim()) {
-      stableOnSearch(debouncedValue);
-    }
-  }, [debouncedValue, onSearch]);
+    // onSearch(searchValue);
+  }, [searchValue]);
 
   return (
     <Input placeholder="Поиск" value={searchValue} onChange={setSearchValue} />

@@ -18,7 +18,7 @@ export function ProfileCard() {
   }, [userId]);
 
   if (loading) {
-    return <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div> // <Loading />;
+    return <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
   }
 
   if (error) {

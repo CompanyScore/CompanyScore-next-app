@@ -49,7 +49,7 @@ export function ProfileTable() {
   }, [userId]);
 
   if (loading) {
-    return <Loading />;
+    return <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
   }
 
   if (error) {

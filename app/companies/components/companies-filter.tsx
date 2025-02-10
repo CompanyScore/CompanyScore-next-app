@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Searcher } from "@/shared";
 import { Button, Error, Loading, Dropdown } from "@/ui";
 import { useCompaniesStore } from "@/store";
@@ -7,28 +7,18 @@ import { useCompaniesStore } from "@/store";
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
 export function CompaniesFilter() {
-  const { companies, loading, error, getCompanies } = useCompaniesStore();
+  const { loading, error, getCompanies } = useCompaniesStore();
 
   const [selectedRating, setSelectedRating] = useState("");
-  const [name, setName] = useState("");
 
   const onReset = () => {
     getCompanies({});
     setSelectedRating("");
-    setName("");
   };
 
-  // const onSearchCompanyByName = async (searchedCompanyName: string) => {
-  //   getCompanies({ searchedCompanyName });
-  // };
-
-  // useCallback предотвращает создание новой функции при каждом ререндере
-  const onSearchCompanyByName = useCallback(
-    (searchedCompanyName: string) => {
-      getCompanies({ searchedCompanyName });
-    },
-    [getCompanies],
-  );
+  const onSearchCompanyByName = (searchedCompanyName: string) => {
+    getCompanies({ searchedCompanyName });
+  };
 
   const onSelectRating = (selectedRating: string) => {
     setSelectedRating(selectedRating);
