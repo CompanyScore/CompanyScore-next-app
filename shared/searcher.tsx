@@ -15,8 +15,10 @@ export function Searcher({ onSearch }: SearcherProps) {
   const stableOnSearch = useCallback(onSearch, []);
 
   useEffect(() => {
-    // stableOnSearch(debouncedValue);
-  }, [debouncedValue]);
+    if (debouncedValue.trim()) {
+      stableOnSearch(debouncedValue);
+    }
+  }, [debouncedValue, onSearch]);
 
   return (
     <Input placeholder="Поиск" value={searchValue} onChange={setSearchValue} />

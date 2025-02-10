@@ -51,15 +51,13 @@ export function CompaniesTable() {
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Компания</th>
-            <th>Страна</th>
-            <th>Город</th>
             <th>Комментарии</th>
             <th>Рейтинг</th>
             <th>Действия</th>
           </tr>
         </thead>
         <tbody>
-          {companies.map(company => (
+          {companies.map((company) => (
             <tr
               key={company.id}
               className="text-center border-b border-gray-500"
@@ -77,8 +75,6 @@ export function CompaniesTable() {
                   <p>{company.name}</p>
                 </div>
               </td>
-              <td>{company.country}</td>
-              <td>{company.city}</td>
               <td>{company.commentsIds.length}</td>
               <td>{company.rating}</td>
               <td>
