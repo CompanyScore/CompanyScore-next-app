@@ -4,16 +4,16 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 
 export default function ThemeController() {
-  const [theme, setTheme] = useState(Cookies.get("theme") || "valentine");
+  const [theme, setTheme] = useState(Cookies.get("theme") || "light");
 
   const handleChangeTheme = (value: string) => {
     Cookies.set("theme", value); // Сохраняем выбранную тему в Cookies
-    setTheme(value); // Обновляем состояние
+    setTheme(value.charAt(0).toUpperCase() + value.slice(1)); // Обновляем состояние
     document.documentElement.setAttribute("data-theme", value); // Устанавливаем тему напрямую
   };
 
   useEffect(() => {
-    const storedTheme = Cookies.get("theme") || "valentine";
+    const storedTheme = Cookies.get("theme") || "light";
     setTheme(storedTheme);
     document.documentElement.setAttribute("data-theme", storedTheme); // Применяем тему при загрузке
   }, []);
@@ -36,7 +36,7 @@ export default function ThemeController() {
         tabIndex={0}
         className="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-52 bg-neutral text-white"
       >
-        {["light", "valentine", "dark"].map((themeOption) => (
+        {["light", "dark", "valentine"].map(themeOption => (
           <li key={themeOption}>
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"

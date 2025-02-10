@@ -10,9 +10,9 @@ export function Avatar({ src }: AvatarType) {
     <Image
       src={src}
       alt="Avatar"
-      width={70}
-      height={70}
-      className="object-cover rounded"
+      width={90}
+      height={80}
+      className="rounded object-contain max-h-20"
     />
   );
 }
