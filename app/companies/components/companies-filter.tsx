@@ -38,7 +38,7 @@ export function CompaniesFilter() {
           onSelect={onSelectRating}
         />
 
-        <Button onClick={onReset}>Сбросить</Button>
+        {/* <Button onClick={onReset}>Сбросить</Button> */}
       </div>
     </div>
   );

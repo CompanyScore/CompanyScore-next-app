@@ -77,7 +77,7 @@ export default function CompanyDetail() {
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <CompanyCard />
+      <CompanyCard total={total} />
       <CompanyTable comments={comments} />
       <div className="flex justify-between">
         <ShowBy limit={limit} onLimitChange={onLimitChange} />

@@ -10,6 +10,7 @@ type CommentType = {
   rating: number;
   createDate: Date;
   text: string;
+  position: string;
   user: {
     id: number;
     name: string;
@@ -22,7 +23,7 @@ type CommentsProps = {
 };
 
 export function CompanyTable({ comments }: CommentsProps) {
-  if (comments.length === 0) {
+  if (!comments.length) {
     return <div>asd</div>;
   }
 
@@ -32,6 +33,7 @@ export function CompanyTable({ comments }: CommentsProps) {
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Пользователь</th>
+            <th>Должность</th>
             <th>Рейтинг</th>
             <th>Комментарий</th>
             <th>Дата</th>
@@ -39,7 +41,7 @@ export function CompanyTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center align-middle border-b border-gray-500"
@@ -56,6 +58,7 @@ export function CompanyTable({ comments }: CommentsProps) {
                 )}
                 <p>{comment.user.name}</p>
               </td>
+              <td>{comment.position}</td>
               <td>{comment.rating}</td>
               <td>{comment.text}</td>
               <td> {moment(comment.createDate).format("MMM Do YY")}</td>

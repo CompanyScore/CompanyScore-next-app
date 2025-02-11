@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/ui";
+import { CompaniesPostCommentModal } from "@/app/companies/components";
 
 type CompanyType = {
   id: number;
@@ -16,9 +17,21 @@ type CompanyType = {
   rating: number;
 };
 
-export function CompanyCard() {
+type CompanyProps = {
+  total: number;
+};
+
+export function CompanyCard({ total }: CompanyProps) {
   const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<CompanyType>();
+
+  const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
+    null,
+  );
+
+  const openModal = (company: CompanyType) => {
+    setSelectedCompany(company);
+  };
 
   const fetchCompany = async (id: string) => {
     try {
@@ -36,7 +49,7 @@ export function CompanyCard() {
 
   return (
     <div className="hero bg-base-200 py-10">
-      <div className="hero-content flex-col lg:flex-row items-start">
+      <div className="hero-content flex-col lg:flex-row items-start justify-between w-full">
         <div className="flex flex-col items-center gap-4">
           {company?.logo ? (
             <Image
@@ -53,20 +66,23 @@ export function CompanyCard() {
             <div className="stat flex flex-col items-center">
               <div className="stat-title">Средний балл:</div>
               <div className="stat-value">5</div>
-              <div className="stat-desc">Общее число комментариев: 25</div>
+              <div className="stat-desc">Общее число комментариев: {total}</div>
             </div>
           </div>
         </div>
-        <div>
-          <div className="flex justify-between items-start">
+
+        <div className="w-full">
+          <div className="flex justify-between items-start w-full">
             <h1 className="text-5xl font-bold">{company?.name}</h1>
-            <Button onClick={() => {}}>
-              <Image
-                src="/icons/pencil.svg"
-                alt="Pencil"
-                width={25}
-                height={25}
-              />
+            <Button color="success" onClick={() => openModal(company)}>
+              <label htmlFor="companies_add_comment_modal">
+                <Image
+                  src="/icons/pencil.svg"
+                  alt="Pencil"
+                  width={25}
+                  height={25}
+                />
+              </label>
             </Button>
           </div>
           <p className="pt-4">
@@ -75,6 +91,10 @@ export function CompanyCard() {
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
+      <CompaniesPostCommentModal
+        companyId={selectedCompany?.id}
+        refetch={() => {}}
+      />
     </div>
   );
 }

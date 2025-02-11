@@ -104,7 +104,7 @@ export function CompaniesPostCommentModal({
           Должность
         </label>
         <Dropdown
-          width={"450px"}
+          width={"430px"}
           isFirstDisabled={true}
           options={positions}
           selectedValue={position}

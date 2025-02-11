@@ -15,6 +15,8 @@ export default function BlogPage() {
             <figure>
               <Image
                 src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg"
+                width={385}
+                height={100}
                 alt="money"
               />
             </figure>

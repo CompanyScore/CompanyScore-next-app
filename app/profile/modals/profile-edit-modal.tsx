@@ -33,7 +33,7 @@ export function ProfileEditModal() {
     if (avatar) formData.append("avatarFile", avatar);
 
     for (let [key, value] of formData) {
-      console.log(`${key}: ${value}`)
+      console.log(`${key}: ${value}`);
     }
 
     if (userId) await updateProfile(userId, formData);
@@ -73,7 +73,7 @@ export function ProfileEditModal() {
       <Button onClick={onSubmit}>
         <label htmlFor="profile_edit_modal">Сохранить</label>
       </Button>
-      <Button onClick={onDelete}>
+      <Button color="danger" onClick={onDelete}>
         <label htmlFor="profile_edit_modal">
           <Link href="/">Удалить профиль</Link>
         </label>
