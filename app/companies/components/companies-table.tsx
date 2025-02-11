@@ -5,18 +5,8 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CompaniesPostCommentModal } from "./index";
 import { useCompaniesStore } from "@/store";
-import { Button, Avatar, Tooltip, Loading, Error, Title } from "@/ui";
-
-type CompanyType = {
-  id: number;
-  name: string;
-  country: string;
-  city: string;
-  rating: number;
-  logo: string;
-  description: string;
-  commentsIds: string[];
-};
+import type { CompanyType } from "@/store/companies";
+import { Button, Avatar, Tooltip, Error, Title } from "@/ui";
 
 export function CompaniesTable() {
   const { companies, loading, error, getCompanies } = useCompaniesStore();
@@ -34,7 +24,9 @@ export function CompaniesTable() {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (error) {
@@ -51,8 +43,8 @@ export function CompaniesTable() {
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Компания</th>
-            <th>Комментарии</th>
             <th>Рейтинг</th>
+            <th>Комментарии</th>
             <th>Действия</th>
           </tr>
         </thead>
@@ -75,8 +67,8 @@ export function CompaniesTable() {
                   <p>{company.name}</p>
                 </div>
               </td>
-              <td>{company.commentsIds.length}</td>
               <td>{company.rating}</td>
+              <td>{company.commentsIds.length}</td>
               <td>
                 <div className="flex justify-center items-center space-x-2 h-full">
                   <Tooltip tip="Посмотреть">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Error, Loading, Title } from "@/ui";
+import { Error, Title } from "@/ui";
 import Image from "next/image";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 import { useCompaniesStore } from "@/store";
@@ -10,12 +10,12 @@ export function CompaniesCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex(prevIndex => (prevIndex + 1) % companies.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      prevIndex => (prevIndex - 1 + companies.length) % companies.length,
+      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
     );
   };
 
@@ -27,7 +27,9 @@ export function CompaniesCarousel() {
   }, [companies.length]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (error) {

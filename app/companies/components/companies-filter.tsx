@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 import { Searcher } from "@/shared";
-import { Button, Error, Loading, Dropdown } from "@/ui";
+import { Button, Error, Dropdown } from "@/ui";
 import { useCompaniesStore } from "@/store";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
 export function CompaniesFilter() {
-  const { loading, error, getCompanies } = useCompaniesStore();
+  const { error, getCompanies } = useCompaniesStore();
 
   const [selectedRating, setSelectedRating] = useState("");
 
@@ -25,7 +25,6 @@ export function CompaniesFilter() {
     getCompanies({ selectedRating });
   };
 
-  if (loading) return <Loading />;
   if (error) return <Error text={error} />;
 
   return (

@@ -9,11 +9,11 @@ type SearcherProps = {
 
 export function Searcher({ onSearch }: SearcherProps) {
   const [searchValue, setSearchValue] = useState("");
-  // const debouncedValue = useDebounce(searchValue, 500);
+  const debouncedValue = useDebounce(searchValue, 500);
 
   useEffect(() => {
-    // onSearch(searchValue);
-  }, [searchValue]);
+    onSearch(debouncedValue);
+  }, [debouncedValue]);
 
   return (
     <Input placeholder="Поиск" value={searchValue} onChange={setSearchValue} />

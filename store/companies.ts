@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { useApi } from "@/hook";
 
-type CompanyType = {
+export type CompanyType = {
   id: number;
   name: string;
   country: string;
@@ -31,7 +31,7 @@ interface CompaniesState {
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
 }
 
-export const useCompaniesStore = create<CompaniesState>(set => ({
+export const useCompaniesStore = create<CompaniesState>((set) => ({
   companies: [],
   page: 1,
   total: 0,
