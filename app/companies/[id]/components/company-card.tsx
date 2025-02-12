@@ -24,6 +24,7 @@ type CompanyProps = {
 export function CompanyCard({ total }: CompanyProps) {
   const { id } = useParams<{ id: string }>();
   const [company, setCompany] = useState<CompanyType>();
+  const [totalScore, setTotalScore] = useState(0);
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
     null,
@@ -38,6 +39,7 @@ export function CompanyCard({ total }: CompanyProps) {
       const response = await axios.get(`http://localhost:8080/companies/${id}`);
 
       setCompany(response.data);
+      setTotalScore(response.data.rating);
     } catch {
       console.log("error");
     }
@@ -65,7 +67,7 @@ export function CompanyCard({ total }: CompanyProps) {
           <div className="stats shadow">
             <div className="stat flex flex-col items-center">
               <div className="stat-title">Средний балл:</div>
-              <div className="stat-value">5</div>
+              <div className="stat-value">{totalScore}</div>
               <div className="stat-desc">Общее число комментариев: {total}</div>
             </div>
           </div>
