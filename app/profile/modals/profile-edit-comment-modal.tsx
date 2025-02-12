@@ -20,9 +20,9 @@ export function ProfileEditCommentModal({
   const [editedRating, setEditedRating] = useState(0);
   const [editedPosition, setEditedPosition] = useState("");
   const [validation, setValidation] = useState<string | null>(null);
-  const [toast, setToast] = useState<{ message: string; type?: string } | null>(
-    null,
-  );
+  const [toast, setToast] = useState<
+    { message: string; type?: string } | undefined
+  >(undefined);
 
   useEffect(() => {
     if (comment) {

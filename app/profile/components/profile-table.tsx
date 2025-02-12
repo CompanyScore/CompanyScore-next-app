@@ -7,7 +7,7 @@ import { ProfileEditCommentModal } from "../modals";
 import { useUserStore, useCommentsStore } from "@/store";
 import moment from "moment";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { Avatar, Button, Tooltip, Error, Loading, Title } from "@/ui";
+import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
 import Link from "next/link";
 
 export type CommentType = {
@@ -27,9 +27,9 @@ export function ProfileTable() {
   const { comments, loading, error, getComments, deleteComment } =
     useCommentsStore();
 
-  const [selectedComment, setSelectedComment] = useState<CommentType | null>(
-    null,
-  );
+  const [selectedComment, setSelectedComment] = useState<
+    CommentType | undefined
+  >(undefined);
 
   const openEditModal = (comment: CommentType) => {
     setSelectedComment(comment);
@@ -49,7 +49,9 @@ export function ProfileTable() {
   }, [userId]);
 
   if (loading) {
-    return <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (error) {

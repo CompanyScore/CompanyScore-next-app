@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 type ToastProps = {
   message: string;
-  type?: "success";
+  type?: string;
 };
 
 export function Toast({ message, type = "success" }: ToastProps) {

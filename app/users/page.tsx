@@ -1,63 +1,31 @@
 "use client";
 
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { Avatar } from "@/ui";
+import { useEffect } from "react";
+import { Avatar, Error, Title } from "@/ui";
 import moment from "moment";
-import { useApi } from "@/hook";
-import { useParams } from "next/navigation";
-import { CompanyTable } from "../companies/[id]/components";
-import { Pagination, ShowBy } from "@/shared";
 
-type UserType = {
-  id: number;
-  name: string;
-  avatar: string;
-  createDate: Date;
-};
-
-type UsersResponse = {
-  data: UserType[];
-  page: number;
-  total: number;
-  limit: number;
-};
+import { useUsersStore } from "@/store";
 
 export default function UsersPage() {
-  // const { id } = useParams<{ id: string }>();
-
-  const [users, setUsers] = useState<UserType[]>([]);
-
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [total, setTotal] = useState(0);
-
-  const onLimitChange = (newLimit: number) => {
-    setLimit(newLimit);
-    setPage(1);
-  };
-
-  const onPageChange = (newPage: number) => {
-    setPage(newPage);
-  };
+  const { users, loading, error, getUsers } = useUsersStore();
 
   useEffect(() => {
-    const fetchusers = async () => {
-      try {
-        // setLoading(true);
+    getUsers();
+  }, []);
 
-        const response = await useApi.get(
-          `/users?isDeleted=false&page=${page}&limit=${limit}`,
-        );
+  if (loading) {
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
+  }
 
-        setUsers(response.data);
-        // setTotal(response.data.total);
-      } catch {
-        console.log("Error fetching users");
-      }
-    };
-    fetchusers();
-  }, [page, limit]);
+  if (error) {
+    return <Error text={error} />;
+  }
+
+  if (!users.length) {
+    return <Title position="center">Пользователей еще нет.</Title>;
+  }
 
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
@@ -70,7 +38,7 @@ export default function UsersPage() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {users.map(user => (
               <tr
                 key={user.id}
                 className="text-center align-middle border-b border-gray-500"
@@ -78,7 +46,6 @@ export default function UsersPage() {
                 <td className="flex items-center gap-4">
                   <Avatar
                     src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
-                    width={70}
                   />
                   <p>{user.name}</p>
                 </td>
