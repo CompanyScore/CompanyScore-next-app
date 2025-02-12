@@ -9,7 +9,7 @@ import type { CompanyType } from "@/store/companies";
 import { Button, Avatar, Tooltip, Error, Title } from "@/ui";
 
 export function CompaniesTable() {
-  const { companies, loading, error, getCompanies } = useCompaniesStore();
+  const { companies, loading, error } = useCompaniesStore();
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
     null,
@@ -49,7 +49,7 @@ export function CompaniesTable() {
           </tr>
         </thead>
         <tbody>
-          {companies.map((company) => (
+          {companies.map(company => (
             <tr
               key={company.id}
               className="text-center border-b border-gray-500"
@@ -102,10 +102,7 @@ export function CompaniesTable() {
         </tbody>
       </table>
 
-      <CompaniesPostCommentModal
-        companyId={selectedCompany?.id}
-        refetch={() => {}}
-      />
+      <CompaniesPostCommentModal companyId={selectedCompany?.id} />
     </div>
   );
 }

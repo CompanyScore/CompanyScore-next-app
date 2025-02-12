@@ -3,19 +3,18 @@
 import { useState } from "react";
 import { Button, Dropdown, Modal, Textarea, Title, Toast } from "@/ui";
 import { positions } from "@/shared";
-import { useUserStore } from "@/store";
+import { useCompaniesStore, useUserStore } from "@/store";
 import { useApi } from "@/hook";
 
 type CompaniesPostCommentModalProps = {
   companyId?: number;
-  refetch: () => void;
 };
 
 export function CompaniesPostCommentModal({
   companyId,
-  refetch,
 }: CompaniesPostCommentModalProps) {
   const { userId } = useUserStore();
+  const { companies, getCompanies } = useCompaniesStore();
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
@@ -68,7 +67,7 @@ export function CompaniesPostCommentModal({
 
       setToast({ message: "Комментарий отправлен!" });
       resetForm();
-      refetch();
+      getCompanies({});
     } catch (error) {
       // console.error("Ошибка при отправке комментария:", error);
       if (error.response.data.errorCode === "comment_already_exists") {
