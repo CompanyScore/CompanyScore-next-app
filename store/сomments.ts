@@ -22,7 +22,7 @@ interface CommentsState {
   loading: boolean;
   error: string;
   getComments: (userId: number, page?: number, limit?: number) => Promise<void>;
-  postComment: (userId: number, text: string) => Promise<void>;
+  postComment: (formData: any) => Promise<void>;
   updateComment: (
     commentId: number,
     text: string,
@@ -53,17 +53,19 @@ export const useCommentsStore = create<CommentsState>(set => ({
         limit: data.limit,
       });
     } catch (error: any) {
-      set({ error: error.message });
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
   },
 
-  postComment: async (userId, text) => {
+  postComment: async formData => {
     try {
-      await useApi.post("/comments", { userId, text });
+      await useApi.post("/comments", formData);
     } catch (error: any) {
-      set({ error: error.message });
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

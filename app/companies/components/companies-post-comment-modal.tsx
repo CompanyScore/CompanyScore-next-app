@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button, Dropdown, Modal, Textarea, Title, Toast } from "@/ui";
 import { positions } from "@/shared";
-import { useCompaniesStore, useUserStore } from "@/store";
+import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
 import { useApi } from "@/hook";
 
 type CompaniesPostCommentModalProps = {
@@ -15,15 +15,16 @@ export function CompaniesPostCommentModal({
 }: CompaniesPostCommentModalProps) {
   const { userId } = useUserStore();
   const { companies, getCompanies } = useCompaniesStore();
+  const { loading, postComment } = useCommentsStore();
+  let error = useCommentsStore.getState().error;
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const [position, setPosition] = useState<string>("");
-  const [toast, setToast] = useState<{ message: string; type?: string } | null>(
-    null,
-  );
+  const [toast, setToast] = useState<{
+    message: string | null;
+    type?: string;
+  } | null>(null);
 
   const closeModal = () => {
     const modal = document.getElementById(
@@ -52,40 +53,41 @@ export function CompaniesPostCommentModal({
       companyId,
     };
 
-    if (!comment.trim() || rating === 0 || !position) {
-      setError(
-        "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
-      );
-      return;
+    // if (!comment.trim() || rating === 0 || !position) {
+    //   setError(
+    //     "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
+    //   );
+    //   return;
+    // }
+
+    await postComment(formData);
+    setToast({ message: "Комментарий отправлен!" });
+    resetForm();
+    getCompanies({});
+
+    if (error) {
+      console.log(error);
+
+      setToast({
+        message: error,
+        type: "error",
+      });
     }
 
-    setLoading(true);
-    setError(null);
-
-    try {
-      await useApi.post(`/comments`, formData);
-
-      setToast({ message: "Комментарий отправлен!" });
-      resetForm();
-      getCompanies({});
-    } catch (error) {
-      // console.error("Ошибка при отправке комментария:", error);
-      if (error.response.data.errorCode === "comment_already_exists") {
-        setToast({
-          message: "Вы уже оставляли комментарий на эту компанию",
-          type: "error",
-        });
-      } else {
-        setToast({
-          message:
-            "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
-          type: "error",
-        });
-      }
-      resetForm();
-    } finally {
-      setLoading(false);
-    }
+    resetForm();
+    // console.error("Ошибка при отправке комментария:", error);
+    // if (error.response.data.errorCode === "comment_already_exists") {
+    //   setToast({
+    //     message: "Вы уже оставляли комментарий на эту компанию",
+    //     type: "error",
+    //   });
+    // } else {
+    //   setToast({
+    //     message:
+    //       "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
+    //     type: "error",
+    //   });
+    // }
   };
 
   const handleTextareaChange = (newSearchedValue: string) => {
@@ -147,8 +149,6 @@ export function CompaniesPostCommentModal({
           ))}
         </div>
       </div>
-
-      {error && <p className="text-red-500 mb-4">{error}</p>}
 
       <Button
         onClick={onSubmit}

@@ -37,7 +37,7 @@ export function ProfileEditModal() {
     }
 
     if (userId) await updateProfile(userId, formData);
-    if (userId) getProfile(userId);
+    // if (userId) getProfile(userId);
     // ДОБАВИТЬ ТОСТ
   };
 

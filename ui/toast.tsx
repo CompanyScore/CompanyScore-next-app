@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type ToastProps = {
-  message: string;
+  message: string | null;
   type?: string;
 };
 
