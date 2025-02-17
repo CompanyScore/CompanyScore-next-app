@@ -1,4 +1,4 @@
-import React from "react";
+import classNames from "classnames";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -9,8 +9,9 @@ type ButtonProps = {
     | "success"
     | "warning"
     | "danger"
-    | "neutral"; // Ограничиваем возможные значения
+    | "neutral";
   onClick: () => void;
+  className?: string;
 };
 
 export function Button({
@@ -18,6 +19,7 @@ export function Button({
   disabled = false,
   color = "primary",
   onClick,
+  className,
 }: ButtonProps) {
   const colorClasses: Record<string, string> = {
     primary: "bg-primary hover:bg-primary-600 text-white",
@@ -30,9 +32,14 @@ export function Button({
 
   return (
     <button
-      className={`px-4 py-2 rounded ${
-        colorClasses[color] || colorClasses.neutral
-      } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={classNames(
+        "px-4 py-2 rounded",
+        colorClasses[color] || colorClasses.neutral,
+        {
+          "opacity-50 cursor-not-allowed": disabled,
+        },
+        className,
+      )}
       onClick={onClick}
       disabled={disabled}
     >

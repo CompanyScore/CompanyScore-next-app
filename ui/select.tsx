@@ -1,10 +1,11 @@
-import React from "react";
+import classNames from "classnames";
 
 type SelectProps = {
   defaultValue?: string | number;
   defaultDisabled?: boolean;
-  options: string[] | number[];
+  options: (string | number)[];
   value: string | number;
+  className?: string;
   onSelect: (newValue: string) => void;
 };
 
@@ -14,15 +15,20 @@ export function Select({
   options,
   value,
   onSelect,
+  className,
 }: SelectProps) {
   return (
     <select
-      className="select select-primary w-full max-w-xs"
+      className={classNames("select select-primary w-full max-w-xs", className)}
       value={value}
-      onChange={e => onSelect(e.target.value)}
+      onChange={(e) => onSelect(e.target.value)}
     >
-      <option value="" disabled={defaultDisabled}>{defaultValue}</option>
-      {options?.map((option: string | number) => (
+      {defaultValue !== undefined && (
+        <option value="" disabled={defaultDisabled}>
+          {defaultValue}
+        </option>
+      )}
+      {options.map((option) => (
         <option value={option} key={option}>
           {option}
         </option>

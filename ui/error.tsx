@@ -1,9 +1,14 @@
-import React from "react";
+import classNames from "classnames";
 
 type ErrorType = {
-  text: string;
+  text: string | null;
+  className?: string;
 };
 
-export function Error({ text }: ErrorType) {
-  return <p className="text-center text-red-600 text-lg">{text}</p>;
+export function Error({ text, className }: ErrorType) {
+  return (
+    <p className={classNames("text-center text-red-600 text-lg", className)}>
+      {text}
+    </p>
+  );
 }

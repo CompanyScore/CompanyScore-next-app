@@ -1,13 +1,13 @@
-import React from "react";
+import classNames from "classnames";
 
 export function Title({
   children,
   size = "4",
   position = "start",
 }: Readonly<{
-  children: React.ReactNode;
-  size?: "1" | "2" | "3" | "4" | "5" | "6"; // Ограничиваем возможные значения
-  position?: "start" | "center" | "end"; // Ограничиваем возможные значения
+  children: string;
+  size?: "1" | "2" | "3" | "4" | "5" | "6";
+  position?: "start" | "center" | "end";
 }>) {
   const sizeClasses: Record<string, string> = {
     "1": "text-xl",
@@ -18,17 +18,13 @@ export function Title({
     "6": "text-6xl",
   };
 
-  const positionClasses: Record<string, string> = {
-    start: "text-left",
-    center: "text-center",
-    end: "text-right",
-  };
-
   return (
     <h2
-      className={`${sizeClasses[size] || "text-4xl"} ${
-        positionClasses[position] || "text-left"
-      }`}
+      className={classNames(sizeClasses[size], {
+        "text-left": position === "start",
+        "text-center": position === "center",
+        "text-right": position === "end",
+      })}
     >
       {children}
     </h2>
