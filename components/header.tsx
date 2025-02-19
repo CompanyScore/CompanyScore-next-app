@@ -10,8 +10,7 @@ import { useProfileStore } from "@/store";
 
 export default function Header() {
   const { userId, setUserId, clearUserId } = useUserStore();
-  const { profile, loading, error, getProfile, deleteProfile } =
-    useProfileStore();
+  const { profile, loading, error, getProfile } = useProfileStore();
 
   const pathname = usePathname();
 
@@ -22,9 +21,10 @@ export default function Header() {
   }, [userId]);
 
   return (
-    <div className="flex justify-between navbar bg-neutral text-neutral-content px-10">
+    <div className="hidden lg:flex justify-between navbar bg-neutral text-neutral-content px-10">
       <div className="max-w-96 w-full">
-        <Image src="/imgs/logo.png" alt="Logo" width={340} height={200} />
+        {/* <Image src="/imgs/logo.png" alt="Logo" width={340} height={200} /> */}
+        <h1 className=" text-3xl">CompanyScore</h1>
       </div>
       <div className="flex gap-10 text-2xl">
         {[

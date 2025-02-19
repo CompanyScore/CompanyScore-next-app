@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
+import HeaderMobile from "@/components/header-mobile";
 import Footer from "@/components/footer";
 import ThemeProvider from "@/components/theme-provider";
 import Enter from "@/components/login";
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           <Header />
+          <HeaderMobile />
           <main className="flex-1 container mx-auto h-full px-4">
             {children}
             <Enter />
