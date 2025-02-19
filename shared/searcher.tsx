@@ -16,6 +16,11 @@ export function Searcher({ onSearch }: SearcherProps) {
   }, [debouncedValue]);
 
   return (
-    <Input placeholder="Поиск" value={searchValue} onChange={setSearchValue} />
+    <Input
+      placeholder="Поиск"
+      type="search"
+      value={searchValue}
+      onChange={setSearchValue}
+    />
   );
 }

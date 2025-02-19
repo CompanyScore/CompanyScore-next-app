@@ -2,15 +2,22 @@ import classNames from "classnames";
 
 type InputType = {
   value?: string;
+  type?: string;
   placeholder: string;
   onChange: (newSearchedValue: string) => void;
   className?: string;
 };
 
-export function Input({ value, placeholder, onChange, className }: InputType) {
+export function Input({
+  value,
+  type = "text",
+  placeholder,
+  onChange,
+  className,
+}: InputType) {
   return (
     <input
-      type="text"
+      type={type}
       placeholder={placeholder}
       value={value}
       className={classNames(
