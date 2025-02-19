@@ -1,7 +1,7 @@
 "use client";
 
 import moment from "moment";
-import { Avatar, Button, Tooltip } from "@/ui";
+import { Avatar, Button, Title, Tooltip } from "@/ui";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
@@ -24,7 +24,9 @@ type CommentsProps = {
 
 export function CompanyTable({ comments }: CommentsProps) {
   if (!comments.length) {
-    return <div>asd</div>;
+    return (
+      <Title position="center">Оставьте первый отзыв для этой компании!</Title>
+    );
   }
 
   return (
@@ -41,7 +43,7 @@ export function CompanyTable({ comments }: CommentsProps) {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center align-middle border-b border-gray-500"
