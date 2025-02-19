@@ -60,11 +60,13 @@ export function ProfileTable() {
 
   if (!comments.length) {
     return (
-      <Title position="center">
-        <Link href="/companies" className="underline">
-          Оставьте свой первый отзыв!
-        </Link>
-      </Title>
+      <Button className="btn-link">
+        <Title position="center">
+          <Link href="/companies" className="underline">
+            Оставьте свой первый отзыв!
+          </Link>
+        </Title>
+      </Button>
     );
   }
 

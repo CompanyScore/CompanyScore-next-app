@@ -29,8 +29,8 @@ export function Pagination({
       </Button>
       {[...Array(totalPages)].map((_, index) => (
         <Button
+          className={`${page == index + 1 ? "btn-primary" : "btn-neutral"}`}
           key={index}
-          color={`${page == index + 1 ? "secondary" : "primary"}`}
           onClick={() => changePage(index + 1)}
         >
           {index + 1}

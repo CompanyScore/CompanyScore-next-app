@@ -9,8 +9,7 @@ import { useProfileStore } from "@/store";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
-  const { loading, error, getProfile, updateProfile, deleteProfile } =
-    useProfileStore();
+  const { loading, error, getProfile, updateProfile } = useProfileStore();
 
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
@@ -40,13 +39,8 @@ export function ProfileEditModal() {
     // ДОБАВИТЬ ТОСТ
   };
 
-  const onDelete = async () => {
-    if (userId) await deleteProfile(userId);
-    // ДОБАВИТЬ ТОСТ
-  };
-
   return (
-    <Modal id="profile_edit_modal">
+    <Modal id="profile_edit_modal" className="max-h-[570px] h-full">
       <Title size="3" position="center">
         Редактирование профиля
       </Title>
@@ -67,9 +61,9 @@ export function ProfileEditModal() {
       <input
         type="file"
         onChange={handleFileChange}
-        className="file-input file-input-bordered file-input-primary w-full max-w-xs text-center m-auto"
+        className="file-input file-input-bordered file-input-neutral w-full max-w-xs text-center m-auto"
       />
-      <Button onClick={onSubmit}>
+      <Button className="btn-primary" onClick={onSubmit}>
         <label htmlFor="profile_edit_modal">Сохранить</label>
       </Button>
     </Modal>

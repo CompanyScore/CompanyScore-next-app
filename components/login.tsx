@@ -8,7 +8,7 @@ import {
   useAccessTokenStore,
   useRefreshTokenStore,
 } from "@/store";
-import { Title } from "@/ui";
+import { Modal, Title } from "@/ui";
 
 export default function Enter() {
   const { setUserId } = useUserStore();
@@ -36,25 +36,25 @@ export default function Enter() {
   }, []);
 
   return (
-    <div>
-      <input type="checkbox" id="modal_enter" className="modal-toggle" />
-      <div className="modal" role="dialog">
-        <div className="modal-box flex flex-col gap-10 w-full h-60">
-          <Title position="center">Войти</Title>
-          <div className="flex justify-around w-full">
-            <Image
-              src="/icons/linkedin.svg"
-              alt="linkedin"
-              width={60}
-              height={60}
-              onClick={redirectToLinkedin}
-            />
-          </div>
-        </div>
-        <label className="modal-backdrop" htmlFor="modal_enter">
-          Close
-        </label>
+    <Modal id="modal_enter" className="max-h-[450px] h-full">
+      <Title position="center">Войти</Title>
+      <div className="flex flex-col justify-around items-center w-full gap-10">
+        <Image
+          src="/icons/linkedin.svg"
+          alt="linkedin"
+          width={90}
+          height={90}
+          className="cursor-pointer"
+          onClick={redirectToLinkedin}
+        />
+
+        <p className="text-center">
+          Войдите с помощью LinkedIn, чтобы получить доступ к дополнительным
+          функциям сайта и сохранить свои данные. Мы не будем использовать ваши личные
+          данные. Вы сможете заполнить свой профиль своими или фейковыми
+          данными.
+        </p>
       </div>
-    </div>
+    </Modal>
   );
 }

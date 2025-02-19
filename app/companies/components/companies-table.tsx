@@ -73,6 +73,7 @@ export function CompaniesTable() {
                 <div className="flex justify-center items-center space-x-2 h-full">
                   <Tooltip tip="Посмотреть">
                     <Button
+                      className="btn-neutral"
                       onClick={() => redirect(`/companies/${company.id}`)}
                     >
                       <Image
@@ -84,7 +85,7 @@ export function CompaniesTable() {
                     </Button>
                   </Tooltip>
                   <Tooltip tip="Оставить отзыв">
-                    <Button color="success" onClick={() => openModal(company)}>
+                    <Button className="btn-success" onClick={() => openModal(company)}>
                       <label htmlFor="companies_add_comment_modal">
                         <Image
                           src="/icons/pencil.svg"
