@@ -21,6 +21,7 @@ export function Searcher({ onSearch }: SearcherProps) {
       type="search"
       value={searchValue}
       onChange={setSearchValue}
+      className="[&::-webkit-search-cancel-button]:cursor-pointer"
     />
   );
 }
