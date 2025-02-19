@@ -6,25 +6,29 @@ import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 import { useCompaniesStore } from "@/store";
 
 export function CompaniesCarousel() {
-  const { companies, loading, error, getCompanies } = useCompaniesStore();
+  const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % companies.length);
+    setCurrentIndex(prevIndex => (prevIndex + 1) % companiesNew.length);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + companies.length) % companies.length,
+      prevIndex => (prevIndex - 1 + companiesNew.length) % companiesNew.length,
     );
   };
+
+  useEffect(() => {
+    getCompaniesNew();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
     }, 6000);
     return () => clearInterval(interval);
-  }, [companies.length]);
+  }, [companiesNew.length]);
 
   if (loading) {
     return (
@@ -36,8 +40,8 @@ export function CompaniesCarousel() {
     return <Error text={error} />;
   }
 
-  if (companies.length === 0) {
-    return <Title size="4">No companies available</Title>;
+  if (companiesNew.length === 0) {
+    return <Title size="4">Нет новых компаний.</Title>;
   }
 
   return (
@@ -51,18 +55,18 @@ export function CompaniesCarousel() {
       <div className="w-4/5 h-80 flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
-            key={companies[currentIndex]?.id}
+            key={companiesNew[currentIndex]?.id}
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 1 }}
             className="flex justify-between w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
-            {companies[currentIndex]?.logo ? (
+            {companiesNew[currentIndex]?.logo ? (
               <Image
                 src={
                   process.env.NEXT_PUBLIC_API_URL +
-                  companies[currentIndex]?.logo
+                  companiesNew[currentIndex]?.logo
                 }
                 alt="Company Logo"
                 width={448}
@@ -74,15 +78,15 @@ export function CompaniesCarousel() {
             )}
 
             <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
-              <Title size="3">{companies[currentIndex]?.name}</Title>
+              <Title size="3">{companiesNew[currentIndex]?.name}</Title>
               <p className="text-lg font-semibold">
-                {companies[currentIndex]?.city},{" "}
-                {companies[currentIndex]?.country}
+                {companiesNew[currentIndex]?.city},{" "}
+                {companiesNew[currentIndex]?.country}
               </p>
               <p className="text-lg font-semibold ">
-                {companies[currentIndex]?.rating}
+                {companiesNew[currentIndex]?.rating}
               </p>
-              <p className="">{companies[currentIndex]?.description}</p>
+              <p className="">{companiesNew[currentIndex]?.description}</p>
             </div>
           </motion.div>
         </AnimatePresence>

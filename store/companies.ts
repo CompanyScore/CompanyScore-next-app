@@ -23,16 +23,19 @@ type GetCompaniesParams = {
 
 interface CompaniesState {
   companies: CompanyType[];
+  companiesNew: CompanyType[];
   page: number;
   total: number;
   limit: number;
   loading: boolean;
   error: string;
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
+  getCompaniesNew: () => Promise<void>;
 }
 
-export const useCompaniesStore = create<CompaniesState>((set) => ({
+export const useCompaniesStore = create<CompaniesState>(set => ({
   companies: [],
+  companiesNew: [],
   page: 1,
   total: 0,
   limit: 5,
@@ -61,6 +64,22 @@ export const useCompaniesStore = create<CompaniesState>((set) => ({
       });
     } catch (error: any) {
       set({ error: error.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  getCompaniesNew: async () => {
+    set({ loading: true, error: "" });
+
+    try {
+      const { data } = await useApi.get(`/companies/new/`);
+      set({
+        companiesNew: data,
+      });
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
