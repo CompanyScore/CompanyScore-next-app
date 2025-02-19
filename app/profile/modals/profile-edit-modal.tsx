@@ -6,7 +6,6 @@ import { useUserStore } from "@/store/user-id";
 import { Dropdown } from "@/ui";
 import { positions } from "@/shared";
 import { useProfileStore } from "@/store";
-import Link from "next/link";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
@@ -37,7 +36,7 @@ export function ProfileEditModal() {
     }
 
     if (userId) await updateProfile(userId, formData);
-    // if (userId) getProfile(userId);
+    if (userId) getProfile(userId);
     // ДОБАВИТЬ ТОСТ
   };
 
@@ -72,11 +71,6 @@ export function ProfileEditModal() {
       />
       <Button onClick={onSubmit}>
         <label htmlFor="profile_edit_modal">Сохранить</label>
-      </Button>
-      <Button color="danger" onClick={onDelete}>
-        <label htmlFor="profile_edit_modal">
-          <Link href="/">Удалить профиль</Link>
-        </label>
       </Button>
     </Modal>
   );

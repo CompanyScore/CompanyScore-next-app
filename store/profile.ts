@@ -16,7 +16,6 @@ interface ProfileState {
   error: string;
   getProfile: (userId: number) => Promise<void>;
   updateProfile: (userId: number, formData: any) => Promise<void>;
-  deleteProfile: (userId: number) => Promise<void>;
 }
 
 export const useProfileStore = create<ProfileState>(set => ({
@@ -55,16 +54,6 @@ export const useProfileStore = create<ProfileState>(set => ({
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  deleteProfile: async userId => {
-    try {
-      await useApi.delete(`/users/${userId}`);
-    } catch (error: any) {
-      set({ error: error.message });
     } finally {
       set({ loading: false });
     }
