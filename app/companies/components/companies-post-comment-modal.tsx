@@ -1,13 +1,11 @@
-"use client";
-
 import { useState } from "react";
-import { Button, Dropdown, Modal, Textarea, Title, Toast } from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
 import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
-import { useApi } from "@/hook";
+import { useToast, Toast } from "@/ui/toast";
 
 type CompaniesPostCommentModalProps = {
-  companyId?: number;
+  companyId: string;
 };
 
 export function CompaniesPostCommentModal({
@@ -16,15 +14,11 @@ export function CompaniesPostCommentModal({
   const { userId } = useUserStore();
   const { companies, getCompanies } = useCompaniesStore();
   const { loading, postComment } = useCommentsStore();
-  let error = useCommentsStore.getState().error;
+  const showToast = useToast((state) => state.showToast);
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
   const [position, setPosition] = useState<string>("");
-  const [toast, setToast] = useState<{
-    message: string | null;
-    type?: string;
-  } | null>(null);
 
   const closeModal = () => {
     const modal = document.getElementById(
@@ -49,45 +43,21 @@ export function CompaniesPostCommentModal({
       text: sanitizedText,
       position,
       rating,
-      userId: userId && +userId,
+      userId,
       companyId,
     };
 
-    // if (!comment.trim() || rating === 0 || !position) {
-    //   setError(
-    //     "Пожалуйста, оставьте комментарий, выберите хотя бы одну звезду и укажите вашу должность.",
-    //   );
-    //   return;
-    // }
-
-    await postComment(formData);
-    setToast({ message: "Комментарий отправлен!" });
-    resetForm();
-    getCompanies({});
-
-    if (error) {
-      console.log(error);
-
-      setToast({
-        message: error,
-        type: "error",
-      });
+    try {
+      await postComment(formData);
+      await getCompanies({});
+      resetForm();
+      showToast("Комментарий отправлен!", "success");
+    } catch (e) {
+      console.error("Ошибка в onSubmit", e);
+      let error = useCommentsStore.getState().error;
+      showToast(error || "Ошибка", "error");
+      resetForm();
     }
-
-    resetForm();
-    // console.error("Ошибка при отправке комментария:", error);
-    // if (error.response.data.errorCode === "comment_already_exists") {
-    //   setToast({
-    //     message: "Вы уже оставляли комментарий на эту компанию",
-    //     type: "error",
-    //   });
-    // } else {
-    //   setToast({
-    //     message:
-    //       "Произошла ошибка при отправке комментария. Пожалуйста, попробуйте снова.",
-    //     type: "error",
-    //   });
-    // }
   };
 
   const handleTextareaChange = (newSearchedValue: string) => {
@@ -157,7 +127,7 @@ export function CompaniesPostCommentModal({
         Сохранить
       </Button>
 
-      {toast && <Toast message={toast.message} type={toast.type} />}
+      <Toast />
     </Modal>
   );
 }
