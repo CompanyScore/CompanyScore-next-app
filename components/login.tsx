@@ -36,23 +36,29 @@ export default function Enter() {
   }, []);
 
   return (
-    <Modal id="modal_enter" className="max-h-[450px] h-full">
-      <Title position="center">Войти</Title>
-      <div className="flex flex-col justify-around items-center w-full gap-10">
+    <Modal
+      id="modal_enter"
+      className="max-h-[450px] h-full bg-gradient-to-b from-gray-50 to-gray-100 p-6 rounded-lg shadow-lg"
+    >
+      <Title position="center" className="text-xl font-semibold text-gray-600">
+        Войти через LinkedIn
+      </Title>
+
+      <div className="flex flex-col items-center w-full gap-8">
         <Image
           src="/icons/linkedin.svg"
-          alt="linkedin"
+          alt="LinkedIn"
           width={90}
           height={90}
-          className="cursor-pointer"
+          className="cursor-pointer transition-transform duration-300 ease-out hover:scale-110 hover:rotate-6"
           onClick={redirectToLinkedin}
         />
 
-        <p className="text-center">
-          Войдите с помощью LinkedIn, чтобы получить доступ к дополнительным
-          функциям сайта и сохранить свои данные. Мы не будем использовать ваши личные
-          данные. Вы сможете заполнить свой профиль своими или фейковыми
-          данными.
+        <p className="text-center text-sm text-gray-600 leading-relaxed max-w-xs">
+          Войдите через LinkedIn, чтобы воспользоваться дополнительными
+          функциями сайта и сохранить свои данные. Мы не собираем и не
+          используем вашу личную информацию, и вы сами решаете, какие данные
+          добавить в профиль, включая вымышленные.
         </p>
       </div>
     </Modal>
