@@ -21,7 +21,7 @@ interface CommentsState {
   limit: number;
   loading: boolean;
   error: string;
-  getComments: (userId: number, page?: number, limit?: number) => Promise<void>;
+  getComments: (userId: string, page?: number, limit?: number) => Promise<void>;
   postComment: (formData: any) => Promise<void>;
   updateComment: (
     commentId: number,
@@ -32,7 +32,7 @@ interface CommentsState {
   deleteComment: (commentId: number) => Promise<void>;
 }
 
-export const useCommentsStore = create<CommentsState>(set => ({
+export const useCommentsStore = create<CommentsState>((set) => ({
   comments: [],
   page: 1,
   total: 0,
@@ -42,6 +42,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
 
   getComments: async (userId, page = 1, limit = 5) => {
     set({ loading: true, error: "" });
+
     try {
       const { data } = await useApi.get(
         `/comments/?userId=${userId}&page=${page}&limit=${limit}`,
@@ -60,12 +61,15 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  postComment: async formData => {
+  postComment: async (formData) => {
+    set({ loading: true, error: "" });
+
     try {
       await useApi.post("/comments", formData);
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
+      throw new Error(errorMessage);
     } finally {
       set({ loading: false });
     }
@@ -81,7 +85,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  deleteComment: async commentId => {
+  deleteComment: async (commentId) => {
     try {
       await useApi.delete(`/comments/${commentId}`);
     } catch (error: any) {
