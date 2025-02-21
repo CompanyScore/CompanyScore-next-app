@@ -4,10 +4,12 @@ export function Title({
   children,
   size = "4",
   position = "start",
+  className,
 }: Readonly<{
   children: string;
   size?: "1" | "2" | "3" | "4" | "5" | "6";
   position?: "start" | "center" | "end";
+  className?: string;
 }>) {
   const sizeClasses: Record<string, string> = {
     "1": "text-xl",
@@ -20,11 +22,15 @@ export function Title({
 
   return (
     <h2
-      className={classNames(sizeClasses[size], {
-        "text-left": position === "start",
-        "text-center": position === "center",
-        "text-right": position === "end",
-      })}
+      className={classNames(
+        sizeClasses[size],
+        {
+          "text-left": position === "start",
+          "text-center": position === "center",
+          "text-right": position === "end",
+        },
+        className,
+      )}
     >
       {children}
     </h2>

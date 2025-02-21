@@ -84,7 +84,7 @@ export function ProfileTable() {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"
@@ -107,6 +107,7 @@ export function ProfileTable() {
                 <div className="space-x-2">
                   <Tooltip tip="Посмотреть">
                     <Button
+                      className="btn-neutral"
                       onClick={() =>
                         redirect(`/companies/${comment.company.id}`)
                       }
@@ -121,7 +122,7 @@ export function ProfileTable() {
                   </Tooltip>
                   <Tooltip tip="Редактировать">
                     <Button
-                      color="warning"
+                      className="btn-warning"
                       onClick={() => openEditModal(comment)}
                     >
                       <label htmlFor="profile-edit-comment-modal">
@@ -136,10 +137,10 @@ export function ProfileTable() {
                   </Tooltip>
                   <Tooltip tip="Удалить">
                     <Button
-                      color="danger"
+                      className="btn-error"
                       onClick={() => handleDeleteComment(comment.id)}
                     >
-                      <IoIosCloseCircleOutline className="w-6 h-6" />
+                      <IoIosCloseCircleOutline className="w-6 h-6 text-white" />
                     </Button>
                   </Tooltip>
                 </div>
