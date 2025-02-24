@@ -21,6 +21,7 @@ export default function GlobalError({
               К сожалению, произошла непредвиденная ошибка. Пожалуйста,
               повторите позже.
             </p>
+
             <a href="/" className="btn btn-primary">
               Вернуться на главную
             </a>

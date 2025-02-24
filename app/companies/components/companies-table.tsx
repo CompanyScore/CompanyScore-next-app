@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CompaniesPostCommentModal } from "./index";
-import { useCompaniesStore } from "@/store";
+import { useCompaniesStore, useUserStore } from "@/store";
 import type { CompanyType } from "@/store/companies";
 import { Button, Avatar, Tooltip, Error, Title } from "@/ui";
 
 export function CompaniesTable() {
+  const { userId } = useUserStore();
   const { companies, loading, error } = useCompaniesStore();
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
@@ -85,8 +86,15 @@ export function CompaniesTable() {
                     </Button>
                   </Tooltip>
                   <Tooltip tip="Оставить отзыв">
-                    <Button className="btn-success" onClick={() => openModal(company)}>
-                      <label htmlFor="companies_add_comment_modal">
+                    <Button
+                      className="btn-success"
+                      onClick={() => openModal(company)}
+                    >
+                      <label
+                        htmlFor={
+                          userId ? "companies_add_comment_modal" : "login_modal"
+                        }
+                      >
                         <Image
                           src="/icons/pencil.svg"
                           alt="Pencil"

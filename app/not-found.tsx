@@ -1,3 +1,6 @@
+import { Button } from "@/ui";
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -8,9 +11,10 @@ export default function NotFound() {
           <p className="py-6">
             Извините, мы не можем найти страницу, которую вы ищете.
           </p>
-          <a href="/" className="btn btn-neutral">
-            Вернуться на главную
-          </a>
+
+          <Button className="btn-link text-2xl">
+            <Link href="/">Вернуться на главную</Link>
+          </Button>
         </div>
       </div>
     </div>

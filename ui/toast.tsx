@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import classNames from "classnames";
@@ -13,7 +14,7 @@ type ToastState = {
   ) => void;
 };
 
-export const useToast = create<ToastState>((set) => ({
+export const useToast = create<ToastState>(set => ({
   message: null,
   type: "success",
   id: 0,

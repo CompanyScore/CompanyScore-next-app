@@ -64,7 +64,7 @@ export default function Header() {
             />
           </Link>
         ) : (
-          <label htmlFor="modal_enter" className="btn">
+          <label htmlFor="login_modal" className="btn">
             Войти
           </label>
         )}

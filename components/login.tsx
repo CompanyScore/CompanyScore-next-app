@@ -37,7 +37,7 @@ export default function Enter() {
 
   return (
     <Modal
-      id="modal_enter"
+      id="login_modal"
       className="max-h-[450px] h-full bg-gradient-to-b from-gray-50 to-gray-100 p-6 rounded-lg shadow-lg"
     >
       <Title position="center" className="text-xl font-semibold text-gray-600">

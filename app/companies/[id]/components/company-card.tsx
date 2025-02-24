@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/ui";
 import { CompaniesPostCommentModal } from "@/app/companies/components";
+import { useUserStore } from "@/store";
 
 type CompanyType = {
   id: string;
@@ -23,6 +24,7 @@ type CompanyProps = {
 
 export function CompanyCard({ total }: CompanyProps) {
   const { id } = useParams<{ id: string }>();
+  const { userId } = useUserStore();
   const [company, setCompany] = useState<CompanyType>();
   const [totalScore, setTotalScore] = useState(0);
 
@@ -77,7 +79,9 @@ export function CompanyCard({ total }: CompanyProps) {
           <div className="flex justify-between items-start w-full">
             <h1 className="text-5xl font-bold">{company?.name}</h1>
             <Button className="btn-success" onClick={() => openModal(company!)}>
-              <label htmlFor="companies_add_comment_modal">
+              <label
+                htmlFor={userId ? "companies_add_comment_modal" : "login_modal"}
+              >
                 <Image
                   src="/icons/pencil.svg"
                   alt="Pencil"
@@ -93,9 +97,7 @@ export function CompanyCard({ total }: CompanyProps) {
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
-      {selectedCompany?.id ?? (
-        <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
-      )}
+      <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
     </div>
   );
 }
