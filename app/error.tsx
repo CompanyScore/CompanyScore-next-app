@@ -1,0 +1,32 @@
+"use client";
+
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  console.error(error);
+
+  return (
+    <html lang="ru">
+      <body className="bg-base-200">
+        <div className="hero min-h-screen">
+          <div className="hero-content flex-col text-center">
+            <h1 className="text-6xl font-bold text-error">
+              Ой! Что-то пошло не так.
+            </h1>
+            <p className="py-6 text-lg">
+              К сожалению, произошла непредвиденная ошибка. Пожалуйста,
+              повторите позже.
+            </p>
+            <a href="/" className="btn btn-primary">
+              Вернуться на главную
+            </a>
+          </div>
+        </div>
+      </body>
+    </html>
+  );
+}
