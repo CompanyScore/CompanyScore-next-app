@@ -1,8 +1,16 @@
 "use client";
 
+import { useUserStore } from "@/store";
 import { Container } from "@/ui";
+import { redirect } from "next/navigation";
 
 export default function AnalyticPage() {
+  const { userId } = useUserStore();
+
+  if (!userId) {
+    redirect("/");
+  }
+
   return (
     <div className="flex flex-col gap-20 p-10">
       <p className="text-2xl font-bold text-yellow-500">

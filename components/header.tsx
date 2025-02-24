@@ -10,8 +10,26 @@ import { useProfileStore } from "@/store";
 export default function Header() {
   const { userId } = useUserStore();
   const { profile, getProfile } = useProfileStore();
-
   const pathname = usePathname();
+
+  let pages;
+
+  if (userId) {
+    pages = [
+      { href: "/", label: "Главная" },
+      { href: "/about", label: "О нас" },
+      { href: "/companies", label: "Компании" },
+      { href: "/users", label: "Пользователи" },
+      { href: "/analytic", label: "Аналитика" },
+      { href: "/blog", label: "Блог" },
+    ];
+  } else {
+    pages = [
+      { href: "/", label: "Главная" },
+      { href: "/about", label: "О нас" },
+      { href: "/companies", label: "Компании" },
+    ];
+  }
 
   useEffect(() => {
     if (userId) {
@@ -26,14 +44,7 @@ export default function Header() {
         <h1 className=" text-3xl">CompanyScore</h1>
       </div>
       <div className="flex gap-10 text-2xl">
-        {[
-          { href: "/", label: "Главная" },
-          { href: "/about", label: "О нас" },
-          { href: "/companies", label: "Компании" },
-          { href: "/users", label: "Пользователи" },
-          { href: "/analytic", label: "Аналитика" },
-          { href: "/blog", label: "Блог" },
-        ].map(({ href, label }) => (
+        {pages.map(({ href, label }) => (
           <Link
             key={href}
             href={href}

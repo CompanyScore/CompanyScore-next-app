@@ -10,8 +10,26 @@ import { useProfileStore } from "@/store";
 export default function HeaderMobile() {
   const { userId } = useUserStore();
   const { profile, getProfile } = useProfileStore();
-
   const pathname = usePathname();
+
+  let pages;
+
+  if (userId) {
+    pages = [
+      { href: "/", label: "Главная" },
+      { href: "/about", label: "О нас" },
+      { href: "/companies", label: "Компании" },
+      { href: "/users", label: "Пользователи" },
+      { href: "/analytic", label: "Аналитика" },
+      { href: "/blog", label: "Блог" },
+    ];
+  } else {
+    pages = [
+      { href: "/", label: "Главная" },
+      { href: "/about", label: "О нас" },
+      { href: "/companies", label: "Компании" },
+    ];
+  }
 
   useEffect(() => {
     if (userId) {
@@ -43,14 +61,7 @@ export default function HeaderMobile() {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            {[
-              { href: "/", label: "Главная" },
-              { href: "/about", label: "О нас" },
-              { href: "/companies", label: "Компании" },
-              { href: "/users", label: "Пользователи" },
-              { href: "/analytic", label: "Аналитика" },
-              { href: "/blog", label: "Блог" },
-            ].map(({ href, label }) => (
+            {pages.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}

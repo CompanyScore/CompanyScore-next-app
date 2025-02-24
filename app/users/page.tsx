@@ -4,14 +4,20 @@ import { useEffect } from "react";
 import { Avatar, Error, Title } from "@/ui";
 import moment from "moment";
 
-import { useUsersStore } from "@/store";
+import { useUsersStore, useUserStore } from "@/store";
+import { redirect } from "next/navigation";
 
 export default function UsersPage() {
+  const { userId } = useUserStore();
   const { users, loading, error, getUsers } = useUsersStore();
 
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  if (!userId) {
+    redirect("/");
+  }
 
   if (loading) {
     return (
