@@ -19,21 +19,21 @@ export default function Enter() {
     window.location.href = "http://localhost:8080/auth/linkedin";
   };
 
-  const getUserData = async () => {
-    try {
-      const { data } = await useApi.get("/auth/cookies");
-
-      setUserId(data.userId);
-      setAccessToken(data.accessToken);
-      setRefreshToken(data.refreshToken);
-    } catch (error) {
-      console.error("Ошибка получения данных:", error);
-    }
-  };
-
   useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const { data } = await useApi.get("/auth/cookies");
+
+        setUserId(data.userId);
+        setAccessToken(data.accessToken);
+        setRefreshToken(data.refreshToken);
+      } catch (error) {
+        console.error("Ошибка получения данных:", error);
+      }
+    };
+
     getUserData();
-  }, []);
+  }, [setUserId, setAccessToken, setRefreshToken]);
 
   return (
     <Modal

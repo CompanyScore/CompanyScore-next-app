@@ -38,7 +38,7 @@ export const Dropdown = ({
 
   const handleSelect = (value: string) => {
     onSelect(value);
-    document.activeElement?.blur(); // Закрываем список после выбора
+    (document.activeElement as HTMLElement)?.blur(); // Закрываем список после выбора
   };
 
   return (

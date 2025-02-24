@@ -103,7 +103,7 @@ export function CompaniesTable() {
         </tbody>
       </table>
 
-      <CompaniesPostCommentModal companyId={selectedCompany?.id} />
+      <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
     </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import { Container } from "@/ui";
-import React, { useState } from "react";
 
 export default function AnalyticPage() {
   return (
@@ -13,11 +12,13 @@ export default function AnalyticPage() {
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div
             className="radial-progress"
-            style={{
-              "--value": "70",
-              "--size": "12rem",
-              "--thickness": "2rem",
-            }}
+            style={
+              {
+                "--value": "70",
+                "--size": "12rem",
+                "--thickness": "2rem",
+              } as React.CSSProperties
+            }
             role="progressbar"
           >
             70%

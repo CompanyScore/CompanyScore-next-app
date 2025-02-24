@@ -9,7 +9,7 @@ import { useProfileStore } from "@/store";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
-  const { loading, error, getProfile, updateProfile } = useProfileStore();
+  const { getProfile, updateProfile } = useProfileStore();
 
   const [name, setName] = useState("");
   const [position, setPosition] = useState("");
@@ -30,7 +30,7 @@ export function ProfileEditModal() {
     if (description) formData.append("description", description);
     if (avatar) formData.append("avatarFile", avatar);
 
-    for (let [key, value] of formData) {
+    for (const [key, value] of formData) {
       console.log(`${key}: ${value}`);
     }
 

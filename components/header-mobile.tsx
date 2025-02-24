@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
-import Image from "next/image";
 import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
 import { useUserStore } from "@/store/user-id";
@@ -18,7 +17,7 @@ export default function HeaderMobile() {
     if (userId) {
       getProfile(userId);
     }
-  }, [userId]);
+  }, [userId, getProfile]);
 
   return (
     <div className="flex lg:hidden navbar bg-base-100">

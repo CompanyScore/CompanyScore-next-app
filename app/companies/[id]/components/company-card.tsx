@@ -8,7 +8,7 @@ import { Button } from "@/ui";
 import { CompaniesPostCommentModal } from "@/app/companies/components";
 
 type CompanyType = {
-  id: number;
+  id: string;
   name: string;
   logo: string;
   country: string;
@@ -76,7 +76,7 @@ export function CompanyCard({ total }: CompanyProps) {
         <div className="w-full">
           <div className="flex justify-between items-start w-full">
             <h1 className="text-5xl font-bold">{company?.name}</h1>
-            <Button color="success" onClick={() => openModal(company)}>
+            <Button className="btn-success" onClick={() => openModal(company!)}>
               <label htmlFor="companies_add_comment_modal">
                 <Image
                   src="/icons/pencil.svg"
@@ -93,10 +93,9 @@ export function CompanyCard({ total }: CompanyProps) {
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
-      <CompaniesPostCommentModal
-        companyId={selectedCompany?.id}
-        refetch={() => {}}
-      />
+      {selectedCompany?.id ?? (
+        <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
+      )}
     </div>
   );
 }

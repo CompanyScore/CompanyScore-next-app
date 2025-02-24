@@ -12,8 +12,8 @@ export default function AboutPage() {
   );
   const [rating, setRating] = useState(8);
 
-  const handleInputChange = (e: any) => {
-    setEditableText(e.target.innerText);
+  const handleInputChange = (e: React.FormEvent<HTMLDivElement>) => {
+    setEditableText(e.currentTarget.innerText);
   };
 
   return (
@@ -21,11 +21,18 @@ export default function AboutPage() {
       <Container>
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="relative w-full lg:w-1/2">
-            <img
+            <Image
+              src="/imgs/google.jpeg"
+              alt="Google"
+              className="w-full rounded-lg"
+              width={800}
+              height={500}
+            />
+            {/* <img
               className="w-full rounded-lg"
               src="https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg"
               alt="Main"
-            />
+            /> */}
             <div className="absolute bg-purple-500 text-white p-5 rounded-lg -bottom-5 -left-5 right-10 min-w-xs">
               <p
                 contentEditable="true"

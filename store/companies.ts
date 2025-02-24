@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { useApi } from "@/hook";
 
 export type CompanyType = {
-  id: number;
+  id: string;
   name: string;
   country: string;
   city: string;

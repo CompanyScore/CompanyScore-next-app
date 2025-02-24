@@ -6,7 +6,7 @@ export function Title({
   position = "start",
   className,
 }: Readonly<{
-  children: string;
+  children: React.ReactNode;
   size?: "1" | "2" | "3" | "4" | "5" | "6";
   position?: "start" | "center" | "end";
   className?: string;

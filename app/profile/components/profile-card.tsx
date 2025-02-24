@@ -4,21 +4,22 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { ProfileEditModal } from "../modals";
 import { useProfileStore, useUserStore } from "@/store";
-import { Error, Loading } from "@/ui";
+import { Error } from "@/ui";
 
 export function ProfileCard() {
-  const { userId, setUserId, clearUserId } = useUserStore(); // не удаляй пример
-  const { profile, loading, error, getProfile, deleteProfile } =
-    useProfileStore();
+  const { userId } = useUserStore();
+  const { profile, loading, error, getProfile } = useProfileStore();
 
   useEffect(() => {
     if (userId) {
       getProfile(userId);
     }
-  }, [userId]);
+  }, [userId, getProfile]);
 
   if (loading) {
-    return <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (error) {
@@ -41,7 +42,7 @@ export function ProfileCard() {
           />
         </label>
         {profile?.avatar ? (
-          <img
+          <Image
             src={`${process.env.NEXT_PUBLIC_API_URL}${profile.avatar}`}
             alt="Avatar"
             width={400}

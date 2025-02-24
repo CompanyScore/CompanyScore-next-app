@@ -11,7 +11,7 @@ export default function UsersPage() {
 
   useEffect(() => {
     getUsers();
-  }, []);
+  }, [getUsers]);
 
   if (loading) {
     return (

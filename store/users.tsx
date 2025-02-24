@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { useApi } from "@/hook";
 
 type UserType = {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
   createDate: Date;

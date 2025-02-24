@@ -11,7 +11,7 @@ import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
 import Link from "next/link";
 
 export type CommentType = {
-  id: number;
+  id: string;
   rating: number;
   createDate: Date;
   text: string;
@@ -35,7 +35,7 @@ export function ProfileTable() {
     setSelectedComment(comment);
   };
 
-  const handleDeleteComment = async (commentId: number) => {
+  const handleDeleteComment = async (commentId: string) => {
     await deleteComment(commentId);
     if (userId) {
       getComments(userId);
@@ -46,7 +46,7 @@ export function ProfileTable() {
     if (userId) {
       getComments(userId);
     }
-  }, [userId]);
+  }, [userId, getComments]);
 
   if (loading) {
     return (
@@ -84,7 +84,7 @@ export function ProfileTable() {
           </tr>
         </thead>
         <tbody>
-          {comments.map((comment) => (
+          {comments.map(comment => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"

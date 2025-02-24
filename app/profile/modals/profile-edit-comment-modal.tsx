@@ -2,27 +2,26 @@
 
 import { useState, useEffect } from "react";
 import { useCommentsStore, useUserStore } from "@/store";
-import { Button, Dropdown, Modal, Textarea, Title, Toast } from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
-import { useApi } from "@/hook";
 
 type ProfileEditCommentModalProps = {
-  comment?: { id: number; text: string; rating: number; position?: string };
+  comment?: { id: string; text: string; rating: number; position?: string };
 };
 
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
   const { userId } = useUserStore();
-  const { loading, getComments, updateComment } = useCommentsStore();
+  const { getComments, updateComment } = useCommentsStore();
 
   const [editedText, setEditedText] = useState("");
   const [editedRating, setEditedRating] = useState(0);
   const [editedPosition, setEditedPosition] = useState("");
-  const [validation, setValidation] = useState<string | null>(null);
-  const [toast, setToast] = useState<
-    { message: string; type?: string } | undefined
-  >(undefined);
+  // const [setValidation] = useState<string | null>(null);
+  // const [toast] = useState<{ message: string; type?: string } | undefined>(
+  //   undefined,
+  // );
 
   useEffect(() => {
     if (comment) {
@@ -34,7 +33,7 @@ export function ProfileEditCommentModal({
 
   const onSubmit = async () => {
     if (!editedText.trim() || editedRating === 0 || !editedPosition) {
-      setValidation("Пожалуйста, укажите текст отзыва, рейтинг и должность.");
+      // setValidation("Пожалуйста, укажите текст отзыва, рейтинг и должность.");
       return;
     }
 
@@ -106,7 +105,7 @@ export function ProfileEditCommentModal({
       >
         Обновить
       </Button>
-      {toast && <Toast message={toast.message} type={toast.type} />}
+      {/* {toast && <Toast message={toast.message} type={toast.type || ""} />} */}
     </Modal>
   );
 }

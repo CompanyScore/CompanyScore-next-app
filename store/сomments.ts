@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { useApi } from "@/hook";
 
 export type CommentType = {
-  id: number;
+  id: string;
   rating: number;
   createDate: Date;
   text: string;
@@ -24,12 +24,12 @@ interface CommentsState {
   getComments: (userId: string, page?: number, limit?: number) => Promise<void>;
   postComment: (formData: any) => Promise<void>;
   updateComment: (
-    commentId: number,
+    commentId: string,
     text: string,
     rating: number,
     position: string,
   ) => Promise<void>;
-  deleteComment: (commentId: number) => Promise<void>;
+  deleteComment: (commentId: string) => Promise<void>;
 }
 
 export const useCommentsStore = create<CommentsState>((set) => ({

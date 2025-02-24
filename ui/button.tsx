@@ -9,7 +9,7 @@ export function Button({
   children,
   disabled = false,
   onClick,
-  className = "btn primary",
+  className = "btn-primary",
 }: ButtonProps) {
   return (
     <button

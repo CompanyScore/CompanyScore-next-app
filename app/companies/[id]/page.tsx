@@ -7,12 +7,13 @@ import { Pagination, ShowBy } from "@/shared";
 import { Error, Loading } from "@/ui";
 
 type CommentType = {
-  id: number;
+  id: string;
   rating: number;
   createDate: Date;
   text: string;
+  position: string;
   user: {
-    id: number;
+    id: string;
     name: string;
     avatar: string;
   };
@@ -35,7 +36,7 @@ export default function CompanyDetail() {
   const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(true);
-  const [error, setErrorMessage] = useState("");
+  const [error] = useState("");
 
   const getComments = async (id: string) => {
     try {
@@ -47,8 +48,10 @@ export default function CompanyDetail() {
 
       setComments(response.data.data);
       setTotal(response.data.total);
-    } catch (error) {
-      setErrorMessage(error.message);
+    } catch (error: unknown) {
+      console.log(error);
+
+      // setErrorMessage(error.message);
     } finally {
       setLoading(false);
     }

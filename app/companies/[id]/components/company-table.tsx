@@ -6,13 +6,13 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 
 type CommentType = {
-  id: number;
+  id: string;
   rating: number;
   createDate: Date;
   text: string;
   position: string;
   user: {
-    id: number;
+    id: string;
     name: string;
     avatar: string;
   };

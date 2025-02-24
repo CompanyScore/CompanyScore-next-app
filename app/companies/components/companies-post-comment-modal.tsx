@@ -12,9 +12,9 @@ export function CompaniesPostCommentModal({
   companyId,
 }: CompaniesPostCommentModalProps) {
   const { userId } = useUserStore();
-  const { companies, getCompanies } = useCompaniesStore();
-  const { loading, postComment } = useCommentsStore();
-  const showToast = useToast((state) => state.showToast);
+  const { getCompanies } = useCompaniesStore();
+  const { postComment } = useCommentsStore();
+  const showToast = useToast(state => state.showToast);
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
@@ -54,7 +54,7 @@ export function CompaniesPostCommentModal({
       showToast("Комментарий отправлен!", "success");
     } catch (e) {
       console.error("Ошибка в onSubmit", e);
-      let error = useCommentsStore.getState().error;
+      const error = useCommentsStore.getState().error;
       showToast(error || "Ошибка", "error");
       resetForm();
     }

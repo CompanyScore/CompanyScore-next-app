@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { useApi } from "@/hook";
 
 export type ProfileType = {
-  id: number;
+  id: string;
   name: string;
   avatar: string;
   position: string;
@@ -14,13 +14,13 @@ interface ProfileState {
   profile: ProfileType;
   loading: boolean;
   error: string;
-  getProfile: (userId: number) => Promise<void>;
-  updateProfile: (userId: number, formData: any) => Promise<void>;
+  getProfile: (userId: string) => Promise<void>;
+  updateProfile: (userId: string, formData: any) => Promise<void>;
 }
 
 export const useProfileStore = create<ProfileState>(set => ({
   profile: {
-    id: 0,
+    id: "",
     name: "",
     avatar: "",
     position: "",

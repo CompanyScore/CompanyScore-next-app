@@ -2,15 +2,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
-import Image from "next/image";
 import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
 import { useUserStore } from "@/store/user-id";
 import { useProfileStore } from "@/store";
 
 export default function Header() {
-  const { userId, setUserId, clearUserId } = useUserStore();
-  const { profile, loading, error, getProfile } = useProfileStore();
+  const { userId } = useUserStore();
+  const { profile, getProfile } = useProfileStore();
 
   const pathname = usePathname();
 
@@ -18,7 +17,7 @@ export default function Header() {
     if (userId) {
       getProfile(userId);
     }
-  }, [userId]);
+  }, [userId, getProfile]);
 
   return (
     <div className="hidden lg:flex justify-between navbar bg-neutral text-neutral-content px-10">

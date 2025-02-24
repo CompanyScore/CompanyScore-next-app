@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Error, Title } from "@/ui";
 import Image from "next/image";
@@ -9,26 +9,26 @@ export function CompaniesCarousel() {
   const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex(prevIndex => (prevIndex + 1) % companiesNew.length);
-  };
+  }, [companiesNew.length]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex(
       prevIndex => (prevIndex - 1 + companiesNew.length) % companiesNew.length,
     );
-  };
+  }, [companiesNew.length]);
 
   useEffect(() => {
     getCompaniesNew();
-  }, []);
+  }, [getCompaniesNew]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
     }, 6000);
     return () => clearInterval(interval);
-  }, [companiesNew.length]);
+  }, [companiesNew.length, handleNext]);
 
   if (loading) {
     return (
