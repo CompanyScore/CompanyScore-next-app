@@ -2,10 +2,8 @@
 
 export default function GlobalError({
   error,
-  reset,
 }: {
   error: Error & { digest?: string };
-  reset: () => void;
 }) {
   console.error(error);
 
@@ -21,7 +19,7 @@ export default function GlobalError({
               К сожалению, произошла непредвиденная ошибка. Пожалуйста,
               повторите позже.
             </p>
-
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/" className="btn btn-primary">
               Вернуться на главную
             </a>

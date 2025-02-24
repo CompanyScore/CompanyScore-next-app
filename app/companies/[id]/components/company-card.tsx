@@ -12,8 +12,6 @@ type CompanyType = {
   id: string;
   name: string;
   logo: string;
-  country: string;
-  city: string;
   description: string;
   rating: number;
 };
@@ -91,9 +89,6 @@ export function CompanyCard({ total }: CompanyProps) {
               </label>
             </Button>
           </div>
-          <p className="pt-4">
-            {company?.city}, {company?.country}
-          </p>
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
