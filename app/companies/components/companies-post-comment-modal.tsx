@@ -1,8 +1,15 @@
 import { useState } from "react";
-import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
+import {
+  Button,
+  Dropdown,
+  Modal,
+  Textarea,
+  Title,
+  Toast,
+  useToast,
+} from "@/ui";
 import { positions } from "@/shared";
 import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
-import { useToast, Toast } from "@/ui/toast";
 
 type CompaniesPostCommentModalProps = {
   companyId: string;
@@ -14,7 +21,7 @@ export function CompaniesPostCommentModal({
   const { userId } = useUserStore();
   const { getCompanies } = useCompaniesStore();
   const { postComment } = useCommentsStore();
-  const showToast = useToast(state => state.showToast);
+  const showToast = useToast((state) => state.showToast);
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
@@ -52,8 +59,7 @@ export function CompaniesPostCommentModal({
       await getCompanies({});
       resetForm();
       showToast("Комментарий отправлен!", "success");
-    } catch (e) {
-      console.error("Ошибка в onSubmit", e);
+    } catch {
       const error = useCommentsStore.getState().error;
       showToast(error || "Ошибка", "error");
       resetForm();

@@ -31,7 +31,7 @@ export function ProfileCard() {
       <div className="hero-content flex-col lg:flex-row items-start justify-start gap-20 w-full">
         <label
           htmlFor="profile_edit_modal"
-          className="btn absolute top-4 right-10"
+          className="btn btn-neutral absolute top-4 right-10 rounded-md"
         >
           <Image
             src="/icons/settings.svg"
