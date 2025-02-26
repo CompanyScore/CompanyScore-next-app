@@ -21,8 +21,9 @@ export default function BlogPage() {
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="card bg-base-100 w-96 shadow-xl">
             <figure>
+              {/* src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg" */}
               <Image
-                src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg"
+                src="/imgs/money.avif"
                 width={385}
                 height={100}
                 alt="money"
