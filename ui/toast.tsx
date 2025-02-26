@@ -12,27 +12,32 @@ type ToastState = {
     message: string,
     type?: "success" | "error" | "warning" | "info",
   ) => void;
+  clearToast: () => void;
 };
 
-export const useToast = create<ToastState>(set => ({
+export const useToast = create<ToastState>((set) => ({
   message: null,
   type: "success",
   id: 0,
   showToast: (message, type = "success") =>
-    set({ message, type, id: Date.now() }), // id изменяется для перерисовки
+    set({ message, type, id: Date.now() }),
+  clearToast: () => set({ message: null, id: 0 }), // Функция очистки
 }));
 
 export function Toast() {
-  const { message, type, id } = useToast();
+  const { message, type, id, clearToast } = useToast();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     if (message) {
       setIsVisible(true);
-      const timer = setTimeout(() => setIsVisible(false), 5000);
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        clearToast(); // ✅ Очищаем тост после скрытия
+      }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [id]); // Ререндер при изменении id
+  }, [id]); // Зависимость по `id`
 
   if (!isVisible || !message) return null;
 

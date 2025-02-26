@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Input, Modal, Textarea, Title } from "@/ui";
-import { useUserStore } from "@/store/user-id";
-import { Dropdown } from "@/ui";
+import {
+  Button,
+  Input,
+  Modal,
+  Textarea,
+  Title,
+  Dropdown,
+  Toast,
+  useToast,
+} from "@/ui";
 import { positions } from "@/shared";
-import { useProfileStore } from "@/store";
+import { useProfileStore, useUserStore } from "@/store";
 
 export function ProfileEditModal() {
   const { userId } = useUserStore();
@@ -15,6 +22,8 @@ export function ProfileEditModal() {
   const [position, setPosition] = useState("");
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState<string | Blob>("");
+
+  const showToast = useToast((state) => state.showToast);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -34,9 +43,14 @@ export function ProfileEditModal() {
       console.log(`${key}: ${value}`);
     }
 
-    if (userId) await updateProfile(userId, formData);
-    if (userId) getProfile(userId);
-    // ДОБАВИТЬ ТОСТ
+    try {
+      if (userId) await updateProfile(userId, formData);
+      if (userId) getProfile(userId);
+      showToast("Данные обновлены", "success");
+    } catch (e) {
+      const error = useProfileStore.getState().error;
+      showToast(error || "Ошибка", "error");
+    }
   };
 
   return (
@@ -66,6 +80,8 @@ export function ProfileEditModal() {
       <Button className="btn-primary" onClick={onSubmit}>
         <label htmlFor="profile_edit_modal">Сохранить</label>
       </Button>
+
+      <Toast />
     </Modal>
   );
 }
