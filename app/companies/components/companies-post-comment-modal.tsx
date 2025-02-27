@@ -20,8 +20,8 @@ export function CompaniesPostCommentModal({
 }: CompaniesPostCommentModalProps) {
   const { userId } = useUserStore();
   const { getCompanies } = useCompaniesStore();
-  const { postComment } = useCommentsStore();
-  const showToast = useToast((state) => state.showToast);
+  const { getComments, postComment } = useCommentsStore();
+  const showToast = useToast(state => state.showToast);
 
   const [comment, setComment] = useState<string>("");
   const [rating, setRating] = useState<number>(0);
@@ -57,6 +57,7 @@ export function CompaniesPostCommentModal({
     try {
       await postComment(formData);
       await getCompanies({});
+      await getComments({ companyId });
       resetForm();
       showToast("Комментарий отправлен!", "success");
     } catch {

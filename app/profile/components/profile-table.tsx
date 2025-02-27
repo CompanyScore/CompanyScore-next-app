@@ -38,13 +38,13 @@ export function ProfileTable() {
   const handleDeleteComment = async (commentId: string) => {
     await deleteComment(commentId);
     if (userId) {
-      getComments(userId);
+      getComments({ userId });
     }
   };
 
   useEffect(() => {
     if (userId) {
-      getComments(userId);
+      getComments({ userId });
     }
   }, [userId, getComments]);
 

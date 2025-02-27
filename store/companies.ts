@@ -4,8 +4,6 @@ import { useApi } from "@/hook";
 export type CompanyType = {
   id: string;
   name: string;
-  country: string;
-  city: string;
   rating: number;
   logo: string;
   description: string;
@@ -23,6 +21,7 @@ type GetCompaniesParams = {
 
 interface CompaniesState {
   companies: CompanyType[];
+  company: CompanyType | null;
   companiesNew: CompanyType[];
   page: number;
   total: number;
@@ -30,11 +29,13 @@ interface CompaniesState {
   loading: boolean;
   error: string;
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
+  getCompany: (id: string) => Promise<void>;
   getCompaniesNew: () => Promise<void>;
 }
 
 export const useCompaniesStore = create<CompaniesState>(set => ({
   companies: [],
+  company: null,
   companiesNew: [],
   page: 1,
   total: 0,
@@ -64,6 +65,22 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
       });
     } catch (error: any) {
       set({ error: error.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  getCompany: async (id: string) => {
+    set({ loading: true, error: "" });
+
+    try {
+      const { data } = await useApi.get(`/companies/${id}`);
+      set({
+        company: data,
+      });
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

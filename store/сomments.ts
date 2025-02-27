@@ -12,6 +12,18 @@ export type CommentType = {
     logo: string;
     name: string;
   };
+  user: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+};
+
+type GetCommentsParams = {
+  page?: number;
+  limit?: number;
+  userId?: string;
+  companyId?: string;
 };
 
 interface CommentsState {
@@ -21,7 +33,7 @@ interface CommentsState {
   limit: number;
   loading: boolean;
   error: string;
-  getComments: (userId: string, page?: number, limit?: number) => Promise<void>;
+  getComments: (params: GetCommentsParams) => Promise<void>;
   postComment: (formData: any) => Promise<void>;
   updateComment: (
     commentId: string,
@@ -32,7 +44,7 @@ interface CommentsState {
   deleteComment: (commentId: string) => Promise<void>;
 }
 
-export const useCommentsStore = create<CommentsState>((set) => ({
+export const useCommentsStore = create<CommentsState>(set => ({
   comments: [],
   page: 1,
   total: 0,
@@ -40,13 +52,18 @@ export const useCommentsStore = create<CommentsState>((set) => ({
   loading: false,
   error: "",
 
-  getComments: async (userId, page = 1, limit = 5) => {
+  getComments: async (params: GetCommentsParams) => {
     set({ loading: true, error: "" });
 
     try {
-      const { data } = await useApi.get(
-        `/comments/?userId=${userId}&page=${page}&limit=${limit}`,
-      );
+      const { data } = await useApi.get(`/comments`, {
+        params: {
+          userId: params.userId,
+          companyId: params.companyId,
+          page: params.page,
+          limit: params.limit,
+        },
+      });
       set({
         comments: data.data,
         page: data.page,
@@ -61,7 +78,7 @@ export const useCommentsStore = create<CommentsState>((set) => ({
     }
   },
 
-  postComment: async (formData) => {
+  postComment: async formData => {
     set({ loading: true, error: "" });
 
     try {
@@ -85,7 +102,7 @@ export const useCommentsStore = create<CommentsState>((set) => ({
     }
   },
 
-  deleteComment: async (commentId) => {
+  deleteComment: async commentId => {
     try {
       await useApi.delete(`/comments/${commentId}`);
     } catch (error: any) {

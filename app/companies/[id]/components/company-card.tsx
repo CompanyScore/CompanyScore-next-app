@@ -1,30 +1,26 @@
 "use client";
 
-import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/ui";
 import { CompaniesPostCommentModal } from "@/app/companies/components";
-import { useUserStore } from "@/store";
+import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
 
 type CompanyType = {
   id: string;
   name: string;
+  rating: number;
   logo: string;
   description: string;
-  rating: number;
+  commentsIds: string[];
 };
 
-type CompanyProps = {
-  total: number;
-};
-
-export function CompanyCard({ total }: CompanyProps) {
+export function CompanyCard() {
   const { id } = useParams<{ id: string }>();
   const { userId } = useUserStore();
-  const [company, setCompany] = useState<CompanyType>();
-  const [totalScore, setTotalScore] = useState(0);
+  const { company, getCompany } = useCompaniesStore();
+  const { total } = useCommentsStore();
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
     null,
@@ -34,20 +30,9 @@ export function CompanyCard({ total }: CompanyProps) {
     setSelectedCompany(company);
   };
 
-  const fetchCompany = async (id: string) => {
-    try {
-      const response = await axios.get(`http://localhost:8080/companies/${id}`);
-
-      setCompany(response.data);
-      setTotalScore(response.data.rating);
-    } catch {
-      console.log("error");
-    }
-  };
-
   useEffect(() => {
-    fetchCompany(id);
-  }, [id]);
+    getCompany(id);
+  }, [getCompany, id]);
 
   return (
     <div className="hero bg-base-200 py-10">
@@ -67,7 +52,7 @@ export function CompanyCard({ total }: CompanyProps) {
           <div className="stats shadow">
             <div className="stat flex flex-col items-center">
               <div className="stat-title">Средний балл:</div>
-              <div className="stat-value">{totalScore}</div>
+              <div className="stat-value">{company?.rating}</div>
               <div className="stat-desc">Общее число комментариев: {total}</div>
             </div>
           </div>
