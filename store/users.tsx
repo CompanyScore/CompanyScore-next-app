@@ -5,36 +5,53 @@ type UserType = {
   id: string;
   name: string;
   avatar: string;
+  position: string;
+  commentsIds: string[];
   createDate: Date;
 };
 
-interface CommentsState {
+type GetUsersParams = {
+  page?: number;
+  limit?: number;
+};
+
+type CommentsState = {
   users: UserType[];
-  // page: number;
-  // total: number;
-  // limit: number;
+  page: number;
+  total: number;
+  limit: number;
   loading: boolean;
   error: string;
-  getUsers: () => Promise<void>;
-}
+  getUsers: (params: GetUsersParams) => Promise<void>;
+};
 
 export const useUsersStore = create<CommentsState>(set => ({
   users: [],
-  // page: 1,
-  // total: 0,
-  // limit: 5,
+  page: 1,
+  total: 0,
+  limit: 5,
   loading: false,
   error: "",
 
-  getUsers: async () => {
+  getUsers: async (params: GetUsersParams) => {
     set({ loading: true, error: "" });
     try {
-      const { data } = await useApi.get(`/users?isDeleted=false`);
+      const { data } = await useApi.get(`/users`, {
+        params: {
+          isDeleted: false,
+          page: params.page,
+          limit: params.limit,
+        },
+      });
       set({
-        users: data,
+        users: data.data,
+        page: data.page,
+        total: data.total,
+        limit: data.limit,
       });
     } catch (error: any) {
-      set({ error: error.message });
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

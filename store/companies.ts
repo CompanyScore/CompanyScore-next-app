@@ -64,7 +64,8 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
         limit: data.limit,
       });
     } catch (error: any) {
-      set({ error: error.message });
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

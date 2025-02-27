@@ -37,7 +37,6 @@ useApi.interceptors.response.use(
   async error => {
     if (error.response?.status === 401) {
       const { refreshToken } = useRefreshTokenStore.getState();
-      const { accessToken } = useAccessTokenStore.getState();
 
       try {
         // Запрашиваем новый accessToken
