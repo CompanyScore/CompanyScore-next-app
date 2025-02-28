@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useCommentsStore, useUserStore } from "@/store";
+import { useCommentsStore, useUserIdStore } from "@/store";
 import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
 
@@ -12,7 +12,7 @@ type ProfileEditCommentModalProps = {
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { getComments, updateComment } = useCommentsStore();
 
   const [editedText, setEditedText] = useState("");

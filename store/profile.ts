@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { useApi } from "@/hook";
+import { useApi } from "@/api";
 
 export type ProfileType = {
   id: string;
@@ -18,7 +18,7 @@ interface ProfileState {
   updateProfile: (userId: string, formData: any) => Promise<void>;
 }
 
-export const useProfileStore = create<ProfileState>((set) => ({
+export const useProfileStore = create<ProfileState>(set => ({
   profile: {
     id: "",
     name: "",
@@ -33,7 +33,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
   loading: false,
   error: "",
 
-  getProfile: async (userId) => {
+  getProfile: async userId => {
     set({ loading: true, error: "" });
 
     try {

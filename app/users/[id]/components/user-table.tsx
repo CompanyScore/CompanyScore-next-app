@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { useUserStore, useCommentsStore } from "@/store";
+import { useUserIdStore, useCommentsStore } from "@/store";
 import moment from "moment";
 import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
 import Link from "next/link";
@@ -21,7 +21,7 @@ export type CommentType = {
   };
 };
 export function UserTable() {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { comments, loading, error, getComments } = useCommentsStore();
 
   useEffect(() => {

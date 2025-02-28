@@ -3,22 +3,16 @@ import { useEffect } from "react";
 import { Avatar, Button, Title, Tooltip } from "@/ui";
 import moment from "moment";
 
-import { useUsersStore, useUserStore } from "@/store";
+import { useUsersStore } from "@/store";
 import { redirect } from "next/navigation";
 import Image from "next/image";
-// import { redirect } from "next/navigation";
 
 export function UsersTable() {
-  const { userId } = useUserStore();
   const { users, loading, getUsers } = useUsersStore();
 
   useEffect(() => {
     getUsers({});
   }, [getUsers]);
-
-  if (!userId) {
-    redirect("/");
-  }
 
   if (loading) {
     return (

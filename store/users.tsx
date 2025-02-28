@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { useApi } from "@/hook";
+import { useApi } from "@/api";
 
 type UserType = {
   id: string;

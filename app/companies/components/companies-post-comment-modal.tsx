@@ -9,7 +9,7 @@ import {
   useToast,
 } from "@/ui";
 import { positions } from "@/shared";
-import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
+import { useCommentsStore, useCompaniesStore, useUserIdStore } from "@/store";
 
 type CompaniesPostCommentModalProps = {
   companyId: string;
@@ -18,7 +18,7 @@ type CompaniesPostCommentModalProps = {
 export function CompaniesPostCommentModal({
   companyId,
 }: CompaniesPostCommentModalProps) {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { getCompanies } = useCompaniesStore();
   const { getComments, postComment } = useCommentsStore();
   const showToast = useToast(state => state.showToast);

@@ -2,18 +2,12 @@
 
 import React, { useEffect } from "react";
 import Image from "next/image";
-import { useApi } from "@/hook";
-import {
-  useUserStore,
-  useAccessTokenStore,
-  useRefreshTokenStore,
-} from "@/store";
+import { useApi } from "@/api";
+import { useUserIdStore } from "@/store";
 import { Modal, Title } from "@/ui";
 
 export default function Enter() {
-  const { setUserId } = useUserStore();
-  const { setAccessToken } = useAccessTokenStore();
-  const { setRefreshToken } = useRefreshTokenStore();
+  const { setUserId } = useUserIdStore();
 
   const redirectToLinkedin = async () => {
     window.location.href = "http://localhost:8080/auth/linkedin";
@@ -25,15 +19,13 @@ export default function Enter() {
         const { data } = await useApi.get("/auth/cookies");
 
         setUserId(data.userId);
-        setAccessToken(data.accessToken);
-        setRefreshToken(data.refreshToken);
       } catch (error) {
         console.error("Ошибка получения данных:", error);
       }
     };
 
     getUserData();
-  }, [setUserId, setAccessToken, setRefreshToken]);
+  }, [setUserId]);
 
   return (
     <Modal

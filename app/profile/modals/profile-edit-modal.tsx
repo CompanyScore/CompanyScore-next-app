@@ -12,10 +12,10 @@ import {
   useToast,
 } from "@/ui";
 import { positions } from "@/shared";
-import { useProfileStore, useUserStore } from "@/store";
+import { useProfileStore, useUserIdStore } from "@/store";
 
 export function ProfileEditModal() {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { getProfile, updateProfile } = useProfileStore();
 
   const [name, setName] = useState("");
@@ -23,7 +23,7 @@ export function ProfileEditModal() {
   const [description, setDescription] = useState("");
   const [avatar, setAvatar] = useState<string | Blob>("");
 
-  const showToast = useToast((state) => state.showToast);
+  const showToast = useToast(state => state.showToast);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];

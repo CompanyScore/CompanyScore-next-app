@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/ui";
 import { CompaniesPostCommentModal } from "@/app/companies/components";
-import { useCommentsStore, useCompaniesStore, useUserStore } from "@/store";
+import { useCommentsStore, useCompaniesStore, useUserIdStore } from "@/store";
 
 type CompanyType = {
   id: string;
@@ -18,7 +18,7 @@ type CompanyType = {
 
 export function CompanyCard() {
   const { id } = useParams<{ id: string }>();
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { company, getCompany } = useCompaniesStore();
   const { total } = useCommentsStore();
 

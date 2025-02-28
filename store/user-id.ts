@@ -6,7 +6,7 @@ interface UserState {
   clearUserId: () => void;
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserIdStore = create<UserState>(set => ({
   userId: null, // Изначально userId пуст
   setUserId: (userId: null) => set({ userId }), // Функция для установки userId
   clearUserId: () => set({ userId: null }), // Функция для очистки userId

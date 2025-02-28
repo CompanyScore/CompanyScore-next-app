@@ -4,11 +4,11 @@ import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
-import { useUserStore } from "@/store/user-id";
+import { useUserIdStore } from "@/store/user-id";
 import { useProfileStore } from "@/store";
 
 export default function HeaderMobile() {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { profile, getProfile } = useProfileStore();
   const pathname = usePathname();
 

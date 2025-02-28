@@ -1,10 +1,10 @@
 "use client";
 
 import { ShowBy } from "@/shared";
-import { useCommentsStore, useUserStore } from "@/store";
+import { useCommentsStore, useUserIdStore } from "@/store";
 
 export function UserShowBy() {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { getComments, comments, limit } = useCommentsStore();
 
   const onLimitChange = (newLimit: number) => {

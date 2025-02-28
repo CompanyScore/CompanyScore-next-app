@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { ProfileEditCommentModal } from "../modals";
-import { useUserStore, useCommentsStore } from "@/store";
+import { useUserIdStore, useCommentsStore } from "@/store";
 import moment from "moment";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
@@ -23,7 +23,7 @@ export type CommentType = {
   };
 };
 export function ProfileTable() {
-  const { userId } = useUserStore();
+  const { userId } = useUserIdStore();
   const { comments, loading, error, getComments, deleteComment } =
     useCommentsStore();
 

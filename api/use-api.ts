@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useAccessTokenStore, useRefreshTokenStore } from "@/store";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -12,12 +11,6 @@ export const useApi = axios.create({
 // Добавляем перехватчик для обновления accessToken
 useApi.interceptors.request.use(
   config => {
-    const { accessToken } = useAccessTokenStore.getState(); // Получаем актуальный токен
-
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-
     if (config.data instanceof FormData) {
       config.headers["Content-Type"] = "multipart/form-data";
     } else {
@@ -36,23 +29,17 @@ useApi.interceptors.response.use(
   response => response,
   async error => {
     if (error.response?.status === 401) {
-      const { refreshToken } = useRefreshTokenStore.getState();
-
       try {
         // Запрашиваем новый accessToken
-        const refreshResponse = await axios.post(
+        await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-          { refreshToken },
-          { withCredentials: true },
+          {},
+          {
+            withCredentials: true,
+          },
         );
 
-        const newAccessToken = refreshResponse.data.accessToken;
-
-        if (newAccessToken) {
-          useAccessTokenStore.getState().setAccessToken(newAccessToken); // Обновляем токен в сторе
-          error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-          return useApi.request(error.config); // Повторяем запрос
-        }
+        return useApi.request(error.config); // Повторяем запрос
       } catch (refreshError) {
         console.error("Ошибка обновления accessToken:", refreshError);
         return Promise.reject(refreshError);
