@@ -2,7 +2,7 @@
 import { Pagination } from "@/shared";
 import { useCommentsStore, useUserStore } from "@/store";
 
-export function ProfilePagination() {
+export function UserPagination() {
   const { userId } = useUserStore();
   const { comments, getComments, page, limit, total } = useCommentsStore();
 

@@ -39,7 +39,7 @@ export function ProfileEditCommentModal({
 
     await updateComment(comment!.id, editedText, editedRating, editedPosition);
     if (userId) {
-      getComments(userId);
+      getComments({ userId });
     }
   };
 

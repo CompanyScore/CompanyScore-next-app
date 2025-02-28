@@ -3,7 +3,7 @@
 import { ShowBy } from "@/shared";
 import { useCommentsStore, useUserStore } from "@/store";
 
-export function ProfileShowBy() {
+export function UserShowBy() {
   const { userId } = useUserStore();
   const { getComments, comments, limit } = useCommentsStore();
 
