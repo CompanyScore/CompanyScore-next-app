@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Button,
   Dropdown,
@@ -10,10 +9,22 @@ import {
 } from "@/ui";
 import { positions } from "@/shared";
 import { useCommentsStore, useCompaniesStore, useUserIdStore } from "@/store";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 type CompaniesPostCommentModalProps = {
   companyId: string;
 };
+
+const scheme = yup.object().shape({
+  comment: yup.string().required("Отзыв обязателен"),
+  rating: yup
+    .number()
+    .min(1, "Поставьте оценку")
+    .required("Оценка обязательна"),
+  position: yup.string().required("Укажите должность"),
+});
 
 export function CompaniesPostCommentModal({
   companyId,
@@ -21,11 +32,22 @@ export function CompaniesPostCommentModal({
   const { userId } = useUserIdStore();
   const { getCompanies } = useCompaniesStore();
   const { getComments, postComment } = useCommentsStore();
-  const showToast = useToast(state => state.showToast);
+  const showToast = useToast((state) => state.showToast);
 
-  const [comment, setComment] = useState<string>("");
-  const [rating, setRating] = useState<number>(0);
-  const [position, setPosition] = useState<string>("");
+  const {
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(scheme),
+    defaultValues: {
+      comment: "",
+      rating: 0,
+      position: "",
+    },
+  });
 
   const closeModal = () => {
     const modal = document.getElementById(
@@ -37,38 +59,28 @@ export function CompaniesPostCommentModal({
   };
 
   const resetForm = () => {
-    setComment("");
-    setRating(0);
-    setPosition("");
+    reset();
     closeModal();
   };
 
-  const onSubmit = async () => {
-    const sanitizedText = comment.replace(/\n/g, " ");
-
-    const formData = {
-      text: sanitizedText,
-      position,
-      rating,
-      userId,
-      companyId,
-    };
-
+  const onSubmit = async (data: any) => {
     try {
-      await postComment(formData);
+      await postComment({
+        text: data.comment,
+        position: data.position,
+        rating: data.rating,
+        userId,
+        companyId,
+      });
       await getCompanies({});
       await getComments({ companyId });
-      resetForm();
       showToast("Комментарий отправлен!", "success");
+      resetForm();
     } catch {
       const error = useCommentsStore.getState().error;
       showToast(error || "Ошибка", "error");
       resetForm();
     }
-  };
-
-  const handleTextareaChange = (newSearchedValue: string) => {
-    setComment(newSearchedValue);
   };
 
   return (
@@ -77,62 +89,63 @@ export function CompaniesPostCommentModal({
         Оставьте отзыв
       </Title>
 
-      <div className="mb-4">
-        <label htmlFor="position" className="block mb-2">
-          Должность
-        </label>
-        <Dropdown
-          width={"430px"}
-          isFirstDisabled={true}
-          options={positions}
-          selectedValue={position}
-          onSelect={setPosition}
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="comment" className="block mb-2">
-          Отзыв
-        </label>
-        <Textarea
-          value={comment}
-          placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
-
-Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
-
-Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
-          onChange={handleTextareaChange}
-          rows={13}
-        />
-      </div>
-
-      <div className="mb-4">
-        <label htmlFor="rating" className="block mb-2">
-          Оценка
-        </label>
-        <div className="rating flex gap-2">
-          {[...Array(10)].map((_, index) => (
-            <span
-              key={index + 1}
-              className={`relative cursor-pointer mask mask-star-2 w-10 h-10 flex items-center justify-center ${
-                rating >= index + 1 ? "bg-orange-400" : "bg-gray-300"
-              }`}
-              onClick={() => setRating(index + 1)}
-            >
-              <span className="absolute text-xs font-bold text-white">
-                {index + 1}
-              </span>
-            </span>
-          ))}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+          <label htmlFor="position" className="block mb-2">
+            Должность
+          </label>
+          <Dropdown
+            width="430px"
+            text="Должность"
+            isFirstDisabled={true}
+            options={positions}
+            selectedValue={watch("position")}
+            onSelect={(value) => setValue("position", value)}
+          />
+          <p className="text-error">{errors.position?.message}</p>
         </div>
-      </div>
 
-      <Button
-        onClick={onSubmit}
-        disabled={!comment.trim() || rating === 0 || !position}
-      >
-        Сохранить
-      </Button>
+        <div className="mb-4">
+          <label htmlFor="comment" className="block mb-2">
+            Отзыв
+          </label>
+          <Textarea
+            value={watch("comment") || ""}
+            onChange={(value) => setValue("comment", value)}
+            placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
+  
+  Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
+  
+  Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
+            rows={13}
+          />
+          <p className="text-error">{errors.comment?.message}</p>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="rating" className="block mb-2">
+            Оценка
+          </label>
+          <div className="rating flex gap-2">
+            {[...Array(10)].map((_, index) => (
+              <span
+                key={index + 1}
+                className={`relative cursor-pointer mask mask-star-2 w-10 h-10 flex items-center justify-center ${
+                  watch("rating") >= index + 1 ? "bg-orange-400" : "bg-gray-300"
+                }`}
+                onClick={() => setValue("rating", index + 1)}
+              >
+                <span className="absolute text-xs font-bold text-white">
+                  {index + 1}
+                </span>
+              </span>
+            ))}
+          </div>
+          <p className="text-error">{errors.rating?.message}</p>
+        </div>
+
+        <Button className="btn-primary w-full">Сохранить</Button>
+      </form>
 
       <Toast />
     </Modal>
