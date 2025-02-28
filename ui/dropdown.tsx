@@ -1,43 +1,50 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 
 type Option = { label: string; value: string } | string;
 
 type DropdownProps = {
-  text?: string; // Было label, теперь text
+  text?: string;
   options: Option[];
   selectedValue?: string | number;
   onSelect: (value: string) => void;
   isFirstDisabled?: boolean;
   width?: string;
+  className?: string;
 };
 
 export const Dropdown = ({
-  text, // Было label, теперь text
+  text,
   options,
   selectedValue,
   onSelect,
   isFirstDisabled = false,
   width = "200px",
+  className,
 }: DropdownProps) => {
-  const [disabled, setDisabled] = useState(isFirstDisabled);
   const selectRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    setDisabled(isFirstDisabled);
-  }, [isFirstDisabled]);
-
   // Преобразуем массив строк в массив объектов { label, value }
-  const normalizedOptions = options.map(option =>
+  const normalizedOptions = options.map((option) =>
     typeof option === "string" ? { label: option, value: option } : option,
   );
 
+  // Убираем первый элемент, если isFirstDisabled=true
+  const filteredOptions = isFirstDisabled
+    ? normalizedOptions
+    : [{ label: text || "", value: "" }, ...normalizedOptions];
+
   const selectedLabel =
-    normalizedOptions.find(option => option.value == selectedValue)?.label ||
+    filteredOptions.find((option) => option.value == selectedValue)?.label ||
     text ||
     "";
 
-  const handleSelect = (value: string) => {
+  const handleSelect = (
+    value: string,
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault(); // предотвращает нежелательные события формы
+    event.stopPropagation(); // предотвращает всплытие событий
     onSelect(value);
     (document.activeElement as HTMLElement)?.blur(); // Закрываем список после выбора
   };
@@ -68,7 +75,7 @@ export const Dropdown = ({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50"
+        className={`dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50 ${className}`}
         style={{
           width,
           maxHeight: "360px",
@@ -76,22 +83,11 @@ export const Dropdown = ({
           zIndex: "1000",
         }}
       >
-        {text && (
-          <li>
-            <button
-              className="btn btn-sm btn-block btn-ghost justify-start"
-              onClick={() => handleSelect("")}
-              style={{ textAlign: "left", display: "block" }}
-            >
-              {text}
-            </button>
-          </li>
-        )}
-        {normalizedOptions.map(({ label, value }) => (
+        {filteredOptions.map(({ label, value }) => (
           <li key={value}>
             <button
               className="btn btn-sm btn-block btn-ghost justify-start"
-              onClick={() => handleSelect(value)}
+              onClick={(e) => handleSelect(value, e)}
               style={{ textAlign: "left", display: "block" }}
             >
               {label}
