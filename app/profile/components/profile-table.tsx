@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { ProfileEditCommentModal } from "../modals";
-import { useUserIdStore, useCommentsStore } from "@/store";
+import { useCommentsStore } from "@/store";
 import moment from "moment";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
@@ -23,7 +23,6 @@ export type CommentType = {
   };
 };
 export function ProfileTable() {
-  const { userId } = useUserIdStore();
   const { comments, loading, error, getComments, deleteComment } =
     useCommentsStore();
 
@@ -37,16 +36,13 @@ export function ProfileTable() {
 
   const handleDeleteComment = async (commentId: string) => {
     await deleteComment(commentId);
-    if (userId) {
-      getComments({ userId });
-    }
+
+    getComments({});
   };
 
   useEffect(() => {
-    if (userId) {
-      getComments({ userId });
-    }
-  }, [userId, getComments]);
+    getComments({});
+  }, [getComments]);
 
   if (loading) {
     return (
@@ -84,7 +80,7 @@ export function ProfileTable() {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"

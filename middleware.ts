@@ -1,26 +1,23 @@
-// middleware нужен для проверки авторизации пользователя
-// Если пользователь не авторизован, то перенаправляем его на страницу авторизации
-// Если пользователь авторизован, то пропускаем запрос дальше
-
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // Доступ к httpOnly cookie возможен на сервере
   const accessToken = request.cookies.get("accessToken")?.value;
-  if (!accessToken) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/";
-    return NextResponse.redirect(url);
+  const pathname = request.nextUrl.pathname;
+
+  // Если пользователь уже на /login, не выполняем редирект
+  if (pathname === "/login") {
+    return NextResponse.next();
   }
+
+  // Если нет токена и пользователь НЕ на /login, перенаправляем на /login
+  if (!accessToken) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/users/:path*",
-    "/profile/:path*",
-    "/analytic/:path*",
-    "/blog/:path*",
-  ],
+  matcher: "/:path*", // Middleware применяется ко всем страницам
 };

@@ -37,13 +37,20 @@ export function UsersTable() {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
+          {users.map((user) => (
             <tr
               key={user.id}
               className="text-center align-middle border-b border-gray-500"
             >
               <td className="flex items-center gap-4">
-                <Avatar src={process.env.NEXT_PUBLIC_API_URL + user?.avatar} />
+                {user?.avatar ? (
+                  <Avatar
+                    src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
+                  />
+                ) : (
+                  <div className="skeleton h-32 w-32"></div>
+                )}
+
                 <p>{user.name}</p>
               </td>
               <td>{user.position}</td>

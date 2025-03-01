@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { useUserIdStore, useCommentsStore } from "@/store";
+import { useCommentsStore } from "@/store";
 import moment from "moment";
 import { Avatar, Button, Tooltip, Error, Title } from "@/ui";
 import Link from "next/link";
@@ -21,14 +21,11 @@ export type CommentType = {
   };
 };
 export function UserTable() {
-  const { userId } = useUserIdStore();
   const { comments, loading, error, getComments } = useCommentsStore();
 
   useEffect(() => {
-    if (userId) {
-      getComments({ userId });
-    }
-  }, [userId, getComments]);
+    getComments({});
+  }, [getComments]);
 
   if (loading) {
     return (
@@ -66,7 +63,7 @@ export function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {comments.map(comment => (
+          {comments.map((comment) => (
             <tr
               key={comment.id}
               className="text-center border-b border-gray-500"

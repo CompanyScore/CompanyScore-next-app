@@ -8,7 +8,7 @@ import {
   useToast,
 } from "@/ui";
 import { positions } from "@/shared";
-import { useCommentsStore, useCompaniesStore, useUserIdStore } from "@/store";
+import { useCommentsStore, useCompaniesStore } from "@/store";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -29,7 +29,6 @@ const scheme = yup.object().shape({
 export function CompaniesPostCommentModal({
   companyId,
 }: CompaniesPostCommentModalProps) {
-  const { userId } = useUserIdStore();
   const { getCompanies } = useCompaniesStore();
   const { getComments, postComment } = useCommentsStore();
   const showToast = useToast((state) => state.showToast);
@@ -69,7 +68,6 @@ export function CompaniesPostCommentModal({
         text: data.comment,
         position: data.position,
         rating: data.rating,
-        userId,
         companyId,
       });
       await getCompanies({});

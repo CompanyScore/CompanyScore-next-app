@@ -44,7 +44,7 @@ interface CommentsState {
   deleteComment: (commentId: string) => Promise<void>;
 }
 
-export const useCommentsStore = create<CommentsState>(set => ({
+export const useCommentsStore = create<CommentsState>((set) => ({
   comments: [],
   page: 1,
   total: 0,
@@ -58,7 +58,6 @@ export const useCommentsStore = create<CommentsState>(set => ({
     try {
       const { data } = await useApi.get(`/comments`, {
         params: {
-          userId: params.userId,
           companyId: params.companyId,
           page: params.page,
           limit: params.limit,
@@ -78,7 +77,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  postComment: async formData => {
+  postComment: async (formData) => {
     set({ loading: true, error: "" });
 
     try {
@@ -102,7 +101,7 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  deleteComment: async commentId => {
+  deleteComment: async (commentId) => {
     try {
       await useApi.delete(`/comments/${commentId}`);
     } catch (error: any) {

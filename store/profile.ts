@@ -14,11 +14,11 @@ interface ProfileState {
   profile: ProfileType;
   loading: boolean;
   error: string;
-  getProfile: (userId: string) => Promise<void>;
-  updateProfile: (userId: string, formData: any) => Promise<void>;
+  getProfile: () => Promise<void>;
+  updateProfile: (formData: any) => Promise<void>;
 }
 
-export const useProfileStore = create<ProfileState>(set => ({
+export const useProfileStore = create<ProfileState>((set) => ({
   profile: {
     id: "",
     name: "",
@@ -33,11 +33,11 @@ export const useProfileStore = create<ProfileState>(set => ({
   loading: false,
   error: "",
 
-  getProfile: async userId => {
+  getProfile: async () => {
     set({ loading: true, error: "" });
 
     try {
-      const { data } = await useApi.get(`/users/${userId}`);
+      const { data } = await useApi.get(`/users/detail`);
       set({
         profile: data,
       });
@@ -48,11 +48,11 @@ export const useProfileStore = create<ProfileState>(set => ({
     }
   },
 
-  updateProfile: async (userId, formData) => {
+  updateProfile: async (formData) => {
     set({ loading: true, error: "" });
 
     try {
-      await useApi.patch(`/users/${userId}`, formData);
+      await useApi.patch(`/users`, formData);
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });

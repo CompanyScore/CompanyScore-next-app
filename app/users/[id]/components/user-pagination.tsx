@@ -1,15 +1,12 @@
 "use client";
 import { Pagination } from "@/shared";
-import { useCommentsStore, useUserIdStore } from "@/store";
+import { useCommentsStore } from "@/store";
 
 export function UserPagination() {
-  const { userId } = useUserIdStore();
   const { comments, getComments, page, limit, total } = useCommentsStore();
 
   const onPageChange = (newPage: number) => {
-    if (userId) {
-      getComments({ userId, page: newPage, limit });
-    }
+    getComments({ page: newPage, limit });
   };
 
   if (!comments.length) {

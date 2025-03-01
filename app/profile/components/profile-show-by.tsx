@@ -1,16 +1,13 @@
 "use client";
 
 import { ShowBy } from "@/shared";
-import { useCommentsStore, useUserIdStore } from "@/store";
+import { useCommentsStore } from "@/store";
 
 export function ProfileShowBy() {
-  const { userId } = useUserIdStore();
   const { getComments, comments, limit } = useCommentsStore();
 
   const onLimitChange = (newLimit: number) => {
-    if (userId) {
-      getComments({ userId, page: 1, limit: newLimit });
-    }
+    getComments({ page: 1, limit: newLimit });
   };
 
   if (!comments.length) {

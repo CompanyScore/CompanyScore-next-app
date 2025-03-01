@@ -1,37 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import { useApi } from "@/api";
-import { useUserIdStore } from "@/store";
-import { Modal, Title } from "@/ui";
 
-export default function Enter() {
-  const { setUserId } = useUserIdStore();
+import { Title } from "@/ui";
 
+export default function LoginPage() {
   const redirectToLinkedin = async () => {
     window.location.href = "http://localhost:8080/auth/linkedin";
   };
 
-  useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const { data } = await useApi.get("/auth/cookies");
-
-        setUserId(data.userId);
-      } catch (error) {
-        console.error("Ошибка получения данных:", error);
-      }
-    };
-
-    getUserData();
-  }, [setUserId]);
-
   return (
-    <Modal
-      id="login_modal"
-      className="max-h-[450px] h-full bg-gradient-to-b from-gray-50 to-gray-100 p-6 rounded-lg shadow-lg"
-    >
+    <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
       <Title position="center" className="text-xl font-semibold text-gray-600">
         Войти через LinkedIn
       </Title>
@@ -53,6 +33,6 @@ export default function Enter() {
           добавить в профиль, включая вымышленные.
         </p>
       </div>
-    </Modal>
+    </section>
   );
 }

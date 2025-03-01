@@ -11,7 +11,7 @@ import {
   useToast,
 } from "@/ui";
 import { positions } from "@/shared";
-import { useProfileStore, useUserIdStore } from "@/store";
+import { useProfileStore } from "@/store";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -32,7 +32,6 @@ const scheme = yup.object().shape({
 });
 
 export function ProfileEditModal() {
-  const { userId } = useUserIdStore();
   const { getProfile, updateProfile } = useProfileStore();
 
   const {
@@ -74,23 +73,19 @@ export function ProfileEditModal() {
     }
   };
 
-  const onSubmit = async (data: any, event: any) => {
+  const onSubmit = async (data: any) => {
     try {
-      if (userId) {
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("position", data.position);
-        formData.append("description", data.description);
+      const formData = new FormData();
 
-        if (data.avatar instanceof File) {
-          formData.append("avatarFile", data.avatar);
-        }
+      if (data.name) formData.append("name", data.name);
+      if (data.position) formData.append("position", data.position);
+      if (data.description) formData.append("description", data.description);
+      if (data.avatar) formData.append("avatarFile", data.avatar);
 
-        await updateProfile(userId, formData);
-        if (userId) getProfile(userId);
-        showToast("Данные обновлены", "success");
-        resetForm();
-      }
+      await updateProfile(formData);
+      await getProfile();
+      showToast("Данные обновлены", "success");
+      resetForm();
     } catch (e) {
       const error = useProfileStore.getState().error;
       showToast(error || "Ошибка", "error");

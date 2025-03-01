@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useCommentsStore, useUserIdStore } from "@/store";
+import { useCommentsStore } from "@/store";
 import { Button, Dropdown, Modal, Textarea, Title } from "@/ui";
 import { positions } from "@/shared";
 
@@ -12,7 +12,6 @@ type ProfileEditCommentModalProps = {
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
-  const { userId } = useUserIdStore();
   const { getComments, updateComment } = useCommentsStore();
 
   const [editedText, setEditedText] = useState("");
@@ -38,9 +37,8 @@ export function ProfileEditCommentModal({
     }
 
     await updateComment(comment!.id, editedText, editedRating, editedPosition);
-    if (userId) {
-      getComments({ userId });
-    }
+
+    getComments({});
   };
 
   const handleTextareaChange = (newSearchedValue: string) => {

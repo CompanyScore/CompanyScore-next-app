@@ -3,17 +3,14 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import { ProfileEditModal } from "../modals";
-import { useProfileStore, useUserIdStore } from "@/store";
+import { useProfileStore } from "@/store";
 import { Error } from "@/ui";
 
 export function ProfileCard() {
-  const { userId } = useUserIdStore();
   const { profile, loading, error, getProfile } = useProfileStore();
 
   useEffect(() => {
-    if (userId) {
-      getProfile(userId);
-    }
+    getProfile();
   }, [getProfile]);
 
   if (loading) {

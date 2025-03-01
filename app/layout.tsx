@@ -5,8 +5,7 @@ import Header from "@/components/header";
 import HeaderMobile from "@/components/header-mobile";
 import Footer from "@/components/footer";
 import ThemeProvider from "@/components/theme-provider";
-import Enter from "@/components/login";
-import AuthProvider from "@/components/auth-provider";
+// import AuthProvider from "@/components/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,15 +33,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
-          <AuthProvider>
+          {/* <AuthProvider> */}
             <Header />
             <HeaderMobile />
             <main className="flex-1 container mx-auto h-full px-4">
               {children}
-              <Enter />
             </main>
             <Footer />
-          </AuthProvider>
+          {/* </AuthProvider> */}
         </ThemeProvider>
       </body>
     </html>

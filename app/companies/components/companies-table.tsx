@@ -4,12 +4,11 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { CompaniesPostCommentModal } from "./index";
-import { useCompaniesStore, useUserIdStore } from "@/store";
+import { useCompaniesStore } from "@/store";
 import type { CompanyType } from "@/store/companies";
 import { Button, Avatar, Tooltip, Error, Title } from "@/ui";
 
 export function CompaniesTable() {
-  const { userId } = useUserIdStore();
   const { companies, loading, error } = useCompaniesStore();
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
@@ -50,7 +49,7 @@ export function CompaniesTable() {
           </tr>
         </thead>
         <tbody>
-          {companies.map(company => (
+          {companies.map((company) => (
             <tr
               key={company.id}
               className="text-center border-b border-gray-500"
@@ -90,11 +89,7 @@ export function CompaniesTable() {
                       className="btn-success"
                       onClick={() => openModal(company)}
                     >
-                      <label
-                        htmlFor={
-                          userId ? "companies_add_comment_modal" : "login_modal"
-                        }
-                      >
+                      <label htmlFor={"companies_add_comment_modal"}>
                         <Image
                           src="/icons/pencil.svg"
                           alt="Pencil"

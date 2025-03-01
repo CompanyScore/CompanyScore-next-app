@@ -15,6 +15,7 @@ export default function GlobalError({
             <h1 className="text-6xl font-bold text-error">
               Ой! Что-то пошло не так.
             </h1>
+            <p className="py-6 text-lg">{error}</p>
             <p className="py-6 text-lg">
               К сожалению, произошла непредвиденная ошибка. Пожалуйста,
               повторите позже.

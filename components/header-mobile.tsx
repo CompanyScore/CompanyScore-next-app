@@ -4,38 +4,24 @@ import { usePathname } from "next/navigation";
 import React, { useEffect } from "react";
 import { Avatar } from "@/ui";
 import ThemeController from "./theme-controller";
-import { useUserIdStore } from "@/store/user-id";
 import { useProfileStore } from "@/store";
 
 export default function HeaderMobile() {
-  const { userId } = useUserIdStore();
   const { profile, getProfile } = useProfileStore();
   const pathname = usePathname();
 
-  let pages;
-
-  if (userId) {
-    pages = [
-      { href: "/", label: "Главная" },
-      { href: "/about", label: "О нас" },
-      { href: "/companies", label: "Компании" },
-      { href: "/users", label: "Пользователи" },
-      { href: "/analytic", label: "Аналитика" },
-      { href: "/blog", label: "Блог" },
-    ];
-  } else {
-    pages = [
-      { href: "/", label: "Главная" },
-      { href: "/about", label: "О нас" },
-      { href: "/companies", label: "Компании" },
-    ];
-  }
+  const pages = [
+    { href: "/", label: "Главная" },
+    { href: "/about", label: "О нас" },
+    { href: "/companies", label: "Компании" },
+    { href: "/users", label: "Пользователи" },
+    { href: "/analytic", label: "Аналитика" },
+    { href: "/blog", label: "Блог" },
+  ];
 
   useEffect(() => {
-    if (userId) {
-      getProfile(userId);
-    }
-  }, [userId, getProfile]);
+    getProfile();
+  }, [getProfile]);
 
   return (
     <div className="flex lg:hidden navbar bg-base-100">
@@ -81,17 +67,15 @@ export default function HeaderMobile() {
         <a className="btn btn-ghost text-xl">CompanyScore</a>
       </div>
       <div className="navbar-end">
-        {userId ? (
-          <Link href="/profile">
+        <Link href="/profile">
+          {profile?.avatar ? (
             <Avatar
               src={`${process.env.NEXT_PUBLIC_API_URL}${profile?.avatar}`}
             />
-          </Link>
-        ) : (
-          <label htmlFor="login_modal" className="btn">
-            Войти
-          </label>
-        )}
+          ) : (
+            <div className="skeleton h-32 w-32"></div>
+          )}
+        </Link>
         <ThemeController />
         {/* <button className="btn btn-ghost btn-circle">
           <div className="indicator">
