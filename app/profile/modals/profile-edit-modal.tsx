@@ -20,7 +20,15 @@ const scheme = yup.object().shape({
   name: yup.string(),
   position: yup.string(),
   description: yup.string(),
-  avatar: yup.mixed(),
+  avatar: yup
+    .mixed()
+    .test("fileType", "Допустимые форматы: JPG, PNG", (value) => {
+      return (
+        !value ||
+        (value instanceof File &&
+          ["image/jpeg", "image/png"].includes(value.type))
+      );
+    }),
 });
 
 export function ProfileEditModal() {
@@ -126,9 +134,14 @@ export function ProfileEditModal() {
 
           <input
             type="file"
+            accept="image/jpeg, image/png"
             onChange={handleFileChange}
             className="file-input file-input-bordered file-input-neutral w-full text-center m-auto"
           />
+
+          {errors.avatar && (
+            <p className="text-error text-sm">{errors.avatar.message}</p>
+          )}
 
           <Button
             disabled={
