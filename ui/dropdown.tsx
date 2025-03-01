@@ -30,9 +30,12 @@ export const Dropdown = ({
   );
 
   // Убираем первый элемент, если isFirstDisabled=true
+  // Убираем первый элемент, если isFirstDisabled=true
   const filteredOptions = isFirstDisabled
     ? normalizedOptions
-    : [{ label: text || "", value: "" }, ...normalizedOptions];
+    : text
+    ? [{ label: text, value: "" }, ...normalizedOptions]
+    : normalizedOptions;
 
   const selectedLabel =
     filteredOptions.find((option) => option.value == selectedValue)?.label ||
