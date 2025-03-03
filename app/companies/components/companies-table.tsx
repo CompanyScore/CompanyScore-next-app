@@ -38,8 +38,8 @@ export function CompaniesTable() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full m-auto">
-      <table className="table">
+    <div className="flex flex-col items-center w-full m-auto overflow-x-auto">
+      <table className="table max-w-[650px]:table-xs">
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             <th>Компания</th>
@@ -55,16 +55,17 @@ export function CompaniesTable() {
               className="text-center border-b border-gray-500"
             >
               <td>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 max-[650px]:justify-center">
                   {company?.logo ? (
                     <Avatar
+                      className="max-[650px]:hidden"
                       src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
                     />
                   ) : (
                     <div className="skeleton h-32 w-32"></div>
                   )}
 
-                  <p>{company.name}</p>
+                  <p className="text-center">{company.name}</p>
                 </div>
               </td>
               <td>{company.rating}</td>

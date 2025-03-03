@@ -52,7 +52,7 @@ export function CompaniesCarousel() {
       </button>
 
       {/* Carousel Items */}
-      <div className="w-4/5 h-80 flex items-center justify-center">
+      <div className="w-4/5 h-80 max-[1300px]:h-96 flex items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={companiesNew[currentIndex]?.id}
@@ -60,7 +60,7 @@ export function CompaniesCarousel() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ duration: 1 }}
-            className="flex justify-between w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
+            className="flex justify-between max-[1300px]:justify-center w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
             {companiesNew[currentIndex]?.logo ? (
               <Image
@@ -70,19 +70,19 @@ export function CompaniesCarousel() {
                 }
                 alt="Company Logo"
                 width={448}
-                height={40}
-                className="object-cover max-w-md"
+                height={0}
+                className="object-contain max-w-md"
               />
             ) : (
               <div className="skeleton h-32 w-32"></div>
             )}
 
-            <div className="w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
+            <div className="max-[1300px]:hidden w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
               <Title size="3">{companiesNew[currentIndex]?.name}</Title>
               <p className="text-lg font-semibold ">
                 {companiesNew[currentIndex]?.rating}
               </p>
-              <p className="">{companiesNew[currentIndex]?.description}</p>
+              <p>{companiesNew[currentIndex]?.description}</p>
             </div>
           </motion.div>
         </AnimatePresence>
