@@ -38,7 +38,7 @@ export function CompaniesTable() {
       key: "company",
       title: "Компания",
       render: (company: CompanyType) => (
-        <div className="flex items-center space-x-2 max-[650px]:justify-center">
+        <div className="flex justify-center items-center space-x-2">
           {company.logo ? (
             <Avatar
               className="max-[650px]:hidden"

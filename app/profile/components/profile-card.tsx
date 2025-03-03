@@ -25,7 +25,7 @@ export function ProfileCard() {
 
   return (
     <div className="relative hero bg-base-200">
-      <div className="hero-content flex-col lg:flex-row items-start justify-start gap-20 w-full">
+      <div className="hero-content flex-col-reverse lg:flex-row items-start justify-start gap-20 w-full">
         <label
           htmlFor="profile_edit_modal"
           className="btn btn-neutral absolute top-4 right-10 rounded-md"
@@ -44,7 +44,7 @@ export function ProfileCard() {
             alt="Avatar"
             width={400}
             height={400}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="max-w-sm rounded-lg shadow-2xl w-full"
           />
         ) : (
           <div className="skeleton h-32 w-32"></div>

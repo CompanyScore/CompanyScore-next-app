@@ -43,7 +43,7 @@ export function CompanyCard() {
               height={70}
               alt="Company logo"
               src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
-              className="max-w-sm max-[650px]:max-w-20 rounded-lg shadow-2xl w-full"
+              className="max-w-sm rounded-lg shadow-2xl w-full"
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>

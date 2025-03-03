@@ -50,7 +50,7 @@ export function UserTable() {
       key: "company",
       title: "Компания",
       render: (comment: CommentType) => (
-        <div className="flex items-center gap-4 max-[650px]:justify-center">
+        <div className="flex justify-center items-center gap-4">
           {comment.company.logo ? (
             <Avatar
               className="max-[650px]:hidden"

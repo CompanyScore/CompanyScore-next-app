@@ -56,9 +56,9 @@ export function CompanyTable() {
       key: "user",
       title: "Пользователь",
       render: (comment: CommentType) => (
-        <div className="flex items-center gap-4 max-[650px]:justify-center">
+        <div className="flex justify-center items-center gap-4">
           {comment?.user?.avatar ? (
-            <Avatar 
+            <Avatar
               className="max-[650px]:hidden"
               src={process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar}
             />

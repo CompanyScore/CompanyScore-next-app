@@ -31,7 +31,7 @@ export function UserCard() {
             alt="Avatar"
             width={400}
             height={400}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="max-w-sm rounded-lg shadow-2xl w-full"
           />
         ) : (
           <div className="skeleton h-32 w-32"></div>
