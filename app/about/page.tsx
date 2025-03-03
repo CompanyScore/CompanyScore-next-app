@@ -17,7 +17,7 @@ export default function AboutPage() {
   };
 
   return (
-    <div className="flex flex-col gap-20 p-10">
+    <div className="flex flex-col p-10">
       <Container>
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="relative w-full lg:w-1/2">
@@ -36,7 +36,7 @@ export default function AboutPage() {
             <div className="absolute bg-purple-500 text-white p-5 rounded-lg -bottom-5 -left-5 right-10 min-w-xs">
               <p
                 contentEditable="true"
-                className="text-sm editable-text"
+                className="text-sm editable-text w-full"
                 onInput={handleInputChange}
                 suppressContentEditableWarning={true}
               >
@@ -52,11 +52,11 @@ export default function AboutPage() {
                       onChange={() => setRating(index + 1)}
                     />
                     <div
-                      className={`mask mask-star-2 w-9 h-9 flex items-center justify-center ${
+                      className={`mask mask-star-2 w-9 h-9 flex items-center justify-center flex-wrap ${
                         rating >= index + 1 ? "bg-stone-50" : "bg-stone-400"
                       }`}
                     >
-                      <span className="text-sm font-bold text-purple-500">
+                      <span className="text-sm font-bold text-purple-500 max-w-2">
                         {index + 1}
                       </span>
                     </div>
@@ -98,8 +98,8 @@ export default function AboutPage() {
         </div>
       </Container>
 
-      <div className="flex w-full justify-between gap-4">
-        <div className="card card-side bg-base-20 shadow-xl flex-1">
+      <div className="justify-between gap-10 lg:flex">
+        <div className="card card-side bg-base-20 shadow-xl flex-1 mt-10">
           <figure>
             <Image
               src="/imgs/dimash-ava.jpg"
@@ -123,7 +123,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-        <div className="card card-side bg-base-20 shadow-xl flex-1">
+        <div className="card card-side bg-base-20 shadow-xl flex-1 mt-10">
           <figure>
             <Image
               src="/imgs/adil-ava.jpg"
