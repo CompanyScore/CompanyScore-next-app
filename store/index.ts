@@ -1,4 +1,3 @@
-export { useUserIdStore } from "./user-id";
 export { useCommentsStore } from "./сomments";
 export { useProfileStore } from "./profile";
 export { useCompaniesStore } from "./companies";

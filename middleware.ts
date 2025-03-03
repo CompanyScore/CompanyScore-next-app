@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
   const pathname = request.nextUrl.pathname;
 
   // Если пользователь уже на /login, не выполняем редирект
@@ -10,8 +11,13 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Если есть refreshToken, пропускаем запрос, чтобы сервер обновил токен
+  if (refreshToken) {
+    return NextResponse.next();
+  }
+
   // Если нет токена и пользователь НЕ на /login, перенаправляем на /login
-  if (!accessToken) {
+  if (!accessToken && !refreshToken) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
