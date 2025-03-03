@@ -6,10 +6,10 @@ import { redirect } from "next/navigation";
 import { CompaniesPostCommentModal } from "./index";
 import { useCompaniesStore } from "@/store";
 import type { CompanyType } from "@/store/companies";
-import { Button, Avatar, Tooltip, Error, Title } from "@/ui";
+import { Button, Avatar, Tooltip, Title, Table } from "@/ui";
 
 export function CompaniesTable() {
-  const { companies, loading, error } = useCompaniesStore();
+  const { companies, loading } = useCompaniesStore();
 
   const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
     null,
@@ -29,84 +29,67 @@ export function CompaniesTable() {
     );
   }
 
-  if (error) {
-    return <Error text={error} />;
-  }
-
   if (!companies.length) {
     return <Title position="center">Список компаний пуст</Title>;
   }
 
+  const columns = [
+    {
+      key: "company",
+      title: "Компания",
+      render: (company: CompanyType) => (
+        <div className="flex items-center space-x-2 max-[650px]:justify-center">
+          {company.logo ? (
+            <Avatar
+              className="max-[650px]:hidden"
+              src={process.env.NEXT_PUBLIC_API_URL + company.logo}
+            />
+          ) : (
+            <div className="skeleton h-32 w-32"></div>
+          )}
+          <p className="text-center">{company.name}</p>
+        </div>
+      ),
+    },
+    { key: "rating", title: "Рейтинг" },
+    {
+      key: "comments",
+      title: "Комментарии",
+      render: (company: CompanyType) => company.commentsIds.length,
+    },
+    {
+      key: "actions",
+      title: "Действия",
+      render: (company: CompanyType) => (
+        <div className="flex justify-center items-center space-x-2 h-full">
+          <Tooltip tip="Посмотреть">
+            <Button
+              className="btn-neutral"
+              onClick={() => redirect(`/companies/${company.id}`)}
+            >
+              <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+            </Button>
+          </Tooltip>
+          <Tooltip tip="Оставить отзыв">
+            <Button className="btn-success" onClick={() => openModal(company)}>
+              <label htmlFor={"companies_add_comment_modal"}>
+                <Image
+                  src="/icons/pencil.svg"
+                  alt="Pencil"
+                  width={25}
+                  height={25}
+                />
+              </label>
+            </Button>
+          </Tooltip>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <div className="flex flex-col items-center w-full m-auto overflow-x-auto">
-      <table className="table max-w-[650px]:table-xs">
-        <thead>
-          <tr className="text-lg text-center border-b-2 border-gray-500">
-            <th>Компания</th>
-            <th>Рейтинг</th>
-            <th>Комментарии</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          {companies.map((company) => (
-            <tr
-              key={company.id}
-              className="text-center border-b border-gray-500"
-            >
-              <td>
-                <div className="flex items-center space-x-2 max-[650px]:justify-center">
-                  {company?.logo ? (
-                    <Avatar
-                      className="max-[650px]:hidden"
-                      src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
-                    />
-                  ) : (
-                    <div className="skeleton h-32 w-32"></div>
-                  )}
-
-                  <p className="text-center">{company.name}</p>
-                </div>
-              </td>
-              <td>{company.rating}</td>
-              <td>{company.commentsIds.length}</td>
-              <td>
-                <div className="flex justify-center items-center space-x-2 h-full">
-                  <Tooltip tip="Посмотреть">
-                    <Button
-                      className="btn-neutral"
-                      onClick={() => redirect(`/companies/${company.id}`)}
-                    >
-                      <Image
-                        src="/icons/file.svg"
-                        alt="File"
-                        width={25}
-                        height={25}
-                      />
-                    </Button>
-                  </Tooltip>
-                  <Tooltip tip="Оставить отзыв">
-                    <Button
-                      className="btn-success"
-                      onClick={() => openModal(company)}
-                    >
-                      <label htmlFor={"companies_add_comment_modal"}>
-                        <Image
-                          src="/icons/pencil.svg"
-                          alt="Pencil"
-                          width={25}
-                          height={25}
-                        />
-                      </label>
-                    </Button>
-                  </Tooltip>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
+      <Table columns={columns} data={companies} />
       <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
     </div>
   );

@@ -4,10 +4,28 @@ import Image from "next/image";
 import { redirect, useParams } from "next/navigation";
 
 import { useCommentsStore } from "@/store";
-import { Avatar, Button, Error, Title, Tooltip } from "@/ui";
+import { Avatar, Button, Error, Table, Title, Tooltip } from "@/ui";
 
 import moment from "moment";
 import { useEffect } from "react";
+
+type CommentType = {
+  id: string;
+  rating: number;
+  createDate: Date;
+  text: string;
+  position: string;
+  company: {
+    id: number;
+    logo: string;
+    name: string;
+  };
+  user: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+};
 
 export function CompanyTable() {
   const { id } = useParams<{ id: string }>();
@@ -33,57 +51,59 @@ export function CompanyTable() {
     );
   }
 
+  const columns = [
+    {
+      key: "user",
+      title: "Пользователь",
+      render: (comment: CommentType) => (
+        <div className="flex items-center gap-4">
+          {comment?.user?.avatar ? (
+            <Avatar
+              src={process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar}
+            />
+          ) : (
+            <div className="skeleton h-32 w-32"></div>
+          )}
+          <p>{comment.user.name}</p>
+        </div>
+      ),
+    },
+    {
+      key: "position",
+      title: "Должность",
+      render: (comment: CommentType) => comment.position,
+    },
+    {
+      key: "rating",
+      title: "Рейтинг",
+      render: (comment: CommentType) => comment.rating,
+    },
+    {
+      key: "text",
+      title: "Комментарий",
+      render: (comment: CommentType) => comment.text,
+    },
+    {
+      key: "createDate",
+      title: "Дата",
+      render: (comment: CommentType) => moment(comment.createDate).format("MMM Do YY"),
+    },
+    {
+      key: "actions",
+      title: "Действия",
+      render: (comment: CommentType) => (
+        <Tooltip tip="Посмотреть">
+          <Button onClick={() => redirect(`/users/${comment.user.id}`)}>
+            <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+          </Button>
+        </Tooltip>
+      ),
+    },
+  ];
+
   return (
     <div className="overflow-x-auto">
-      <table className="table w-full">
-        <thead>
-          <tr className="text-lg text-center border-b-2 border-gray-500">
-            <th>Пользователь</th>
-            <th>Должность</th>
-            <th>Рейтинг</th>
-            <th>Комментарий</th>
-            <th>Дата</th>
-            <th>Действия</th>
-          </tr>
-        </thead>
-        <tbody>
-          {comments.map(comment => (
-            <tr
-              key={comment.id}
-              className="text-center align-middle border-b border-gray-500"
-            >
-              <td className="flex items-center gap-4">
-                {comment?.user?.avatar ? (
-                  <Avatar
-                    src={
-                      process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar
-                    }
-                  />
-                ) : (
-                  <div className="skeleton h-32 w-32"></div>
-                )}
-                <p>{comment.user.name}</p>
-              </td>
-              <td>{comment.position}</td>
-              <td>{comment.rating}</td>
-              <td>{comment.text}</td>
-              <td> {moment(comment.createDate).format("MMM Do YY")}</td>
-              <td>
-                <Tooltip tip="Посмотреть">
-                  <Button onClick={() => redirect(`/users/${comment.user.id}`)}>
-                    <Image
-                      src="/icons/file.svg"
-                      alt="File"
-                      width={25}
-                      height={25}
-                    />
-                  </Button>
-                </Tooltip>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Table columns={columns} data={comments} />
     </div>
   );
 }
