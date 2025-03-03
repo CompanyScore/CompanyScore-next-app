@@ -1,16 +1,15 @@
 "use client";
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-import { Avatar } from "@/ui";
+
 import ThemeController from "./theme-controller";
-import { useProfileStore } from "@/store";
 
 export default function HeaderMobile() {
-  const { profile, getProfile } = useProfileStore();
   const pathname = usePathname();
 
   const pages = [
+    { href: "/profile", label: "Профиль" },
     { href: "/", label: "Главная" },
     { href: "/about", label: "О нас" },
     { href: "/companies", label: "Компании" },
@@ -19,12 +18,8 @@ export default function HeaderMobile() {
     { href: "/blog", label: "Блог" },
   ];
 
-  useEffect(() => {
-    getProfile();
-  }, [getProfile]);
-
   return (
-    <div className="flex lg:hidden navbar bg-base-100">
+    <div className="flex min-[1300px]:hidden navbar bg-base-100">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -66,16 +61,7 @@ export default function HeaderMobile() {
       <div className="navbar-center">
         <a className="btn btn-ghost text-xl">CompanyScore</a>
       </div>
-      <div className="navbar-end">
-        <Link href="/profile">
-          {profile?.avatar ? (
-            <Avatar
-              src={`${process.env.NEXT_PUBLIC_API_URL}${profile?.avatar}`}
-            />
-          ) : (
-            <div className="skeleton h-32 w-32"></div>
-          )}
-        </Link>
+      <div className="navbar-end gap-2">
         <ThemeController />
         {/* <button className="btn btn-ghost btn-circle">
           <div className="indicator">

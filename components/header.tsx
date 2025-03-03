@@ -24,7 +24,7 @@ export default function Header() {
   }, [getProfile]);
 
   return (
-    <div className="hidden lg:flex justify-between navbar bg-neutral text-neutral-content px-10">
+    <div className="hidden min-[1300px]:flex justify-between navbar bg-neutral text-neutral-content px-10">
       <div className="max-w-96 w-full">
         {/* <Image src="/imgs/logo.png" alt="Logo" width={340} height={200} /> */}
         <h1 className=" text-3xl">CompanyScore</h1>
@@ -34,7 +34,7 @@ export default function Header() {
           <Link
             key={href}
             href={href}
-            className={`pb-1 ${
+            className={`pb-1 min-w-16 ${
               pathname === href ? "border-b-2 border-white" : "hover:border-b"
             }`}
           >
@@ -42,7 +42,7 @@ export default function Header() {
           </Link>
         ))}
       </div>
-      <div className="flex justify-end max-w-96 w-full">
+      <div className="flex justify-end gap-2 max-w-96 w-full">
         <Link href="/profile">
           {profile?.avatar ? (
             <Avatar
