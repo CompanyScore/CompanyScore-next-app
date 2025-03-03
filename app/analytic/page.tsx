@@ -9,7 +9,7 @@ export default function AnalyticPage() {
         В разработке, будет скоро
       </p>
       <Container>
-        <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
+        <div className="hero-content flex-col-reverse lg:flex-row-reverse justify-between">
           <div
             className="radial-progress"
             style={

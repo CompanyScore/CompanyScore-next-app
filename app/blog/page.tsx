@@ -10,8 +10,8 @@ export default function BlogPage() {
         В разработке, будет скоро
       </p>
       <Container>
-        <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
-          <div className="card bg-base-100 w-96 shadow-xl">
+        <div className="hero-content flex-col-reverse lg:flex-row-reverse justify-between">
+          <div className="card bg-base-100 max-w-96 shadow-xl w-full">
             <figure>
               {/* src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg" */}
               <Image
