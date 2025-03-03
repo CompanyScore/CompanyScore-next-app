@@ -39,7 +39,7 @@ export function UsersTable() {
       key: "user",
       title: "Пользователь",
       render: (user: UserType) => (
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex max-[650px]:justify-center items-center gap-4">
           {user?.avatar ? (
             <Avatar
               className="max-[650px]:hidden"

@@ -67,7 +67,7 @@ export function ProfileTable() {
       key: "company",
       title: "Компания",
       render: (comment: CommentType) => (
-        <div className="flex  gap-4 justify-center items-center">
+        <div className="flex max-[650px]:justify-center items-center gap-4 ">
           {comment.company.logo ? (
             <Avatar
               className="max-[650px]:hidden"

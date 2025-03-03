@@ -56,7 +56,7 @@ export function CompanyTable() {
       key: "user",
       title: "Пользователь",
       render: (comment: CommentType) => (
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex max-[650px]:justify-center items-center gap-4">
           {comment?.user?.avatar ? (
             <Avatar
               className="max-[650px]:hidden"
