@@ -18,7 +18,7 @@ export function Table<T>({ columns, data }: TableProps<T>) {
         <thead>
           <tr className="text-lg text-center border-b-2 border-gray-500">
             {columns.map((col) => (
-              <th key={col.key} className="px-0">{col.title}</th>
+              <th key={col.key} className="px-1">{col.title}</th>
             ))}
           </tr>
         </thead>

@@ -56,9 +56,10 @@ export function CompanyTable() {
       key: "user",
       title: "Пользователь",
       render: (comment: CommentType) => (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 max-[650px]:justify-center">
           {comment?.user?.avatar ? (
             <Avatar
+              className="max-[650px]:hidden"
               src={process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar}
             />
           ) : (
@@ -86,7 +87,8 @@ export function CompanyTable() {
     {
       key: "createDate",
       title: "Дата",
-      render: (comment: CommentType) => moment(comment.createDate).format("MMM Do YY"),
+      render: (comment: CommentType) =>
+        moment(comment.createDate).format("MMM Do YY"),
     },
     {
       key: "actions",

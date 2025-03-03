@@ -35,15 +35,15 @@ export function CompanyCard() {
 
   return (
     <div className="hero bg-base-200 py-10">
-      <div className="hero-content flex-col lg:flex-row items-start justify-between w-full">
-        <div className="flex flex-col items-center gap-4">
+      <div className="hero-content flex-col-reverse items-start justify-between w-full lg:flex-row">
+        <div className="flex flex-col items-center gap-4 justify-center margin-auto">
           {company?.logo ? (
             <Image
               width={420}
               height={70}
               alt="Company logo"
               src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
-              className="max-w-sm rounded-lg shadow-2xl"
+              className="max-w-sm max-[650px]:max-w-20 rounded-lg shadow-2xl w-full"
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>
