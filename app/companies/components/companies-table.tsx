@@ -88,9 +88,9 @@ export function CompaniesTable() {
   ];
 
   return (
-    <div className="flex flex-col items-center w-full m-auto overflow-x-auto">
+    <>
       <Table columns={columns} data={companies} />
       <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
-    </div>
+    </>
   );
 }

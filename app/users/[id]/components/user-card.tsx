@@ -24,7 +24,7 @@ export function UserCard() {
 
   return (
     <div className="relative hero bg-base-200">
-      <div className="hero-content flex-col lg:flex-row items-start justify-start gap-20 w-full">
+      <div className="hero-content flex-col-reverse items-start justify-start gap-20 w-full lg:flex-row">
         {user?.avatar ? (
           <Image
             src={`${process.env.NEXT_PUBLIC_API_URL}${user.avatar}`}

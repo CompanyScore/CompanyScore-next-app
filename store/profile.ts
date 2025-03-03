@@ -37,7 +37,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
     set({ loading: true, error: "" });
 
     try {
-      const { data } = await useApi.get(`/users/detail`);
+      const { data } = await useApi.get(`/users/profile`);
       set({
         profile: data,
       });
