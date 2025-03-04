@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { CompaniesPostCommentModal } from "./index";
+import { CompaniesPostCommentModal } from "@/app/companies/modals/index";
 import { useCompaniesStore } from "@/store";
 import type { CompanyType } from "@/store/companies";
 import { Button, Avatar, Tooltip, Title, Table } from "@/ui";

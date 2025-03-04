@@ -3,7 +3,7 @@ import classNames from "classnames";
 type InputType = {
   value?: string;
   type?: string;
-  placeholder: string;
+  placeholder?: string;
   onChange: (newSearchedValue: string) => void;
   className?: string;
 };
