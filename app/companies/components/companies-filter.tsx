@@ -25,9 +25,10 @@ export function CompaniesFilter() {
 
   return (
     <div>
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex space-x-3">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap gap-4 max-w-[650px] w-full">
           <Searcher onSearch={onSearchCompanyByName} />
+
           <Dropdown
             text="Все рейтинги"
             options={ratingOptions}

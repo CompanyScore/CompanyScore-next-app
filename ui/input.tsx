@@ -21,7 +21,7 @@ export function Input({
       placeholder={placeholder}
       value={value}
       className={classNames(
-        "input input-bordered input-primary w-full max-w-md",
+        "input input-bordered input-primary w-full max-w-72",
         className,
       )}
       onChange={(e) => onChange(e.target.value)}
