@@ -26,7 +26,7 @@ export function CompaniesFilter() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-4 max-w-[650px] w-full">
+        <div className="flex flex-wrap gap-4 max-w-[750px] w-full">
           <Searcher onSearch={onSearchCompanyByName} />
 
           <Dropdown
