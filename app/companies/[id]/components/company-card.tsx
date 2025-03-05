@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/ui";
-import { CompaniesPostCommentModal } from "@/app/companies/components";
+import { CompaniesPostCommentModal } from "@/app/companies/modals";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 
 type CompanyType = {

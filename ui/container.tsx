@@ -1,9 +1,17 @@
+import classNames from "classnames";
 import React from "react";
 
-export function Container({
-  children,
-}: Readonly<{
+type Props = {
   children: React.ReactNode;
-}>) {
-  return <div className="hero bg-base-200 place-items-start">{children}</div>;
+  className?: string;
+};
+
+export function Container({ children, className }: Props) {
+  return (
+    <div
+      className={classNames("hero bg-base-200 place-items-start", className)}
+    >
+      {children}
+    </div>
+  );
 }

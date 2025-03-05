@@ -1,4 +1,6 @@
+import { Button, Container, Title } from "@/ui";
 import { Metadata } from "next";
+import GeneralCarousel from "./components/general-carousel";
 
 // import { Button } from "@nextui-org/button";
 // import { useState } from "react";
@@ -12,9 +14,33 @@ export default function HomePage() {
   // const [count, setCount] = useState();
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <div>Наши Донатеры!</div>
-      <div>Новые Компании!</div>
-      <div>Новые Пользователи!</div>
+      <Title size="2">Честные отзывы о IT-компаниях!</Title>
+      <Title size="2">Не трать время на тестовые зря!</Title>
+      <Title size="2">Проверь компанию перед собеседованием!</Title>
+      <Title size="2">
+        Компании скрывают реальные условия? Мы собираем отзывы от разработчиков,
+        чтобы вы знали, куда идете
+      </Title>
+
+      <div className="flex gap-4">
+        <Button>Найти компанию</Button>
+        <Button>Оставить отзыв</Button>
+        <Button>Посмотреть аналитику</Button>
+      </div>
+
+      <Container className="flex flex-col gap-4 p-10">
+        <Title size="3">Что внутри?</Title>
+        <p>- Реальные истории кандидатов о процессе найма и работе</p>
+        <p>- Компании оцениваются по тестовым заданиям, условиям и атмосфере</p>
+        <p>
+          - Средние зарплаты, типичные требования, соотношение ожиданий и
+          реальности
+        </p>
+        <p>- Подробные разборы компаний, советы по трудоустройству</p>
+      </Container>
+
+      <Title size="3">Отзывы</Title>
+      <GeneralCarousel />
     </section>
   );
 }

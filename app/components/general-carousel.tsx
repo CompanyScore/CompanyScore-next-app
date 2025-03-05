@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
 import { useCompaniesStore } from "@/store";
 
-export function CompaniesCarousel() {
+export function GeneralCarousel() {
   const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -99,4 +99,4 @@ export function CompaniesCarousel() {
   );
 }
 
-export default CompaniesCarousel;
+export default GeneralCarousel;
