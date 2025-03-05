@@ -52,7 +52,7 @@ export function CompanyCard() {
             <div className="stat flex flex-col items-center">
               <div className="stat-title">Средний балл:</div>
               <div className="stat-value">{company?.rating}</div>
-              <div className="stat-desc">Общее число комментариев: {total}</div>
+              <div className="stat-desc">Общее число Отзывов: {total}</div>
             </div>
           </div>
         </div>

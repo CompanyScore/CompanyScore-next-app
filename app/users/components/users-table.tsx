@@ -59,7 +59,7 @@ export function UsersTable() {
     },
     {
       key: "commentsCount",
-      title: "Комментарии",
+      title: "Отзывы",
       render: (user: UserType) => user.commentsIds.length,
     },
     {

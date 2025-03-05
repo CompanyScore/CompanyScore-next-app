@@ -72,7 +72,7 @@ export function CompaniesPostCommentModal({
       });
       await getCompanies({});
       await getComments({ companyId });
-      showToast("Комментарий отправлен!", "success");
+      showToast("Отзыв отправлен!", "success");
       resetForm();
     } catch {
       const error = useCommentsStore.getState().error;

@@ -81,7 +81,7 @@ export function CompanyTable() {
     },
     {
       key: "text",
-      title: "Комментарий",
+      title: "Отзыв",
       render: (comment: CommentType) => comment.text,
     },
     {

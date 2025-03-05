@@ -82,7 +82,7 @@ export function ProfileTable() {
     },
     { key: "position", title: "Должность" },
     { key: "rating", title: "Рейтинг" },
-    { key: "text", title: "Комментарий" },
+    { key: "text", title: "Отзыв" },
     {
       key: "createDate",
       title: "Дата",

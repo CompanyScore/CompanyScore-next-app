@@ -54,7 +54,7 @@ export function CompaniesTable() {
     { key: "rating", title: "Рейтинг" },
     {
       key: "comments",
-      title: "Комментарии",
+      title: "Отзывы",
       render: (company: CompanyType) => company.commentsIds.length,
     },
     {
