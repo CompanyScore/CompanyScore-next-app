@@ -1,13 +1,8 @@
+"use client";
+
 import { Button, Input, Modal, Textarea, Title, Toast, useToast } from "@/ui";
 import { useSuggestCompanyStore } from "@/store";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const scheme = yup.object().shape({
-  name: yup.string().required("Отзыв обязателен"),
-  description: yup.string().required("Укажите должность"),
-});
+import { useSuggestPostForm } from "@/hook";
 
 export function SuggestPostCompanyModal() {
   const { postSuggestCompany } = useSuggestCompanyStore();
@@ -20,13 +15,7 @@ export function SuggestPostCompanyModal() {
     watch,
     formState: { errors },
     reset,
-  } = useForm({
-    resolver: yupResolver(scheme),
-    defaultValues: {
-      name: "",
-      description: "",
-    },
-  });
+  } = useSuggestPostForm();
 
   const closeModal = () => {
     const modal = document.getElementById(

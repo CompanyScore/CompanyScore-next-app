@@ -12,24 +12,7 @@ import {
 } from "@/ui";
 import { positions } from "@/shared";
 import { useProfileStore } from "@/store";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-const scheme = yup.object().shape({
-  name: yup.string(),
-  position: yup.string(),
-  description: yup.string(),
-  avatar: yup
-    .mixed()
-    .test("fileType", "Допустимые форматы: JPG, PNG", (value) => {
-      return (
-        !value ||
-        (value instanceof File &&
-          ["image/jpeg", "image/png"].includes(value.type))
-      );
-    }),
-});
+import { useProfileEditForm } from "@/hook";
 
 export function ProfileEditModal() {
   const { getProfile, updateProfile } = useProfileStore();
@@ -40,15 +23,7 @@ export function ProfileEditModal() {
     watch,
     formState: { errors },
     reset,
-  } = useForm({
-    resolver: yupResolver(scheme),
-    defaultValues: {
-      name: "",
-      position: "",
-      description: "",
-      avatar: "",
-    },
-  });
+  } = useProfileEditForm();
 
   const showToast = useToast((state) => state.showToast);
 

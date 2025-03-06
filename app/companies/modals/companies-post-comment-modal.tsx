@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   Dropdown,
@@ -9,22 +11,11 @@ import {
 } from "@/ui";
 import { positions } from "@/shared";
 import { useCommentsStore, useCompaniesStore } from "@/store";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useCommentForm } from "@/hook";
 
 type CompaniesPostCommentModalProps = {
   companyId: string;
 };
-
-const scheme = yup.object().shape({
-  comment: yup.string().required("Отзыв обязателен"),
-  rating: yup
-    .number()
-    .min(1, "Поставьте оценку")
-    .required("Оценка обязательна"),
-  position: yup.string().required("Укажите должность"),
-});
 
 export function CompaniesPostCommentModal({
   companyId,
@@ -39,14 +30,7 @@ export function CompaniesPostCommentModal({
     watch,
     formState: { errors },
     reset,
-  } = useForm({
-    resolver: yupResolver(scheme),
-    defaultValues: {
-      comment: "",
-      rating: 0,
-      position: "",
-    },
-  });
+  } = useCommentForm();
 
   const closeModal = () => {
     const modal = document.getElementById(
