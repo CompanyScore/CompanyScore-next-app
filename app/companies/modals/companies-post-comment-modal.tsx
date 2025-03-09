@@ -9,7 +9,7 @@ import {
   Toast,
   useToast,
 } from "@/ui";
-import { positions } from "@/shared";
+import { positions } from "@/constants";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 import { useCommentForm } from "@/hook";
 

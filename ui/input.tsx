@@ -1,10 +1,10 @@
 import classNames from "classnames";
 
 type InputType = {
-  value?: string;
+  value?: string | number;
   type?: string;
   placeholder?: string;
-  onChange: (newSearchedValue: string) => void;
+  onChange: (newSearchedValue: string | number) => void;
   className?: string;
 };
 
@@ -24,7 +24,9 @@ export function Input({
         "input input-bordered input-primary w-full max-w-md",
         className,
       )}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={(e) =>
+        onChange(type === "number" ? Number(e.target.value) : e.target.value)
+      }
     />
   );
 }

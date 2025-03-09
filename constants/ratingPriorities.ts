@@ -2,7 +2,7 @@ export const ratingPriorities = {
   salary: 1.0, // Зарплата
   project: 1.0, // Проект
   techStack: 0.95, // Стек технологий
-  colleagues: 0.95, // Коллеги
+  team: 0.95, // Коллеги
   management: 0.9, // Руководство
   interview: 0.85, // Собеседование
   techAssignment: 0.5, // Тех. задание

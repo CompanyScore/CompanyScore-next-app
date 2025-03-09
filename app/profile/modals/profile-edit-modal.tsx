@@ -10,7 +10,7 @@ import {
   Toast,
   useToast,
 } from "@/ui";
-import { positions } from "@/shared";
+import { positions } from "@/constants";
 import { useProfileStore } from "@/store";
 import { useProfileEditForm } from "@/hook";
 

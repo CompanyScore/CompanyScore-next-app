@@ -14,6 +14,7 @@ export default function Header() {
     { href: "/", label: "Главная" },
     { href: "/about", label: "О нас" },
     { href: "/companies", label: "Компании" },
+    { href: "/comments", label: "Отзывы" },
     { href: "/users", label: "Пользователи" },
     { href: "/analytic", label: "Аналитика" },
     { href: "/blog", label: "Блог" },

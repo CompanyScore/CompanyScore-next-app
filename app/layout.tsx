@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import Header from "@/components/header";
 import HeaderMobile from "@/components/header-mobile";
 import Footer from "@/components/footer";
 import ThemeProvider from "@/components/theme-provider";
 import { cookies } from "next/headers";
-// import AuthProvider from "@/components/auth-provider";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
 
   return (
     <html lang="en">
@@ -37,8 +36,7 @@ export default async function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
         <ThemeProvider>
-          {/* <AuthProvider> */}
-          {accessToken && ( // Показываем Header, если есть токен
+          {refreshToken && (
             <>
               <Header />
               <HeaderMobile />
@@ -47,8 +45,7 @@ export default async function RootLayout({
           <main className="flex-1 container mx-auto h-full px-4">
             {children}
           </main>
-          {accessToken && <Footer />}
-          {/* </AuthProvider> */}
+          {refreshToken && <Footer />}
         </ThemeProvider>
       </body>
     </html>
