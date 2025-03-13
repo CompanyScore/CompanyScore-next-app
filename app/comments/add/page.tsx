@@ -1,195 +1,209 @@
 "use client";
 
-import { Dropdown, Input, Title } from "@/ui";
-import { positions, grades } from "@/constants";
 import { useState } from "react";
-import { Radio } from "@/shared";
+import { Dropdown, Input, Title } from "@/ui";
+import { positions, grades, countries, cities } from "@/constants";
+import { Steps, Step, Checkbox, Radio } from "@/shared";
 
-const obj = {
-  frontend: {
-    j: {
-      salary: 800,
-    },
-    m: 1300,
-    s: 2500,
-  },
-  backend: {
-    j: 800,
-    m: 1300,
-    s: 2500,
-  },
-};
-
-console.log(obj);
-// 5 - obj.frontend.j.salary
-// x - 500 (input)
-// x * 5 / obj.frontend.j.salary
-
-// x = 500 * 5 / obj.frontend.j.salary
-export default function CommentAddPage() {
+export default function MultiStepSurvey() {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
   const [position, setPosition] = useState("");
   const [grade, setGrade] = useState("");
-  const [salary, setSalary] = useState(0);
   const [management, setManagement] = useState("good");
   const [team, setTeam] = useState("good");
+  const [salary, setSalary] = useState(0);
   const [project, setProject] = useState("good");
   const [stack, setStack] = useState("good");
-
   const [task, setTask] = useState("good");
   const [interview, setInterview] = useState("good");
-  const [workFormat, setWorkFormat] = useState("online");
-  const [medical, setMedical] = useState(0);
-  const [vacation, setVacation] = useState(0);
-  const [premiums, setPremiums] = useState(0);
-  const [bonuses, setBonuses] = useState(0);
-  const [stocks, setStocks] = useState(0);
+
+  const isNextDisabled = () => {
+    if (currentStep === 1) return selectedOptions.length === 0;
+    if (currentStep === 2) return !country || !city;
+    return false;
+  };
+
+  const handleNext = () => {
+    if (!isNextDisabled()) setCurrentStep((prev) => prev + 1);
+  };
+  const handlePrev = () => setCurrentStep((prev) => prev - 1);
 
   return (
-    <section className="flex flex-col items-center justify-center gap-8 py-8 md:py-10 m-auto">
-      <Title size="5" position="center">
-        Форма отзыва
-      </Title>
+    <section className="flex flex-col items-center py-8 gap-8">
+      <Steps currentStep={currentStep}>
+        <Step>Выбор этапов</Step>
+        <Step>Локация</Step>
+        <Step>Вопросы</Step>
+      </Steps>
 
-      <div className="flex gap-10 flex-wrap">
-        <Dropdown
-          text="Должность"
-          isFirstDisabled={true}
-          options={positions}
-          selectedValue={position}
-          onSelect={setPosition}
-        />
-
-        <Dropdown
-          text="Грэйд"
-          isFirstDisabled={true}
-          options={grades}
-          selectedValue={grade}
-          onSelect={setGrade}
-        />
-      </div>
-      <div className="flex justify-around w-full flex-wrap">
-        <div className="flex flex-col gap-8">
-          <Title size="3">1. Какое руководство?</Title>
-          <Radio
-            options={[
-              { label: "Ужасное", value: "bad" },
-              { label: "Нормальное", value: "ok" },
-              { label: "Отличное", value: "good" },
-            ]}
-            selectedValue={management}
-            onChange={setManagement}
+      {currentStep === 1 && (
+        <div className="flex flex-col gap-6">
+          <Checkbox
+            label="Я проходил тех. задание"
+            checked={selectedOptions.includes("task")}
+            onChange={() =>
+              setSelectedOptions((prev) =>
+                prev.includes("task")
+                  ? prev.filter((o) => o !== "task")
+                  : [...prev, "task"],
+              )
+            }
           />
-
-          <Title size="3">2. Какой коллектив?</Title>
-          <Radio
-            options={[
-              { label: "Ужасный", value: "bad" },
-              { label: "Нормальный", value: "ok" },
-              { label: "Отличный", value: "good" },
-            ]}
-            selectedValue={team}
-            onChange={setTeam}
+          <Checkbox
+            label="Я проходил собеседование"
+            checked={selectedOptions.includes("interview")}
+            onChange={() =>
+              setSelectedOptions((prev) =>
+                prev.includes("interview")
+                  ? prev.filter((o) => o !== "interview")
+                  : [...prev, "interview"],
+              )
+            }
           />
-
-          <Title size="3">3. Какая зарплата?</Title>
-          <Input
-            value={salary}
-            onChange={(newValue) => setSalary(Number(newValue))}
-            type="number"
+          <Checkbox
+            label="Я работал/работаю"
+            checked={selectedOptions.includes("work")}
+            onChange={() =>
+              setSelectedOptions((prev) =>
+                prev.includes("work")
+                  ? prev.filter((o) => o !== "work")
+                  : [...prev, "work"],
+              )
+            }
           />
-
-          <Title size="3">4. Какой проект?</Title>
-          <Radio
-            options={[
-              { label: "Ужасный", value: "bad" },
-              { label: "Нормальный", value: "ok" },
-              { label: "Отличный", value: "good" },
-            ]}
-            selectedValue={project}
-            onChange={setProject}
-          />
-
-          <Title size="3">5. Какой стек технологий?</Title>
-          <Radio
-            options={[
-              { label: "Ужасный", value: "bad" },
-              { label: "Нормальный", value: "ok" },
-              { label: "Отличный", value: "good" },
-            ]}
-            selectedValue={stack}
-            onChange={setStack}
-          />
+          <div className="flex gap-4">
+            <button
+              className="btn"
+              disabled={isNextDisabled()}
+              onClick={handleNext}
+            >
+              Далее
+            </button>
+          </div>
         </div>
-        <div className="flex flex-col gap-8">
-          <Title size="3">6. Тех задание?</Title>
-          <Radio
-            options={[
-              { label: "Ужасное", value: "bad" },
-              { label: "Нормальное", value: "ok" },
-              { label: "Отличное", value: "good" },
-            ]}
-            selectedValue={task}
-            onChange={setTask}
-          />
+      )}
 
-          <Title size="3">7. Собеседование?</Title>
-          <Radio
-            options={[
-              { label: "Ужасное", value: "bad" },
-              { label: "Нормальное", value: "ok" },
-              { label: "Отличное", value: "good" },
-            ]}
-            selectedValue={interview}
-            onChange={setInterview}
+      {currentStep === 2 && (
+        <div className="flex flex-col gap-6">
+          <Dropdown
+            text="Страна"
+            options={countries}
+            selectedValue={country}
+            onSelect={setCountry}
           />
-
-          <Title size="3">8. Формат работы?</Title>
-          <Radio
-            options={[
-              { label: "онлайн", value: "bad" },
-              { label: "гибрид", value: "ok" },
-              { label: "офис", value: "good" },
-            ]}
-            selectedValue={workFormat}
-            onChange={setWorkFormat}
+          <Dropdown
+            text="Город"
+            options={cities[country] || []}
+            selectedValue={city}
+            onSelect={setCity}
           />
-
-          <Title size="3">9. Medical?</Title>
-          <Input
-            value={medical}
-            onChange={(newValue) => setMedical(Number(newValue))}
-            type="number"
-          />
-
-          <Title size="3">10. Отпускные?</Title>
-          <Input
-            value={vacation}
-            onChange={(newValue) => setVacation(Number(newValue))}
-            type="number"
-          />
-
-          <Title size="3">11. Премии?</Title>
-          <Input
-            value={premiums}
-            onChange={(newValue) => setPremiums(Number(newValue))}
-            type="number"
-          />
-
-          <Title size="3">12. Бонусы?</Title>
-          <Input
-            value={bonuses}
-            onChange={(newValue) => setBonuses(Number(newValue))}
-            type="number"
-          />
-
-          <Title size="3">13. Акции?</Title>
-          <Input
-            value={stocks}
-            onChange={(newValue) => setStocks(Number(newValue))}
-            type="number"
-          />
+          <div className="flex gap-4">
+            <button className="btn" onClick={handlePrev}>
+              Назад
+            </button>
+            <button
+              className="btn"
+              disabled={isNextDisabled()}
+              onClick={handleNext}
+            >
+              Далее
+            </button>
+          </div>
         </div>
-      </div>
+      )}
+
+      {currentStep === 3 && (
+        <div className="flex flex-col gap-8">
+          {selectedOptions.includes("task") && (
+            <>
+              <Title size="3">Тех задание?</Title>
+              <Radio
+                options={[
+                  { label: "Ужасное", value: "bad" },
+                  { label: "Нормальное", value: "ok" },
+                  { label: "Отличное", value: "good" },
+                ]}
+                selectedValue={task}
+                onChange={setTask}
+              />
+            </>
+          )}
+          {selectedOptions.includes("interview") && (
+            <>
+              <Title size="3">Собеседование?</Title>
+              <Radio
+                options={[
+                  { label: "Ужасное", value: "bad" },
+                  { label: "Нормальное", value: "ok" },
+                  { label: "Отличное", value: "good" },
+                ]}
+                selectedValue={interview}
+                onChange={setInterview}
+              />
+            </>
+          )}
+          {selectedOptions.includes("work") && (
+            <>
+              <Dropdown
+                text="Должность"
+                options={positions}
+                selectedValue={position}
+                onSelect={setPosition}
+              />
+              <Dropdown
+                text="Грэйд"
+                options={grades}
+                selectedValue={grade}
+                onSelect={setGrade}
+              />
+              <Title size="3">Зарплата</Title>
+              <Input
+                value={salary}
+                onChange={(v) => setSalary(Number(v))}
+                type="number"
+              />
+              <Title size="3">Какой коллектив?</Title>
+              <Radio
+                options={[
+                  { label: "Ужасный", value: "bad" },
+                  { label: "Нормальный", value: "ok" },
+                  { label: "Отличный", value: "good" },
+                ]}
+                selectedValue={team}
+                onChange={setTeam}
+              />
+              <Title size="3">Какой проект?</Title>
+              <Radio
+                options={[
+                  { label: "Ужасный", value: "bad" },
+                  { label: "Нормальный", value: "ok" },
+                  { label: "Отличный", value: "good" },
+                ]}
+                selectedValue={project}
+                onChange={setProject}
+              />
+              <Title size="3">Какой стек технологий?</Title>
+              <Radio
+                options={[
+                  { label: "Ужасный", value: "bad" },
+                  { label: "Нормальный", value: "ok" },
+                  { label: "Отличный", value: "good" },
+                ]}
+                selectedValue={stack}
+                onChange={setStack}
+              />
+            </>
+          )}
+          <div className="flex gap-4">
+            <button className="btn" onClick={handlePrev}>
+              Назад
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

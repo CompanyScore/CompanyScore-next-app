@@ -37,7 +37,7 @@ export function SuggestPostCompanyModal() {
         name: data.name,
         description: data.description,
       });
-      showToast("Успешно отправли!", "success");
+      showToast("Предложение отправлено!", "success");
       resetForm();
     } catch {
       const error = useSuggestCompanyStore.getState().error;
