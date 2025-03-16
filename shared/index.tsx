@@ -6,3 +6,4 @@ export { Radio } from "./radio";
 export { Steps } from "./steps";
 export { Step } from "./step";
 export { Checkbox } from "./checkbox";
+export { Tabs } from "./tabs";
