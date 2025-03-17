@@ -2,13 +2,13 @@ import classNames from "classnames";
 
 type Option = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 type Props = {
   options: Option[];
-  selectedValue: string;
-  onChange: (value: string) => void;
+  selectedValue: string | number;
+  onChange: (value: string | number) => void;
   className?: string;
 };
 
@@ -17,7 +17,7 @@ export function Radio({ options, selectedValue, onChange, className }: Props) {
     <div className={classNames("flex gap-4", className)}>
       {options.map((option) => (
         <label
-          key={option.value}
+          key={option.value.toString()}
           className="flex items-center gap-2 cursor-pointer"
         >
           <input
