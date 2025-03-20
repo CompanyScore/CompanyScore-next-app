@@ -11,7 +11,7 @@ type Props = {
 };
 
 export function Tabs({ children }: Props) {
-  // Преобразуем детей в массив
+  // Convert children to an array of React elements
   const tabsArray = React.Children.toArray(
     children,
   ) as ReactElement<TabProps>[];
@@ -27,7 +27,7 @@ export function Tabs({ children }: Props) {
             key={index}
             onClick={() => setActiveIndex(index)}
             className={classNames("tab tab-bordered", {
-              "text-primary": activeIndex === index,
+              "text-primary": activeIndex === index, // Highlight the active tab
             })}
           >
             {tab.props.label}
