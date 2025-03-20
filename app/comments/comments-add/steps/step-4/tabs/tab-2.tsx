@@ -1,5 +1,4 @@
-import { Radio } from "@/shared";
-import { Title } from "@/ui";
+import { Radio, Tab } from "@/shared";
 
 type Props = {
   interview: number;
@@ -16,13 +15,12 @@ export const Tab2 = ({ interview, setInterview }: Props) => {
   ];
 
   return (
-    <div label="Собеседование">
-      <Title size="3">Собеседование?</Title>
+    <Tab name="comment-add" label="Собеседование">
       <Radio
         options={scaleOptions}
         selectedValue={interview}
         onChange={(value) => setInterview(Number(value))}
       />
-    </div>
+    </Tab>
   );
 };

@@ -1,4 +1,4 @@
-import { Radio } from "@/shared";
+import { Radio, Tab } from "@/shared";
 import { Title } from "@/ui";
 
 type Props = {
@@ -19,7 +19,7 @@ export const Tab5 = ({
   setRecommendation,
 }: Props) => {
   return (
-    <div label="Обратная связь">
+    <Tab name="comment-add" label="Обратная связь">
       <Title size="3">По какой причине вы устроились на эту работу?</Title>
       <textarea
         className="textarea textarea-primary w-full"
@@ -45,6 +45,6 @@ export const Tab5 = ({
         selectedValue={recommendation}
         onChange={setRecommendation}
       />
-    </div>
+    </Tab>
   );
 };

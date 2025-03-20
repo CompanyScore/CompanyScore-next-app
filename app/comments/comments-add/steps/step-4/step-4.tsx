@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Tabs } from "@/shared";
+// import { Tabs } from "@/shared";
 import { Tab1, Tab2, Tab3, Tab4, Tab5 } from "./tabs";
+import { Tabs } from "@/shared";
 
 type Props = {
   selectedOptions: string[];
@@ -29,16 +30,16 @@ export const Step4 = ({ selectedOptions }: Props) => {
   const [reasonLeft, setReasonLeft] = useState("");
   const [recommendation, setRecommendation] = useState("yes");
 
-  console.log(selectedOptions);
-
   return (
     <Tabs>
       {selectedOptions.includes("task") && (
         <Tab1 task={task} setTask={setTask} />
       )}
+
       {selectedOptions.includes("interview") && (
         <Tab2 interview={interview} setInterview={setInterview} />
       )}
+
       {selectedOptions.includes("rating") && (
         <Tab3
           management={management}
@@ -53,6 +54,7 @@ export const Step4 = ({ selectedOptions }: Props) => {
           setWorkFormat={setWorkFormat}
         />
       )}
+
       {selectedOptions.includes("rating") && (
         <Tab4
           salary={salary}

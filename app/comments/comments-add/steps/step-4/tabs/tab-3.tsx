@@ -1,4 +1,4 @@
-import { Radio } from "@/shared";
+import { Radio, Tab } from "@/shared";
 import { Title } from "@/ui";
 
 type Props = {
@@ -35,7 +35,7 @@ export const Tab3 = ({
   ];
 
   return (
-    <div label="Оценка компании">
+    <Tab name="comment-add" label="Оценка компании">
       <Title size="3">Руководство</Title>
       <Radio
         options={scaleOptions}
@@ -74,6 +74,6 @@ export const Tab3 = ({
         selectedValue={workFormat}
         onChange={setWorkFormat}
       />
-    </div>
+    </Tab>
   );
 };

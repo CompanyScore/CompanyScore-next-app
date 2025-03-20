@@ -1,3 +1,4 @@
+import { Tab } from "@/shared";
 import { Title, Input } from "@/ui";
 
 type Props = {
@@ -26,23 +27,41 @@ export const Tab4 = ({
   setDividends,
 }: Props) => {
   return (
-    <div label="Финансы">
+    <Tab name="comment-add" label="Финансы">
       <Title size="3">Зарплата</Title>
-      <Input value={salary.toString()} onChange={(newVal) => setSalary(Number(newVal))} type="number" />
+      <Input
+        value={salary.toString()}
+        onChange={(newVal) => setSalary(Number(newVal))}
+        type="number"
+      />
 
       <Title size="3">Премия</Title>
-      <Input value={premium.toString()} onChange={(newVal) => setPremium(Number(newVal))} type="number" />
+      <Input
+        value={premium.toString()}
+        onChange={(newVal) => setPremium(Number(newVal))}
+        type="number"
+      />
 
       <Title size="3">Бонусы</Title>
-      <Input value={bonuses.toString()} onChange={(newVal) => setBonuses(Number(newVal))} type="number" />
+      <Input
+        value={bonuses.toString()}
+        onChange={(newVal) => setBonuses(Number(newVal))}
+        type="number"
+      />
 
       <Title size="3">Акции</Title>
-      <Input value={stocks.toString()} onChange={(newVal) => setStocks(Number(newVal))} type="number" />
+      <Input
+        value={stocks.toString()}
+        onChange={(newVal) => setStocks(Number(newVal))}
+        type="number"
+      />
 
       <Title size="3">Дивиденды</Title>
-      <Input value={dividends.toString()} onChange={(newVal) => setDividends(Number(newVal))} type="number" />
-    </div>
+      <Input
+        value={dividends.toString()}
+        onChange={(newVal) => setDividends(Number(newVal))}
+        type="number"
+      />
+    </Tab>
   );
 };
-
-
