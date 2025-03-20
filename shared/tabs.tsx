@@ -6,11 +6,11 @@ type TabProps = {
   children: React.ReactNode;
 };
 
-type TabsProps = {
+type Props = {
   children: React.ReactNode;
 };
 
-export function Tabs({ children }: TabsProps) {
+export function Tabs({ children }: Props) {
   // Преобразуем детей в массив
   const tabsArray = React.Children.toArray(
     children,

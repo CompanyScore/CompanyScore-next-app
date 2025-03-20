@@ -1,32 +1,30 @@
-"use client";
+import { Radio, Tabs } from "@/shared";
+import { Input, Title } from "@/ui";
+import React, { useState } from "react";
 
-import { useState } from "react";
-import { Dropdown, Title, Input } from "@/ui";
-import { positions, grades, countries, cities } from "@/constants";
-import { Steps, Step, Checkbox, Radio, Tabs } from "@/shared";
+type Props = {
+  selectedOptions: string[];
+  position: string;
+  grade: string;
+  country: string;
+  city: string;
+};
 
-// Опции для шкалы от 1 до 5 (числовые значения)
-const scaleOptions = [
-  { label: "1", value: 1 },
-  { label: "2", value: 2 },
-  { label: "3", value: 3 },
-  { label: "4", value: 4 },
-  { label: "5", value: 5 },
-];
-
-export default function MultiStepSurvey() {
-  // Шаги формы
-  const [currentStep, setCurrentStep] = useState(1);
-  // Выбранные этапы (чекбоксы)
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-
-  // Шаг 2 – Должность и грейд
-  const [position, setPosition] = useState("");
-  const [grade, setGrade] = useState("");
-
-  // Шаг 3 – Локация
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
+export const Step4 = ({
+  selectedOptions,
+  position,
+  grade,
+  country,
+  city,
+}: Props) => {
+  // Опции для шкалы от 1 до 5 (числовые значения)
+  const scaleOptions = [
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5", value: 5 },
+  ];
 
   // Шаг 4, вкладки:
   // "Тех. задание" – шкала от 1 до 5
@@ -53,19 +51,6 @@ export default function MultiStepSurvey() {
   const [reasonLeft, setReasonLeft] = useState("");
   // Для рекомендации используем варианты "Да" и "Нет"
   const [recommendation, setRecommendation] = useState("yes");
-
-  // Проверка обязательных полей для перехода на следующий шаг
-  const isNextDisabled = () => {
-    if (currentStep === 1) return selectedOptions.length === 0;
-    if (currentStep === 2) return !position || !grade;
-    if (currentStep === 3) return !country || !city;
-    return false;
-  };
-
-  const handleNext = () => {
-    if (!isNextDisabled()) setCurrentStep((prev) => prev + 1);
-  };
-  const handlePrev = () => setCurrentStep((prev) => prev - 1);
 
   // Формируем содержимое вкладок для шага 4
   const tabsContent = [];
@@ -241,94 +226,5 @@ export default function MultiStepSurvey() {
     </div>,
   );
 
-  return (
-    <section className="flex flex-col items-center py-8 gap-8">
-      <Steps currentStep={currentStep}>
-        <Step>Выбор этапов</Step>
-        <Step>Должность</Step>
-        <Step>Локация</Step>
-        <Step>Вопросы</Step>
-      </Steps>
-
-      {currentStep === 1 && (
-        <div className="flex flex-col gap-6">
-          <Checkbox
-            label="Проходил тех. задание"
-            value="task"
-            selected={selectedOptions}
-            setSelected={setSelectedOptions}
-          />
-          <Checkbox
-            label="Проходил собеседование"
-            value="interview"
-            selected={selectedOptions}
-            setSelected={setSelectedOptions}
-          />
-          <Checkbox
-            label="Работал/Работаю"
-            value="rating"
-            selected={selectedOptions}
-            setSelected={setSelectedOptions}
-          />
-        </div>
-      )}
-
-      {currentStep === 2 && (
-        <div className="flex flex-col gap-6">
-          <Dropdown
-            text="Должность"
-            options={positions}
-            isFirstDisabled={true}
-            selectedValue={position}
-            onSelect={setPosition}
-          />
-          <Dropdown
-            text="Грейд"
-            options={grades}
-            isFirstDisabled={true}
-            selectedValue={grade}
-            onSelect={setGrade}
-          />
-        </div>
-      )}
-
-      {currentStep === 3 && (
-        <div className="flex flex-col gap-6">
-          <Dropdown
-            text="Страна"
-            options={countries}
-            isFirstDisabled={true}
-            selectedValue={country}
-            onSelect={setCountry}
-          />
-          <Dropdown
-            text="Город"
-            options={country ? cities[country] : []}
-            isFirstDisabled={true}
-            selectedValue={city}
-            onSelect={setCity}
-          />
-        </div>
-      )}
-
-      {currentStep === 4 && <Tabs>{tabsContent}</Tabs>}
-
-      <div className="flex gap-4 mt-4">
-        {currentStep > 1 && (
-          <button onClick={handlePrev} className="btn btn-secondary">
-            Назад
-          </button>
-        )}
-        {currentStep < 4 && (
-          <button
-            onClick={handleNext}
-            className="btn btn-primary"
-            disabled={isNextDisabled()}
-          >
-            Вперед
-          </button>
-        )}
-      </div>
-    </section>
-  );
-}
+  return <Tabs>{tabsContent}</Tabs>;
+};
