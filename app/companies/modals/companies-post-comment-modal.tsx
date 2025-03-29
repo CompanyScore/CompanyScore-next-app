@@ -13,13 +13,17 @@ import { positions } from "@/constants";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 import { useCommentForm } from "@/hook";
 
-type CompaniesPostCommentModalProps = {
+type Props = {
   companyId: string;
 };
 
-export function CompaniesPostCommentModal({
-  companyId,
-}: CompaniesPostCommentModalProps) {
+type CommentFormData = {
+  comment: string;
+  position: string;
+  rating: number;
+};
+
+export function CompaniesPostCommentModal({ companyId }: Props) {
   const { getCompanies } = useCompaniesStore();
   const { getComments, postComment } = useCommentsStore();
   const showToast = useToast((state) => state.showToast);
@@ -46,7 +50,7 @@ export function CompaniesPostCommentModal({
     closeModal();
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: CommentFormData) => {
     try {
       await postComment({
         text: data.comment,

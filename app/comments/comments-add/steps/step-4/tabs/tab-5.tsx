@@ -43,7 +43,7 @@ export const Tab5 = ({
           { label: "Нет", value: "no" },
         ]}
         selectedValue={recommendation}
-        onChange={setRecommendation}
+        onChange={(value) => setRecommendation(String(value))}
       />
     </Tab>
   );

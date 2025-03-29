@@ -72,7 +72,7 @@ export const Tab3 = ({
           { label: "Онлайн", value: "online" },
         ]}
         selectedValue={workFormat}
-        onChange={setWorkFormat}
+        onChange={(value) => setWorkFormat(String(value))}
       />
     </Tab>
   );

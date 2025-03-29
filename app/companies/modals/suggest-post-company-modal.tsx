@@ -4,6 +4,11 @@ import { Button, Input, Modal, Textarea, Title, Toast, useToast } from "@/ui";
 import { useSuggestCompanyStore } from "@/store";
 import { useSuggestPostForm } from "@/hook";
 
+type SuggestCompanyFormData = {
+  name: string;
+  description: string;
+};
+
 export function SuggestPostCompanyModal() {
   const { postSuggestCompany } = useSuggestCompanyStore();
 
@@ -31,7 +36,7 @@ export function SuggestPostCompanyModal() {
     closeModal();
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SuggestCompanyFormData) => {
     try {
       await postSuggestCompany({
         name: data.name,

@@ -18,6 +18,12 @@ type ProfileEditCommentModalProps = {
   comment?: { id: string; text: string; rating: number; position?: string };
 };
 
+type CommentFormData = {
+  comment: string;
+  rating: number;
+  position: string;
+};
+
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
@@ -40,7 +46,7 @@ export function ProfileEditCommentModal({
     }
   }, [comment, setValue]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: CommentFormData) => {
     try {
       await updateComment(
         comment!.id,

@@ -13,6 +13,14 @@ import {
 import { positions } from "@/constants";
 import { useProfileStore } from "@/store";
 import { useProfileEditForm } from "@/hook";
+import { SubmitHandler } from "react-hook-form";
+
+type ProfileEditFormData = {
+  name?: string;
+  position?: string;
+  description?: string;
+  avatar?: File;
+};
 
 export function ProfileEditModal() {
   const { getProfile, updateProfile } = useProfileStore();
@@ -48,7 +56,7 @@ export function ProfileEditModal() {
     }
   };
 
-  const onSubmit = async (data: any) => {
+  const onSubmit: SubmitHandler<ProfileEditFormData> = async (data) => {
     try {
       const formData = new FormData();
 
@@ -61,7 +69,7 @@ export function ProfileEditModal() {
       await getProfile();
       showToast("Данные обновлены", "success");
       resetForm();
-    } catch (e) {
+    } catch {
       const error = useProfileStore.getState().error;
       showToast(error || "Ошибка", "error");
       resetForm();
