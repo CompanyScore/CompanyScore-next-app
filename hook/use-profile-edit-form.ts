@@ -9,7 +9,7 @@ export const useProfileEditForm = () => {
       name: "",
       position: "",
       description: "",
-      avatar: "",
+      avatar: undefined,
     },
   });
 };

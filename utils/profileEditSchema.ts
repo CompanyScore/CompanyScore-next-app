@@ -1,16 +1,17 @@
 import * as yup from "yup";
 
 export const profileEditSchema = yup.object().shape({
-  name: yup.string(),
-  position: yup.string(),
-  description: yup.string(),
+  name: yup.string().optional(),
+  position: yup.string().optional(),
+  description: yup.string().optional(),
   avatar: yup
-    .mixed()
+    .mixed<File>()
+    .optional()
     .test("fileType", "Допустимые форматы: JPG, PNG", (value) => {
+      if (!value) return true; // Разрешаем undefined
       return (
-        !value ||
-        (value instanceof File &&
-          ["image/jpeg", "image/png"].includes(value.type))
+        value instanceof File &&
+        ["image/jpeg", "image/png"].includes(value.type)
       );
     }),
 });

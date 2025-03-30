@@ -12,14 +12,28 @@ import {
 } from "@/ui";
 import { positions } from "@/constants";
 import { useProfileStore } from "@/store";
-import { useProfileEditForm } from "@/hook";
 import { SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { profileEditSchema } from "@/utils/profileEditSchema";
 
 type ProfileEditFormData = {
   name?: string;
   position?: string;
   description?: string;
-  avatar?: File;
+  avatar?: File | undefined;
+};
+
+export const useProfileEditForm = () => {
+  return useForm<ProfileEditFormData>({
+    resolver: yupResolver(profileEditSchema),
+    defaultValues: {
+      name: "",
+      position: "",
+      description: "",
+      avatar: undefined,
+    },
+  });
 };
 
 export function ProfileEditModal() {
