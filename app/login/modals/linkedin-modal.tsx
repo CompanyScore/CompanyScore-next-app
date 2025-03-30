@@ -7,7 +7,7 @@ import { Title, Modal } from "@/ui";
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {
-    window.location.href = "http://localhost:8080/auth/linkedin";
+    window.location.href = process.env.NEXT_PUBLIC_API_URL + "/auth/linkedin";
   };
 
   return (
