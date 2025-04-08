@@ -41,7 +41,7 @@ export function ProfileCard() {
         </label>
         {profile?.avatar ? (
           <Image
-            src={`${process.env.NEXT_PUBLIC_R2_IMAGES}${profile.avatar}`}
+            src={`https://images.companyscore.net/${profile.avatar}`}
             alt="Avatar"
             width={400}
             height={400}

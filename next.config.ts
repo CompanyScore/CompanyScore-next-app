@@ -4,9 +4,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "localhost",
-      "companyscore.net",
       "api.companyscore.net",
       "images.companyscore.net",
+      "companyscore.net",
     ],
   },
 };
