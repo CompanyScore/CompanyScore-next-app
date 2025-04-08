@@ -11,6 +11,7 @@ export function ProfileCard() {
 
   useEffect(() => {
     getProfile();
+    console.log(process.env.NEXT_PUBLIC_R2_IMAGES);
   }, [getProfile]);
 
   if (loading) {
