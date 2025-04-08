@@ -10,7 +10,7 @@ export const useApi = axios.create({
 
 // Добавляем перехватчик для обновления accessToken
 useApi.interceptors.request.use(
-  config => {
+  (config) => {
     if (config.data instanceof FormData) {
       config.headers["Content-Type"] = "multipart/form-data";
     } else {
@@ -22,12 +22,12 @@ useApi.interceptors.request.use(
     config.headers["Expires"] = "0";
     return config;
   },
-  error => Promise.reject(error),
+  (error) => Promise.reject(error),
 );
 
 useApi.interceptors.response.use(
-  response => response,
-  async error => {
+  (response) => response,
+  async (error) => {
     if (error.response?.status === 401) {
       try {
         // Запрашиваем новый accessToken
