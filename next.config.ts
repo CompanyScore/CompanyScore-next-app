@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       "companyscore.net",
     ],
   },
+  trailingSlash: false,
 };
 
 export default nextConfig;
