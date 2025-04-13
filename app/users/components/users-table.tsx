@@ -60,7 +60,7 @@ export function UsersTable() {
     {
       key: "commentsCount",
       title: "Отзывы",
-      render: (user: UserType) => user.commentsIds.length,
+      render: (user: UserType) => user.commentsIds?.length ?? 0,
     },
     {
       key: "createDate",
