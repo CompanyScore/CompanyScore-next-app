@@ -9,7 +9,7 @@ export function CompaniesPagination() {
     getCompanies({ limit, page: newPage });
   };
 
-  if (!companies.length) {
+  if (!companies?.length) {
     return;
   }
 

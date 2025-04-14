@@ -12,15 +12,15 @@ export function CompaniesCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % companiesNew.length);
-  }, [companiesNew.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % companiesNew?.length);
+  }, [companiesNew?.length]);
 
   const handlePrev = useCallback(() => {
     setCurrentIndex(
       (prevIndex) =>
-        (prevIndex - 1 + companiesNew.length) % companiesNew.length,
+        (prevIndex - 1 + companiesNew?.length) % companiesNew?.length,
     );
-  }, [companiesNew.length]);
+  }, [companiesNew?.length]);
 
   useEffect(() => {
     getCompaniesNew();
@@ -31,7 +31,7 @@ export function CompaniesCarousel() {
       handleNext();
     }, 6000);
     return () => clearInterval(interval);
-  }, [companiesNew.length, handleNext]);
+  }, [companiesNew?.length, handleNext]);
 
   if (loading) {
     return (
@@ -43,7 +43,7 @@ export function CompaniesCarousel() {
     return <Error text={error} />;
   }
 
-  if (companiesNew.length === 0) {
+  if (companiesNew?.length === 0) {
     return <Title size="4">Нет новых компаний.</Title>;
   }
 

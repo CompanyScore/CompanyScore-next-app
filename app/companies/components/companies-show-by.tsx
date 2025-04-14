@@ -10,7 +10,7 @@ export function CompaniesShowBy() {
     getCompanies({ limit: newLimit });
   };
 
-  if (!companies.length) {
+  if (!companies?.length) {
     return;
   }
 
