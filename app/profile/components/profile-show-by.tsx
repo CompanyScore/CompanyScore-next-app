@@ -10,7 +10,7 @@ export function ProfileShowBy() {
     getComments({ page: 1, limit: newLimit });
   };
 
-  if (!comments.length) {
+  if (!comments?.length) {
     return;
   }
 

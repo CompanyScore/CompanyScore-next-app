@@ -50,7 +50,7 @@ export function ProfileTable() {
     );
   }
 
-  if (!comments.length) {
+  if (!comments?.length) {
     return (
       <Button className="btn-link">
         <Title position="center">

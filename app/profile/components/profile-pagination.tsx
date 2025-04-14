@@ -9,7 +9,7 @@ export function ProfilePagination() {
     getComments({ page: newPage, limit });
   };
 
-  if (!comments.length) {
+  if (!comments?.length) {
     return;
   }
 
