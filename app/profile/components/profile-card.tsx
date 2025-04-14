@@ -64,7 +64,11 @@ export function ProfileCard() {
         )}
         {profile?.avatar ? (
           <Image
-            src={`https://companyscore-images.ams3.cdn.digitaloceanspaces.com/${profile.avatar}`}
+            src={
+              process.env.NEXT_PUBLIC_S3_IMAGES?.replace(/\/$/, "") +
+              "/" +
+              profile.avatar
+            }
             alt="Avatar"
             width={400}
             height={400}
