@@ -43,7 +43,7 @@ export function ProfileCard() {
         {profile?.avatar ? (
           <img
             src={
-              "https://companyscore-images.ams3.digitaloceanspaces.com/" +
+              "https://companyscore-images.ams3.cdn.digitaloceanspaces.com/" +
               profile.avatar
             }
             alt="Avatar"
