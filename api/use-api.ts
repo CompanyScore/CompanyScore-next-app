@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "https://api.companyscore.net";
 
 // Создаем экземпляр axios
 export const useApi = axios.create({
@@ -32,7 +32,7 @@ useApi.interceptors.response.use(
       try {
         // Запрашиваем новый accessToken
         await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
+          `https://api.companyscore.net/auth/refresh`,
           {},
           {
             withCredentials: true,
