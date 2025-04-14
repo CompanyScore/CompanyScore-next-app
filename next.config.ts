@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       "localhost",
+      "digitaloceanspaces.com",
+      "ams3.digitaloceanspaces.com",
       "companyscore-images.ams3.digitaloceanspaces.com",
       "companyscore-images.ams3.cdn.digitaloceanspaces.com",
     ],

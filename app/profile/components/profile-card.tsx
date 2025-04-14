@@ -53,6 +53,28 @@ export function ProfileCard() {
         )}
         {profile?.avatar ? (
           <Image
+            src={`https://companyscore-images.ams3.digitaloceanspaces.com/${profile.avatar}`}
+            alt="Avatar"
+            width={400}
+            height={400}
+            className="max-w-sm rounded-lg shadow-2xl w-full"
+          />
+        ) : (
+          <div className="skeleton h-32 w-32"></div>
+        )}
+        {profile?.avatar ? (
+          <Image
+            src={`https://companyscore-images.ams3.cdn.digitaloceanspaces.com/${profile.avatar}`}
+            alt="Avatar"
+            width={400}
+            height={400}
+            className="max-w-sm rounded-lg shadow-2xl w-full"
+          />
+        ) : (
+          <div className="skeleton h-32 w-32"></div>
+        )}
+        {profile?.avatar ? (
+          <Image
             src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${profile.avatar}`}
             alt="Avatar"
             width={400}
