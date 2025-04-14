@@ -11,7 +11,7 @@ export function ProfileCard() {
 
   useEffect(() => {
     getProfile();
-    console.log(process.env.NEXT_PUBLIC_R2_IMAGES);
+    console.log(process.env.NEXT_PUBLIC_S3_IMAGES);
   }, [getProfile]);
 
   if (loading) {
@@ -41,7 +41,7 @@ export function ProfileCard() {
         </label>
         {profile?.avatar ? (
           <Image
-            src={process.env.NEXT_PUBLIC_R2_IMAGES + `/${profile.avatar}`}
+            src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${profile.avatar}`}
             alt="Avatar"
             width={400}
             height={400}

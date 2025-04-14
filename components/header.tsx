@@ -47,7 +47,7 @@ export default function Header() {
         <Link href="/profile">
           {profile?.avatar ? (
             <Avatar
-              src={`${process.env.NEXT_PUBLIC_R2_IMAGES}/${profile?.avatar}`}
+              src={`${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile?.avatar}`}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>
