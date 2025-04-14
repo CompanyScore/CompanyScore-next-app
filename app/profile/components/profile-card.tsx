@@ -55,7 +55,7 @@ export function ProfileCard() {
           <Image
             src={
               process.env.NEXT_PUBLIC_S3_IMAGES +
-              `users/avatars/${profile.avatar}`
+              `/users/avatars/${profile.avatar}`
             }
             alt="Avatar"
             width={400}
