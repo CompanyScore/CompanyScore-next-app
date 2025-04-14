@@ -3,12 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: true,
   images: {
-    domains: [
-      "localhost",
-      "api.companyscore.net",
-      "images.companyscore.net",
-      "companyscore.net",
-    ],
+    domains: ["localhost", "companyscore-images.ams3.digitaloceanspaces.com"],
   },
   trailingSlash: false,
 };
