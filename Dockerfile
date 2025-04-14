@@ -5,11 +5,11 @@ FROM node:alpine AS builder
 WORKDIR /app
 
 # 3. Указываем build-time переменные
-ARG NEXT_PUBLIC_R2_IMAGES
+ARG NEXT_PUBLIC_S3_IMAGES
 ARG NEXT_PUBLIC_BACK
 
 # 4. Экспортируем переменные в ENV (для next.config.js / build)
-ENV NEXT_PUBLIC_R2_IMAGES=$NEXT_PUBLIC_R2_IMAGES
+ENV NEXT_PUBLIC_S3_IMAGES=$NEXT_PUBLIC_S3_IMAGES
 ENV NEXT_PUBLIC_BACK=$NEXT_PUBLIC_BACK
 
 # 5. Копируем package.json и package-lock.json для установки зависимостей
@@ -29,10 +29,10 @@ FROM node:alpine AS runner
 WORKDIR /app
 
 # 10. Копируем переменные (если нужно использовать на runtime — опционально)
-ARG NEXT_PUBLIC_R2_IMAGES
+ARG NEXT_PUBLIC_S3_IMAGES
 ARG NEXT_PUBLIC_BACK
 
-ENV NEXT_PUBLIC_R2_IMAGES=$NEXT_PUBLIC_R2_IMAGES
+ENV NEXT_PUBLIC_S3_IMAGES=$NEXT_PUBLIC_S3_IMAGES
 ENV NEXT_PUBLIC_BACK=$NEXT_PUBLIC_BACK
 
 # 11. Копируем файлы из builder-контейнера
