@@ -29,7 +29,7 @@ export function CompaniesTable() {
     );
   }
 
-  if (!companies.length) {
+  if (!companies?.length) {
     return <Title position="center">Список компаний пуст</Title>;
   }
 
@@ -55,7 +55,7 @@ export function CompaniesTable() {
     {
       key: "comments",
       title: "Отзывы",
-      render: (company: CompanyType) => company.commentsIds.length,
+      render: (company: CompanyType) => company.commentsIds?.length,
     },
     {
       key: "actions",
