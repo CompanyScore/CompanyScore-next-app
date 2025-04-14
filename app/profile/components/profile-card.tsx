@@ -39,6 +39,18 @@ export function ProfileCard() {
             className="cursor-pointer"
           />
         </label>
+
+        {profile?.avatar ? (
+          <img
+            src={
+              "https://companyscore-images.ams3.digitaloceanspaces.com/" +
+              profile.avatar
+            }
+            alt="Avatar"
+          />
+        ) : (
+          <div className="skeleton h-32 w-32"></div>
+        )}
         {profile?.avatar ? (
           <Image
             src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${profile.avatar}`}
