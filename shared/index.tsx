@@ -8,3 +8,4 @@ export { Step } from "./step";
 export { Checkbox } from "./checkbox";
 export { Tabs } from "./tabs";
 export { Tab } from "./tab";
+export { StarRating } from "./star-rating";

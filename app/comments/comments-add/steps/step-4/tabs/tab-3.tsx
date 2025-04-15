@@ -1,4 +1,4 @@
-import { Radio, Tab } from "@/shared";
+import { Radio, Tab, StarRating } from "@/shared";
 import { Title } from "@/ui";
 
 type Props = {
@@ -26,43 +26,19 @@ export const Tab3 = ({
   setStack,
   setWorkFormat,
 }: Props) => {
-  const scaleOptions = [
-    { label: "1", value: 1 },
-    { label: "2", value: 2 },
-    { label: "3", value: 3 },
-    { label: "4", value: 4 },
-    { label: "5", value: 5 },
-  ];
-
   return (
     <Tab name="comment-add" label="Оценка компании">
       <Title size="3">Руководство</Title>
-      <Radio
-        options={scaleOptions}
-        selectedValue={management}
-        onChange={(value) => setManagement(Number(value))}
-      />
+      <StarRating value={management} onChange={setManagement} />
 
       <Title size="3">Коллектив</Title>
-      <Radio
-        options={scaleOptions}
-        selectedValue={team}
-        onChange={(value) => setTeam(Number(value))}
-      />
+      <StarRating value={team} onChange={setTeam} />
 
       <Title size="3">Проект</Title>
-      <Radio
-        options={scaleOptions}
-        selectedValue={project}
-        onChange={(value) => setProject(Number(value))}
-      />
+      <StarRating value={project} onChange={setProject} />
 
       <Title size="3">Стек технологий</Title>
-      <Radio
-        options={scaleOptions}
-        selectedValue={stack}
-        onChange={(value) => setStack(Number(value))}
-      />
+      <StarRating value={stack} onChange={setStack} />
 
       <Title size="3">Формат работы</Title>
       <Radio
