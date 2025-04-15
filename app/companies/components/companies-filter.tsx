@@ -39,10 +39,11 @@ export function CompaniesFilter() {
   };
 
   const onReset = () => {
-    getCompanies({});
+    onSearchCompanyByName("");
     setSelectedCountry("");
     setSelectedCity("");
     setSelectedRating("");
+    getCompanies({});
   };
 
   if (error) return <Error text={error} />;
@@ -50,37 +51,39 @@ export function CompaniesFilter() {
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap gap-4 max-w-[750px] w-full">
+        <div className="flex items-center flex-wrap gap-4 max-w-[750px] w-full">
           <Searcher onSearch={onSearchCompanyByName} />
+          <div className="flex items-center gap-4">
+            <Dropdown
+              text="Все страны"
+              options={countryOptions}
+              selectedValue={selectedCountry}
+              onSelect={onSelectCountry}
+            />
+            <Dropdown
+              text="Все города"
+              options={cityOptions}
+              selectedValue={selectedCity}
+              onSelect={onSelectCity}
+            />
 
-          <Dropdown
-            text="Все страны"
-            options={countryOptions}
-            selectedValue={selectedCountry}
-            onSelect={onSelectCountry}
-          />
-          <Dropdown
-            text="Все города"
-            options={cityOptions}
-            selectedValue={selectedCity}
-            onSelect={onSelectCity}
-          />
-
-          <Dropdown
-            text="Все рейтинги"
-            options={ratingOptions}
-            selectedValue={selectedRating}
-            onSelect={onSelectRating}
-          />
+            <Dropdown
+              text="Все рейтинги"
+              options={ratingOptions}
+              selectedValue={selectedRating}
+              onSelect={onSelectRating}
+            />
+          </div>
         </div>
 
-        <Button onClick={onReset}>Сбросить</Button>
-
-        <Button>
-          <label htmlFor="suggest_post_company_modal">
-            Предложить компанию
-          </label>
-        </Button>
+        <div className="flex items-center gap-4">
+          <Button onClick={onReset}>Сбросить</Button>
+          <Button>
+            <label htmlFor="suggest_post_company_modal">
+              Предложить компанию
+            </label>
+          </Button>
+        </div>
       </div>
       <SuggestPostCompanyModal />
     </div>
