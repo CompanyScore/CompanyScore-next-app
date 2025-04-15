@@ -11,7 +11,6 @@ export function ProfileCard() {
 
   useEffect(() => {
     getProfile();
-    console.log(process.env.NEXT_PUBLIC_S3_IMAGES);
   }, [getProfile]);
 
   if (loading) {

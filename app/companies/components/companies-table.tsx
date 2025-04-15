@@ -21,7 +21,6 @@ export function CompaniesTable() {
 
   useEffect(() => {
     useCompaniesStore.getState().getCompanies({});
-    console.log("ENV:", process.env.NEXT_PUBLIC_BACK);
   }, []);
 
   if (loading) {
