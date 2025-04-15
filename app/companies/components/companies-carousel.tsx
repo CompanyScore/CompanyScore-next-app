@@ -68,7 +68,7 @@ export function CompaniesCarousel() {
             {companiesNew[currentIndex]?.logo ? (
               <Image
                 src={
-                  process.env.NEXT_PUBLIC_API_URL +
+                  process.env.NEXT_PUBLIC_BACK +
                   companiesNew[currentIndex]?.logo
                 }
                 alt="Company Logo"

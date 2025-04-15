@@ -42,7 +42,7 @@ export function CompanyCard() {
               width={420}
               height={70}
               alt="Company logo"
-              src={process.env.NEXT_PUBLIC_API_URL + company?.logo}
+              src={process.env.NEXT_PUBLIC_BACK + company?.logo}
               className="max-w-sm rounded-lg shadow-2xl w-full"
             />
           ) : (

@@ -42,7 +42,7 @@ export function CompaniesTable() {
           {company.logo ? (
             <Avatar
               className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_API_URL + company.logo}
+              src={process.env.NEXT_PUBLIC_BACK + company.logo}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>
@@ -52,6 +52,8 @@ export function CompaniesTable() {
       ),
     },
     { key: "rating", title: "Рейтинг" },
+    { key: "country", title: "Страна" },
+    { key: "city", title: "Город" },
     {
       key: "comments",
       title: "Отзывы",

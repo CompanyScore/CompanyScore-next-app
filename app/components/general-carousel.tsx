@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -68,7 +68,7 @@ export function GeneralCarousel() {
             {companiesNew[currentIndex]?.logo ? (
               <Image
                 src={
-                  process.env.NEXT_PUBLIC_API_URL +
+                  process.env.NEXT_PUBLIC_BACK +
                   companiesNew[currentIndex]?.logo
                 }
                 alt="Company Logo"

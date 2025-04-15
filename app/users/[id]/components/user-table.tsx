@@ -54,7 +54,7 @@ export function UserTable() {
           {comment.company.logo ? (
             <Avatar
               className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_API_URL + comment.company.logo}
+              src={process.env.NEXT_PUBLIC_BACK + comment.company.logo}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>

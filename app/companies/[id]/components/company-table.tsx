@@ -60,7 +60,7 @@ export function CompanyTable() {
           {comment?.user?.avatar ? (
             <Avatar
               className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_API_URL + comment?.user?.avatar}
+              src={process.env.NEXT_PUBLIC_BACK + comment?.user?.avatar}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>

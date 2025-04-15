@@ -43,7 +43,7 @@ export function UsersTable() {
           {user?.avatar ? (
             <Avatar
               className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_API_URL + user?.avatar}
+              src={process.env.NEXT_PUBLIC_BACK + user?.avatar}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>

@@ -28,12 +28,15 @@ interface CompaniesState {
   limit: number;
   loading: boolean;
   error: string;
+  countryOptions: string[];
+  cityOptions: string[];
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
   getCompany: (id: string) => Promise<void>;
   getCompaniesNew: () => Promise<void>;
+  getLocations: (selectedCountry: string) => Promise<void>;
 }
 
-export const useCompaniesStore = create<CompaniesState>(set => ({
+export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   companies: [],
   company: null,
   companiesNew: [],
@@ -42,6 +45,8 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
   limit: 5,
   loading: false,
   error: "",
+  countryOptions: [],
+  cityOptions: [],
 
   getCompanies: async (params: GetCompaniesParams) => {
     set({ loading: true, error: "" });
@@ -76,9 +81,7 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
 
     try {
       const { data } = await useApi.get(`/companies/${id}`);
-      set({
-        company: data,
-      });
+      set({ company: data });
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
@@ -92,14 +95,29 @@ export const useCompaniesStore = create<CompaniesState>(set => ({
 
     try {
       const { data } = await useApi.get(`/companies/new/`);
-      set({
-        companiesNew: data,
-      });
+      set({ companiesNew: data });
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
+    }
+  },
+
+  getLocations: async (selectedCountry: string) => {
+    try {
+      const response = await useApi.get(`/companies/locations`);
+      const fetchedCountries = Object.keys(response.data);
+      const fetchedCities = response.data[selectedCountry] || [];
+
+      set({
+        countryOptions: fetchedCountries,
+        cityOptions: fetchedCities,
+      });
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.message || "Не удалось загрузить локации";
+      set({ error: errorMessage });
     }
   },
 }));
