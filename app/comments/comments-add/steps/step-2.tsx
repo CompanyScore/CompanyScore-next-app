@@ -1,25 +1,27 @@
-import { Dropdown } from "@/ui";
+import { Dropdown, Input } from "@/ui";
 import React from "react";
 
 type Props = {
   positions: string[];
   position: string;
   setPosition: React.Dispatch<React.SetStateAction<string>>;
-  grades: string[];
-  grade: string;
-  setGrade: React.Dispatch<React.SetStateAction<string>>;
+  experienceYears: string;
+  setExperienceYears: React.Dispatch<React.SetStateAction<string>>;
+  experienceMonths: string;
+  setExperienceMonths: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const Step2 = ({
   positions,
   position,
   setPosition,
-  grades,
-  grade,
-  setGrade,
+  experienceYears,
+  setExperienceYears,
+  experienceMonths,
+  setExperienceMonths,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <Dropdown
         text="Должность"
         options={positions}
@@ -27,12 +29,22 @@ export const Step2 = ({
         selectedValue={position}
         onSelect={setPosition}
       />
-      <Dropdown
-        text="Грейд"
-        options={grades}
-        isFirstDisabled={true}
-        selectedValue={grade}
-        onSelect={setGrade}
+
+      <label className="text-sm font-medium">Опыт работы</label>
+      <Input
+        type="number"
+        min="0"
+        placeholder="Лет"
+        value={experienceYears}
+        onChange={(val) => setExperienceYears(val)}
+      />
+      <Input
+        type="number"
+        min="0"
+        max="11"
+        placeholder="Месяцев"
+        value={experienceMonths}
+        onChange={(val) => setExperienceMonths(val)}
       />
     </div>
   );

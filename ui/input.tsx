@@ -1,19 +1,18 @@
 import classNames from "classnames";
+import { InputHTMLAttributes } from "react";
 
 type InputType = {
-  value?: string;
-  type?: string;
-  placeholder?: string;
-  onChange: (newSearchedValue: string) => void;
   className?: string;
-};
+  onChange: (newSearchedValue: string) => void;
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
 
 export function Input({
   value,
   type = "text",
   placeholder,
-  onChange,
   className,
+  onChange,
+  ...rest
 }: InputType) {
   return (
     <input
@@ -25,6 +24,7 @@ export function Input({
         className,
       )}
       onChange={(e) => onChange(e.target.value)}
+      {...rest}
     />
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { positions, grades, countries, cities } from "@/constants";
+import { positions, countries, cities } from "@/constants";
 import { Steps, Step } from "@/shared";
 import { Step1, Step2, Step3, Step4 } from "./steps";
 
@@ -11,9 +11,10 @@ export default function MultiStepSurvey() {
   // Выбранные этапы (чекбоксы)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  // Шаг 2 – Должность и грейд
+  // Шаг 2 – Должность и опыт
   const [position, setPosition] = useState("");
-  const [grade, setGrade] = useState("");
+  const [experienceYears, setExperienceYears] = useState("");
+  const [experienceMonths, setExperienceMonths] = useState("");
 
   // Шаг 3 – Локация
   const [country, setCountry] = useState("");
@@ -22,8 +23,24 @@ export default function MultiStepSurvey() {
   // Проверка обязательных полей для перехода на следующий шаг
   const isNextDisabled = () => {
     if (currentStep === 1) return selectedOptions.length === 0;
-    if (currentStep === 2) return !position || !grade;
+
+    if (currentStep === 2) {
+      const years = parseInt(experienceYears, 10);
+      const months = parseInt(experienceMonths, 10);
+
+      const isYearsValid =
+        experienceYears !== "" && !isNaN(years) && years >= 0;
+      const isMonthsValid =
+        experienceMonths !== "" &&
+        !isNaN(months) &&
+        months >= 0 &&
+        months <= 11;
+
+      return !position || (!isYearsValid && !isMonthsValid);
+    }
+
     if (currentStep === 3) return !country || !city;
+
     return false;
   };
 
@@ -53,9 +70,10 @@ export default function MultiStepSurvey() {
           positions={positions}
           position={position}
           setPosition={setPosition}
-          grades={grades}
-          grade={grade}
-          setGrade={setGrade}
+          experienceYears={experienceYears}
+          setExperienceYears={setExperienceYears}
+          experienceMonths={experienceMonths}
+          setExperienceMonths={setExperienceMonths}
         />
       )}
 
@@ -74,7 +92,8 @@ export default function MultiStepSurvey() {
         <Step4
           selectedOptions={selectedOptions}
           position={position}
-          grade={grade}
+          experienceYears={experienceYears}
+          experienceMonths={experienceMonths}
           country={country}
           city={city}
         />
