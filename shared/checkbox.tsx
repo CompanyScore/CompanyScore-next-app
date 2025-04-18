@@ -1,33 +1,17 @@
-import React from "react";
-
 type CheckboxProps = {
   label: string;
   value: string;
-  selected: string[];
-  setSelected: (selected: string[]) => void;
+  selected: boolean;
+  onChange: () => void;
 };
 
-export function Checkbox({
-  label,
-  value,
-  selected,
-  setSelected,
-}: CheckboxProps) {
-  const isChecked = selected.includes(value);
-  const handleChange = () => {
-    if (isChecked) {
-      setSelected(selected.filter((item) => item !== value));
-    } else {
-      setSelected([...selected, value]);
-    }
-  };
-
+export function Checkbox({ label, selected, onChange }: CheckboxProps) {
   return (
     <label className="flex items-center gap-2 cursor-pointer">
       <input
         type="checkbox"
-        checked={isChecked}
-        onChange={handleChange}
+        checked={selected}
+        onChange={onChange}
         className="checkbox checkbox-primary"
       />
       {label}

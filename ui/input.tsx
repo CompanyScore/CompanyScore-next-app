@@ -1,10 +1,10 @@
 import classNames from "classnames";
 
 type InputType = {
-  value?: string;
+  value?: string | number;
   type?: string;
   placeholder?: string;
-  onChange: (newSearchedValue: string) => void;
+  onChange: (newSearchedValue: string | number) => void;
   className?: string;
 };
 
@@ -15,16 +15,26 @@ export function Input({
   onChange,
   className,
 }: InputType) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value;
+    if (type === "number") {
+      const parsed = raw === "" ? "" : Number(raw);
+      onChange(parsed);
+    } else {
+      onChange(raw);
+    }
+  };
+
   return (
     <input
       type={type}
       placeholder={placeholder}
-      value={value}
+      value={value === undefined || value === null ? "" : String(value)} // <== важно
       className={classNames(
-        "input input-bordered input-primary w-full max-w-md",
+        "input input-bordered input-primary w-full",
         className,
       )}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={handleChange}
     />
   );
 }

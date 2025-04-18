@@ -13,7 +13,7 @@ export function StarRating({ value, onChange }: Props) {
         <button
           key={star}
           onClick={() => onChange(star)}
-          className={classNames("text-2xl", {
+          className={classNames("text-3xl", {
             "text-yellow-400": star <= value,
             "text-gray-400": star > value,
           })}

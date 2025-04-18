@@ -24,13 +24,10 @@ export const Dropdown = ({
 }: DropdownProps) => {
   const selectRef = useRef<HTMLDivElement | null>(null);
 
-  // Преобразуем массив строк в массив объектов { label, value }
   const normalizedOptions = options.map((option) =>
     typeof option === "string" ? { label: option, value: option } : option,
   );
 
-  // Убираем первый элемент, если isFirstDisabled=true
-  // Убираем первый элемент, если isFirstDisabled=true
   const filteredOptions = isFirstDisabled
     ? normalizedOptions
     : text
@@ -46,19 +43,23 @@ export const Dropdown = ({
     value: string,
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    event.preventDefault(); // предотвращает нежелательные события формы
-    event.stopPropagation(); // предотвращает всплытие событий
+    event.preventDefault();
+    event.stopPropagation();
     onSelect(value);
-    (document.activeElement as HTMLElement)?.blur(); // Закрываем список после выбора
+    (document.activeElement as HTMLElement)?.blur();
   };
 
+  const hasOptions = filteredOptions.length > 0;
+
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown dropdown-bottom w-full relative" style={{ width }}>
       <div
         ref={selectRef}
-        tabIndex={0}
+        tabIndex={hasOptions ? 0 : -1}
         role="button"
-        className="btn text-base-content flex items-center justify-between w-full max-w-md"
+        className={`btn text-base-content flex items-center justify-between ${
+          hasOptions ? "" : "btn-disabled opacity-60"
+        }`}
         style={{ width }}
       >
         <span
@@ -76,28 +77,31 @@ export const Dropdown = ({
           <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
         </svg>
       </div>
-      <ul
-        tabIndex={0}
-        className={`dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50 ${className}`}
-        style={{
-          width,
-          maxHeight: "360px",
-          overflowY: "auto",
-          zIndex: "1000",
-        }}
-      >
-        {filteredOptions.map(({ label, value }) => (
-          <li key={value}>
-            <button
-              className="btn btn-sm btn-block btn-ghost justify-start"
-              onClick={(e) => handleSelect(value, e)}
-              style={{ textAlign: "left", display: "block" }}
-            >
-              {label}
-            </button>
-          </li>
-        ))}
-      </ul>
+
+      {hasOptions && (
+        <ul
+          tabIndex={0}
+          className={`dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50 ${className}`}
+          style={{
+            maxHeight: "360px",
+            overflowY: "auto",
+            minWidth: width,
+            zIndex: "1000",
+          }}
+        >
+          {filteredOptions.map(({ label, value }) => (
+            <li key={value}>
+              <button
+                className="btn btn-sm btn-block btn-ghost justify-start"
+                onClick={(e) => handleSelect(value, e)}
+                style={{ textAlign: "left", display: "block" }}
+              >
+                {label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
