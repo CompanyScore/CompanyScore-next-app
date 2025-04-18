@@ -64,7 +64,7 @@ export function SuggestPostCompanyModal() {
           </label>
           <Input
             value={watch("name")}
-            onChange={(value) => setValue("name", value)}
+            onChange={(value) => setValue("name", String(value))}
           />
           <p className="text-error">{errors.name?.message}</p>
         </div>

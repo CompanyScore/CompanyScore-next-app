@@ -101,7 +101,7 @@ export function ProfileEditModal() {
           <Input
             value={watch("name")}
             placeholder="Имя"
-            onChange={(value) => setValue("name", value)}
+            onChange={(value) => setValue("name", String(value))}
           />
 
           <Dropdown

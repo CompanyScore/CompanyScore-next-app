@@ -20,7 +20,7 @@ export function Searcher({ onSearch }: SearcherProps) {
       placeholder="Поиск"
       type="search"
       value={searchValue}
-      onChange={setSearchValue}
+      onChange={(val) => setSearchValue(String(val))}
       className="[&::-webkit-search-cancel-button]:cursor-pointer"
     />
   );
