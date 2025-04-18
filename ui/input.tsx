@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { InputHTMLAttributes } from "react";
 
 type InputType = {
   value?: string | number;
@@ -6,13 +7,12 @@ type InputType = {
   placeholder?: string;
   onChange: (newSearchedValue: string | number) => void;
   className?: string;
-};
+} & Omit<InputHTMLAttributes<HTMLInputElement>, "onChange">;
 
 export function Input({
   value,
   type = "text",
   placeholder,
-  onChange,
   className,
 }: InputType) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
