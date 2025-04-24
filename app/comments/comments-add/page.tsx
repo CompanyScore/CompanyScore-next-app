@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useCommentFormStore } from "@/store";
+import { useCommentFormStore, useSuggestedCompanyStore } from "@/store";
 import {
   CommentsAddCompany,
   CommentsAddInterview,
@@ -23,15 +23,35 @@ const steps = [
 
 export default function CommentsPage() {
   const { form } = useCommentFormStore();
+  const { suggestedCompany } = useSuggestedCompanyStore();
   const [currentStep, setCurrentStep] = useState(0);
 
   const log = () => {
+    console.log("suggestedCompany", suggestedCompany);
     console.log("form", form);
   };
 
   const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep((prev) => prev + 1);
+    // if (currentStep < steps.length - 1) {
+    //   setCurrentStep((prev) => prev + 1);
+    // }
+
+    if (currentStep === 0) {
+      if (form.companyId && form.suggestedCompanyName) {
+        return;
+      } else if (
+        suggestedCompany.country &&
+        suggestedCompany.city &&
+        form.companyId
+      ) {
+        setCurrentStep((prev) => prev + 1);
+      } else if (
+        suggestedCompany.country &&
+        suggestedCompany.city &&
+        form.suggestedCompanyName
+      ) {
+        setCurrentStep((prev) => prev + 1);
+      }
     }
   };
 

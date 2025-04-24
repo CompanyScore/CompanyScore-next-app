@@ -29,7 +29,7 @@ export function Select({
         </option>
       )}
       {options.map((option) => (
-        <option value={option} key={option}>
+        <option value={option} key={option} className=" z-auto">
           {option}
         </option>
       ))}
