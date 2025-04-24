@@ -4,7 +4,6 @@ import {
   useSuggestedCompanyStore,
 } from "@/store";
 import { Accordion, Dropdown, Input } from "@/ui";
-import { useEffect, useState } from "react";
 import { countriesWithCities } from "@/constants/countriesWithCities"; // путь зависит от твоей структуры
 
 export const CommentsAddCompany = () => {
@@ -13,12 +12,15 @@ export const CommentsAddCompany = () => {
   const { suggestedCompany, updateSuggestedCompany } =
     useSuggestedCompanyStore();
 
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-
   const onSelectCountry = (countryCode: string) => {
     const country = countriesWithCities.find((c) => c.value === countryCode);
-    if (country?.value) setSelectedCountry(country?.value);
+    updateForm({
+      location: {
+        ...form.location,
+        country: country?.value || "",
+        city: "", // очищаем город при смене страны
+      },
+    });
     getCompanies({ selectedCountry: country?.label });
   };
 
@@ -33,7 +35,13 @@ export const CommentsAddCompany = () => {
   };
 
   const onSelectCity = (city: string) => {
-    setSelectedCity(city);
+    updateForm({
+      location: {
+        ...form.location,
+        city,
+      },
+    });
+
     getCompanies({ selectedCity: city });
   };
 
@@ -60,7 +68,8 @@ export const CommentsAddCompany = () => {
   }));
 
   const cityOptions =
-    countriesWithCities.find((c) => c.value === selectedCountry)?.cities || [];
+    countriesWithCities.find((c) => c.value === form.location.country)?.cities ||
+    [];
 
   const suggestedCityOptions =
     countriesWithCities.find((c) => c.value === suggestedCompany.country)
@@ -78,7 +87,7 @@ export const CommentsAddCompany = () => {
             text="Страна"
             options={countryOptions}
             isFirstDisabled={true}
-            selectedValue={selectedCountry}
+            selectedValue={form.location.country}
             onSelect={onSelectCountry}
             width="100%"
           />
@@ -87,7 +96,7 @@ export const CommentsAddCompany = () => {
             text="Город"
             options={cityOptions}
             isFirstDisabled={true}
-            selectedValue={selectedCity}
+            selectedValue={form.location.city}
             onSelect={onSelectCity}
             width="100%"
           />

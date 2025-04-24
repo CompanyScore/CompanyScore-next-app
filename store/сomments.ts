@@ -6,6 +6,10 @@ import { useApi } from "@/api";
 interface FormType {
   companyId: string;
   suggestedCompanyName: string;
+  location: {
+    country: string;
+    city: string;
+  };
   position: string;
   grade: {
     years: number;
@@ -59,6 +63,10 @@ export const useCommentFormStore = create<CommentFormState>((set) => ({
   form: {
     companyId: "",
     suggestedCompanyName: "",
+    location: {
+      country: "",
+      city: "",
+    },
     position: "",
     grade: {
       years: 0,
@@ -102,6 +110,10 @@ export const useCommentFormStore = create<CommentFormState>((set) => ({
       form: {
         suggestedCompanyName: "",
         companyId: "",
+        location: {
+          country: "",
+          city: "",
+        },
         position: "",
         grade: {
           years: 0,

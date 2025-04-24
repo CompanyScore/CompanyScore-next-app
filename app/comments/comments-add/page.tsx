@@ -32,23 +32,20 @@ export default function CommentsPage() {
   };
 
   const handleNext = () => {
-    // if (currentStep < steps.length - 1) {
-    //   setCurrentStep((prev) => prev + 1);
-    // }
-
     if (currentStep === 0) {
-      if (form.companyId && form.suggestedCompanyName) {
+      if (
+        !!form.companyId &&
+        !!suggestedCompany.name &&
+        !!suggestedCompany.city &&
+        !!suggestedCompany.country
+      ) {
+        console.log("Выберите компанию или добавьте компанию. Но не все вместе.");
         return;
       } else if (
-        suggestedCompany.country &&
-        suggestedCompany.city &&
-        form.companyId
-      ) {
-        setCurrentStep((prev) => prev + 1);
-      } else if (
-        suggestedCompany.country &&
-        suggestedCompany.city &&
-        form.suggestedCompanyName
+        !!form.companyId ||
+        (!!suggestedCompany.name &&
+          !!suggestedCompany.city &&
+          !!suggestedCompany.country)
       ) {
         setCurrentStep((prev) => prev + 1);
       }
