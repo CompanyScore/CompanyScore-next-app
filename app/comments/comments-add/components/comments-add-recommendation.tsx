@@ -15,10 +15,13 @@ export const CommentsAddRecommendation = () => {
           { label: "Да", value: 1 },
           { label: "Нет", value: 0 },
         ]}
-        selectedValue={form.work.recommendation}
+        selectedValue={form.recommendation.isRecommended}
         onChange={(value) =>
           updateForm({
-            work: { ...form.work, recommendation: Number(value) },
+            recommendation: {
+              ...form.recommendation,
+              isRecommended: Number(value),
+            },
           })
         }
       />
@@ -27,10 +30,13 @@ export const CommentsAddRecommendation = () => {
       <textarea
         className="textarea textarea-primary w-full"
         placeholder="Ваш ответ..."
-        value={form.work.reasonJoined}
+        value={form.recommendation.reasonJoined}
         onChange={(e) =>
           updateForm({
-            work: { ...form.work, reasonJoined: e.target.value },
+            recommendation: {
+              ...form.recommendation,
+              reasonJoined: e.target.value,
+            },
           })
         }
       />
@@ -41,10 +47,13 @@ export const CommentsAddRecommendation = () => {
       <textarea
         className="textarea textarea-primary w-full"
         placeholder="Ваш ответ..."
-        value={form.work.reasonLeft}
+        value={form.recommendation.reasonLeft}
         onChange={(e) =>
           updateForm({
-            work: { ...form.work, reasonLeft: e.target.value },
+            recommendation: {
+              ...form.recommendation,
+              reasonLeft: e.target.value,
+            },
           })
         }
       />

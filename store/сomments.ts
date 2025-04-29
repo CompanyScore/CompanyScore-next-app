@@ -47,9 +47,11 @@ interface FormType {
       education: number;
       events: number;
     };
+  };
+  recommendation: {
+    isRecommended: number;
     reasonJoined: string;
     reasonLeft: string;
-    recommendation: number;
   };
 }
 
@@ -96,7 +98,9 @@ export const useCommentFormStore = create<CommentFormState>((set) => ({
         education: 0,
         events: 0,
       },
-      recommendation: 0,
+    },
+    recommendation: {
+      isRecommended: 1,
       reasonJoined: "",
       reasonLeft: "",
     },
@@ -143,9 +147,11 @@ export const useCommentFormStore = create<CommentFormState>((set) => ({
             education: 0,
             events: 0,
           },
+        },
+        recommendation: {
+          isRecommended: 1,
           reasonJoined: "",
           reasonLeft: "",
-          recommendation: 0,
         },
       },
     }),

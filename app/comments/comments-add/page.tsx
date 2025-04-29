@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCommentFormStore, useSuggestedCompanyStore } from "@/store";
 import {
   CommentsAddCompany,
@@ -25,6 +25,7 @@ export default function CommentsPage() {
   const { form } = useCommentFormStore();
   const { suggestedCompany } = useSuggestedCompanyStore();
   const [currentStep, setCurrentStep] = useState(0);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const log = () => {
     console.log("suggestedCompany", suggestedCompany);
@@ -39,7 +40,9 @@ export default function CommentsPage() {
         !!suggestedCompany.city &&
         !!suggestedCompany.country
       ) {
-        console.log("Выберите компанию или добавьте компанию. Но не все вместе.");
+        console.log(
+          "Выберите компанию или добавьте компанию. Но не все вместе.",
+        );
         return;
       } else if (
         !!form.companyId ||
@@ -50,6 +53,47 @@ export default function CommentsPage() {
         setCurrentStep((prev) => prev + 1);
       }
     }
+
+    if (currentStep === 1) {
+      if (!!form.position && (!!form.grade.years || !!form.grade.months)) {
+        setCurrentStep((prev) => prev + 1);
+      }
+    }
+
+    if (currentStep === 2) {
+      if (form.task.isTask && form.task.rating) {
+        setCurrentStep((prev) => prev + 1);
+      } else if (!form.task.isTask) {
+        setCurrentStep((prev) => prev + 1);
+      }
+    }
+
+    if (currentStep === 3) {
+      if (form.interview.isInterview && form.interview.rating) {
+        setCurrentStep((prev) => prev + 1);
+      } else if (!form.interview.isInterview) {
+        setCurrentStep((prev) => prev + 1);
+      }
+    }
+
+    if (currentStep === 4) {
+      if (!form.work.isWork) {
+        setCurrentStep((prev) => prev + 1);
+      } else if (
+        form.work.isWork &&
+        !!form.work.rating.management &&
+        !!form.work.rating.project &&
+        !!form.work.rating.stack &&
+        !!form.work.rating.team &&
+        !!form.work.finance.salary
+      ) {
+        setCurrentStep((prev) => prev + 1);
+      }
+    }
+  };
+
+  const handleSubmit = () => {
+    console.log("Отправить форму", form);
   };
 
   const handlePrev = () => {
@@ -57,6 +101,21 @@ export default function CommentsPage() {
       setCurrentStep((prev) => prev - 1);
     }
   };
+
+  useEffect(() => {
+    const hasExperience =
+    form.task.isTask || form.interview.isInterview || form.work.isWork;
+
+  const hasRecommendationFilled =
+    !!form.recommendation.reasonJoined?.trim() &&
+    !!form.recommendation.reasonLeft?.trim();
+
+  if (hasExperience) {
+    setIsFormValid(hasRecommendationFilled);
+  } else {
+    setIsFormValid(true); // Если вообще нет опыта — можно отправлять без рекомендаций
+  }
+  }, [form.recommendation, form.task, form.interview, form.work]);
 
   return (
     <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-5xl m-auto">
@@ -87,10 +146,17 @@ export default function CommentsPage() {
         </button>
         <button
           onClick={handleNext}
-          className="btn btn-primary"
+          className={`btn btn-primary ${currentStep === 5 ? "hidden" : ""}`}
           disabled={currentStep === steps.length - 1}
         >
           Далее
+        </button>
+        <button
+          onClick={handleSubmit}
+          className={`btn btn-primary ${currentStep === 5 ? "" : "hidden"}`}
+          disabled={!isFormValid}
+        >
+          Отправить
         </button>
       </div>
 
