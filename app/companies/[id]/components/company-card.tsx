@@ -3,7 +3,7 @@
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Button } from "@/ui";
+import { Button, Toast } from "@/ui";
 import { CompaniesPostCommentModal } from "@/app/companies/modals";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 
@@ -75,6 +75,7 @@ export function CompanyCard() {
         </div>
       </div>
       <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
+      <Toast />
     </div>
   );
 }

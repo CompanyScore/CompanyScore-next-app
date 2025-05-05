@@ -8,7 +8,7 @@ export { Loading } from "./loading";
 export { Error } from "./error";
 export { Dropdown } from "./dropdown";
 export { Modal } from "./modal";
-export { Toast, useToast } from "./toast";
+export { useToast, Toast } from "./toast";
 export { Textarea } from "./textarea";
 export { Container } from "./container";
 export { Table } from "./table";

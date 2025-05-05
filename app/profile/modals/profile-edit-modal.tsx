@@ -7,7 +7,6 @@ import {
   Textarea,
   Title,
   Dropdown,
-  Toast,
   useToast,
 } from "@/ui";
 import { positions } from "@/constants";
@@ -47,7 +46,7 @@ export function ProfileEditModal() {
     reset,
   } = useProfileEditForm();
 
-  const showToast = useToast((state) => state.showToast);
+  const toast = useToast();
 
   const closeModal = () => {
     const modal = document.getElementById(
@@ -81,11 +80,11 @@ export function ProfileEditModal() {
 
       await updateProfile(formData);
       await getProfile();
-      showToast("Данные обновлены", "success");
+      toast.success("Данные обновлены");
       resetForm();
     } catch {
       const error = useProfileStore.getState().error;
-      showToast(error || "Ошибка", "error");
+      toast.error(error || "Ошибка");
       resetForm();
     }
   };
@@ -148,8 +147,6 @@ export function ProfileEditModal() {
           </Button>
         </div>
       </form>
-
-      <Toast />
     </Modal>
   );
 }

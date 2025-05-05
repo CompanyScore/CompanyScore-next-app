@@ -7,7 +7,7 @@ import { ProfileEditCommentModal } from "../modals";
 import { useCommentsStore } from "@/store";
 import moment from "moment";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { Avatar, Button, Tooltip, Title, Table } from "@/ui";
+import { Avatar, Button, Tooltip, Title, Table, Toast } from "@/ui";
 import Link from "next/link";
 
 export type CommentType = {
@@ -50,7 +50,7 @@ export function ProfileTable() {
     );
   }
 
-  if (!comments?.length) {
+  if (!comments.length) {
     return (
       <Button className="btn-link">
         <Title position="center">
@@ -134,6 +134,7 @@ export function ProfileTable() {
     <>
       <Table columns={columns} data={comments} />
       <ProfileEditCommentModal comment={selectedComment} />
+      <Toast />
     </>
   );
 }

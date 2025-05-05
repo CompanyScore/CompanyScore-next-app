@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Searcher } from "@/shared";
-import { Error, Dropdown, Button } from "@/ui";
+import { Error, Dropdown, Button, Toast } from "@/ui";
 import { useCompaniesStore } from "@/store";
 import { SuggestPostCompanyModal } from "@/app/companies/modals";
 
@@ -86,6 +86,7 @@ export function CompaniesFilter() {
         </div>
       </div>
       <SuggestPostCompanyModal />
+      <Toast />
     </div>
   );
 }

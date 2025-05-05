@@ -2,15 +2,7 @@
 
 import { useEffect } from "react";
 import { useCommentsStore } from "@/store";
-import {
-  Button,
-  Dropdown,
-  Modal,
-  Textarea,
-  Title,
-  Toast,
-  useToast,
-} from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title, useToast } from "@/ui";
 import { positions } from "@/constants";
 import { useCommentForm } from "@/hook";
 
@@ -29,7 +21,7 @@ export function ProfileEditCommentModal({
 }: ProfileEditCommentModalProps) {
   const { getComments, updateComment } = useCommentsStore();
 
-  const showToast = useToast((state) => state.showToast);
+  const toast = useToast();
 
   const {
     setValue,
@@ -55,10 +47,10 @@ export function ProfileEditCommentModal({
         data.position,
       );
       getComments({});
-      showToast("Отзыв обновлен", "success");
+      toast.success("Отзыв обновлен");
     } catch {
       const error = useCommentsStore.getState().error;
-      showToast(error || "Ошибка", "error");
+      toast.error(error || "Ошибка");
     }
   };
 
@@ -120,7 +112,6 @@ export function ProfileEditCommentModal({
         </div>
         <Button className="btn-primary w-full">Обновить</Button>
       </form>
-      <Toast />
     </Modal>
   );
 }

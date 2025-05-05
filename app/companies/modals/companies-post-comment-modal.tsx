@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Button,
-  Dropdown,
-  Modal,
-  Textarea,
-  Title,
-  Toast,
-  useToast,
-} from "@/ui";
+import { Button, Dropdown, Modal, Textarea, Title, useToast } from "@/ui";
 import { positions } from "@/constants";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 import { useCommentForm } from "@/hook";
@@ -26,7 +18,7 @@ type CommentFormData = {
 export function CompaniesPostCommentModal({ companyId }: Props) {
   const { getCompanies } = useCompaniesStore();
   const { getComments, postComment } = useCommentsStore();
-  const showToast = useToast((state) => state.showToast);
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -60,11 +52,11 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
       });
       await getCompanies({});
       await getComments({ companyId });
-      showToast("Отзыв отправлен!", "success");
+      toast.success("Отзыв отправлен!");
       resetForm();
     } catch {
       const error = useCommentsStore.getState().error;
-      showToast(error || "Ошибка", "error");
+      toast.error(error || "Ошибка");
       resetForm();
     }
   };
@@ -130,8 +122,6 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
 
         <Button className="btn-primary w-full">Сохранить</Button>
       </form>
-
-      <Toast />
     </Modal>
   );
 }

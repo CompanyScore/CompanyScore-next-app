@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import { ProfileEditModal } from "../modals";
 import { useProfileStore } from "@/store";
-import { Error } from "@/ui";
+import { Error, Toast } from "@/ui";
 
 export function ProfileCard() {
   const { profile, loading, error, getProfile } = useProfileStore();
@@ -59,6 +59,7 @@ export function ProfileCard() {
       </div>
 
       <ProfileEditModal />
+      <Toast />
     </div>
   );
 }

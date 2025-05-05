@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { CompaniesPostCommentModal } from "@/app/companies/modals/index";
 import { useCompaniesStore } from "@/store";
 import type { CompanyType } from "@/store/companies";
-import { Button, Avatar, Tooltip, Title, Table } from "@/ui";
+import { Button, Avatar, Tooltip, Title, Table, Toast } from "@/ui";
 
 export function CompaniesTable() {
   const { companies, loading } = useCompaniesStore();
@@ -93,6 +93,7 @@ export function CompaniesTable() {
     <>
       <Table columns={columns} data={companies} />
       <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
+      <Toast />
     </>
   );
 }

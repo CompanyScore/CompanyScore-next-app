@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input, Modal, Textarea, Title, Toast, useToast } from "@/ui";
+import { Button, Input, Modal, Textarea, Title, useToast } from "@/ui";
 import { useSuggestCompanyStore } from "@/store";
 import { useSuggestPostForm } from "@/hook";
 
@@ -12,7 +12,7 @@ type SuggestCompanyFormData = {
 export function SuggestPostCompanyModal() {
   const { postSuggestCompany } = useSuggestCompanyStore();
 
-  const showToast = useToast((state) => state.showToast);
+  const toast = useToast();
 
   const {
     handleSubmit,
@@ -42,11 +42,11 @@ export function SuggestPostCompanyModal() {
         name: data.name,
         description: data.description,
       });
-      showToast("Предложение отправлено!", "success");
+      toast.success("Предложение отправлено!");
       resetForm();
     } catch {
       const error = useSuggestCompanyStore.getState().error;
-      showToast(error || "Ошибка", "error");
+      toast.error(error || "Ошибка");
       resetForm();
     }
   };
@@ -88,8 +88,6 @@ export function SuggestPostCompanyModal() {
 
         <Button className="btn-primary w-full">Отправить</Button>
       </form>
-
-      <Toast />
     </Modal>
   );
 }
