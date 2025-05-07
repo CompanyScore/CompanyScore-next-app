@@ -1,162 +1,6 @@
 import { create } from "zustand";
 import { useApi } from "@/api";
 
-// stores/useCommentFormStore.ts
-
-interface FormType {
-  companyId: string;
-  suggestedCompanyName: string;
-  location: {
-    country: string;
-    city: string;
-  };
-  position: string;
-  grade: {
-    years: number;
-    months: number;
-  };
-  task: {
-    isTask: boolean;
-    text: string;
-    rating: number;
-  };
-  interview: {
-    isInterview: boolean;
-    text: string;
-    rating: number;
-  };
-  work: {
-    isWork: boolean;
-    text: string;
-    rating: {
-      team: number;
-      management: number;
-      stack: number;
-      project: number;
-      workFormat: number;
-    };
-    finance: {
-      salary: number;
-      medicine: number;
-      premium: number;
-      bonuses: number;
-      stocks: number;
-      dividends: number;
-    };
-    other: {
-      education: number;
-      events: number;
-    };
-  };
-  recommendation: {
-    isRecommended: number;
-    reasonJoined: string;
-    reasonLeft: string;
-  };
-}
-
-interface CommentFormState {
-  form: FormType;
-  updateForm: (updatedFields: Partial<FormType>) => void;
-  resetForm: () => void;
-}
-
-export const useCommentFormStore = create<CommentFormState>((set) => ({
-  form: {
-    companyId: "",
-    suggestedCompanyName: "",
-    location: {
-      country: "",
-      city: "",
-    },
-    position: "",
-    grade: {
-      years: 0,
-      months: 0,
-    },
-    task: { isTask: false, text: "", rating: 0 },
-    interview: { isInterview: false, text: "", rating: 0 },
-    work: {
-      isWork: false,
-      text: "",
-      rating: {
-        management: 0,
-        team: 0,
-        project: 0,
-        stack: 0,
-        workFormat: 0,
-      },
-      finance: {
-        salary: 0,
-        medicine: 0,
-        premium: 0,
-        bonuses: 0,
-        stocks: 0,
-        dividends: 0,
-      },
-      other: {
-        education: 0,
-        events: 0,
-      },
-    },
-    recommendation: {
-      isRecommended: 1,
-      reasonJoined: "",
-      reasonLeft: "",
-    },
-  },
-  updateForm: (updatedFields) =>
-    set((state) => ({
-      form: { ...state.form, ...updatedFields },
-    })),
-  resetForm: () =>
-    set({
-      form: {
-        suggestedCompanyName: "",
-        companyId: "",
-        location: {
-          country: "",
-          city: "",
-        },
-        position: "",
-        grade: {
-          years: 0,
-          months: 0,
-        },
-        task: { isTask: false, text: "", rating: 0 },
-        interview: { isInterview: false, text: "", rating: 0 },
-        work: {
-          isWork: false,
-          text: "",
-          rating: {
-            management: 0,
-            team: 0,
-            project: 0,
-            stack: 0,
-            workFormat: 0,
-          },
-          finance: {
-            salary: 0,
-            medicine: 0,
-            premium: 0,
-            bonuses: 0,
-            stocks: 0,
-            dividends: 0,
-          },
-          other: {
-            education: 0,
-            events: 0,
-          },
-        },
-        recommendation: {
-          isRecommended: 1,
-          reasonJoined: "",
-          reasonLeft: "",
-        },
-      },
-    }),
-}));
-
 export type CommentType = {
   id: string;
   rating: number;
@@ -234,10 +78,37 @@ export const useCommentsStore = create<CommentsState>((set) => ({
   },
 
   postComment: async (formData) => {
+    const newComment = {
+      companyId: formData.companyId,
+      position: formData.position,
+      gradeYear: formData.grade.years,
+      gradeMonth: formData.grade.months,
+      taskText: formData.task.text,
+      taskRating: formData.task.rating,
+      interviewText: formData.interview.text,
+      interviewRating: formData.interview.rating,
+      workRatingTeam: formData.work.rating.team,
+      workRatingManagement: formData.work.rating.management,
+      workRatingStack: formData.work.rating.stack,
+      workRatingProject: formData.work.rating.project,
+      workRatingWorkFormat: formData.work.rating.workFormat,
+      workRatingFinanceSalary: formData.work.finance.salary,
+      workRatingFinanceMedicine: formData.work.finance.medicine,
+      workRatingFinancePremium: formData.work.finance.premium,
+      workRatingFinanceBonuses: formData.work.finance.bonuses,
+      workRatingFinanceStocks: formData.work.finance.stocks,
+      workRatingFinanceDividends: formData.work.finance.dividends,
+      workRatingOtherEducation: formData.work.other.education,
+      workRatingOtherEvents: formData.work.other.events,
+      recommendationIsRecommended: formData.recommendation.isRecommended,
+      recommendationReasonJoined: formData.recommendation.reasonJoined,
+      recommendationReasonLeft: formData.recommendation.reasonLeft,
+    };
+
     set({ loading: true, error: "" });
 
     try {
-      await useApi.post("/comments", formData);
+      await useApi.post("/comments", newComment);
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
@@ -247,7 +118,12 @@ export const useCommentsStore = create<CommentsState>((set) => ({
     }
   },
 
-  updateComment: async (commentId, text, rating, position) => {
+  updateComment: async (
+    commentId: string,
+    text: string,
+    rating: number,
+    position: string,
+  ) => {
     try {
       await useApi.patch(`/comments/${commentId}`, { text, rating, position });
     } catch (error: any) {
@@ -257,7 +133,7 @@ export const useCommentsStore = create<CommentsState>((set) => ({
     }
   },
 
-  deleteComment: async (commentId) => {
+  deleteComment: async (commentId: string) => {
     try {
       await useApi.delete(`/comments/${commentId}`);
     } catch (error: any) {

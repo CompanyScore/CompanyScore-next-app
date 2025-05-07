@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useCommentFormStore, useSuggestedCompanyStore } from "@/store";
+import {
+  useCommentFormStore,
+  useSuggestedCompanyStore,
+  useCommentsStore,
+} from "@/store";
 import {
   CommentsAddCompany,
   CommentsAddInterview,
@@ -24,6 +28,7 @@ const steps = [
 export default function CommentsPage() {
   const { form } = useCommentFormStore();
   const { suggestedCompany } = useSuggestedCompanyStore();
+  const { postComment } = useCommentsStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -104,17 +109,17 @@ export default function CommentsPage() {
 
   useEffect(() => {
     const hasExperience =
-    form.task.isTask || form.interview.isInterview || form.work.isWork;
+      form.task.isTask || form.interview.isInterview || form.work.isWork;
 
-  const hasRecommendationFilled =
-    !!form.recommendation.reasonJoined?.trim() &&
-    !!form.recommendation.reasonLeft?.trim();
+    const hasRecommendationFilled =
+      !!form.recommendation.reasonJoined?.trim() &&
+      !!form.recommendation.reasonLeft?.trim();
 
-  if (hasExperience) {
-    setIsFormValid(hasRecommendationFilled);
-  } else {
-    setIsFormValid(true); // Если вообще нет опыта — можно отправлять без рекомендаций
-  }
+    if (hasExperience) {
+      setIsFormValid(hasRecommendationFilled);
+    } else {
+      setIsFormValid(true); // Если вообще нет опыта — можно отправлять без рекомендаций
+    }
   }, [form.recommendation, form.task, form.interview, form.work]);
 
   return (
@@ -152,7 +157,7 @@ export default function CommentsPage() {
           Далее
         </button>
         <button
-          onClick={handleSubmit}
+          onClick={() => postComment(form)}
           className={`btn btn-primary ${currentStep === 5 ? "" : "hidden"}`}
           disabled={!isFormValid}
         >

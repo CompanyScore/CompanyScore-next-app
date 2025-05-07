@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Input, Modal, Textarea, Title, useToast } from "@/ui";
-import { useSuggestCompanyStore } from "@/store";
+import { useSuggestedCompanyStore } from "@/store";
 import { useSuggestPostForm } from "@/hook";
 
 type SuggestCompanyFormData = {
@@ -10,7 +10,7 @@ type SuggestCompanyFormData = {
 };
 
 export function SuggestPostCompanyModal() {
-  const { postSuggestCompany } = useSuggestCompanyStore();
+  const { postSuggestedCompany } = useSuggestedCompanyStore();
 
   const toast = useToast();
 
@@ -38,14 +38,14 @@ export function SuggestPostCompanyModal() {
 
   const onSubmit = async (data: SuggestCompanyFormData) => {
     try {
-      await postSuggestCompany({
+      await postSuggestedCompany({
         name: data.name,
         description: data.description,
       });
       toast.success("Предложение отправлено!");
       resetForm();
     } catch {
-      const error = useSuggestCompanyStore.getState().error;
+      const error = useSuggestedCompanyStore.getState().error;
       toast.error(error || "Ошибка");
       resetForm();
     }
