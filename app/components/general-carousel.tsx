@@ -65,20 +65,17 @@ export function GeneralCarousel() {
             transition={{ duration: 1 }}
             className="flex justify-between max-[1300px]:justify-center w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
-            {companiesNew[currentIndex]?.logo ? (
-              <Image
-                src={
-                  process.env.NEXT_PUBLIC_BACK +
-                  companiesNew[currentIndex]?.logo
-                }
-                alt="Company Logo"
-                width={448}
-                height={0}
-                className="object-contain max-w-md"
-              />
-            ) : (
-              <div className="skeleton h-32 w-32"></div>
-            )}
+            <Image
+              src={
+                companiesNew[currentIndex]?.logo
+                  ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${companiesNew[currentIndex]?.logo}`
+                  : "/imgs/company-logo.jpg"
+              }
+              alt="Company Logo"
+              width={448}
+              height={0}
+              className="object-contain max-w-md"
+            />
 
             <div className="max-[1300px]:hidden w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
               <Title size="3">{companiesNew[currentIndex]?.name}</Title>

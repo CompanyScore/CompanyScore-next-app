@@ -39,14 +39,14 @@ export function CompaniesTable() {
       title: "Компания",
       render: (company: CompanyType) => (
         <div className="flex max-[650px]:justify-center items-center space-x-2 ">
-          {company.logo ? (
-            <Avatar
-              className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${company?.logo}`}
-            />
-          ) : (
-            <div className="skeleton h-32 w-32"></div>
-          )}
+          <Avatar
+            className="max-[650px]:hidden"
+            src={
+              company?.logo
+                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${company?.logo}`
+                : "/imgs/company-logo.jpg"
+            }
+          />
           <p className="text-center">{company.name}</p>
         </div>
       ),
