@@ -24,18 +24,18 @@ export function UserCard() {
 
   return (
     <div className="relative hero bg-base-200">
-      <div className="hero-content flex-col-reverse items-start justify-start gap-20 w-full lg:flex">
-        {user?.avatar ? (
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BACK}${user.avatar}`}
-            alt="Avatar"
-            width={400}
-            height={400}
-            className="max-w-sm rounded-lg shadow-2xl w-full"
-          />
-        ) : (
-          <div className="skeleton h-32 w-32"></div>
-        )}
+      <div className="hero-content md:flex md:flex-row flex-col-reverse items-start justify-start gap-20 w-full">
+        <Image
+          src={
+            user?.avatar
+              ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${user.avatar}`
+              : "/imgs/avatar.jpg"
+          }
+          alt="Avatar"
+          width={400}
+          height={400}
+          className="max-w-sm rounded-lg shadow-2xl w-full"
+        />
 
         <div className="w-full">
           <h1 className="text-5xl font-bold">{user?.name}</h1>
