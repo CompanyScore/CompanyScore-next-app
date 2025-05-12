@@ -42,7 +42,7 @@ export function CompaniesTable() {
           {company.logo ? (
             <Avatar
               className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_BACK + company.logo}
+              src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${company?.logo}`}
             />
           ) : (
             <div className="skeleton h-32 w-32"></div>
