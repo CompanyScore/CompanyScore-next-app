@@ -45,13 +45,13 @@ export default function Header() {
       </div>
       <div className="flex justify-end gap-2 max-w-96 w-full">
         <Link href="/profile">
-          {profile?.avatar ? (
-            <Avatar
-              src={`${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile?.avatar}`}
-            />
-          ) : (
-            <div className="skeleton h-32 w-32"></div>
-          )}
+          <Avatar
+            src={
+              profile?.avatar
+                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
+                : "/imgs/avatar.jpg"
+            }
+          />
         </Link>
         <ThemeController />
       </div>

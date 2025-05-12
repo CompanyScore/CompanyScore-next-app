@@ -40,14 +40,14 @@ export function UsersTable() {
       title: "Пользователь",
       render: (user: UserType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
-          {user?.avatar ? (
-            <Avatar
-              className="max-[650px]:hidden"
-              src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${user?.avatar}`}
-            />
-          ) : (
-            <div className="skeleton h-32 w-32"></div>
-          )}
+          <Avatar
+            className="max-[650px]:hidden"
+            src={
+              user?.avatar
+                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${user.avatar}`
+                : "/imgs/avatar.jpg"
+            }
+          />
           <p>{user.name}</p>
         </div>
       ),

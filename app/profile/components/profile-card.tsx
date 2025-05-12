@@ -38,19 +38,17 @@ export function ProfileCard() {
             className="cursor-pointer"
           />
         </label>
-
-        {profile?.avatar ? (
-          <Image
-            src={process.env.NEXT_PUBLIC_S3_IMAGES + `/${profile.avatar}`} 
-            alt="Avatar"
-            width={400}
-            height={400}
-            className="max-w-sm rounded-lg shadow-2xl w-full"
-          />
-        ) : (
-          <div className="skeleton h-32 w-32"></div>
-        )}
-
+        <Image
+          src={
+            profile?.avatar
+              ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
+              : "/imgs/avatar.jpg"
+          }
+          alt="Avatar"
+          width={400}
+          height={400}
+          className="max-w-sm rounded-lg shadow-2xl w-full"
+        />
         <div className="w-full">
           <h1 className="text-5xl font-bold">{profile?.name}</h1>
           <p className="mt-4">{profile?.position}</p>
