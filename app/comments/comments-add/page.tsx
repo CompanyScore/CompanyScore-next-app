@@ -97,9 +97,9 @@ export default function CommentsPage() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Отправить форму", form);
-  };
+  // const handleSubmit = () => {
+  //   console.log("Отправить форму", form);
+  // };
 
   const handlePrev = () => {
     if (currentStep > 0) {
