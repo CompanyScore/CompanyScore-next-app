@@ -8,12 +8,14 @@ import { CompaniesPostCommentModal } from "@/app/companies/modals";
 import { useCommentsStore, useCompaniesStore } from "@/store";
 
 type CompanyType = {
-  id: string;
+  id?: string;
   name: string;
-  rating: number;
-  logo: string;
-  description: string;
-  commentsIds: string[];
+  country: string;
+  city: string;
+  rating?: number;
+  logo?: string;
+  description?: string;
+  commentsIds?: string[];
 };
 
 export function CompanyCard() {

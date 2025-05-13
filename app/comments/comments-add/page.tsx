@@ -5,6 +5,7 @@ import {
   useCommentFormStore,
   useSuggestedCompanyStore,
   useCommentsStore,
+  useCompaniesStore,
 } from "@/store";
 import {
   CommentsAddCompany,
@@ -26,8 +27,9 @@ const steps = [
 ];
 
 export default function CommentsPage() {
-  const { form } = useCommentFormStore();
+  const { form, updateForm } = useCommentFormStore();
   const { suggestedCompany } = useSuggestedCompanyStore();
+  const { createCompany } = useCompaniesStore();
   const { postComment } = useCommentsStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -37,7 +39,7 @@ export default function CommentsPage() {
     console.log("form", form);
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (currentStep === 0) {
       if (
         !!form.companyId &&
@@ -55,6 +57,24 @@ export default function CommentsPage() {
           !!suggestedCompany.city &&
           !!suggestedCompany.country)
       ) {
+        const companyId = await createCompany({
+          country: suggestedCompany.country,
+          city: suggestedCompany.city,
+          name: suggestedCompany.name,
+        });
+
+        if (companyId) {
+          console.log("Создана новая компания", companyId);
+
+          updateForm({
+            companyId: companyId,
+            location: {
+              country: suggestedCompany.country,
+              city: suggestedCompany.city,
+            },
+          });
+        }
+
         setCurrentStep((prev) => prev + 1);
       }
     }

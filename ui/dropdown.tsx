@@ -1,7 +1,7 @@
 "use client";
 import React, { useRef } from "react";
 
-type Option = { label: string; value: string } | string;
+type Option = { label: string; value: string | undefined } | string;
 
 type DropdownProps = {
   text?: string;
@@ -89,17 +89,27 @@ export const Dropdown = ({
             zIndex: "1000",
           }}
         >
-          {filteredOptions.map(({ label, value }) => (
-            <li key={value}>
-              <button
-                className="btn btn-sm btn-block btn-ghost justify-start"
-                onClick={(e) => handleSelect(value, e)}
-                style={{ textAlign: "left", display: "block" }}
-              >
-                {label}
-              </button>
-            </li>
-          ))}
+          {filteredOptions.map((opt, i) => {
+            if (
+              !opt ||
+              typeof opt !== "object" ||
+              !("label" in opt) ||
+              !("value" in opt)
+            )
+              return null;
+
+            return (
+              <li key={opt.value || i}>
+                <button
+                  className="btn btn-sm btn-block btn-ghost justify-start"
+                  onClick={(e) => handleSelect(opt.value as string, e)}
+                  style={{ textAlign: "left", display: "block" }}
+                >
+                  {opt.label}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

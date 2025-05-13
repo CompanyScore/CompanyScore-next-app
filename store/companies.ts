@@ -2,12 +2,14 @@ import { create } from "zustand";
 import { useApi } from "@/api";
 
 export type CompanyType = {
-  id: string;
+  id?: string;
   name: string;
-  rating: number;
-  logo: string;
-  description: string;
-  commentsIds: string[];
+  country: string;
+  city: string;
+  rating?: number;
+  logo?: string;
+  description?: string;
+  commentsIds?: string[];
 };
 
 type GetCompaniesParams = {
@@ -30,6 +32,7 @@ interface CompaniesState {
   error: string;
   countryOptions: string[];
   cityOptions: string[];
+  createCompany: (company: CompanyType) => Promise<string | undefined>;
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
   getCompany: (id: string) => Promise<void>;
   getCompaniesNew: () => Promise<void>;
@@ -47,6 +50,21 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   error: "",
   countryOptions: [],
   cityOptions: [],
+
+  createCompany: async (company: CompanyType) => {
+    set({ loading: true, error: "" });
+
+    try {
+      const { data } = await useApi.post(`/companies/`, company);
+      set({ companies: [...get().companies, data] });
+      return data;
+    } catch (error: any) {
+      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      set({ error: errorMessage });
+    } finally {
+      set({ loading: false });
+    }
+  },
 
   getCompanies: async (params: GetCompaniesParams) => {
     set({ loading: true, error: "" });

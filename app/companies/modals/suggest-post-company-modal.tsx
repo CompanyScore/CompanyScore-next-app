@@ -1,8 +1,9 @@
 "use client";
 
-import { Button, Input, Modal, Textarea, Title, useToast } from "@/ui";
-import { useSuggestedCompanyStore } from "@/store";
+import { Button, Dropdown, Input, Modal, Title, useToast } from "@/ui";
+import { useCompaniesStore, useSuggestedCompanyStore } from "@/store";
 import { useSuggestPostForm } from "@/hook";
+import { countriesWithCities } from "@/constants/countriesWithCities";
 
 type SuggestCompanyFormData = {
   name: string;
@@ -11,6 +12,9 @@ type SuggestCompanyFormData = {
 
 export function SuggestPostCompanyModal() {
   const { postSuggestedCompany } = useSuggestedCompanyStore();
+  const { suggestedCompany, updateSuggestedCompany } =
+    useSuggestedCompanyStore();
+  const { getCompanies } = useCompaniesStore();
 
   const toast = useToast();
 
@@ -36,6 +40,11 @@ export function SuggestPostCompanyModal() {
     closeModal();
   };
 
+  const countryOptions = countriesWithCities.map(({ label, value }) => ({
+    label,
+    value,
+  }));
+
   const onSubmit = async (data: SuggestCompanyFormData) => {
     try {
       await postSuggestedCompany({
@@ -51,6 +60,28 @@ export function SuggestPostCompanyModal() {
     }
   };
 
+  const onSelectSuggestedCompanyCountry = (countryCode: string) => {
+    const country = countriesWithCities.find((c) => c.value === countryCode);
+
+    updateSuggestedCompany({
+      country: country?.value || "",
+    });
+
+    getCompanies({ selectedCountry: country?.label });
+  };
+
+  const onSelectSuggestedCompanyCity = (city: string) => {
+    updateSuggestedCompany({
+      city,
+    });
+
+    getCompanies({ selectedCity: city });
+  };
+
+  const suggestedCityOptions =
+    countriesWithCities.find((c) => c.value === suggestedCompany.country)
+      ?.cities || [];
+
   return (
     <Modal id="suggest_post_company_modal">
       <Title size="3" position="center">
@@ -58,32 +89,31 @@ export function SuggestPostCompanyModal() {
       </Title>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4">
-          <label htmlFor="position" className="block mb-2">
-            Название компании
-          </label>
+        <div className="flex flex-col items-center gap-4 w-full max-w-xl m-auto">
+          <Dropdown
+            text="Страна"
+            options={countryOptions}
+            isFirstDisabled={true}
+            selectedValue={suggestedCompany.country}
+            onSelect={onSelectSuggestedCompanyCountry}
+            width="100%"
+          />
+
+          <Dropdown
+            text="Город"
+            options={suggestedCityOptions}
+            isFirstDisabled={true}
+            selectedValue={suggestedCompany.city}
+            onSelect={onSelectSuggestedCompanyCity}
+            width="100%"
+          />
+
           <Input
+            placeholder="Название компании"
             value={watch("name")}
             onChange={(value) => setValue("name", String(value))}
           />
           <p className="text-error">{errors.name?.message}</p>
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="comment" className="block mb-2">
-            Описание компании
-          </label>
-          <Textarea
-            value={watch("description") || ""}
-            onChange={(value) => setValue("description", value)}
-            placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
-  
-Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
-  
-Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
-            rows={13}
-          />
-          <p className="text-error">{errors.description?.message}</p>
         </div>
 
         <Button className="btn-primary w-full">Отправить</Button>
