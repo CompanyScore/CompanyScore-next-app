@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Searcher } from "@/shared";
 import { Error, Dropdown, Button, Toast } from "@/ui";
 import { useCompaniesStore } from "@/store";
-import { SuggestPostCompanyModal } from "@/app/companies/modals";
+import { CreateCompanyModal } from "@/app/companies/modals";
 
 const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
@@ -79,13 +79,11 @@ export function CompaniesFilter() {
         <div className="flex items-center gap-4">
           <Button onClick={onReset}>Сбросить</Button>
           <Button>
-            <label htmlFor="suggest_post_company_modal">
-              Предложить компанию
-            </label>
+            <label htmlFor="create_company_modal">Предложить компанию</label>
           </Button>
         </div>
       </div>
-      <SuggestPostCompanyModal />
+      <CreateCompanyModal />
       <Toast />
     </div>
   );

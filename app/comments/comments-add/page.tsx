@@ -1,12 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import {
-  useCommentFormStore,
-  useSuggestedCompanyStore,
-  useCommentsStore,
-  useCompaniesStore,
-} from "@/store";
+import { useCommentFormStore, useCommentsStore } from "@/store";
 import {
   CommentsAddCompany,
   CommentsAddInterview,
@@ -15,7 +10,7 @@ import {
   CommentsAddTask,
   CommentsAddWork,
 } from "./components";
-import { Title } from "@/ui";
+import { Title, useToast } from "@/ui";
 
 const steps = [
   { label: "Компания", component: <CommentsAddCompany /> },
@@ -27,55 +22,24 @@ const steps = [
 ];
 
 export default function CommentsPage() {
-  const { form, updateForm } = useCommentFormStore();
-  const { suggestedCompany } = useSuggestedCompanyStore();
-  const { createCompany } = useCompaniesStore();
+  const { form } = useCommentFormStore();
   const { postComment } = useCommentsStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [isFormValid, setIsFormValid] = useState(false);
 
+  const toast = useToast();
+
   const log = () => {
-    console.log("suggestedCompany", suggestedCompany);
     console.log("form", form);
   };
 
   const handleNext = async () => {
     if (currentStep === 0) {
-      if (
-        !!form.companyId &&
-        !!suggestedCompany.name &&
-        !!suggestedCompany.city &&
-        !!suggestedCompany.country
-      ) {
-        console.log(
-          "Выберите компанию или добавьте компанию. Но не все вместе.",
-        );
-        return;
-      } else if (
-        !!form.companyId ||
-        (!!suggestedCompany.name &&
-          !!suggestedCompany.city &&
-          !!suggestedCompany.country)
-      ) {
-        const companyId = await createCompany({
-          country: suggestedCompany.country,
-          city: suggestedCompany.city,
-          name: suggestedCompany.name,
-        });
-
-        if (companyId) {
-          console.log("Создана новая компания", companyId);
-
-          updateForm({
-            companyId: companyId,
-            location: {
-              country: suggestedCompany.country,
-              city: suggestedCompany.city,
-            },
-          });
-        }
-
+      if (form.companyId) {
+        console.log("Создана новая компания", form.companyId);
         setCurrentStep((prev) => prev + 1);
+      } else {
+        toast.error("Выберите компанию");
       }
     }
 

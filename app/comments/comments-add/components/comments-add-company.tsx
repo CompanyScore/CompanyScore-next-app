@@ -1,7 +1,7 @@
 import { useCommentFormStore, useCompaniesStore } from "@/store";
-import { Accordion, Button, Dropdown, Title, Toast } from "@/ui";
+import { Button, Dropdown, Title, Toast } from "@/ui";
 import { countriesWithCities } from "@/constants/countriesWithCities"; // путь зависит от твоей структуры
-import { SuggestPostCompanyModal } from "@/app/companies/modals";
+import { CreateCompanyModal } from "@/app/companies/modals";
 
 export const CommentsAddCompany = () => {
   const { form, updateForm } = useCommentFormStore();
@@ -30,12 +30,25 @@ export const CommentsAddCompany = () => {
     getCompanies({ selectedCity: city });
   };
 
-  const onSelectCompany = (searchedCompanyName: string) => {
-    getCompanies({ searchedCompanyName });
+  const onGetCreatedCompanyId = async (
+    companyId: string,
+    country: string,
+    city: string,
+  ) => {
+    await getCompanies({});
+
     updateForm({
-      companyId:
-        companies.find((company) => company.name === searchedCompanyName)?.id ||
-        "",
+      companyId,
+      location: {
+        country: country,
+        city: city,
+      },
+    });
+  };
+
+  const onSelectCompany = (companyId: string) => {
+    updateForm({
+      companyId,
     });
   };
 
@@ -80,10 +93,7 @@ export const CommentsAddCompany = () => {
             value: company.id,
           }))}
           isFirstDisabled={true}
-          selectedValue={
-            companies.find((company) => company.id === form.companyId)?.name ||
-            ""
-          }
+          selectedValue={form.companyId}
           onSelect={onSelectCompany}
           width="100%"
         />
@@ -94,12 +104,12 @@ export const CommentsAddCompany = () => {
           Если компании нет в списке, предложите ее
         </Title>
         <Button>
-          <label htmlFor="suggest_post_company_modal">
+          <label htmlFor="create_company_modal">
             Предложить компанию
           </label>
         </Button>
       </div>
-      <SuggestPostCompanyModal />
+      <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
       <Toast />
     </div>
   );

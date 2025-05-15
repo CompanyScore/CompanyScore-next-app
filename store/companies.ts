@@ -34,7 +34,7 @@ interface CompaniesState {
   cityOptions: string[];
   createCompany: (company: CompanyType) => Promise<string | undefined>;
   getCompanies: (params: GetCompaniesParams) => Promise<void>;
-  getCompany: (id: string) => Promise<void>;
+  getCompany: (id: string) => Promise<CompanyType>;
   getCompaniesNew: () => Promise<void>;
   getLocations: (selectedCountry: string) => Promise<void>;
 }
@@ -100,6 +100,7 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
     try {
       const { data } = await useApi.get(`/companies/${id}`);
       set({ company: data });
+      return data;
     } catch (error: any) {
       const errorMessage = error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
