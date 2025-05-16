@@ -89,7 +89,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   };
 
   return (
-    <Modal id="suggest_post_company_modal">
+    <Modal id="create_company_modal">
       <Title size="3" position="center">
         Предложите компанию
       </Title>

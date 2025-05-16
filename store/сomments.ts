@@ -34,7 +34,7 @@ interface CommentsState {
   loading: boolean;
   error: string;
   getComments: (params: GetCommentsParams) => Promise<void>;
-  postComment: (formData: any) => Promise<void>;
+  postComment: (formData: any) => Promise<any>;
   updateComment: (
     commentId: string,
     text: string,
@@ -108,9 +108,10 @@ export const useCommentsStore = create<CommentsState>((set) => ({
     set({ loading: true, error: "" });
 
     try {
-      await useApi.post("/comments", newComment);
+      const { data } = await useApi.post("/comments", newComment);
+      return data;
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = await error.response?.data?.message || "Произошла ошибка";
       set({ error: errorMessage });
       throw new Error(errorMessage);
     } finally {
