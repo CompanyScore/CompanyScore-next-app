@@ -7,9 +7,7 @@ export const CommentsAddRecommendation = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">
-        Порекомендовали бы вы эту компанию другим?
-      </Title>
+      <Title size="2">Порекомендовали бы вы эту компанию другим?</Title>
       <Radio
         options={[
           { label: "Да", value: 1 },

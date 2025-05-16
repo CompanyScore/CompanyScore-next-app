@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { redirect } from "next/navigation";
 import { useCommentFormStore, useCommentsStore } from "@/store";
 import {
   CommentsAddCompany,
@@ -10,7 +11,7 @@ import {
   CommentsAddTask,
   CommentsAddWork,
 } from "./components";
-import { Title, useToast } from "@/ui";
+import { Title, useToast, Toast } from "@/ui";
 
 const steps = [
   { label: "Компания", component: <CommentsAddCompany /> },
@@ -23,9 +24,8 @@ const steps = [
 
 export default function CommentsPage() {
   const { form } = useCommentFormStore();
-  const { postComment } = useCommentsStore();
+  const { postComment, error } = useCommentsStore();
   const [currentStep, setCurrentStep] = useState(0);
-  const [isFormValid, setIsFormValid] = useState(false);
 
   const toast = useToast();
 
@@ -36,15 +36,21 @@ export default function CommentsPage() {
   const handleNext = async () => {
     if (currentStep === 0) {
       if (form.companyId) {
-        console.log("Создана новая компания", form.companyId);
         setCurrentStep((prev) => prev + 1);
       } else {
         toast.error("Выберите компанию");
+        return;
       }
     }
 
     if (currentStep === 1) {
-      if (!!form.position && (!!form.grade.years || !!form.grade.months)) {
+      if (!form.position && (!form.grade.years || !form.grade.months)) {
+        toast.error("Заполните должность и стаж");
+        return;
+      } else if (form.grade.years > 50 || form.grade.months >= 11) {
+        toast.error("Стаж не может быть больше 50 лет и 11 месяцев");
+        return;
+      } else {
         setCurrentStep((prev) => prev + 1);
       }
     }
@@ -54,6 +60,9 @@ export default function CommentsPage() {
         setCurrentStep((prev) => prev + 1);
       } else if (!form.task.isTask) {
         setCurrentStep((prev) => prev + 1);
+      } else {
+        toast.error("Оцените тестовое задание");
+        return;
       }
     }
 
@@ -62,6 +71,9 @@ export default function CommentsPage() {
         setCurrentStep((prev) => prev + 1);
       } else if (!form.interview.isInterview) {
         setCurrentStep((prev) => prev + 1);
+      } else {
+        toast.error("Оцените собеседование");
+        return;
       }
     }
 
@@ -77,13 +89,25 @@ export default function CommentsPage() {
         !!form.work.finance.salary
       ) {
         setCurrentStep((prev) => prev + 1);
+      } else {
+        toast.error("Оцените работу");
+        return;
+      }
+    }
+
+    if (currentStep === 5) {
+      if (
+        (form.recommendation.reasonJoined?.trim().length || 0) >= 100 &&
+        (form.recommendation.reasonLeft?.trim().length || 0) >= 100
+      ) {
+        await sendForm();
+        return;
+      } else {
+        toast.error("Не менее 100 символов в каждом поле");
+        return;
       }
     }
   };
-
-  // const handleSubmit = () => {
-  //   console.log("Отправить форму", form);
-  // };
 
   const handlePrev = () => {
     if (currentStep > 0) {
@@ -91,20 +115,17 @@ export default function CommentsPage() {
     }
   };
 
-  useEffect(() => {
-    const hasExperience =
-      form.task.isTask || form.interview.isInterview || form.work.isWork;
-
-    const hasRecommendationFilled =
-      !!form.recommendation.reasonJoined?.trim() &&
-      !!form.recommendation.reasonLeft?.trim();
-
-    if (hasExperience) {
-      setIsFormValid(hasRecommendationFilled);
-    } else {
-      setIsFormValid(true); // Если вообще нет опыта — можно отправлять без рекомендаций
+  const sendForm = async () => {
+    try {
+      const commentId = await postComment(form);
+      toast.success("Отзыв успешно отправлен");
+      console.log(commentId);
+      // redirect(`/comments/${commentId}`);
+      redirect(`/comments`);
+    } catch {
+      toast.error(error);
     }
-  }, [form.recommendation, form.task, form.interview, form.work]);
+  };
 
   return (
     <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-5xl m-auto">
@@ -133,25 +154,15 @@ export default function CommentsPage() {
         >
           Назад
         </button>
-        <button
-          onClick={handleNext}
-          className={`btn btn-primary ${currentStep === 5 ? "hidden" : ""}`}
-          disabled={currentStep === steps.length - 1}
-        >
-          Далее
-        </button>
-        <button
-          onClick={() => postComment(form)}
-          className={`btn btn-primary ${currentStep === 5 ? "" : "hidden"}`}
-          disabled={!isFormValid}
-        >
-          Отправить
+        <button onClick={handleNext} className={`btn btn-primary`}>
+          {currentStep === 5 ? "Отправить" : "Далее"}
         </button>
       </div>
 
       <button onClick={log} className="btn mt-8 btn-neutral self-center">
         Log form
       </button>
+      <Toast />
     </section>
   );
 }

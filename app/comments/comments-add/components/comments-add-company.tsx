@@ -1,5 +1,5 @@
 import { useCommentFormStore, useCompaniesStore } from "@/store";
-import { Button, Dropdown, Title, Toast } from "@/ui";
+import { Button, Dropdown, Title } from "@/ui";
 import { countriesWithCities } from "@/constants/countriesWithCities"; // путь зависит от твоей структуры
 import { CreateCompanyModal } from "@/app/companies/modals";
 
@@ -110,7 +110,6 @@ export const CommentsAddCompany = () => {
         </Button>
       </div>
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
-      <Toast />
     </div>
   );
 };
