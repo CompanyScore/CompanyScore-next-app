@@ -10,12 +10,9 @@ export default function LinkedIn() {
     const redirectUri =
       process.env.NEXT_PUBLIC_REDIRECT_URI ||
       window.location.origin + "/profile";
-
-    const backUrl = process.env.NEXT_PUBLIC_BACK || "http://localhost:8000";
-
-    window.location.href =
-      `${backUrl}/auth/linkedin?redirect_uri=` +
-      encodeURIComponent(redirectUri);
+    window.location.href = `${
+      process.env.NEXT_PUBLIC_BACK
+    }/auth/linkedin?state=${encodeURIComponent(redirectUri)}`;
   };
 
   return (
