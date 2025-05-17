@@ -6,8 +6,16 @@ import Image from "next/image";
 import { Title, Modal } from "@/ui";
 
 export default function LinkedIn() {
-  const redirectToLinkedin = async () => {
-    window.location.href = process.env.NEXT_PUBLIC_BACK + "/auth/linkedin";
+  const redirectToLinkedin = () => {
+    const redirectUri =
+      process.env.NEXT_PUBLIC_REDIRECT_URI ||
+      window.location.origin + "/profile";
+
+    const backUrl = process.env.NEXT_PUBLIC_BACK || "http://localhost:8000";
+
+    window.location.href =
+      `${backUrl}/auth/linkedin?redirect_uri=` +
+      encodeURIComponent(redirectUri);
   };
 
   return (
