@@ -6,13 +6,9 @@ import Image from "next/image";
 import { Title, Modal } from "@/ui";
 
 export default function LinkedIn() {
-  const redirectToLinkedin = () => {
-    const redirectUri =
-      process.env.NEXT_PUBLIC_REDIRECT_URI ||
-      window.location.origin + "/profile";
-    window.location.href = `${
-      process.env.NEXT_PUBLIC_BACK
-    }/auth/linkedin?state=${encodeURIComponent(redirectUri)}`;
+  const redirectToLinkedin = async () => {
+    // window.location.href = process.env.NEXT_PUBLIC_API_URL + "/auth/linkedin";
+    window.location.href = "https://api.companyscore.net/auth/linkedin";
   };
 
   return (
