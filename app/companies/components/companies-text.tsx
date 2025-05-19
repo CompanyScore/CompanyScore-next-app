@@ -1,5 +1,5 @@
-import { Title } from "@/ui";
-import React from "react";
+import { Title } from '@/ui';
+import React from 'react';
 
 export function CompaniesText() {
   return (

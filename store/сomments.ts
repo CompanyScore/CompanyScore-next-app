@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { useApi } from "@/api";
+import { create } from 'zustand';
+import { useApi } from '@/api';
 
 export type CommentType = {
   id: string;
@@ -44,16 +44,16 @@ interface CommentsState {
   deleteComment: (commentId: string) => Promise<void>;
 }
 
-export const useCommentsStore = create<CommentsState>((set) => ({
+export const useCommentsStore = create<CommentsState>(set => ({
   comments: [],
   page: 1,
   total: 0,
   limit: 5,
   loading: false,
-  error: "",
+  error: '',
 
   getComments: async (params: GetCommentsParams) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.get(`/comments`, {
@@ -70,14 +70,14 @@ export const useCommentsStore = create<CommentsState>((set) => ({
         limit: data.limit,
       });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
   },
 
-  postComment: async (formData) => {
+  postComment: async formData => {
     const newComment = {
       companyId: formData.companyId,
       position: formData.position,
@@ -105,13 +105,14 @@ export const useCommentsStore = create<CommentsState>((set) => ({
       recommendationReasonLeft: formData.recommendation.reasonLeft,
     };
 
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
-      const { data } = await useApi.post("/comments", newComment);
+      const { data } = await useApi.post('/comments', newComment);
       return data;
     } catch (error: any) {
-      const errorMessage = await error.response?.data?.message || "Произошла ошибка";
+      const errorMessage =
+        (await error.response?.data?.message) || 'Произошла ошибка';
       set({ error: errorMessage });
       throw new Error(errorMessage);
     } finally {

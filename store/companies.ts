@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { useApi } from "@/api";
+import { create } from 'zustand';
+import { useApi } from '@/api';
 
 export type CompanyType = {
   id?: string;
@@ -47,19 +47,19 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   total: 0,
   limit: 5,
   loading: false,
-  error: "",
+  error: '',
   countryOptions: [],
   cityOptions: [],
 
   createCompany: async (company: CompanyType) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.post(`/companies/`, company);
       set({ companies: [...get().companies, data] });
       return data;
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -67,7 +67,7 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   },
 
   getCompanies: async (params: GetCompaniesParams) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.get(`/companies/`, {
@@ -87,7 +87,7 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
         limit: data.limit,
       });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -95,14 +95,14 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   },
 
   getCompany: async (id: string) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.get(`/companies/${id}`);
       set({ company: data });
       return data;
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -110,13 +110,13 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
   },
 
   getCompaniesNew: async () => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.get(`/companies/new/`);
       set({ companiesNew: data });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -135,7 +135,7 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
       });
     } catch (error: any) {
       const errorMessage =
-        error.response?.data?.message || "Не удалось загрузить локации";
+        error.response?.data?.message || 'Не удалось загрузить локации';
       set({ error: errorMessage });
     }
   },

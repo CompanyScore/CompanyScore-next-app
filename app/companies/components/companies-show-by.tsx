@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ShowBy } from "@/shared";
-import { useCompaniesStore } from "@/store";
+import { ShowBy } from '@/shared';
+import { useCompaniesStore } from '@/store';
 
 export function CompaniesShowBy() {
   const { companies, getCompanies, limit } = useCompaniesStore();

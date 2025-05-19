@@ -1,6 +1,6 @@
-"use client";
-import { Pagination } from "@/shared";
-import { useUsersStore } from "@/store";
+'use client';
+import { Pagination } from '@/shared';
+import { useUsersStore } from '@/store';
 
 export function UsersPagination() {
   const { users, getUsers, page, limit, total } = useUsersStore();

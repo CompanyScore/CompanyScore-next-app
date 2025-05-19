@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { redirect } from "next/navigation";
-import { useCommentFormStore, useCommentsStore } from "@/store";
+import { useState } from 'react';
+import { redirect } from 'next/navigation';
+import { useCommentFormStore, useCommentsStore } from '@/store';
 import {
   CommentsAddCompany,
   CommentsAddInterview,
@@ -10,16 +10,16 @@ import {
   CommentsAddRecommendation,
   CommentsAddTask,
   CommentsAddWork,
-} from "./components";
-import { Title, useToast, Toast } from "@/ui";
+} from './components';
+import { Title, useToast, Toast } from '@/ui';
 
 const steps = [
-  { label: "Компания", component: <CommentsAddCompany /> },
-  { label: "Должность и стаж", component: <CommentsAddPositionGrade /> },
-  { label: "Тестовое задание", component: <CommentsAddTask /> },
-  { label: "Собеседование", component: <CommentsAddInterview /> },
-  { label: "Опыт работы", component: <CommentsAddWork /> },
-  { label: "Рекомендации", component: <CommentsAddRecommendation /> },
+  { label: 'Компания', component: <CommentsAddCompany /> },
+  { label: 'Должность и стаж', component: <CommentsAddPositionGrade /> },
+  { label: 'Тестовое задание', component: <CommentsAddTask /> },
+  { label: 'Собеседование', component: <CommentsAddInterview /> },
+  { label: 'Опыт работы', component: <CommentsAddWork /> },
+  { label: 'Рекомендации', component: <CommentsAddRecommendation /> },
 ];
 
 export default function CommentsPage() {
@@ -30,56 +30,56 @@ export default function CommentsPage() {
   const toast = useToast();
 
   const log = () => {
-    console.log("form", form);
+    console.log('form', form);
   };
 
   const handleNext = async () => {
     if (currentStep === 0) {
       if (form.companyId) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else {
-        toast.error("Выберите компанию");
+        toast.error('Выберите компанию');
         return;
       }
     }
 
     if (currentStep === 1) {
       if (!form.position && (!form.grade.years || !form.grade.months)) {
-        toast.error("Заполните должность и стаж");
+        toast.error('Заполните должность и стаж');
         return;
       } else if (form.grade.years > 50 || form.grade.months >= 11) {
-        toast.error("Стаж не может быть больше 50 лет и 11 месяцев");
+        toast.error('Стаж не может быть больше 50 лет и 11 месяцев');
         return;
       } else {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       }
     }
 
     if (currentStep === 2) {
       if (form.task.isTask && form.task.rating) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else if (!form.task.isTask) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else {
-        toast.error("Оцените тестовое задание");
+        toast.error('Оцените тестовое задание');
         return;
       }
     }
 
     if (currentStep === 3) {
       if (form.interview.isInterview && form.interview.rating) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else if (!form.interview.isInterview) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else {
-        toast.error("Оцените собеседование");
+        toast.error('Оцените собеседование');
         return;
       }
     }
 
     if (currentStep === 4) {
       if (!form.work.isWork) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else if (
         form.work.isWork &&
         !!form.work.rating.management &&
@@ -88,9 +88,9 @@ export default function CommentsPage() {
         !!form.work.rating.team &&
         !!form.work.finance.salary
       ) {
-        setCurrentStep((prev) => prev + 1);
+        setCurrentStep(prev => prev + 1);
       } else {
-        toast.error("Оцените работу");
+        toast.error('Оцените работу');
         return;
       }
     }
@@ -103,7 +103,7 @@ export default function CommentsPage() {
         await sendForm();
         return;
       } else {
-        toast.error("Не менее 100 символов в каждом поле");
+        toast.error('Не менее 100 символов в каждом поле');
         return;
       }
     }
@@ -111,14 +111,14 @@ export default function CommentsPage() {
 
   const handlePrev = () => {
     if (currentStep > 0) {
-      setCurrentStep((prev) => prev - 1);
+      setCurrentStep(prev => prev - 1);
     }
   };
 
   const sendForm = async () => {
     try {
       const commentId = await postComment(form);
-      toast.success("Отзыв успешно отправлен");
+      toast.success('Отзыв успешно отправлен');
       console.log(commentId);
       // redirect(`/comments/${commentId}`);
       redirect(`/comments`);
@@ -137,7 +137,7 @@ export default function CommentsPage() {
         {steps.map((step, index) => (
           <li
             key={step.label}
-            className={`step ${index <= currentStep ? "step-primary" : ""}`}
+            className={`step ${index <= currentStep ? 'step-primary' : ''}`}
           >
             {step.label}
           </li>
@@ -155,7 +155,7 @@ export default function CommentsPage() {
           Назад
         </button>
         <button onClick={handleNext} className={`btn btn-primary`}>
-          {currentStep === 5 ? "Отправить" : "Далее"}
+          {currentStep === 5 ? 'Отправить' : 'Далее'}
         </button>
       </div>
 

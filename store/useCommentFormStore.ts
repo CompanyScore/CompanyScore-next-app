@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
 interface FormType {
   companyId: string;
@@ -56,24 +56,24 @@ interface CommentFormState {
   updateForm: (updatedFields: Partial<FormType>) => void;
 }
 
-export const useCommentFormStore = create<CommentFormState>((set) => ({
+export const useCommentFormStore = create<CommentFormState>(set => ({
   form: {
-    companyId: "",
-    suggestedCompanyName: "",
+    companyId: '',
+    suggestedCompanyName: '',
     location: {
-      country: "",
-      city: "",
+      country: '',
+      city: '',
     },
-    position: "",
+    position: '',
     grade: {
       years: 0,
       months: 0,
     },
-    task: { isTask: false, text: "", rating: 0 },
-    interview: { isInterview: false, text: "", rating: 0 },
+    task: { isTask: false, text: '', rating: 0 },
+    interview: { isInterview: false, text: '', rating: 0 },
     work: {
       isWork: false,
-      text: "",
+      text: '',
       rating: {
         management: 0,
         team: 0,
@@ -96,12 +96,12 @@ export const useCommentFormStore = create<CommentFormState>((set) => ({
     },
     recommendation: {
       isRecommended: 1,
-      reasonJoined: "",
-      reasonLeft: "",
+      reasonJoined: '',
+      reasonLeft: '',
     },
   },
-  updateForm: (updatedFields) =>
-    set((state) => ({
+  updateForm: updatedFields =>
+    set(state => ({
       form: { ...state.form, ...updatedFields },
     })),
 }));

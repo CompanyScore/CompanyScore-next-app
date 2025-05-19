@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -8,13 +8,13 @@ import {
   Title,
   Dropdown,
   useToast,
-} from "@/ui";
-import { positions } from "@/constants";
-import { useProfileStore } from "@/store";
-import { SubmitHandler } from "react-hook-form";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { profileEditSchema } from "@/utils/profileEditSchema";
+} from '@/ui';
+import { positions } from '@/constants';
+import { useProfileStore } from '@/store';
+import { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { profileEditSchema } from '@/utils/profileEditSchema';
 
 type ProfileEditFormData = {
   name?: string;
@@ -27,9 +27,9 @@ export const useProfileEditForm = () => {
   return useForm<ProfileEditFormData>({
     resolver: yupResolver(profileEditSchema),
     defaultValues: {
-      name: "",
-      position: "",
-      description: "",
+      name: '',
+      position: '',
+      description: '',
       avatar: undefined,
     },
   });
@@ -50,7 +50,7 @@ export function ProfileEditModal() {
 
   const closeModal = () => {
     const modal = document.getElementById(
-      "companies_add_comment_modal",
+      'companies_add_comment_modal',
     ) as HTMLInputElement;
     if (modal) {
       modal.checked = false; // Закрывает модалку в daisyUI
@@ -65,26 +65,26 @@ export function ProfileEditModal() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setValue("avatar", selectedFile, { shouldValidate: true });
+      setValue('avatar', selectedFile, { shouldValidate: true });
     }
   };
 
-  const onSubmit: SubmitHandler<ProfileEditFormData> = async (data) => {
+  const onSubmit: SubmitHandler<ProfileEditFormData> = async data => {
     try {
       const formData = new FormData();
 
-      if (data.name) formData.append("name", data.name);
-      if (data.position) formData.append("position", data.position);
-      if (data.description) formData.append("description", data.description);
-      if (data.avatar) formData.append("avatarFile", data.avatar);
+      if (data.name) formData.append('name', data.name);
+      if (data.position) formData.append('position', data.position);
+      if (data.description) formData.append('description', data.description);
+      if (data.avatar) formData.append('avatarFile', data.avatar);
 
       await updateProfile(formData);
       await getProfile();
-      toast.success("Данные обновлены");
+      toast.success('Данные обновлены');
       resetForm();
     } catch {
       const error = useProfileStore.getState().error;
-      toast.error(error || "Ошибка");
+      toast.error(error || 'Ошибка');
       resetForm();
     }
   };
@@ -98,9 +98,9 @@ export function ProfileEditModal() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center gap-4">
           <Input
-            value={watch("name")}
+            value={watch('name')}
             placeholder="Имя"
-            onChange={(value) => setValue("name", String(value))}
+            onChange={value => setValue('name', String(value))}
           />
 
           <Dropdown
@@ -108,9 +108,9 @@ export function ProfileEditModal() {
             text="Должность"
             isFirstDisabled={true}
             options={positions}
-            selectedValue={watch("position")}
-            onSelect={(value) =>
-              setValue("position", value, {
+            selectedValue={watch('position')}
+            onSelect={value =>
+              setValue('position', value, {
                 shouldValidate: false,
                 shouldDirty: true,
               })
@@ -119,8 +119,8 @@ export function ProfileEditModal() {
 
           <Textarea
             placeholder="О себе"
-            value={watch("description")}
-            onChange={(value) => setValue("description", value)}
+            value={watch('description')}
+            onChange={value => setValue('description', value)}
           />
 
           <input
@@ -136,10 +136,10 @@ export function ProfileEditModal() {
 
           <Button
             disabled={
-              !watch("name")?.trim() &&
-              !watch("position") &&
-              !watch("description")?.trim() &&
-              !watch("avatar")
+              !watch('name')?.trim() &&
+              !watch('position') &&
+              !watch('description')?.trim() &&
+              !watch('avatar')
             }
             className="btn-primary w-full"
           >

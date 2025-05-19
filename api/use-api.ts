@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 // Создаем экземпляр axios
 export const useApi = axios.create({
@@ -8,24 +8,24 @@ export const useApi = axios.create({
 
 // Добавляем перехватчик для обновления accessToken
 useApi.interceptors.request.use(
-  (config) => {
+  config => {
     if (config.data instanceof FormData) {
-      config.headers["Content-Type"] = "multipart/form-data";
+      config.headers['Content-Type'] = 'multipart/form-data';
     } else {
-      config.headers["Content-Type"] = "application/json";
+      config.headers['Content-Type'] = 'application/json';
     }
 
-    config.headers["Cache-Control"] = "no-cache";
-    config.headers["Pragma"] = "no-cache";
-    config.headers["Expires"] = "0";
+    config.headers['Cache-Control'] = 'no-cache';
+    config.headers['Pragma'] = 'no-cache';
+    config.headers['Expires'] = '0';
     return config;
   },
-  (error) => Promise.reject(error),
+  error => Promise.reject(error),
 );
 
 useApi.interceptors.response.use(
-  (response) => response,
-  async (error) => {
+  response => response,
+  async error => {
     if (error.response?.status === 401) {
       try {
         // Запрашиваем новый accessToken
@@ -39,7 +39,7 @@ useApi.interceptors.response.use(
 
         return useApi.request(error.config); // Повторяем запрос
       } catch (refreshError) {
-        console.error("Ошибка обновления accessToken:", refreshError);
+        console.error('Ошибка обновления accessToken:', refreshError);
         return Promise.reject(refreshError);
       }
     }

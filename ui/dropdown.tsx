@@ -1,5 +1,5 @@
-"use client";
-import React, { useRef } from "react";
+'use client';
+import React, { useRef } from 'react';
 
 type Option = { label: string; value: string | undefined } | string;
 
@@ -19,25 +19,25 @@ export const Dropdown = ({
   selectedValue,
   onSelect,
   isFirstDisabled = false,
-  width = "200px",
+  width = '200px',
   className,
 }: DropdownProps) => {
   const selectRef = useRef<HTMLDivElement | null>(null);
 
-  const normalizedOptions = options.map((option) =>
-    typeof option === "string" ? { label: option, value: option } : option,
+  const normalizedOptions = options.map(option =>
+    typeof option === 'string' ? { label: option, value: option } : option,
   );
 
   const filteredOptions = isFirstDisabled
     ? normalizedOptions
     : text
-    ? [{ label: text, value: "" }, ...normalizedOptions]
-    : normalizedOptions;
+      ? [{ label: text, value: '' }, ...normalizedOptions]
+      : normalizedOptions;
 
   const selectedLabel =
-    filteredOptions.find((option) => option.value == selectedValue)?.label ||
+    filteredOptions.find(option => option.value == selectedValue)?.label ||
     text ||
-    "";
+    '';
 
   const handleSelect = (
     value: string,
@@ -58,12 +58,12 @@ export const Dropdown = ({
         tabIndex={hasOptions ? 0 : -1}
         role="button"
         className={`btn text-base-content flex items-center justify-between ${
-          hasOptions ? "" : "btn-disabled opacity-60"
+          hasOptions ? '' : 'btn-disabled opacity-60'
         }`}
         style={{ width }}
       >
         <span
-          style={{ textAlign: "left", display: "inline-block", width: "auto" }}
+          style={{ textAlign: 'left', display: 'inline-block', width: 'auto' }}
         >
           {selectedLabel}
         </span>
@@ -83,18 +83,18 @@ export const Dropdown = ({
           tabIndex={0}
           className={`dropdown-content p-2 shadow-2xl rounded-box bg-neutral text-white z-50 ${className}`}
           style={{
-            maxHeight: "360px",
-            overflowY: "auto",
+            maxHeight: '360px',
+            overflowY: 'auto',
             minWidth: width,
-            zIndex: "1000",
+            zIndex: '1000',
           }}
         >
           {filteredOptions.map((opt, i) => {
             if (
               !opt ||
-              typeof opt !== "object" ||
-              !("label" in opt) ||
-              !("value" in opt)
+              typeof opt !== 'object' ||
+              !('label' in opt) ||
+              !('value' in opt)
             )
               return null;
 
@@ -102,8 +102,8 @@ export const Dropdown = ({
               <li key={opt.value || i}>
                 <button
                   className="btn btn-sm btn-block btn-ghost justify-start"
-                  onClick={(e) => handleSelect(opt.value as string, e)}
-                  style={{ textAlign: "left", display: "block" }}
+                  onClick={e => handleSelect(opt.value as string, e)}
+                  style={{ textAlign: 'left', display: 'block' }}
                 >
                   {opt.label}
                 </button>

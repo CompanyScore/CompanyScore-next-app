@@ -1,24 +1,23 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Error, Title } from "@/ui";
-import Image from "next/image";
-import { FaChevronLeft, FaAngleRight } from "react-icons/fa6";
-import { useCompaniesStore } from "@/store";
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Error, Title } from '@/ui';
+import Image from 'next/image';
+import { FaChevronLeft, FaAngleRight } from 'react-icons/fa6';
+import { useCompaniesStore } from '@/store';
 
 export function GeneralCarousel() {
   const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % companiesNew.length);
+    setCurrentIndex(prevIndex => (prevIndex + 1) % companiesNew.length);
   }, [companiesNew.length]);
 
   const handlePrev = useCallback(() => {
     setCurrentIndex(
-      (prevIndex) =>
-        (prevIndex - 1 + companiesNew.length) % companiesNew.length,
+      prevIndex => (prevIndex - 1 + companiesNew.length) % companiesNew.length,
     );
   }, [companiesNew.length]);
 
@@ -69,7 +68,7 @@ export function GeneralCarousel() {
               src={
                 companiesNew[currentIndex]?.logo
                   ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${companiesNew[currentIndex]?.logo}`
-                  : "/imgs/company-logo.jpg"
+                  : '/imgs/company-logo.jpg'
               }
               alt="Company Logo"
               width={448}

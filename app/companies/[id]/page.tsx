@@ -1,11 +1,11 @@
-"use client";
-import React from "react";
+'use client';
+import React from 'react';
 import {
   CompanyCard,
   CompanyPagination,
   CompanyShowBy,
   CompanyTable,
-} from "./components";
+} from './components';
 
 export default function CompanyDetail() {
   return (

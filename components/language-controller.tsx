@@ -1,11 +1,11 @@
 // 'use client';
 
-import Cookies from "js-cookie";
-import Image from "next/image";
+import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 export default function LanguageController() {
   const handleChangeLanguage = (value: string) => {
-    Cookies.set("language", value);
+    Cookies.set('language', value);
   };
 
   return (
@@ -38,7 +38,7 @@ export default function LanguageController() {
             className="btn btn-sm btn-block btn-ghost justify-start text-white"
             aria-label="Русский"
             value="ru"
-            onClick={() => handleChangeLanguage("english")}
+            onClick={() => handleChangeLanguage('english')}
           />
         </li>
       </ul>

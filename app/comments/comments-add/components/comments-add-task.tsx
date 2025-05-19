@@ -1,7 +1,7 @@
-import { Checkbox, StarRating } from "@/shared";
-import { Title } from "@/ui";
-import React from "react";
-import { useCommentFormStore } from "@/store";
+import { Checkbox, StarRating } from '@/shared';
+import { Title } from '@/ui';
+import React from 'react';
+import { useCommentFormStore } from '@/store';
 
 export const CommentsAddTask = () => {
   const { form, updateForm } = useCommentFormStore();
@@ -12,7 +12,9 @@ export const CommentsAddTask = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">Вам предоставляли техническое задание?</Title>
+      <Title size="2" position="center">
+        Вам предоставляли техническое задание?
+      </Title>
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
         <Checkbox
           label="Я выполнял техническое задание"
@@ -25,7 +27,7 @@ export const CommentsAddTask = () => {
           <>
             <StarRating
               value={form.task.rating}
-              onChange={(val) =>
+              onChange={val =>
                 updateForm({ task: { ...form.task, rating: val } })
               }
             />
@@ -33,7 +35,7 @@ export const CommentsAddTask = () => {
               className="textarea textarea-primary w-full"
               placeholder="Расскажите о вашем опыте выполнения задания"
               value={form.task.text}
-              onChange={(e) =>
+              onChange={e =>
                 updateForm({ task: { ...form.task, text: e.target.value } })
               }
             />

@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { useApi } from "@/api";
+import { create } from 'zustand';
+import { useApi } from '@/api';
 
 type UserType = {
   id: string;
@@ -35,10 +35,10 @@ export const useUsersStore = create<CommentsState>(set => ({
   total: 0,
   limit: 5,
   loading: false,
-  error: "",
+  error: '',
 
   getUsers: async (params: GetUsersParams) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
     try {
       const { data } = await useApi.get(`/users`, {
         params: {
@@ -54,21 +54,21 @@ export const useUsersStore = create<CommentsState>(set => ({
         limit: data.limit,
       });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
   },
   getUser: async (id: string) => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
     try {
       const { data } = await useApi.get(`/users/${id}`);
       set({
         user: data,
       });
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });

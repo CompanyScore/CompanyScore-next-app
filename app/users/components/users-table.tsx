@@ -1,11 +1,11 @@
-import React from "react";
-import { useEffect } from "react";
-import { Avatar, Button, Table, Title, Tooltip } from "@/ui";
-import moment from "moment";
+import React from 'react';
+import { useEffect } from 'react';
+import { Avatar, Button, Table, Title, Tooltip } from '@/ui';
+import moment from 'moment';
 
-import { useUsersStore } from "@/store";
-import { redirect } from "next/navigation";
-import Image from "next/image";
+import { useUsersStore } from '@/store';
+import { redirect } from 'next/navigation';
+import Image from 'next/image';
 
 type UserType = {
   id: string;
@@ -36,8 +36,8 @@ export function UsersTable() {
 
   const columns = [
     {
-      key: "user",
-      title: "Пользователь",
+      key: 'user',
+      title: 'Пользователь',
       render: (user: UserType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
           <Avatar
@@ -45,7 +45,7 @@ export function UsersTable() {
             src={
               user?.avatar
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${user.avatar}`
-                : "/imgs/avatar.jpg"
+                : '/imgs/avatar.jpg'
             }
           />
           <p>{user.name}</p>
@@ -53,23 +53,23 @@ export function UsersTable() {
       ),
     },
     {
-      key: "position",
-      title: "Должность",
+      key: 'position',
+      title: 'Должность',
       render: (user: UserType) => user.position,
     },
     {
-      key: "commentsCount",
-      title: "Отзывы",
+      key: 'commentsCount',
+      title: 'Отзывы',
       render: (user: UserType) => user.commentsIds?.length ?? 0,
     },
     {
-      key: "createDate",
-      title: "Дата создания",
-      render: (user: UserType) => moment(user.createDate).format("MMM Do YY"),
+      key: 'createDate',
+      title: 'Дата создания',
+      render: (user: UserType) => moment(user.createDate).format('MMM Do YY'),
     },
     {
-      key: "actions",
-      title: "Действия",
+      key: 'actions',
+      title: 'Действия',
       render: (user: UserType) => (
         <Tooltip tip="Посмотреть">
           <Button

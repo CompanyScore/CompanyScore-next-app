@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useCompaniesStore } from "@/store";
-import { countriesWithCities } from "@/constants";
-import { Button, Dropdown, Input, Modal, Title, useToast } from "@/ui";
-import { useState } from "react";
+import { useCompaniesStore } from '@/store';
+import { countriesWithCities } from '@/constants';
+import { Button, Dropdown, Input, Modal, Title, useToast } from '@/ui';
+import { useState } from 'react';
 
 type Props = {
   onGetCreatedCompanyId?: (
@@ -17,13 +17,13 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   const toast = useToast();
   const { getCompanies, createCompany } = useCompaniesStore();
 
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
-  const [selectedName, setSelectedName] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
+  const [selectedName, setSelectedName] = useState('');
 
   const closeModal = () => {
     const modal = document.getElementById(
-      "create_company_modal",
+      'create_company_modal',
     ) as HTMLInputElement;
     if (modal) {
       modal.checked = false; // Закрывает модалку в daisyUI
@@ -36,13 +36,13 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   }));
 
   const suggestedCityOptions =
-    countriesWithCities.find((c) => c.value === selectedCountry)?.cities || [];
+    countriesWithCities.find(c => c.value === selectedCountry)?.cities || [];
 
   const onSubmit = async () => {
     event?.preventDefault();
 
     if (!selectedCountry || !selectedCity || !selectedName) {
-      toast.error("Заполните все поля");
+      toast.error('Заполните все поля');
       return;
     }
 
@@ -57,24 +57,24 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
         onGetCreatedCompanyId(companyId, selectedCountry, selectedCity);
       }
 
-      toast.success("Компания создана");
+      toast.success('Компания создана');
       getCompanies({});
       resetForm();
       closeModal();
     } catch {
       const error = useCompaniesStore.getState().error;
-      toast.error(error || "Ошибка");
+      toast.error(error || 'Ошибка');
       resetForm();
       closeModal();
     }
   };
 
   const onSelectCountry = (countryCode: string) => {
-    const country = countriesWithCities.find((c) => c.value === countryCode);
+    const country = countriesWithCities.find(c => c.value === countryCode);
 
     if (country) {
       setSelectedCountry(country.value);
-      setSelectedCity(""); // очищаем город при смене страны
+      setSelectedCity(''); // очищаем город при смене страны
     }
   };
 
@@ -83,9 +83,9 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   };
 
   const resetForm = () => {
-    setSelectedCountry("");
-    setSelectedCity("");
-    setSelectedName("");
+    setSelectedCountry('');
+    setSelectedCity('');
+    setSelectedName('');
   };
 
   return (
@@ -118,7 +118,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
             placeholder="Название компании"
             value={selectedName}
             className="w-full"
-            onChange={(value) => setSelectedName(String(value))}
+            onChange={value => setSelectedName(String(value))}
           />
         </div>
 

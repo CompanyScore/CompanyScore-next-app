@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { UserCard, UserPagination, UserShowBy, UserTable } from "./components";
-import { Title } from "@/ui";
-import { useCommentsStore } from "@/store";
+import { UserCard, UserPagination, UserShowBy, UserTable } from './components';
+import { Title } from '@/ui';
+import { useCommentsStore } from '@/store';
 
 export default function UserPage() {
   const { total } = useCommentsStore();

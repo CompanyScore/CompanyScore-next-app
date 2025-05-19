@@ -1,6 +1,6 @@
-import { Radio } from "@/shared";
-import { Title } from "@/ui";
-import { useCommentFormStore } from "@/store";
+import { Radio } from '@/shared';
+import { Title } from '@/ui';
+import { useCommentFormStore } from '@/store';
 
 export const CommentsAddRecommendation = () => {
   const { form, updateForm } = useCommentFormStore();
@@ -10,11 +10,11 @@ export const CommentsAddRecommendation = () => {
       <Title size="2">Порекомендовали бы вы эту компанию другим?</Title>
       <Radio
         options={[
-          { label: "Да", value: 1 },
-          { label: "Нет", value: 0 },
+          { label: 'Да', value: 1 },
+          { label: 'Нет', value: 0 },
         ]}
         selectedValue={form.recommendation.isRecommended}
-        onChange={(value) =>
+        onChange={value =>
           updateForm({
             recommendation: {
               ...form.recommendation,
@@ -29,7 +29,7 @@ export const CommentsAddRecommendation = () => {
         className="textarea textarea-primary w-full"
         placeholder="Ваш ответ..."
         value={form.recommendation.reasonJoined}
-        onChange={(e) =>
+        onChange={e =>
           updateForm({
             recommendation: {
               ...form.recommendation,
@@ -46,7 +46,7 @@ export const CommentsAddRecommendation = () => {
         className="textarea textarea-primary w-full"
         placeholder="Ваш ответ..."
         value={form.recommendation.reasonLeft}
-        onChange={(e) =>
+        onChange={e =>
           updateForm({
             recommendation: {
               ...form.recommendation,

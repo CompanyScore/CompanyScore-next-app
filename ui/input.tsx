@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 type InputType = {
   value?: string | number;
@@ -10,15 +10,15 @@ type InputType = {
 
 export function Input({
   value,
-  type = "text",
+  type = 'text',
   placeholder,
   onChange,
   className,
 }: InputType) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
-    if (type === "number") {
-      const parsed = raw === "" ? "" : Number(raw);
+    if (type === 'number') {
+      const parsed = raw === '' ? '' : Number(raw);
       onChange(parsed);
     } else {
       onChange(raw);
@@ -29,9 +29,9 @@ export function Input({
     <input
       type={type}
       placeholder={placeholder}
-      value={value === undefined || value === null ? "" : String(value)} // <== важно
+      value={value === undefined || value === null ? '' : String(value)} // <== важно
       className={classNames(
-        "input input-bordered input-primary w-full",
+        'input input-bordered input-primary w-full',
         className,
       )}
       onChange={handleChange}

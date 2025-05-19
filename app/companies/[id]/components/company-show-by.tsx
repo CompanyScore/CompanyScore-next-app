@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ShowBy } from "@/shared";
-import { useCommentsStore } from "@/store";
+import { ShowBy } from '@/shared';
+import { useCommentsStore } from '@/store';
 
 export function CompanyShowBy() {
   const { comments, getComments, limit } = useCommentsStore();

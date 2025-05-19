@@ -1,5 +1,5 @@
-import Image from "next/image";
-import classNames from "classnames";
+import Image from 'next/image';
+import classNames from 'classnames';
 
 type AvatarType = {
   src: string;
@@ -13,7 +13,7 @@ export function Avatar({ src, className }: AvatarType) {
       alt="Avatar"
       width={90}
       height={80}
-      className={classNames("rounded object-contain max-h-20", className)}
+      className={classNames('rounded object-contain max-h-20', className)}
     />
   );
 }

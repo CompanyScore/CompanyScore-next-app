@@ -1,5 +1,5 @@
-import React from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
 type StepsProps = {
   currentStep: number;
@@ -11,8 +11,8 @@ export function Steps({ currentStep, children }: StepsProps) {
     <ul className="steps w-full">
       {React.Children.map(children, (child, index) => (
         <li
-          className={classNames("step", {
-            "step-primary": index + 1 <= currentStep,
+          className={classNames('step', {
+            'step-primary': index + 1 <= currentStep,
           })}
         >
           {child}

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { Container } from "@/ui";
+import { Container } from '@/ui';
 
 export default function AnalyticPage() {
   return (
@@ -14,9 +14,9 @@ export default function AnalyticPage() {
             className="radial-progress"
             style={
               {
-                "--value": "70",
-                "--size": "12rem",
-                "--thickness": "2rem",
+                '--value': '70',
+                '--size': '12rem',
+                '--thickness': '2rem',
               } as React.CSSProperties
             }
             role="progressbar"

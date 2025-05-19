@@ -1,19 +1,19 @@
-import { useCommentFormStore, useCompaniesStore } from "@/store";
-import { Button, Dropdown, Title } from "@/ui";
-import { countriesWithCities } from "@/constants/countriesWithCities"; // путь зависит от твоей структуры
-import { CreateCompanyModal } from "@/app/companies/modals";
+import { useCommentFormStore, useCompaniesStore } from '@/store';
+import { Button, Dropdown, Title } from '@/ui';
+import { countriesWithCities } from '@/constants/countriesWithCities'; // путь зависит от твоей структуры
+import { CreateCompanyModal } from '@/app/companies/modals';
 
 export const CommentsAddCompany = () => {
   const { form, updateForm } = useCommentFormStore();
   const { companies, getCompanies } = useCompaniesStore();
 
   const onSelectCountry = (countryCode: string) => {
-    const country = countriesWithCities.find((c) => c.value === countryCode);
+    const country = countriesWithCities.find(c => c.value === countryCode);
     updateForm({
       location: {
         ...form.location,
-        country: country?.value || "",
-        city: "", // очищаем город при смене страны
+        country: country?.value || '',
+        city: '', // очищаем город при смене страны
       },
     });
     getCompanies({ selectedCountry: country?.label });
@@ -58,8 +58,8 @@ export const CommentsAddCompany = () => {
   }));
 
   const cityOptions =
-    countriesWithCities.find((c) => c.value === form.location.country)
-      ?.cities || [];
+    countriesWithCities.find(c => c.value === form.location.country)?.cities ||
+    [];
 
   return (
     <div className="flex flex-col gap-6">
@@ -88,7 +88,7 @@ export const CommentsAddCompany = () => {
 
         <Dropdown
           text="Компания"
-          options={companies.map((company) => ({
+          options={companies.map(company => ({
             label: company.name,
             value: company.id,
           }))}
@@ -104,9 +104,7 @@ export const CommentsAddCompany = () => {
           Если компании нет в списке, предложите ее
         </Title>
         <Button>
-          <label htmlFor="create_company_modal">
-            Предложить компанию
-          </label>
+          <label htmlFor="create_company_modal">Предложить компанию</label>
         </Button>
       </div>
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
