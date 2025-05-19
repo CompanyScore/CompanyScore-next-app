@@ -3,7 +3,7 @@
 echo "🚀 Running full checks before push..."
 
 # Юнит-тесты
-npm run test -- --bail || (echo '❌ Tests failed'; false)
+; npm run test -- --bail || (echo '❌ Tests failed'; false) // Вклчим когда напишем тесты
 
 # Проверка типизации (если есть TypeScript)
 npx tsc --noEmit || (echo '❌ TypeScript typecheck failed'; false)
