@@ -1,0 +1,12 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "🔍 Running fast checks before commit..."
+
+# Автоформатирование
+npx prettier --write . || (echo '❌ Prettier failed'; false)
+
+# Линтинг (автоисправление)
+npm run lint || (echo '❌ ESLint failed'; false)
+
+echo "✅ Pre-commit checks passed."
