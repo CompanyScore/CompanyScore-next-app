@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { useApi } from "@/api";
+import { create } from 'zustand';
+import { useApi } from '@/api';
 
 export type ProfileType = {
   id: string;
@@ -18,23 +18,23 @@ interface ProfileState {
   updateProfile: (formData: any) => Promise<void>;
 }
 
-export const useProfileStore = create<ProfileState>((set) => ({
+export const useProfileStore = create<ProfileState>(set => ({
   profile: {
-    id: "",
-    name: "",
-    avatar: "",
-    position: "",
-    description: "",
+    id: '',
+    name: '',
+    avatar: '',
+    position: '',
+    description: '',
     comments: [],
   },
   page: 1,
   total: 0,
   limit: 5,
   loading: false,
-  error: "",
+  error: '',
 
   getProfile: async () => {
-    set({ loading: true, error: "" });
+    set({ loading: true, error: '' });
 
     try {
       const { data } = await useApi.get(`/users/profile`);
@@ -48,13 +48,13 @@ export const useProfileStore = create<ProfileState>((set) => ({
     }
   },
 
-  updateProfile: async (formData) => {
-    set({ loading: true, error: "" });
+  updateProfile: async formData => {
+    set({ loading: true, error: '' });
 
     try {
       await useApi.patch(`/users`, formData);
     } catch (error: any) {
-      const errorMessage = error.response?.data?.message || "Произошла ошибка";
+      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });

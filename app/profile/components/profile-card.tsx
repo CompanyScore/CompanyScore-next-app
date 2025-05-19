@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import Image from "next/image";
-import { ProfileEditModal } from "../modals";
-import { useProfileStore } from "@/store";
-import { Error, Toast } from "@/ui";
+import { useEffect } from 'react';
+import Image from 'next/image';
+import { ProfileEditModal } from '../modals';
+import { useProfileStore } from '@/store';
+import { Error, Toast } from '@/ui';
 
 export function ProfileCard() {
   const { profile, loading, error, getProfile } = useProfileStore();
@@ -42,7 +42,7 @@ export function ProfileCard() {
           src={
             profile?.avatar
               ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
-              : "/imgs/avatar.jpg"
+              : '/imgs/avatar.jpg'
           }
           alt="Avatar"
           width={400}

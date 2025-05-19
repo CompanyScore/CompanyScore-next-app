@@ -1,5 +1,5 @@
-import { Button } from "@/ui";
-import React from "react";
+import { Button } from '@/ui';
+import React from 'react';
 
 type PaginationProps = {
   page: number;
@@ -25,11 +25,11 @@ export function Pagination({
   return (
     <div className="flex gap-2">
       <Button onClick={() => changePage(page - 1)} disabled={page == 1}>
-        {"<"}
+        {'<'}
       </Button>
       {[...Array(totalPages)].map((_, index) => (
         <Button
-          className={`${page == index + 1 ? "btn-primary" : "btn-neutral"}`}
+          className={`${page == index + 1 ? 'btn-primary' : 'btn-neutral'}`}
           key={index}
           onClick={() => changePage(index + 1)}
         >
@@ -40,7 +40,7 @@ export function Pagination({
         onClick={() => changePage(+page + 1)}
         disabled={page == totalPages}
       >
-        {">"}
+        {'>'}
       </Button>
     </div>
   );

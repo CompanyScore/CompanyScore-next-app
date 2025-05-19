@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 
 export default function ThemeProvider({
   children,
@@ -11,10 +11,10 @@ export default function ThemeProvider({
   const [theme, setTheme] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedTheme = Cookies.get("theme") || "valentine";
-    Cookies.set("theme", storedTheme); // Сохраняем значение в Cookies, если его нет
+    const storedTheme = Cookies.get('theme') || 'valentine';
+    Cookies.set('theme', storedTheme); // Сохраняем значение в Cookies, если его нет
     setTheme(storedTheme);
-    document.documentElement.setAttribute("data-theme", storedTheme); // Устанавливаем атрибут для HTML
+    document.documentElement.setAttribute('data-theme', storedTheme); // Устанавливаем атрибут для HTML
   }, []);
 
   if (!theme) return null; // Ожидание инициализации темы

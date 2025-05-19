@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
+import React from 'react';
+import Image from 'next/image';
 
-import { Title, Modal } from "@/ui";
+import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {
     // window.location.href = process.env.NEXT_PUBLIC_API_URL + "/auth/linkedin";
-    window.location.href = "https://api.companyscore.net/auth/linkedin";
+    window.location.href = 'https://api.companyscore.net/auth/linkedin';
   };
 
   return (

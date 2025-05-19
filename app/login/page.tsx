@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import LinkedIn from "./modals/linkedin-modal";
+import React from 'react';
+import Image from 'next/image';
+import LinkedIn from './modals/linkedin-modal';
 
 export default function LoginPage() {
   return (

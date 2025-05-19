@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { useCommentsStore } from "@/store";
-import { Button, Dropdown, Modal, Textarea, Title, useToast } from "@/ui";
-import { positions } from "@/constants";
-import { useCommentForm } from "@/hook";
+import { useEffect } from 'react';
+import { useCommentsStore } from '@/store';
+import { Button, Dropdown, Modal, Textarea, Title, useToast } from '@/ui';
+import { positions } from '@/constants';
+import { useCommentForm } from '@/hook';
 
 type ProfileEditCommentModalProps = {
   comment?: { id: string; text: string; rating: number; position?: string };
@@ -32,9 +32,9 @@ export function ProfileEditCommentModal({
 
   useEffect(() => {
     if (comment) {
-      setValue("comment", comment.text || "");
-      setValue("rating", comment.rating || 0);
-      setValue("position", comment.position || "");
+      setValue('comment', comment.text || '');
+      setValue('rating', comment.rating || 0);
+      setValue('position', comment.position || '');
     }
   }, [comment, setValue]);
 
@@ -47,10 +47,10 @@ export function ProfileEditCommentModal({
         data.position,
       );
       getComments({});
-      toast.success("Отзыв обновлен");
+      toast.success('Отзыв обновлен');
     } catch {
       const error = useCommentsStore.getState().error;
-      toast.error(error || "Ошибка");
+      toast.error(error || 'Ошибка');
     }
   };
 
@@ -68,8 +68,8 @@ export function ProfileEditCommentModal({
             width="450px"
             isFirstDisabled={true}
             options={positions}
-            selectedValue={watch("position")}
-            onSelect={(value) => setValue("position", value)}
+            selectedValue={watch('position')}
+            onSelect={value => setValue('position', value)}
           />
           <p className="text-error">{errors.position?.message}</p>
         </div>
@@ -78,13 +78,13 @@ export function ProfileEditCommentModal({
             Отзыв
           </label>
           <Textarea
-            value={watch("comment")}
+            value={watch('comment')}
             placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
 
 Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
             
 Минусы: Офисный формат – это, конечно, живое общение, но вот дорога туда-обратно на 2 часа превращалась в ежедневное испытание на терпение и стойкость.`}
-            onChange={(value) => setValue("comment", value)}
+            onChange={value => setValue('comment', value)}
             rows={13}
           />
           <p className="text-error">{errors.comment?.message}</p>
@@ -98,9 +98,9 @@ export function ProfileEditCommentModal({
               <span
                 key={index + 1}
                 className={`relative cursor-pointer mask mask-star-2 w-10 h-10 flex items-center justify-center ${
-                  watch("rating") >= index + 1 ? "bg-orange-400" : "bg-gray-300"
+                  watch('rating') >= index + 1 ? 'bg-orange-400' : 'bg-gray-300'
                 }`}
-                onClick={() => setValue("rating", index + 1)}
+                onClick={() => setValue('rating', index + 1)}
               >
                 <span className="absolute text-xs font-bold text-white">
                   {index + 1}

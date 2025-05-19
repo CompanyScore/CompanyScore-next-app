@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 type TextareaTypeProps = {
   value?: string;
@@ -18,13 +18,13 @@ export function Textarea({
   return (
     <textarea
       className={classNames(
-        "textarea textarea-primary w-full max-w-md placeholder:whitespace-pre-wrap",
+        'textarea textarea-primary w-full max-w-md placeholder:whitespace-pre-wrap',
         className,
       )}
       placeholder={placeholder}
       value={value}
       rows={rows}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
     ></textarea>
   );
 }

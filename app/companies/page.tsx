@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import {
   CompaniesCarousel,
   CompaniesFilter,
@@ -6,9 +6,9 @@ import {
   CompaniesShowBy,
   CompaniesTable,
   CompaniesText,
-} from "./components";
-import { Title } from "@/ui";
-import { useCompaniesStore } from "@/store";
+} from './components';
+import { Title } from '@/ui';
+import { useCompaniesStore } from '@/store';
 
 export default function CompaniesPage() {
   const { total } = useCompaniesStore();

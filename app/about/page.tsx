@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Container } from "@/ui";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import { BsLinkedin } from "react-icons/bs";
+import { Container } from '@/ui';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import { BsLinkedin } from 'react-icons/bs';
 
 export default function AboutPage() {
   const [editableText, setEditableText] = useState(
-    "Компания предоставляет отличные условия для роста и развития, высококвалифицированные коллеги и инновационная атмосфера. Руководство всегда поддерживает инициативу, а культура открытости и разнообразия способствует комфортной рабочей среде. Это было невероятное место для профессионального роста и обучения.",
+    'Компания предоставляет отличные условия для роста и развития, высококвалифицированные коллеги и инновационная атмосфера. Руководство всегда поддерживает инициативу, а культура открытости и разнообразия способствует комфортной рабочей среде. Это было невероятное место для профессионального роста и обучения.',
   );
   const [rating, setRating] = useState(8);
 
@@ -53,7 +53,7 @@ export default function AboutPage() {
                     />
                     <div
                       className={`mask mask-star-2 w-9 h-9 flex items-center justify-center flex-wrap ${
-                        rating >= index + 1 ? "bg-stone-50" : "bg-stone-400"
+                        rating >= index + 1 ? 'bg-stone-50' : 'bg-stone-400'
                       }`}
                     >
                       <span className="text-sm font-bold text-purple-500 max-w-2">

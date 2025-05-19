@@ -22,13 +22,13 @@ module.exports = {
   bracketSameLine: false,
 
   // Удалять скобки у стрелочных функций с одним аргументом
-  arrowParens: "avoid",
+  arrowParens: 'avoid',
 
   // Добавлять запятые в конце элементов (в том числе в объектах, массивах и параметрах функций)
-  trailingComma: "all",
+  trailingComma: 'all',
 
   // Стиль переноса строки: LF (\n, Unix)
-  endOfLine: "lf",
+  endOfLine: 'lf',
 
   // Максимальная длина строки перед переносом
   printWidth: 80,

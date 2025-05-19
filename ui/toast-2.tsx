@@ -1,25 +1,25 @@
-"use client";
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
-import classNames from "classnames";
-import { create } from "zustand";
+'use client';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import classNames from 'classnames';
+import { create } from 'zustand';
 
 type ToastState = {
   message: string | null;
-  type?: "success" | "error" | "warning" | "info";
+  type?: 'success' | 'error' | 'warning' | 'info';
   id?: number;
   showToast: (
     message: string,
-    type?: "success" | "error" | "warning" | "info",
+    type?: 'success' | 'error' | 'warning' | 'info',
   ) => void;
   clearToast: () => void;
 };
 
-export const useToast = create<ToastState>((set) => ({
+export const useToast = create<ToastState>(set => ({
   message: null,
-  type: "success",
+  type: 'success',
   id: 0,
-  showToast: (message, type = "success") =>
+  showToast: (message, type = 'success') =>
     set({ message, type, id: Date.now() }),
   clearToast: () => set({ message: null, id: 0 }), // Функция очистки
 }));
@@ -44,11 +44,11 @@ export function Toast() {
   return createPortal(
     <div className="toast toast-top toast-end">
       <div
-        className={classNames("alert text-white", {
-          "alert-success": type === "success",
-          "alert-error": type === "error",
-          "alert-warning": type === "warning",
-          "alert-info": type === "info",
+        className={classNames('alert text-white', {
+          'alert-success': type === 'success',
+          'alert-error': type === 'error',
+          'alert-warning': type === 'warning',
+          'alert-info': type === 'info',
         })}
       >
         {message}

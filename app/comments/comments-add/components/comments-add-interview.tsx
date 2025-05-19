@@ -1,7 +1,7 @@
-import { Checkbox, StarRating } from "@/shared";
-import { Title } from "@/ui";
-import React from "react";
-import { useCommentFormStore } from "@/store";
+import { Checkbox, StarRating } from '@/shared';
+import { Title } from '@/ui';
+import React from 'react';
+import { useCommentFormStore } from '@/store';
 
 export const CommentsAddInterview = () => {
   const { form, updateForm } = useCommentFormStore();
@@ -17,7 +17,9 @@ export const CommentsAddInterview = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">Вы проходили собеседование?</Title>
+      <Title size="2" position="center">
+        Вы проходили собеседование?
+      </Title>
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
         <Checkbox
           label="Я проходил собеседование"
@@ -30,7 +32,7 @@ export const CommentsAddInterview = () => {
           <>
             <StarRating
               value={form.interview.rating}
-              onChange={(val) =>
+              onChange={val =>
                 updateForm({ interview: { ...form.interview, rating: val } })
               }
             />
@@ -38,7 +40,7 @@ export const CommentsAddInterview = () => {
               className="textarea textarea-primary w-full"
               placeholder="Поделитесь опытом собеседования"
               value={form.interview.text}
-              onChange={(e) =>
+              onChange={e =>
                 updateForm({
                   interview: { ...form.interview, text: e.target.value },
                 })

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Button, Toast } from "@/ui";
-import { CompaniesPostCommentModal } from "@/app/companies/modals";
-import { useCommentsStore, useCompaniesStore } from "@/store";
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { Button, Toast } from '@/ui';
+import { CompaniesPostCommentModal } from '@/app/companies/modals';
+import { useCommentsStore, useCompaniesStore } from '@/store';
 
 type CompanyType = {
   id?: string;
@@ -46,7 +46,7 @@ export function CompanyCard() {
             src={
               company?.logo
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${company?.logo}`
-                : "/imgs/company-logo.jpg"
+                : '/imgs/company-logo.jpg'
             }
             className="max-w-sm rounded-lg shadow-2xl w-full"
           />
@@ -63,7 +63,7 @@ export function CompanyCard() {
           <div className="flex justify-between items-start w-full">
             <h1 className="text-5xl font-bold">{company?.name}</h1>
             <Button className="btn-success" onClick={() => openModal(company!)}>
-              <label htmlFor={"companies_add_comment_modal"}>
+              <label htmlFor={'companies_add_comment_modal'}>
                 <Image
                   src="/icons/pencil.svg"
                   alt="Pencil"
@@ -76,7 +76,7 @@ export function CompanyCard() {
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
-      <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
+      <CompaniesPostCommentModal companyId={selectedCompany?.id || ''} />
       <Toast />
     </div>
   );

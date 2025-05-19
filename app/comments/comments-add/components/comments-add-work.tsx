@@ -1,7 +1,7 @@
-import { Checkbox, Radio, StarRating } from "@/shared";
-import { Input, Title } from "@/ui";
-import React from "react";
-import { useCommentFormStore } from "@/store";
+import { Checkbox, Radio, StarRating } from '@/shared';
+import { Input, Title } from '@/ui';
+import React from 'react';
+import { useCommentFormStore } from '@/store';
 
 export const CommentsAddWork = () => {
   const { form, updateForm } = useCommentFormStore();
@@ -31,7 +31,7 @@ export const CommentsAddWork = () => {
                 <Title size="2">Оцените руководство</Title>
                 <StarRating
                   value={form.work.rating.management}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -49,7 +49,7 @@ export const CommentsAddWork = () => {
                 <Title size="1">Оцените команду / коллектив</Title>
                 <StarRating
                   value={form.work.rating.team}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -67,7 +67,7 @@ export const CommentsAddWork = () => {
                 <Title size="2">Оцените проект / задачи</Title>
                 <StarRating
                   value={form.work.rating.project}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -85,7 +85,7 @@ export const CommentsAddWork = () => {
                 <Title size="2">Оцените используемые технологии</Title>
                 <StarRating
                   value={form.work.rating.stack}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -103,7 +103,7 @@ export const CommentsAddWork = () => {
                 <Title size="2">Оцените возможности для обучения</Title>
                 <StarRating
                   value={form.work.other.education}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -121,7 +121,7 @@ export const CommentsAddWork = () => {
                 <Title size="2">Оцените корпоративные мероприятия</Title>
                 <StarRating
                   value={form.work.other.events}
-                  onChange={(val) =>
+                  onChange={val =>
                     updateForm({
                       work: {
                         ...form.work,
@@ -138,12 +138,12 @@ export const CommentsAddWork = () => {
               <Title size="2">Выберите возможность формата работы</Title>
               <Radio
                 options={[
-                  { label: "Офис", value: 0 },
-                  { label: "Гибрид", value: 2 },
-                  { label: "Онлайн", value: 5 },
+                  { label: 'Офис', value: 0 },
+                  { label: 'Гибрид', value: 2 },
+                  { label: 'Онлайн', value: 5 },
                 ]}
                 selectedValue={form.work.rating.workFormat}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -162,7 +162,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.salary}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -179,7 +179,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.medicine}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -196,7 +196,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.premium}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -213,7 +213,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.bonuses}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -230,7 +230,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.stocks}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,
@@ -247,7 +247,7 @@ export const CommentsAddWork = () => {
               <Input
                 type="number"
                 value={form.work.finance.dividends}
-                onChange={(val) =>
+                onChange={val =>
                   updateForm({
                     work: {
                       ...form.work,

@@ -1,23 +1,23 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import React, { useEffect } from "react";
-import { Avatar } from "@/ui";
-import ThemeController from "./theme-controller";
-import { useProfileStore } from "@/store";
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import React, { useEffect } from 'react';
+import { Avatar } from '@/ui';
+import ThemeController from './theme-controller';
+import { useProfileStore } from '@/store';
 
 export default function Header() {
   const { profile, getProfile } = useProfileStore();
   const pathname = usePathname();
 
   const pages = [
-    { href: "/", label: "Главная" },
-    { href: "/about", label: "О нас" },
-    { href: "/companies", label: "Компании" },
-    { href: "/comments", label: "Отзывы" },
-    { href: "/users", label: "Пользователи" },
-    { href: "/analytic", label: "Аналитика" },
-    { href: "/blog", label: "Блог" },
+    { href: '/', label: 'Главная' },
+    { href: '/about', label: 'О нас' },
+    { href: '/companies', label: 'Компании' },
+    { href: '/comments', label: 'Отзывы' },
+    { href: '/users', label: 'Пользователи' },
+    { href: '/analytic', label: 'Аналитика' },
+    { href: '/blog', label: 'Блог' },
   ];
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function Header() {
             key={href}
             href={href}
             className={`pb-1 min-w-16 ${
-              pathname === href ? "border-b-2 border-white" : "hover:border-b"
+              pathname === href ? 'border-b-2 border-white' : 'hover:border-b'
             }`}
           >
             {label}
@@ -49,7 +49,7 @@ export default function Header() {
             src={
               profile?.avatar
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
-                : "/imgs/avatar.jpg"
+                : '/imgs/avatar.jpg'
             }
           />
         </Link>

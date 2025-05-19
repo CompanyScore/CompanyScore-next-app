@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Button, Dropdown, Modal, Textarea, Title, useToast } from "@/ui";
-import { positions } from "@/constants";
-import { useCommentsStore, useCompaniesStore } from "@/store";
-import { useCommentForm } from "@/hook";
+import { Button, Dropdown, Modal, Textarea, Title, useToast } from '@/ui';
+import { positions } from '@/constants';
+import { useCommentsStore, useCompaniesStore } from '@/store';
+import { useCommentForm } from '@/hook';
 
 type Props = {
   companyId: string;
@@ -30,7 +30,7 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
 
   const closeModal = () => {
     const modal = document.getElementById(
-      "companies_add_comment_modal",
+      'companies_add_comment_modal',
     ) as HTMLInputElement;
     if (modal) {
       modal.checked = false; // Закрывает модалку в daisyUI
@@ -52,11 +52,11 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
       });
       await getCompanies({});
       await getComments({ companyId });
-      toast.success("Отзыв отправлен!");
+      toast.success('Отзыв отправлен!');
       resetForm();
     } catch {
       const error = useCommentsStore.getState().error;
-      toast.error(error || "Ошибка");
+      toast.error(error || 'Ошибка');
       resetForm();
     }
   };
@@ -75,8 +75,8 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
           <Dropdown
             width="430px"
             options={positions}
-            selectedValue={watch("position")}
-            onSelect={(value) => setValue("position", value)}
+            selectedValue={watch('position')}
+            onSelect={value => setValue('position', value)}
           />
           <p className="text-error">{errors.position?.message}</p>
         </div>
@@ -86,8 +86,8 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
             Отзыв
           </label>
           <Textarea
-            value={watch("comment") || ""}
-            onChange={(value) => setValue("comment", value)}
+            value={watch('comment') || ''}
+            onChange={value => setValue('comment', value)}
             placeholder={`Работал над интересным проектом около двух лет. Команда была хорошая – 20 человек, а ещё два четвероногих охранника и одна пушистая контролёр качества.
   
 Плюсы: Отличная зарплата – кошелёк был счастлив! Атмосфера весёлая, коллеги с огоньком, а корпоративы такие, что потом ещё долго вспоминали. 😄
@@ -107,9 +107,9 @@ export function CompaniesPostCommentModal({ companyId }: Props) {
               <span
                 key={index + 1}
                 className={`relative cursor-pointer mask mask-star-2 w-10 h-10 flex items-center justify-center ${
-                  watch("rating") >= index + 1 ? "bg-orange-400" : "bg-gray-300"
+                  watch('rating') >= index + 1 ? 'bg-orange-400' : 'bg-gray-300'
                 }`}
-                onClick={() => setValue("rating", index + 1)}
+                onClick={() => setValue('rating', index + 1)}
               >
                 <span className="absolute text-xs font-bold text-white">
                   {index + 1}

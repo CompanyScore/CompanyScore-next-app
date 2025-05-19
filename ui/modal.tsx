@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 export function Modal({
   children,
@@ -17,14 +17,14 @@ export function Modal({
       <div className="modal modal-bottom sm:modal-middle" role="dialog">
         <div
           className={classNames(
-            "modal-box flex flex-col justify-around w-full gap-4 p-10",
+            'modal-box flex flex-col justify-around w-full gap-4 p-10',
             className,
           )}
         >
           {children}
         </div>
         <label
-          className={classNames("modal-backdrop", backdropClassName)}
+          className={classNames('modal-backdrop', backdropClassName)}
           htmlFor={id}
         >
           Close

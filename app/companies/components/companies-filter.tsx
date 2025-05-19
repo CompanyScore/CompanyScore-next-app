@@ -1,19 +1,19 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Searcher } from "@/shared";
-import { Error, Dropdown, Button, Toast } from "@/ui";
-import { useCompaniesStore } from "@/store";
-import { CreateCompanyModal } from "@/app/companies/modals";
+'use client';
+import { useEffect, useState } from 'react';
+import { Searcher } from '@/shared';
+import { Error, Dropdown, Button, Toast } from '@/ui';
+import { useCompaniesStore } from '@/store';
+import { CreateCompanyModal } from '@/app/companies/modals';
 
-const ratingOptions = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+const ratingOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
 export function CompaniesFilter() {
   const { getLocations, countryOptions, cityOptions, getCompanies, error } =
     useCompaniesStore();
 
-  const [selectedRating, setSelectedRating] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedRating, setSelectedRating] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCity, setSelectedCity] = useState('');
 
   useEffect(() => {
     getLocations(selectedCountry);
@@ -39,10 +39,10 @@ export function CompaniesFilter() {
   };
 
   const onReset = () => {
-    onSearchCompanyByName("");
-    setSelectedCountry("");
-    setSelectedCity("");
-    setSelectedRating("");
+    onSearchCompanyByName('');
+    setSelectedCountry('');
+    setSelectedCity('');
+    setSelectedRating('');
     getCompanies({});
   };
 

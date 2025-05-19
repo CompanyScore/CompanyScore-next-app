@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { ProfileEditCommentModal } from "../modals";
-import { useCommentsStore } from "@/store";
-import moment from "moment";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { Avatar, Button, Tooltip, Title, Table, Toast } from "@/ui";
-import Link from "next/link";
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { ProfileEditCommentModal } from '../modals';
+import { useCommentsStore } from '@/store';
+import moment from 'moment';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { Avatar, Button, Tooltip, Title, Table, Toast } from '@/ui';
+import Link from 'next/link';
 
 export type CommentType = {
   id: string;
@@ -64,8 +64,8 @@ export function ProfileTable() {
 
   const columns = [
     {
-      key: "company",
-      title: "Компания",
+      key: 'company',
+      title: 'Компания',
       render: (comment: CommentType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4 ">
           {comment.company.logo ? (
@@ -80,18 +80,18 @@ export function ProfileTable() {
         </div>
       ),
     },
-    { key: "position", title: "Должность" },
-    { key: "rating", title: "Рейтинг" },
-    { key: "text", title: "Отзыв" },
+    { key: 'position', title: 'Должность' },
+    { key: 'rating', title: 'Рейтинг' },
+    { key: 'text', title: 'Отзыв' },
     {
-      key: "createDate",
-      title: "Дата",
+      key: 'createDate',
+      title: 'Дата',
       render: (comment: CommentType) =>
-        moment(comment.createDate).format("MMM Do YY"),
+        moment(comment.createDate).format('MMM Do YY'),
     },
     {
-      key: "actions",
-      title: "Действия",
+      key: 'actions',
+      title: 'Действия',
       render: (comment: CommentType) => (
         <div className="flex justify-center items-center space-x-2 h-full">
           <Tooltip tip="Посмотреть">

@@ -1,7 +1,7 @@
-import React from "react";
-import { Dropdown } from "@/ui";
+import React from 'react';
+import { Dropdown } from '@/ui';
 
-const numberOptions = ["5", "10", "15", "20"];
+const numberOptions = ['5', '10', '15', '20'];
 
 type ShowByProps = {
   limit: number;
@@ -9,7 +9,7 @@ type ShowByProps = {
 };
 
 export function ShowBy({ limit, onLimitChange }: ShowByProps) {
-  const handleSelect = (newValue = "10") => {
+  const handleSelect = (newValue = '10') => {
     onLimitChange(+newValue);
   };
 

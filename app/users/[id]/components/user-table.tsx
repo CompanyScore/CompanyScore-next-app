@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { useCommentsStore } from "@/store";
-import moment from "moment";
-import { Avatar, Button, Tooltip, Title, Table } from "@/ui";
-import Link from "next/link";
+import { useEffect } from 'react';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { useCommentsStore } from '@/store';
+import moment from 'moment';
+import { Avatar, Button, Tooltip, Title, Table } from '@/ui';
+import Link from 'next/link';
 
 export type CommentType = {
   id: string;
@@ -47,8 +47,8 @@ export function UserTable() {
 
   const columns = [
     {
-      key: "company",
-      title: "Компания",
+      key: 'company',
+      title: 'Компания',
       render: (comment: CommentType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
           {comment.company.logo ? (
@@ -63,18 +63,18 @@ export function UserTable() {
         </div>
       ),
     },
-    { key: "position", title: "Должность" },
-    { key: "rating", title: "Рейтинг" },
-    { key: "text", title: "Отзыв" },
+    { key: 'position', title: 'Должность' },
+    { key: 'rating', title: 'Рейтинг' },
+    { key: 'text', title: 'Отзыв' },
     {
-      key: "createDate",
-      title: "Дата",
+      key: 'createDate',
+      title: 'Дата',
       render: (comment: CommentType) =>
-        moment(comment.createDate).format("MMM Do YY"),
+        moment(comment.createDate).format('MMM Do YY'),
     },
     {
-      key: "actions",
-      title: "Действия",
+      key: 'actions',
+      title: 'Действия',
       render: (comment: CommentType) => (
         <div className="space-x-2">
           <Tooltip tip="Посмотреть">

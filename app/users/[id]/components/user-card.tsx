@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useUsersStore } from "@/store";
+import { useEffect } from 'react';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
+import { useUsersStore } from '@/store';
 
 export function UserCard() {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +29,7 @@ export function UserCard() {
           src={
             user?.avatar
               ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${user.avatar}`
-              : "/imgs/avatar.jpg"
+              : '/imgs/avatar.jpg'
           }
           alt="Avatar"
           width={400}

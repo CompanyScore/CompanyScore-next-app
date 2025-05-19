@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { CompaniesPostCommentModal } from "@/app/companies/modals/index";
-import { useCompaniesStore } from "@/store";
-import type { CompanyType } from "@/store/companies";
-import { Button, Avatar, Tooltip, Title, Table, Toast } from "@/ui";
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { redirect } from 'next/navigation';
+import { CompaniesPostCommentModal } from '@/app/companies/modals/index';
+import { useCompaniesStore } from '@/store';
+import type { CompanyType } from '@/store/companies';
+import { Button, Avatar, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
   const { companies, loading } = useCompaniesStore();
@@ -35,8 +35,8 @@ export function CompaniesTable() {
 
   const columns = [
     {
-      key: "company",
-      title: "Компания",
+      key: 'company',
+      title: 'Компания',
       render: (company: CompanyType) => (
         <div className="flex max-[650px]:justify-center items-center space-x-2 ">
           <Avatar
@@ -44,24 +44,24 @@ export function CompaniesTable() {
             src={
               company?.logo
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${company?.logo}`
-                : "/imgs/company-logo.jpg"
+                : '/imgs/company-logo.jpg'
             }
           />
           <p className="text-center">{company.name}</p>
         </div>
       ),
     },
-    { key: "rating", title: "Рейтинг" },
-    { key: "country", title: "Страна" },
-    { key: "city", title: "Город" },
+    { key: 'rating', title: 'Рейтинг' },
+    { key: 'country', title: 'Страна' },
+    { key: 'city', title: 'Город' },
     {
-      key: "comments",
-      title: "Отзывы",
+      key: 'comments',
+      title: 'Отзывы',
       render: (company: CompanyType) => company.commentsIds?.length,
     },
     {
-      key: "actions",
-      title: "Действия",
+      key: 'actions',
+      title: 'Действия',
       render: (company: CompanyType) => (
         <div className="flex justify-center items-center space-x-2 h-full">
           <Tooltip tip="Посмотреть">
@@ -74,7 +74,7 @@ export function CompaniesTable() {
           </Tooltip>
           <Tooltip tip="Оставить отзыв">
             <Button className="btn-success" onClick={() => openModal(company)}>
-              <label htmlFor={"companies_add_comment_modal"}>
+              <label htmlFor={'companies_add_comment_modal'}>
                 <Image
                   src="/icons/pencil.svg"
                   alt="Pencil"
@@ -92,7 +92,7 @@ export function CompaniesTable() {
   return (
     <>
       <Table columns={columns} data={companies} />
-      <CompaniesPostCommentModal companyId={selectedCompany?.id || ""} />
+      <CompaniesPostCommentModal companyId={selectedCompany?.id || ''} />
       <Toast />
     </>
   );

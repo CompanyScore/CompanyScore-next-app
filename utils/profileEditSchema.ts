@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from 'yup';
 
 export const profileEditSchema = yup.object().shape({
   name: yup.string().optional(),
@@ -7,11 +7,11 @@ export const profileEditSchema = yup.object().shape({
   avatar: yup
     .mixed<File>()
     .optional()
-    .test("fileType", "Допустимые форматы: JPG, PNG", (value) => {
+    .test('fileType', 'Допустимые форматы: JPG, PNG', value => {
       if (!value) return true; // Разрешаем undefined
       return (
         value instanceof File &&
-        ["image/jpeg", "image/png"].includes(value.type)
+        ['image/jpeg', 'image/png'].includes(value.type)
       );
     }),
 });

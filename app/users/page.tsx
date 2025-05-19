@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { UsersPagination, UsersShowBy, UsersTable } from "./components";
+import { UsersPagination, UsersShowBy, UsersTable } from './components';
 
 export default function UsersPage() {
   return (

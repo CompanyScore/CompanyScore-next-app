@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ShowBy } from "@/shared";
-import { useUsersStore } from "@/store";
+import { ShowBy } from '@/shared';
+import { useUsersStore } from '@/store';
 
 export function UsersShowBy() {
   const { getUsers, users, limit } = useUsersStore();

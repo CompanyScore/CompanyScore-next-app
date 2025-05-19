@@ -1,21 +1,21 @@
-"use client";
-import React from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client';
+import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import ThemeController from "./theme-controller";
+import ThemeController from './theme-controller';
 
 export default function HeaderMobile() {
   const pathname = usePathname();
 
   const pages = [
-    { href: "/profile", label: "Профиль" },
-    { href: "/", label: "Главная" },
-    { href: "/about", label: "О нас" },
-    { href: "/companies", label: "Компании" },
-    { href: "/users", label: "Пользователи" },
-    { href: "/analytic", label: "Аналитика" },
-    { href: "/blog", label: "Блог" },
+    { href: '/profile', label: 'Профиль' },
+    { href: '/', label: 'Главная' },
+    { href: '/about', label: 'О нас' },
+    { href: '/companies', label: 'Компании' },
+    { href: '/users', label: 'Пользователи' },
+    { href: '/analytic', label: 'Аналитика' },
+    { href: '/blog', label: 'Блог' },
   ];
 
   return (
@@ -48,8 +48,8 @@ export default function HeaderMobile() {
                 href={href}
                 className={`pb-1 ${
                   pathname === href
-                    ? "border-b-2 border-white"
-                    : "hover:border-b"
+                    ? 'border-b-2 border-white'
+                    : 'hover:border-b'
                 }`}
               >
                 {label}

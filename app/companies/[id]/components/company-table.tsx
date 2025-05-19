@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { redirect, useParams } from "next/navigation";
+import Image from 'next/image';
+import { redirect, useParams } from 'next/navigation';
 
-import { useCommentsStore } from "@/store";
-import { Avatar, Button, Error, Table, Title, Tooltip } from "@/ui";
+import { useCommentsStore } from '@/store';
+import { Avatar, Button, Error, Table, Title, Tooltip } from '@/ui';
 
-import moment from "moment";
-import { useEffect } from "react";
+import moment from 'moment';
+import { useEffect } from 'react';
 
 type CommentType = {
   id: string;
@@ -53,8 +53,8 @@ export function CompanyTable() {
 
   const columns = [
     {
-      key: "user",
-      title: "Пользователь",
+      key: 'user',
+      title: 'Пользователь',
       render: (comment: CommentType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
           {comment?.user?.avatar ? (
@@ -70,29 +70,29 @@ export function CompanyTable() {
       ),
     },
     {
-      key: "position",
-      title: "Должность",
+      key: 'position',
+      title: 'Должность',
       render: (comment: CommentType) => comment.position,
     },
     {
-      key: "rating",
-      title: "Рейтинг",
+      key: 'rating',
+      title: 'Рейтинг',
       render: (comment: CommentType) => comment.rating,
     },
     {
-      key: "text",
-      title: "Отзыв",
+      key: 'text',
+      title: 'Отзыв',
       render: (comment: CommentType) => comment.text,
     },
     {
-      key: "createDate",
-      title: "Дата",
+      key: 'createDate',
+      title: 'Дата',
       render: (comment: CommentType) =>
-        moment(comment.createDate).format("MMM Do YY"),
+        moment(comment.createDate).format('MMM Do YY'),
     },
     {
-      key: "actions",
-      title: "Действия",
+      key: 'actions',
+      title: 'Действия',
       render: (comment: CommentType) => (
         <Tooltip tip="Посмотреть">
           <Button onClick={() => redirect(`/users/${comment.user.id}`)}>

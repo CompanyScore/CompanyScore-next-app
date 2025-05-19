@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import classNames from 'classnames';
 
 type Option = {
   label: string;
@@ -14,8 +14,8 @@ type Props = {
 
 export function Radio({ options, selectedValue, onChange, className }: Props) {
   return (
-    <div className={classNames("flex gap-4", className)}>
-      {options.map((option) => (
+    <div className={classNames('flex gap-4', className)}>
+      {options.map(option => (
         <label
           key={option.value.toString()}
           className="flex items-center gap-2 cursor-pointer"

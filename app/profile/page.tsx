@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
 import {
   ProfileCard,
   ProfilePagination,
   ProfileShowBy,
   ProfileTable,
-} from "./components";
-import { Title } from "@/ui";
-import { useCommentsStore } from "@/store";
+} from './components';
+import { Title } from '@/ui';
+import { useCommentsStore } from '@/store';
 
 export default function ProfilePage() {
   const { total } = useCommentsStore();
