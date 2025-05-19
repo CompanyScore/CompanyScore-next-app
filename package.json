@@ -45,7 +45,7 @@
     "@types/react-dom": "^19",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
-    "daisyui": "^4.12.23",
+    "daisyui": "^5.0.35",
     "eslint": "^9.27.0",
     "eslint-config-next": "15.1.4",
     "eslint-config-prettier": "^10.1.5",
