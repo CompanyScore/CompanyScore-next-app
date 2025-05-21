@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { Button, Avatar, Tooltip, Title, Table, Toast } from '@/ui';
+import { Button, Avatar, Tooltip, Title, Table } from '@/ui';
 import moment from 'moment';
 
 import { useCommentsStore, CommentType } from '@/store/сomments';
@@ -96,7 +96,6 @@ export function CommentsTable() {
   return (
     <>
       <Table columns={columns} data={comments} />
-      <Toast />
     </>
   );
 }
