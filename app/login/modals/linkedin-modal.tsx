@@ -7,8 +7,7 @@ import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {
-    // window.location.href = process.env.NEXT_PUBLIC_API_URL + "/auth/linkedin";
-    window.location.href = 'https://api.companyscore.net/auth/linkedin';
+    window.location.href = process.env.NEXT_PUBLIC_BACK + '/auth/linkedin';
   };
 
   return (

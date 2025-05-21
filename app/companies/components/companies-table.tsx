@@ -17,6 +17,12 @@ export function CompaniesTable() {
 
   const openModal = (company: CompanyType) => {
     setSelectedCompany(company);
+    const modal = document.getElementById(
+      'companies_add_comment_modal',
+    ) as HTMLInputElement;
+    if (modal) {
+      modal.checked = true;
+    }
   };
 
   useEffect(() => {
@@ -74,14 +80,12 @@ export function CompaniesTable() {
           </Tooltip>
           <Tooltip tip="Оставить отзыв">
             <Button className="btn-success" onClick={() => openModal(company)}>
-              <label htmlFor={'companies_add_comment_modal'}>
-                <Image
-                  src="/icons/pencil.svg"
-                  alt="Pencil"
-                  width={25}
-                  height={25}
-                />
-              </label>
+              <Image
+                src="/icons/pencil.svg"
+                alt="Pencil"
+                width={25}
+                height={25}
+              />
             </Button>
           </Tooltip>
         </div>
