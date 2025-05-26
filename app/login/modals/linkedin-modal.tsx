@@ -10,7 +10,7 @@ export default function LinkedIn() {
     const returnUrl = 'https://companyscore.net/profile';
     window.location.href =
       process.env.NEXT_PUBLIC_BACK +
-      `/auth/linkedin?state=${encodeURIComponent(returnUrl)}`;
+      `/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
   };
 
   return (
