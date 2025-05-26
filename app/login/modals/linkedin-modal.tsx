@@ -7,7 +7,10 @@ import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {
-    window.location.href = process.env.NEXT_PUBLIC_BACK + '/auth/linkedin';
+    const returnUrl = process.env.NEXT_PUBLIC_FRONT_URL + '/profile';
+    window.location.href =
+      process.env.NEXT_PUBLIC_BACK +
+      `/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
   };
 
   return (
