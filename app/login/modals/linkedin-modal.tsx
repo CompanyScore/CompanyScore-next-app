@@ -10,7 +10,7 @@ export default function LinkedIn() {
     const returnUrl = process.env.NEXT_PUBLIC_FRONT_URL + '/profile';
     window.location.href =
       process.env.NEXT_PUBLIC_BACK +
-      `/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
+      `/auth/linkedin?state=${encodeURIComponent(returnUrl)}`;
   };
 
   return (
