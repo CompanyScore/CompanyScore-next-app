@@ -7,7 +7,7 @@ import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {
-    const returnUrl = process.env.NEXT_PUBLIC_FRONT_URL + '/profile';
+    const returnUrl = 'https://companyscore.net/profile';
     window.location.href =
       process.env.NEXT_PUBLIC_BACK +
       `/auth/linkedin?state=${encodeURIComponent(returnUrl)}`;
