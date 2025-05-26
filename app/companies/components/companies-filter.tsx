@@ -46,6 +46,15 @@ export function CompaniesFilter() {
     getCompanies({});
   };
 
+  const openModal = () => {
+    const modal = document.getElementById(
+      'create_company_modal',
+    ) as HTMLInputElement;
+    if (modal) {
+      modal.checked = true;
+    }
+  };
+
   if (error) return <Error text={error} />;
 
   return (
@@ -78,9 +87,7 @@ export function CompaniesFilter() {
 
         <div className="flex items-center gap-4">
           <Button onClick={onReset}>Сбросить</Button>
-          <Button>
-            <label htmlFor="create_company_modal">Предложить компанию</label>
-          </Button>
+          <Button onClick={openModal}>Предложить компанию</Button>
         </div>
       </div>
       <CreateCompanyModal />

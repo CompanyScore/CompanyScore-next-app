@@ -61,6 +61,15 @@ export const CommentsAddCompany = () => {
     countriesWithCities.find(c => c.value === form.location.country)?.cities ||
     [];
 
+  const openModal = () => {
+    const modal = document.getElementById(
+      'create_company_modal',
+    ) as HTMLInputElement;
+    if (modal) {
+      modal.checked = true;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col items-center gap-4 w-full max-w-xl m-auto">
@@ -103,9 +112,7 @@ export const CommentsAddCompany = () => {
         <Title size="2" position="center">
           Если компании нет в списке, предложите ее
         </Title>
-        <Button>
-          <label htmlFor="create_company_modal">Предложить компанию</label>
-        </Button>
+        <Button onClick={openModal}>Предложить компанию</Button>
       </div>
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
     </div>

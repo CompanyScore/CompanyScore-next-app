@@ -1,7 +1,7 @@
 import { Button, Container, Title } from '@/ui';
 import { Metadata } from 'next';
 import GeneralCarousel from './components/general-carousel';
-
+import Link from 'next/link';
 // import { Button } from "@nextui-org/button";
 // import { useState } from "react";
 
@@ -30,7 +30,9 @@ export default function HomePage() {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <button className="btn btn-primary">Оставить отзыв</button>
+            <Link href="/comments/comments-add">
+              <button className="btn btn-primary">Оставить отзыв</button>
+            </Link>
           </div>
         </div>
       </div>
@@ -44,8 +46,12 @@ export default function HomePage() {
 
       <div className="flex gap-4">
         <Button>Найти компанию</Button>
-        <Button>Оставить отзыв</Button>
-        <Button>Посмотреть аналитику</Button>
+        <Link href="/comments/comments-add">
+          <Button>Оставить отзыв</Button>
+        </Link>
+        <Link href="/analytic">
+          <Button>Посмотреть аналитику</Button>
+        </Link>
       </div>
 
       <Container className="flex flex-col gap-4 p-10">
