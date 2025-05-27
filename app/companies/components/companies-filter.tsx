@@ -1,11 +1,16 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import { Searcher } from '@/shared';
-import { Error, Dropdown, Button, Toast } from '@/ui';
+import { Error, Button, Toast, Select } from '@/ui';
 import { useCompaniesStore } from '@/store';
 import { CreateCompanyModal } from '@/app/companies/modals';
+import { OptionType } from '@/ui/select';
 
-const ratingOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+const ratingOptions: OptionType[] = ['1', '2', '3', '4', '5'].map(r => ({
+  label: r,
+  value: r,
+}));
 
 export function CompaniesFilter() {
   const { getLocations, countryOptions, cityOptions, getCompanies, error } =
@@ -23,23 +28,35 @@ export function CompaniesFilter() {
     getCompanies({ searchedCompanyName });
   };
 
-  const onSelectRating = (selectedRating: string) => {
-    setSelectedRating(selectedRating);
-    getCompanies({ selectedRating });
+  const onSelectRating = (option: OptionType | null) => {
+    const value = option?.value != null ? String(option.value) : '';
+    setSelectedRating(value);
+    getCompanies({ selectedRating: value });
   };
 
-  const onSelectCountry = async (selectedCountry: string) => {
-    setSelectedCountry(selectedCountry);
-    getCompanies({ selectedCountry });
+  const onSelectCountry = (option: OptionType | null) => {
+    const value = option?.value ? String(option.value) : '';
+    setSelectedCountry(value);
+    getCompanies({ selectedCountry: value });
   };
 
-  const onSelectCity = async (selectedCity: string) => {
-    setSelectedCity(selectedCity);
-    getCompanies({ selectedCity });
+  const onSelectCity = (option: OptionType | null) => {
+    const value = option?.value ? String(option.value) : '';
+    setSelectedCity(value);
+    getCompanies({ selectedCity: value });
   };
+
+  const countryOptionsFormatted: OptionType[] = countryOptions.map(c => ({
+    label: c,
+    value: c,
+  }));
+
+  const cityOptionsFormatted: OptionType[] = cityOptions.map(c => ({
+    label: c,
+    value: c,
+  }));
 
   const onReset = () => {
-    onSearchCompanyByName('');
     setSelectedCountry('');
     setSelectedCity('');
     setSelectedRating('');
@@ -62,25 +79,39 @@ export function CompaniesFilter() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center flex-wrap gap-4 max-w-[750px] w-full">
           <Searcher onSearch={onSearchCompanyByName} />
-          <div className="flex items-center gap-4">
-            <Dropdown
-              text="Все страны"
-              options={countryOptions}
-              selectedValue={selectedCountry}
-              onSelect={onSelectCountry}
-            />
-            <Dropdown
-              text="Все города"
-              options={cityOptions}
-              selectedValue={selectedCity}
-              onSelect={onSelectCity}
+          <div className="flex items-center gap-4 w-full">
+            <Select
+              placeholder="Все страны"
+              isClearable
+              options={countryOptionsFormatted}
+              value={
+                countryOptionsFormatted.find(
+                  opt => opt.value === selectedCountry,
+                ) ?? null
+              }
+              onChange={onSelectCountry}
             />
 
-            <Dropdown
-              text="Все рейтинги"
+            <Select
+              placeholder="Все города"
+              isClearable
+              isDisabled={!selectedCountry}
+              options={cityOptionsFormatted}
+              value={
+                cityOptionsFormatted.find(opt => opt.value === selectedCity) ??
+                null
+              }
+              onChange={onSelectCity}
+            />
+
+            <Select
+              placeholder="Все рейтинги"
+              isClearable
               options={ratingOptions}
-              selectedValue={selectedRating}
-              onSelect={onSelectRating}
+              value={
+                ratingOptions.find(opt => opt.value === selectedRating) ?? null
+              }
+              onChange={onSelectRating}
             />
           </div>
         </div>

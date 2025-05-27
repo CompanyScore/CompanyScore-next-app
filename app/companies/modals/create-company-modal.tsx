@@ -2,8 +2,9 @@
 
 import { useCompaniesStore } from '@/store';
 import { countriesWithCities } from '@/constants';
-import { Button, Dropdown, Input, Modal, Title, useToast } from '@/ui';
+import { Button, Select, Input, Modal, Title, useToast } from '@/ui';
 import { useState } from 'react';
+import { OptionType } from '@/ui/select';
 
 type Props = {
   onGetCreatedCompanyId?: (
@@ -25,21 +26,32 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
     const modal = document.getElementById(
       'create_company_modal',
     ) as HTMLInputElement;
-    if (modal) {
-      modal.checked = false; // Закрывает модалку в daisyUI
-    }
+    if (modal) modal.checked = false;
   };
 
-  const countryOptions = countriesWithCities.map(({ label, value }) => ({
-    label,
-    value,
-  }));
+  const resetForm = () => {
+    setSelectedCountry('');
+    setSelectedCity('');
+    setSelectedName('');
+  };
 
-  const suggestedCityOptions =
-    countriesWithCities.find(c => c.value === selectedCountry)?.cities || [];
+  const countryOptions: OptionType[] = countriesWithCities.map(
+    ({ label, value }) => ({
+      label,
+      value,
+    }),
+  );
 
-  const onSubmit = async () => {
-    event?.preventDefault();
+  const cityOptions: OptionType[] =
+    countriesWithCities
+      .find(c => c.value === selectedCountry)
+      ?.cities.map(city => ({
+        label: city,
+        value: city,
+      })) || [];
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     if (!selectedCountry || !selectedCity || !selectedName) {
       toast.error('Заполните все поля');
@@ -69,25 +81,6 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
     }
   };
 
-  const onSelectCountry = (countryCode: string) => {
-    const country = countriesWithCities.find(c => c.value === countryCode);
-
-    if (country) {
-      setSelectedCountry(country.value);
-      setSelectedCity(''); // очищаем город при смене страны
-    }
-  };
-
-  const onSelectCity = (city: string) => {
-    setSelectedCity(city);
-  };
-
-  const resetForm = () => {
-    setSelectedCountry('');
-    setSelectedCity('');
-    setSelectedName('');
-  };
-
   return (
     <Modal id="create_company_modal">
       <Title size="3" position="center">
@@ -96,22 +89,28 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
 
       <form onSubmit={onSubmit}>
         <div className="flex flex-col items-center gap-4 w-full max-w-xl m-auto">
-          <Dropdown
-            text="Страна"
+          <Select
+            placeholder="Страна"
+            isClearable
             options={countryOptions}
-            isFirstDisabled={true}
-            selectedValue={selectedCountry}
-            onSelect={onSelectCountry}
-            width="100%"
+            value={
+              countryOptions.find(opt => opt.value === selectedCountry) ?? null
+            }
+            onChange={option => {
+              setSelectedCountry(option?.value ? String(option.value) : '');
+              setSelectedCity('');
+            }}
           />
 
-          <Dropdown
-            text="Город"
-            options={suggestedCityOptions}
-            isFirstDisabled={true}
-            selectedValue={selectedCity}
-            onSelect={onSelectCity}
-            width="100%"
+          <Select
+            placeholder="Город"
+            isClearable
+            isDisabled={!selectedCountry}
+            options={cityOptions}
+            value={cityOptions.find(opt => opt.value === selectedCity) ?? null}
+            onChange={option =>
+              setSelectedCity(option?.value ? String(option.value) : '')
+            }
           />
 
           <Input

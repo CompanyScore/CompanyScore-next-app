@@ -1,33 +1,60 @@
+'use client';
+
 import { useCommentFormStore, useCompaniesStore } from '@/store';
-import { Button, Dropdown, Title } from '@/ui';
-import { countriesWithCities } from '@/constants/countriesWithCities'; // путь зависит от твоей структуры
+import { Button, Select, Title } from '@/ui';
+import { countriesWithCities } from '@/constants/countriesWithCities';
 import { CreateCompanyModal } from '@/app/companies/modals';
+import { OptionType } from '@/ui/select';
 
 export const CommentsAddCompany = () => {
   const { form, updateForm } = useCommentFormStore();
   const { companies, getCompanies } = useCompaniesStore();
 
-  const onSelectCountry = (countryCode: string) => {
-    const country = countriesWithCities.find(c => c.value === countryCode);
+  const countryOptions: OptionType[] = countriesWithCities.map(
+    ({ label, value }) => ({
+      label,
+      value,
+    }),
+  );
+
+  const cityOptions: OptionType[] =
+    countriesWithCities
+      .find(c => c.value === form.location.country)
+      ?.cities.map(city => ({ label: city, value: city })) || [];
+
+  const companyOptions = companies.map(company => ({
+    label: company.name,
+    value: company.id ?? '', // теперь точно string
+  }));
+
+  const onSelectCountry = (option: OptionType | null) => {
+    const value = option?.value ? String(option.value) : '';
+    const label = option?.label || '';
     updateForm({
       location: {
         ...form.location,
-        country: country?.value || '',
-        city: '', // очищаем город при смене страны
+        country: value,
+        city: '',
       },
     });
-    getCompanies({ selectedCountry: country?.label });
+    getCompanies({ selectedCountry: label });
   };
 
-  const onSelectCity = (city: string) => {
+  const onSelectCity = (option: OptionType | null) => {
+    const value = option?.value ? String(option.value) : '';
     updateForm({
       location: {
         ...form.location,
-        city,
+        city: value,
       },
     });
+    getCompanies({ selectedCity: value });
+  };
 
-    getCompanies({ selectedCity: city });
+  const onSelectCompany = (option: OptionType | null) => {
+    updateForm({
+      companyId: option?.value ? String(option.value) : '',
+    });
   };
 
   const onGetCreatedCompanyId = async (
@@ -36,38 +63,20 @@ export const CommentsAddCompany = () => {
     city: string,
   ) => {
     await getCompanies({});
-
     updateForm({
       companyId,
       location: {
-        country: country,
-        city: city,
+        country,
+        city,
       },
     });
   };
-
-  const onSelectCompany = (companyId: string) => {
-    updateForm({
-      companyId,
-    });
-  };
-
-  const countryOptions = countriesWithCities.map(({ label, value }) => ({
-    label,
-    value,
-  }));
-
-  const cityOptions =
-    countriesWithCities.find(c => c.value === form.location.country)?.cities ||
-    [];
 
   const openModal = () => {
     const modal = document.getElementById(
       'create_company_modal',
     ) as HTMLInputElement;
-    if (modal) {
-      modal.checked = true;
-    }
+    if (modal) modal.checked = true;
   };
 
   return (
@@ -77,34 +86,36 @@ export const CommentsAddCompany = () => {
           Выберите локацию и компанию
         </Title>
 
-        <Dropdown
-          text="Страна"
+        <Select
+          placeholder="Страна"
+          isClearable
           options={countryOptions}
-          isFirstDisabled={true}
-          selectedValue={form.location.country}
-          onSelect={onSelectCountry}
-          width="100%"
+          value={
+            countryOptions.find(opt => opt.value === form.location.country) ??
+            null
+          }
+          onChange={onSelectCountry}
         />
 
-        <Dropdown
-          text="Город"
+        <Select
+          placeholder="Город"
+          isClearable
+          isDisabled={!form.location.country}
           options={cityOptions}
-          isFirstDisabled={true}
-          selectedValue={form.location.city}
-          onSelect={onSelectCity}
-          width="100%"
+          value={
+            cityOptions.find(opt => opt.value === form.location.city) ?? null
+          }
+          onChange={onSelectCity}
         />
 
-        <Dropdown
-          text="Компания"
-          options={companies.map(company => ({
-            label: company.name,
-            value: company.id,
-          }))}
-          isFirstDisabled={true}
-          selectedValue={form.companyId}
-          onSelect={onSelectCompany}
-          width="100%"
+        <Select
+          placeholder="Компания"
+          isClearable
+          options={companyOptions}
+          value={
+            companyOptions.find(opt => opt.value === form.companyId) ?? null
+          }
+          onChange={onSelectCompany}
         />
 
         <div className="divider"></div>
@@ -112,8 +123,10 @@ export const CommentsAddCompany = () => {
         <Title size="2" position="center">
           Если компании нет в списке, предложите ее
         </Title>
+
         <Button onClick={openModal}>Предложить компанию</Button>
       </div>
+
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
     </div>
   );
