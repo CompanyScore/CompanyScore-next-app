@@ -1,9 +1,9 @@
 import { Radio } from '@/shared';
 import { Title } from '@/ui';
-import { useCommentFormStore } from '@/store';
+import { useCommentFormStore2 } from '@/store';
 
 export const CommentsAddRecommendation = () => {
-  const { form, updateForm } = useCommentFormStore();
+  const { form, updateForm } = useCommentFormStore2();
 
   return (
     <div className="flex flex-col gap-6">

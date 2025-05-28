@@ -1,14 +1,6 @@
 'use client';
 
-import {
-  Button,
-  Input,
-  Modal,
-  Textarea,
-  Title,
-  Dropdown,
-  useToast,
-} from '@/ui';
+import { Button, Input, Modal, Textarea, Title, Select, useToast } from '@/ui';
 import { positions } from '@/constants';
 import { useProfileStore } from '@/store';
 import { SubmitHandler } from 'react-hook-form';
@@ -89,6 +81,11 @@ export function ProfileEditModal() {
     }
   };
 
+  const positionOptions = positions.map(p => ({
+    label: p,
+    value: p,
+  }));
+
   return (
     <Modal id="profile_edit_modal" className="max-h-[570px] h-full">
       <Title size="3" position="center">
@@ -103,14 +100,14 @@ export function ProfileEditModal() {
             onChange={value => setValue('name', String(value))}
           />
 
-          <Dropdown
-            width="430px"
-            text="Должность"
-            isFirstDisabled={true}
-            options={positions}
-            selectedValue={watch('position')}
-            onSelect={value =>
-              setValue('position', value, {
+          <Select
+            placeholder="Должность"
+            options={positionOptions}
+            value={
+              positionOptions.find(p => p.value === watch('position')) ?? null
+            }
+            onChange={option =>
+              setValue('position', String(option?.value), {
                 shouldValidate: false,
                 shouldDirty: true,
               })
