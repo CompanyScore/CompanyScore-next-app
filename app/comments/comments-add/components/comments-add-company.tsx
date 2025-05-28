@@ -1,13 +1,13 @@
 'use client';
 
-import { useCommentFormStore, useCompaniesStore } from '@/store';
+import { useCommentFormStore2, useCompaniesStore } from '@/store';
 import { Button, Select, Title } from '@/ui';
 import { countriesWithCities } from '@/constants/countriesWithCities';
 import { CreateCompanyModal } from '@/app/companies/modals';
 import { OptionType } from '@/ui/select';
 
 export const CommentsAddCompany = () => {
-  const { form, updateForm } = useCommentFormStore();
+  const { form, updateForm } = useCommentFormStore2();
   const { companies, getCompanies } = useCompaniesStore();
 
   const countryOptions: OptionType[] = countriesWithCities.map(
@@ -19,22 +19,25 @@ export const CommentsAddCompany = () => {
 
   const cityOptions: OptionType[] =
     countriesWithCities
-      .find(c => c.value === form.location.country)
+      .find(c => c.value === form.company.location.country)
       ?.cities.map(city => ({ label: city, value: city })) || [];
 
   const companyOptions = companies.map(company => ({
     label: company.name,
-    value: company.id ?? '', // теперь точно string
+    value: company.id ?? '',
   }));
 
   const onSelectCountry = (option: OptionType | null) => {
     const value = option?.value ? String(option.value) : '';
     const label = option?.label || '';
     updateForm({
-      location: {
-        ...form.location,
-        country: value,
-        city: '',
+      company: {
+        ...form.company,
+        location: {
+          ...form.company.location,
+          country: value,
+          city: '',
+        },
       },
     });
     getCompanies({ selectedCountry: label });
@@ -43,9 +46,12 @@ export const CommentsAddCompany = () => {
   const onSelectCity = (option: OptionType | null) => {
     const value = option?.value ? String(option.value) : '';
     updateForm({
-      location: {
-        ...form.location,
-        city: value,
+      company: {
+        ...form.company,
+        location: {
+          ...form.company.location,
+          city: value,
+        },
       },
     });
     getCompanies({ selectedCity: value });
@@ -53,7 +59,10 @@ export const CommentsAddCompany = () => {
 
   const onSelectCompany = (option: OptionType | null) => {
     updateForm({
-      companyId: option?.value ? String(option.value) : '',
+      company: {
+        ...form.company,
+        companyId: option?.value ? String(option.value) : '',
+      },
     });
   };
 
@@ -64,10 +73,9 @@ export const CommentsAddCompany = () => {
   ) => {
     await getCompanies({});
     updateForm({
-      companyId,
-      location: {
-        country,
-        city,
+      company: {
+        companyId,
+        location: { country, city },
       },
     });
   };
@@ -91,8 +99,9 @@ export const CommentsAddCompany = () => {
           isClearable
           options={countryOptions}
           value={
-            countryOptions.find(opt => opt.value === form.location.country) ??
-            null
+            countryOptions.find(
+              opt => opt.value === form.company.location.country,
+            ) ?? null
           }
           onChange={onSelectCountry}
         />
@@ -100,10 +109,11 @@ export const CommentsAddCompany = () => {
         <Select
           placeholder="Город"
           isClearable
-          isDisabled={!form.location.country}
+          isDisabled={!form.company.location.country}
           options={cityOptions}
           value={
-            cityOptions.find(opt => opt.value === form.location.city) ?? null
+            cityOptions.find(opt => opt.value === form.company.location.city) ??
+            null
           }
           onChange={onSelectCity}
         />
@@ -113,7 +123,8 @@ export const CommentsAddCompany = () => {
           isClearable
           options={companyOptions}
           value={
-            companyOptions.find(opt => opt.value === form.companyId) ?? null
+            companyOptions.find(opt => opt.value === form.company.companyId) ??
+            null
           }
           onChange={onSelectCompany}
         />
