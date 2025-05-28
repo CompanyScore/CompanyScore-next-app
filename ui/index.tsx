@@ -3,6 +3,7 @@ export { Tooltip } from './tooltip';
 export { Avatar } from './avatar';
 export { Title } from './title';
 export { Input } from './input';
+export { Select2 } from './select-2';
 export { Select } from './select';
 export { Loading } from './loading';
 export { Error } from './error';

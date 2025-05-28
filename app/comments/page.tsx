@@ -9,9 +9,11 @@ import {
 export default function CommentsPage() {
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <Button className="btn-secondary mr-0">
-        <Link href="/comments/comments-add">Оставить отзыв</Link>
-      </Button>
+      <Link href="/comments/comments-add" className="block w-[100%]">
+        <Button className="btn-secondary mr-0 w-[100%]">Оставить отзыв</Button>
+      </Link>
+      <div>Asd</div>
+
       <CommentsTable />
       <div className="flex justify-between">
         <CommentsShowBy />
