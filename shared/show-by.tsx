@@ -1,7 +1,12 @@
 import React from 'react';
-import { Dropdown } from '@/ui';
+import { Select } from '@/ui';
+import { SingleValue } from 'react-select';
+import { OptionType } from '@/ui/select';
 
-const numberOptions = ['5', '10', '15', '20'];
+const numberOptions: OptionType[] = [5, 10, 15, 20].map(n => ({
+  label: n.toString(),
+  value: n,
+}));
 
 type ShowByProps = {
   limit: number;
@@ -9,17 +14,19 @@ type ShowByProps = {
 };
 
 export function ShowBy({ limit, onLimitChange }: ShowByProps) {
-  const handleSelect = (newValue = '10') => {
-    onLimitChange(+newValue);
+  const handleSelect = (option: SingleValue<OptionType>) => {
+    onLimitChange(Number(option?.value ?? 10));
   };
 
   return (
-    <Dropdown
-      width="100px"
-      isFirstDisabled={true}
+    <Select
+      width="60px"
       options={numberOptions}
-      selectedValue={limit}
-      onSelect={handleSelect}
+      value={{ label: limit.toString(), value: limit }}
+      onChange={handleSelect}
+      isClearable={false}
+      isSearchable={false}
+      placeholder="Показать по"
     />
   );
 }
