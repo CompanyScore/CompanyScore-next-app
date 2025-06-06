@@ -11,10 +11,161 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const cards = [
+    { title: '1 345', description: 'проверенных отзывов' },
+    { title: '100+', description: 'новых отзывов ежемесячно' },
+    { title: '487', description: ' компаний в базе' },
+    { title: '679+', description: 'пользователей' },
+  ];
+
+  const features = [
+    {
+      id: '01',
+      title: 'Только проверенные\nи анонимные отзывы',
+      body: 'Мы гарантируем достоверность каждого отзыва благодаря тщательной модерации. Ваша анонимность под защитой — делитесь правдой, не раскрывая личных данных',
+    },
+    {
+      id: '02',
+      title: 'Удобный поиск\nи глубокий анализ',
+      body: 'Ищите работодателей по зарплатам, условиям и корпоративной культуре. Наши фильтры и аналитика помогут быстро оценить репутацию компании и перспективы для вашей карьеры',
+    },
+    {
+      id: '03',
+      title: 'Прозрачность\nи честность',
+      body: 'Мы раскрываем реальные условия работы, включая средние доходы, особенности руководства и скрытые нюансы, которые обычно не озвучивают на собеседовании',
+    },
+    {
+      id: '04',
+      title: 'Экономия времени\nи сил',
+      body: 'Читайте отзывы, чтобы получить объективное представление о компаниях и сэкономить время на собеседованиях и тестовых заданиях, избегая ненужных этапов',
+    },
+    {
+      id: '05',
+      title: 'Сообщество,\nменяющее рынок труда',
+      body: 'Мы верим, что честные отзывы помогают компаниям становиться лучше, а IT-специалистам — принимать обоснованные решения и находить лучшие возможности',
+      large: true,
+    },
+  ];
+
   // const [count, setCount] = useState();
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <div
+      <div className="relative overflow-hidden bg-black text-white">
+        <div
+          // className="absolute inset-0 object-cover w-screen min-h-screen hero "
+          //  className="relative w-full left-1/2 right-1/2 -mx-[50vw] hero min-h-full"
+          className="hero min-h-screen"
+          style={{
+            backgroundImage: 'url(imgs/hero.png)',
+          }}
+        >
+          <div className="relative mx-auto flex max-w-7xl flex-col items-center px-4 py-24 text-center justify-between h-80">
+            <div>
+              <h1 className="mb-6 text-3xl font-extrabold leading-tight sm:text-4xl md:text-5xl">
+                Ваш голос меняет рынок труда
+              </h1>
+
+              <p className="mx-auto max-w-xl text-lg md:text-xl">
+                Поделитесь своим отзывом о работе в компании —
+                <br className="hidden sm:block" />
+                помогите другим сделать правильный выбор
+              </p>
+
+              <button className="mt-10 rounded-full bg-amber-500 px-8 py-3 text-lg font-semibold text-black transition hover:bg-amber-400">
+                Оставить отзыв
+              </button>
+            </div>
+
+            <div className="mt-20 grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {cards.map((card, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center justify-center rounded-xl border border-white/20 bg-black/60 p-6"
+                >
+                  <span className="mb-1 text-3xl font-bold leading-none">
+                    {card.title}
+                  </span>
+                  <span className="text-sm opacity-80">{card.description}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="h-24 bg-black rounded-b-lg w-full"></div>
+      </div>
+      <div className="relative mx-auto w-full max-w-[1440px] px-4 py-16 md:py-24">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+          /​почему мы/
+        </p>
+        <h2 className="mb-4 text-2xl font-bold sm:text-3xl">
+          Станьте частью перемен
+        </h2>
+        <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+          Мы создаём пространство, где&nbsp;
+          <span className="font-semibold text-orange-600">
+            каждый голос важен
+          </span>
+          , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
+          справедливым, чтобы каждый мог найти работу, где его ценят и уважают
+        </p>
+
+        <div className="grid gap-6 md:grid-cols-3">
+          {features.map(feature => (
+            <article
+              key={feature.id}
+              className={`rounded-xl border  p-6 shadow-sm transition hover:shadow-md ${feature.large ? 'col-span-2 border-neutral-200 bg-orange-50' : 'border-neutral-200 bg-white'}`}
+              // className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+            >
+              <span className="mb-4 block text-xs font-medium uppercase tracking-widest text-neutral-400">
+                {feature.id}
+              </span>
+              <h3 className="whitespace-pre-line text-lg font-semibold">
+                {feature.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+                {feature.body}
+              </p>
+            </article>
+          ))}
+        </div>
+      </div>
+      {/* <div
+        className="relative -mx-[50vw] left-1/2 right-1/2 w-screen min-h-screen hero"
+        //  className="relative w-full left-1/2 right-1/2 -mx-[50vw] hero min-h-full"
+        // className="hero min-h-screen"
+        style={{
+          backgroundImage: 'url(imgs/hero.png)',
+        }}
+      >
+        <div className="hero-overlay"></div>
+        <div className="hero-content h-1/2 max-h-[600px] justify-between flex-col text-neutral-content text-center text-white">
+          <div className="max-w-7xl">
+            <h1 className="mb-5 text-7xl font-semibold">
+              Ваш голос меняет рынок труда
+            </h1>
+            <p className="max-w-2xl m-auto mb-10 text-2xl font-normal">
+              Поделитесь своим отзывом о работе в компании — помогите другим
+              сделать правильный выбор
+            </p>
+            <Link href="/comments/comments-add">
+              <button className="btn bg-orange-400 border-orange-400">
+                Оставить отзыв
+              </button>
+            </Link>
+          </div>
+          <div className="flex justify-between w-full gap-x-4 py-4 px-6">
+            {cards.map(card => (
+              <div key={card.title} className="border-2 border-orange-300">
+                <h2 className="font-extrabold text-4xl">{card.title}</h2>
+                <p className="text-[1.125rem] text-base-content/60 col-start-1 whitespace-nowrap">
+                  {card.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div> */}
+      {/* <div
         className="hero min-h-screen"
         style={{
           backgroundImage:
@@ -24,7 +175,7 @@ export default function HomePage() {
         <div className="hero-overlay"></div>
         <div className="hero-content text-neutral-content text-center">
           <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Хэй, привет!</h1>
+            <h1 className="mb-5 text-5xl font-bold">Хэй, привет! 2</h1>
             <p className="mb-5">
               Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
@@ -35,7 +186,8 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
+
       <Title size="2">Честные отзывы о IT-компаниях!</Title>
       <Title size="2">Не трать время на тестовые зря!</Title>
       <Title size="2">Проверь компанию перед собеседованием!</Title>
