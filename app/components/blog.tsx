@@ -59,7 +59,12 @@ export const Blog = () => {
       </p>
       <div className="flex gap-6">
         <div className="max-w-[600px]">
-          <Image src={articles[0].image} alt="first article image" />
+          <Image
+            src={articles[0].image}
+            alt="first article image"
+            width={600}
+            height={460}
+          />
 
           <div className="flex mt-6 flex-col gap-2">
             <div className="flex">
@@ -88,6 +93,8 @@ export const Blog = () => {
                     src={article.image}
                     className="max-w-[224px]"
                     alt="article image"
+                    width={224}
+                    height={168}
                   />
                   <div className="flex flex-col gap-2">
                     <div className="flex">

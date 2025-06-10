@@ -1,4 +1,4 @@
-import { Title } from '@/ui';
+import { Button, Title } from '@/ui';
 
 export const Hero = () => {
   const cards = [
@@ -32,9 +32,9 @@ export const Hero = () => {
             помогите другим сделать правильный выбор
           </p>
 
-          <button className="mt-10 rounded-full bg-brand-300 px-8 py-3 text-lg font-semibold text-black transition ">
+          <Button className="mt-10 rounded-full bg-brand-300 px-8 text-lg font-semibold text-black transition">
             Оставить отзыв
-          </button>
+          </Button>
         </div>
 
         <div className="mt-20 grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-4">

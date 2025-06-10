@@ -1,4 +1,4 @@
-import { Title } from '@/ui';
+import { Button, Title } from '@/ui';
 
 export const Steps = () => {
   const steps = [
@@ -48,9 +48,9 @@ export const Steps = () => {
               </p>
             </div>
             <div className="flex justify-end">
-              <button className="mt-10 rounded-full border-2 px-6 py-3 text-lg font-normal text-black transition">
+              <Button className="mt-10 rounded-full border-2 px-6 py-3 text-lg font-normal text-black transition">
                 {step.button}
-              </button>
+              </Button>
             </div>
           </div>
         ))}
