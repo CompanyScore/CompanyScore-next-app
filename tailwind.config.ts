@@ -10,14 +10,18 @@ export default {
     './shared/**/*.{js,ts,jsx,tsx,mdx}',
     './public/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // theme: {
-  //   extend: {
-  //     colors: {
-  //       background: "var(--background)",
-  //       foreground: "var(--foreground)",
-  //     },
-  //   },
-  // },
+  theme: {
+    extend: {
+      colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        brand: {
+          50: '#FFF2DF',
+          300: '#FDB24A',
+        },
+      },
+    },
+  },
   plugins: [daisyui],
   daisyui: {
     themes: ['valentine', 'dark', 'light'],

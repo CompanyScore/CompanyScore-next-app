@@ -1,0 +1,54 @@
+import { Button, Title } from '@/ui';
+import { Card } from '@/ui/card';
+
+export const Reviews = () => {
+  const reviews = [
+    {
+      title: 'John',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, molestiae.',
+    },
+    {
+      title: 'Black',
+      description:
+        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio optio facilis inventore consectetur perspiciatis libero nam debitis recusandae quod ratione!',
+    },
+    {
+      title: 'Clark',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, magnam alias aliquam veniam inventore eveniet.',
+    },
+  ];
+
+  return (
+    <div className="relative mx-auto w-full px-7 py-16 md:py-24 rounded-3xl">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+        / ПОСЛЕДНИЕ ОТЗЫВЫ /
+      </p>
+      <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
+        Истории из первых рук
+      </Title>
+      <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+        Здесь&nbsp;
+        <span className="font-semibold text-orange-600">делятся опытом</span>
+        рассказывают о реальных ситуациях — от первых собеседований
+        до повседневных рабочих будней. Узнайте, что скрывается за официальными
+        описаниями вакансий
+      </p>
+
+      <div className="flex justify-center mt-10 gap-6">
+        {reviews.map((review, index) => (
+          <Card key={index} className="max-w-[392px]">
+            <span className="font-semibold text-base">{review.title}</span>
+            <p className="">{review.description}</p>
+          </Card>
+        ))}
+      </div>
+      <div className="flex justify-center gap-6 mt-8">
+        <Button className="rounded-full">{'<'}</Button>
+        <Button className="rounded-full">{'>'}</Button>
+        {/* <Pagination page={1} total={1} limit={1} onPageChange={() => {}} /> */}
+      </div>
+    </div>
+  );
+};

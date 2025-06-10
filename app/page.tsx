@@ -1,9 +1,9 @@
-import { Button, Container, Title } from '@/ui';
 import { Metadata } from 'next';
-import GeneralCarousel from './components/general-carousel';
-import Link from 'next/link';
-// import { Button } from "@nextui-org/button";
-// import { useState } from "react";
+import { Hero } from '@/app/components/hero';
+import { Features } from './components/features';
+import { Steps } from './components/steps';
+import { Reviews } from './components/reviews';
+import { Blog } from './components/blog';
 
 export const metadata: Metadata = {
   title: 'CompanyScore | Home',
@@ -11,62 +11,15 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  // const [count, setCount] = useState();
   return (
     <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <div
-        className="hero min-h-screen"
-        style={{
-          backgroundImage:
-            'url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp)',
-        }}
-      >
-        <div className="hero-overlay"></div>
-        <div className="hero-content text-neutral-content text-center">
-          <div className="max-w-md">
-            <h1 className="mb-5 text-5xl font-bold">Хэй, привет!</h1>
-            <p className="mb-5">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
-            </p>
-            <Link href="/comments/comments-add">
-              <button className="btn btn-primary">Оставить отзыв</button>
-            </Link>
-          </div>
-        </div>
-      </div>
-      <Title size="2">Честные отзывы о IT-компаниях!</Title>
-      <Title size="2">Не трать время на тестовые зря!</Title>
-      <Title size="2">Проверь компанию перед собеседованием!</Title>
-      <Title size="2">
-        Компании скрывают реальные условия? Мы собираем отзывы от разработчиков,
-        чтобы вы знали, куда идете
-      </Title>
-
-      <div className="flex gap-4">
-        <Button>Найти компанию</Button>
-        <Link href="/comments/comments-add">
-          <Button>Оставить отзыв</Button>
-        </Link>
-        <Link href="/analytic">
-          <Button>Посмотреть аналитику</Button>
-        </Link>
-      </div>
-
-      <Container className="flex flex-col gap-4 p-10">
-        <Title size="3">Что внутри?</Title>
-        <p>- Реальные истории кандидатов о процессе найма и работе</p>
-        <p>- Компании оцениваются по тестовым заданиям, условиям и атмосфере</p>
-        <p>
-          - Средние зарплаты, типичные требования, соотношение ожиданий и
-          реальности
-        </p>
-        <p>- Подробные разборы компаний, советы по трудоустройству</p>
-      </Container>
-
-      <Title size="3">Отзывы</Title>
-      <GeneralCarousel />
+      <Hero />
+      {/* <div className="relative -ml-[50vw] -mr-[50vw] left-1/2 right-1/2 inset-0 w-screen h-24 bg-black rounded-b-lg "></div> */}
+      <div className="relative left-1/2 right-1/2 mx-auto -ml-[50vw] -mr-[50vw] w-[calc(100vw-2rem)] h-24 bg-black rounded-b-xl"></div>
+      <Features />
+      <Steps />
+      <Reviews />
+      <Blog />
     </section>
   );
 }
