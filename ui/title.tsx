@@ -7,7 +7,7 @@ export function Title({
   className,
 }: Readonly<{
   children: React.ReactNode;
-  size?: '1' | '2' | '3' | '4' | '5' | '6';
+  size?: '1' | '2' | '3' | '4' | '5' | '6' | '7';
   position?: 'start' | 'center' | 'end';
   className?: string;
 }>) {
@@ -18,6 +18,7 @@ export function Title({
     '4': 'text-4xl',
     '5': 'text-5xl',
     '6': 'text-6xl',
+    '7': 'text-7xl',
   };
 
   return (
