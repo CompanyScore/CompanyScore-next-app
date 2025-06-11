@@ -1,14 +1,18 @@
-type Props = {
-  className?: string;
-  children: React.ReactNode;
-};
+import classNames from 'classnames';
 
-export function Card({ className, children }: Props) {
+type Props = {
+  children: React.ReactNode;
+  className?: string;
+};
+export const Card = ({ children, className }: Props) => {
   return (
     <div
-      className={`border-2 border-gray-400 p-4 rounded-lg cursor-pointer ${className}`}
+      className={classNames(
+        'rounded-xl border  p-6 shadow-sm transition hover:shadow-md',
+        className,
+      )}
     >
       {children}
     </div>
   );
-}
+};
