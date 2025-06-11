@@ -1,4 +1,4 @@
-import { Title } from '@/ui';
+import { Container, Title } from '@/ui';
 import { Card } from '@/ui/card';
 
 export const Features = () => {
@@ -32,44 +32,46 @@ export const Features = () => {
   ];
 
   return (
-    <div className="relative mx-auto w-full px-4 py-16 md:py-24">
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
-        /​почему мы/
-      </p>
-      <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
-        Станьте частью перемен
-      </Title>
-      <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
-        Мы создаём пространство, где&nbsp;
-        <span className="font-semibold text-orange-600">
-          каждый голос важен
-        </span>
-        , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
-        справедливым, чтобы каждый мог найти работу, где его ценят и уважают
-      </p>
+    <Container>
+      <>
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+          /​почему мы/
+        </p>
+        <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
+          Станьте частью перемен
+        </Title>
+        <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+          Мы создаём пространство, где&nbsp;
+          <span className="font-semibold text-orange-600">
+            каждый голос важен
+          </span>
+          , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
+          справедливым, чтобы каждый мог найти работу, где его ценят и уважают
+        </p>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {features.map(feature => (
-          <Card
-            key={feature.id}
-            className={`rounded-xl border  p-6 shadow-sm transition hover:shadow-md ${feature.large ? 'col-span-2 border-neutral-200 bg-orange-50' : 'border-neutral-200 bg-white'}`}
-            // className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md"
-          >
-            <span className="mb-4 block text-xs font-medium uppercase tracking-widest text-neutral-400">
-              {feature.id}
-            </span>
-            <Title
-              size="2"
-              className="whitespace-pre-line text-lg font-semibold"
+        <div className="grid gap-6 md:grid-cols-3">
+          {features.map(feature => (
+            <Card
+              key={feature.id}
+              className={`rounded-xl border  p-6 shadow-sm transition hover:shadow-md ${feature.large ? 'col-span-2 border-neutral-200 bg-orange-50' : 'border-neutral-200 bg-white'}`}
+              // className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md"
             >
-              {feature.title}
-            </Title>
-            <p className="mt-3 text-sm leading-relaxed text-neutral-700">
-              {feature.body}
-            </p>
-          </Card>
-        ))}
-      </div>
-    </div>
+              <span className="mb-4 block text-xs font-medium uppercase tracking-widest text-neutral-400">
+                {feature.id}
+              </span>
+              <Title
+                size="2"
+                className="whitespace-pre-line text-lg font-semibold"
+              >
+                {feature.title}
+              </Title>
+              <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+                {feature.body}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </>
+    </Container>
   );
 };
