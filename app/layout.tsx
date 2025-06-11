@@ -42,9 +42,7 @@ export default async function RootLayout({
               <HeaderMobile />
             </>
           )}
-          <main className="flex-1 container mx-auto h-full px-4">
-            {children}
-          </main>
+          <main className="flex-1 h-full">{children}</main>
           {refreshToken && <Footer />}
         </ThemeProvider>
       </body>

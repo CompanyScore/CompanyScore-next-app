@@ -1,4 +1,4 @@
-import { Button, Title } from '@/ui';
+import { Button, Container, Title } from '@/ui';
 import { Card } from '@/ui/card';
 
 export const Reviews = () => {
@@ -21,7 +21,7 @@ export const Reviews = () => {
   ];
 
   return (
-    <div className="relative mx-auto w-full px-7 py-16 md:py-24 rounded-3xl">
+    <Container>
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
         / ПОСЛЕДНИЕ ОТЗЫВЫ /
       </p>
@@ -49,6 +49,6 @@ export const Reviews = () => {
         <Button className="rounded-full">{'>'}</Button>
         {/* <Pagination page={1} total={1} limit={1} onPageChange={() => {}} /> */}
       </div>
-    </div>
+    </Container>
   );
 };

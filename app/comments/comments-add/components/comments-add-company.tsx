@@ -88,56 +88,76 @@ export const CommentsAddCompany = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col items-center gap-4 w-full max-w-xl m-auto">
-        <Title size="2" position="center">
-          Выберите локацию и компанию
-        </Title>
-
-        <Select
-          placeholder="Страна"
-          isClearable
-          options={countryOptions}
-          value={
-            countryOptions.find(
-              opt => opt.value === form.company.location.country,
-            ) ?? null
-          }
-          onChange={onSelectCountry}
-        />
-
-        <Select
-          placeholder="Город"
-          isClearable
-          isDisabled={!form.company.location.country}
-          options={cityOptions}
-          value={
-            cityOptions.find(opt => opt.value === form.company.location.city) ??
-            null
-          }
-          onChange={onSelectCity}
-        />
-
-        <Select
-          placeholder="Компания"
-          isClearable
-          options={companyOptions}
-          value={
-            companyOptions.find(opt => opt.value === form.company.companyId) ??
-            null
-          }
-          onChange={onSelectCompany}
-        />
-
-        <div className="divider"></div>
-
-        <Title size="2" position="center">
-          Если компании нет в списке, предложите ее
-        </Title>
-
-        <Button onClick={openModal}>Предложить компанию</Button>
+    <div>
+      <Title size="3">Выбор компании</Title>
+      <div className="mb-8">
+        Укажите в какой стране и городе находится компания, про которую пойдет
+        речь в отзыве
       </div>
 
+      <div className="flex flex-row justify-between gap-20 w-full">
+        <Title size="2" className="w-full max-w-48">
+          Локация
+        </Title>
+        <div className="flex flex-wrap items-end gap-4 w-full">
+          <div className="w-full max-w-96">
+            <Title size="2">Страна</Title>
+            <Select
+              placeholder="Страна"
+              isClearable
+              options={countryOptions}
+              value={
+                countryOptions.find(
+                  opt => opt.value === form.company.location.country,
+                ) ?? null
+              }
+              onChange={onSelectCountry}
+            />
+          </div>
+          <div className="w-full max-w-96">
+            <Title size="2">Город</Title>
+            <Select
+              placeholder="Город"
+              isClearable
+              isDisabled={!form.company.location.country}
+              options={cityOptions}
+              value={
+                cityOptions.find(
+                  opt => opt.value === form.company.location.city,
+                ) ?? null
+              }
+              onChange={onSelectCity}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="divider"></div>
+
+      <div className="flex justify-between gap-20 w-full">
+        <Title size="2" className="w-full max-w-48">
+          Работодатель
+        </Title>
+        <div className="flex flex-wrap items-end gap-4 w-full">
+          <div className="w-full max-w-96">
+            <Title size="2">Компания</Title>
+            <Select
+              placeholder="Компания"
+              isClearable
+              options={companyOptions}
+              value={
+                companyOptions.find(
+                  opt => opt.value === form.company.companyId,
+                ) ?? null
+              }
+              onChange={onSelectCompany}
+            />
+          </div>
+          <div>
+            <Button onClick={openModal}>Добавить компанию</Button>
+          </div>
+        </div>
+      </div>
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
     </div>
   );

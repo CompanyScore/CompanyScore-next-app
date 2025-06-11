@@ -5,7 +5,6 @@ import { useCommentFormStore2 } from '@/store';
 import {
   CommentsAddCompany,
   CommentsAddInterview,
-  CommentsAddPositionGrade,
   CommentsAddRecommendation,
   CommentsAddTask,
   CommentsAddWork,
@@ -13,7 +12,7 @@ import {
   CommentsAddOptions,
   CommentsAddIntern,
 } from './components';
-import { Title, Toast } from '@/ui';
+import { Toast } from '@/ui';
 
 export default function CommentsPage() {
   const { form } = useCommentFormStore2();
@@ -23,7 +22,6 @@ export default function CommentsPage() {
   const steps = [
     'options',
     'company',
-    'positionGrade',
     ...(form.task.isTask ? ['task'] : []),
     ...(form.interview.isInterview ? ['interview'] : []),
     ...(form.intern.isIntern ? ['intern'] : []),
@@ -64,20 +62,17 @@ export default function CommentsPage() {
   // };
 
   return (
-    <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-5xl m-auto">
-      <Title size="4" className="text-center">
-        Форма добавления отзыва
-      </Title>
-
-      <progress
-        className="progress"
-        value={((currentStep + 1) * 100) / steps.length}
-        max="100"
-      />
+    <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-[1280px] m-auto">
+      {currentStep != 0 && (
+        <progress
+          className="progress"
+          value={((currentStep + 1) * 100) / steps.length}
+          max="100"
+        />
+      )}
 
       {steps[currentStep] === 'options' && <CommentsAddOptions />}
       {steps[currentStep] === 'company' && <CommentsAddCompany />}
-      {steps[currentStep] === 'positionGrade' && <CommentsAddPositionGrade />}
       {steps[currentStep] === 'task' && <CommentsAddTask />}
       {steps[currentStep] === 'interview' && <CommentsAddInterview />}
       {steps[currentStep] === 'intern' && <CommentsAddIntern />}

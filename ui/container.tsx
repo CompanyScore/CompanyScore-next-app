@@ -9,7 +9,7 @@ type Props = {
 export function Container({ children, className }: Props) {
   return (
     <div
-      className={classNames('hero bg-base-200 place-items-start', className)}
+      className={classNames('max-w-7xl mx-auto py-16 md:py-24 px-7', className)}
     >
       {children}
     </div>

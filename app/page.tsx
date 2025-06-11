@@ -12,10 +12,8 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
+    <section className="flex flex-col items-stretch justify-center gap-8">
       <Hero />
-      {/* <div className="relative -ml-[50vw] -mr-[50vw] left-1/2 right-1/2 inset-0 w-screen h-24 bg-black rounded-b-lg "></div> */}
-      <div className="relative left-1/2 right-1/2 mx-auto -ml-[50vw] -mr-[50vw] w-[calc(100vw-2rem)] h-24 bg-black rounded-b-xl"></div>
       <Features />
       <Steps />
       <Reviews />
