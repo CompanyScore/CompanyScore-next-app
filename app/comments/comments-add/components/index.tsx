@@ -1,6 +1,5 @@
 export { CommentsAddOptions } from './comments-add-options';
 export { CommentsAddCompany } from './comments-add-company';
-export { CommentsAddPositionGrade } from './comments-add-position-grade';
 export { CommentsAddTask } from './comments-add-task';
 export { CommentsAddInterview } from './comments-add-interview';
 export { CommentsAddIntern } from './comments-add-intern';

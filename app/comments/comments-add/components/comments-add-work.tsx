@@ -1,7 +1,7 @@
-import { Checkbox, Radio, StarRating } from '@/shared';
-import { Title } from '@/ui';
+import { Calendar, Checkbox, Radio, StarRating } from '@/shared';
 import React from 'react';
 import { useCommentFormStore2 } from '@/store';
+import { Title } from '@/ui';
 
 export const CommentsAddWork = () => {
   const { form, updateForm } = useCommentFormStore2();
@@ -31,7 +31,17 @@ export const CommentsAddWork = () => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 w-full max-w-3xl m-auto">
+      <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
+        <Title size="2" position="center">
+          Период работы в компании
+        </Title>
+        <div className="flex gap-4 m-auto">
+          <Calendar />
+          <Calendar />
+        </div>
+      </div>
+
       <Title size="2" position="center">
         Оцените работу
       </Title>
@@ -58,7 +68,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="1">Оцените команду / коллектив</Title>
+              <Title size="2">Оцените команду / коллектив</Title>
               <StarRating
                 value={form.work.rating.team}
                 onChange={val =>
