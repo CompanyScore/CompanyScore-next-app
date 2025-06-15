@@ -2,12 +2,12 @@ import { create } from 'zustand';
 import { useApi } from '@/api';
 
 export type ProfileType = {
-  id: string;
-  name: string;
-  avatar: string;
-  position: string;
-  description: string;
-  comments: string[];
+  id?: string;
+  name?: string;
+  avatar?: string;
+  position?: string;
+  description?: string;
+  comments?: string[];
 };
 
 interface ProfileState {
@@ -15,7 +15,7 @@ interface ProfileState {
   loading: boolean;
   error: string;
   getProfile: () => Promise<void>;
-  updateProfile: (formData: ProfileType) => Promise<void>;
+  updateProfile: (formData: FormData) => Promise<void>;
 }
 
 export const useProfileStore = create<ProfileState>(set => ({
