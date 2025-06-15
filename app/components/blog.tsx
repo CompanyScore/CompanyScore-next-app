@@ -1,5 +1,7 @@
 import { Button, Container, Title } from '@/ui';
 import Image from 'next/image';
+import { IconArrowRight, IconEye } from '@tabler/icons-react';
+import { IconBook } from '@tabler/icons-react';
 
 export const Blog = () => {
   const articles = [
@@ -45,7 +47,7 @@ export const Blog = () => {
     <div className="bg-neutral-100 rounded-3xl">
       <Container>
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
-          /БЛОГ/
+          / БЛОГ /
         </p>
         <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
           Советы и инсайты
@@ -58,14 +60,17 @@ export const Blog = () => {
           из первых рук, публикуем обзоры компаний и даём практические советы по
           прохождению собеседований и развитию карьеры
         </p>
-        <div className="flex gap-6">
-          <div className="max-w-[600px]">
-            <Image
-              src={articles[0].image}
-              alt="first article image"
-              width={600}
-              height={460}
-            />
+        <div className="flex justify-between gap-6">
+          <div className="max-w-[626px] w-full h-auto cursor-pointer">
+            <div className="max-w-[626px] h-auto w-full overflow-hidden rounded-lg">
+              <Image
+                src={articles[0].image}
+                alt="first article image"
+                width={626}
+                height={460}
+                className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+              />
+            </div>
 
             <div className="flex mt-6 flex-col gap-2">
               <div className="flex">
@@ -73,11 +78,11 @@ export const Blog = () => {
                   {articles[0].date}
                 </span>
                 <div className="w-full flex justify-end">
-                  <span className="text-neutral-500">
-                    {articles[0].reads} &nbsp;
+                  <span className="flex gap-1 text-neutral-500">
+                    <IconEye stroke={1} /> {articles[0].reads} &nbsp;
                   </span>
-                  <span className="text-neutral-500">
-                    {articles[0].minutes}
+                  <span className="flex gap-1 text-neutral-500">
+                    <IconBook stroke={1} /> {articles[0].minutes}
                   </span>
                 </div>
               </div>
@@ -87,29 +92,31 @@ export const Blog = () => {
               <p className="text-lg text-neutral-500">{articles[0].excerpt}</p>
             </div>
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 max-w-[626px] w-full">
             {articles.map(
               (article, index) =>
                 index !== 0 && (
-                  <div className="flex gap-3" key={index}>
-                    <Image
-                      src={article.image}
-                      className="max-w-[224px]"
-                      alt="article image"
-                      width={224}
-                      height={168}
-                    />
+                  <div className="flex gap-3 cursor-pointer" key={index}>
+                    <div className="max-w-[224px] h-[168px] w-full overflow-hidden rounded-lg">
+                      <Image
+                        src={article.image}
+                        alt="article image"
+                        width={224}
+                        height={168}
+                        className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+                      />
+                    </div>
                     <div className="flex flex-col gap-2">
                       <div className="flex">
                         <span className="w-full text-neutral-500">
                           {article.date}
                         </span>
                         <div className="flex justify-end w-full">
-                          <span className="text-neutral-500">
-                            {article.reads} &nbsp;
+                          <span className="flex gap-1 text-neutral-500">
+                            <IconEye stroke={1} /> {article.reads} &nbsp;
                           </span>
-                          <span className="text-neutral-500">
-                            {article.minutes}
+                          <span className="flex gap-1 text-neutral-500">
+                            <IconBook stroke={1} /> {article.minutes}
                           </span>
                         </div>
                       </div>
@@ -123,8 +130,8 @@ export const Blog = () => {
                   </div>
                 ),
             )}
-            <Button className="rounded-full max-w-56 gap-10 ml-auto w-full">
-              Перейти в блог
+            <Button className="btn-secondary max-w-56 ml-auto">
+              Перейти в блог <IconArrowRight stroke={1} />
             </Button>
           </div>
         </div>

@@ -1,5 +1,7 @@
 import { Button, Container, Title } from '@/ui';
 import { Card } from '@/ui/card';
+import { IconArrowRight } from '@tabler/icons-react';
+import { IconArrowLeft } from '@tabler/icons-react';
 
 export const Reviews = () => {
   const reviews = [
@@ -31,12 +33,12 @@ export const Reviews = () => {
       <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
         Здесь&nbsp;
         <span className="font-semibold text-orange-600">делятся опытом</span>
-        рассказывают о реальных ситуациях — от первых собеседований
+        &nbsp;рассказывают о реальных ситуациях — от первых собеседований
         до повседневных рабочих будней. Узнайте, что скрывается за официальными
         описаниями вакансий
       </p>
 
-      <div className="flex justify-center mt-10 gap-6">
+      <div className="flex justify-center flex-wrap mt-10 gap-6">
         {reviews.map((review, index) => (
           <Card key={index} className="max-w-[392px]">
             <span className="font-semibold text-base">{review.title}</span>
@@ -45,8 +47,12 @@ export const Reviews = () => {
         ))}
       </div>
       <div className="flex justify-center gap-6 mt-8">
-        <Button className="rounded-full">{'<'}</Button>
-        <Button className="rounded-full">{'>'}</Button>
+        <Button className="rounded-full">
+          <IconArrowLeft stroke={1} />
+        </Button>
+        <Button className="rounded-full">
+          <IconArrowRight stroke={1} />
+        </Button>
         {/* <Pagination page={1} total={1} limit={1} onPageChange={() => {}} /> */}
       </div>
     </Container>

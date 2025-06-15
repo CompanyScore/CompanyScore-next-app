@@ -1,35 +1,15 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
 import { Button, Toast } from '@/ui';
-import { CompaniesPostCommentModal } from '@/app/companies/modals';
 import { useCommentsStore, useCompaniesStore } from '@/store';
-
-type CompanyType = {
-  id?: string;
-  name: string;
-  country: string;
-  city: string;
-  rating?: number;
-  logo?: string;
-  description?: string;
-  commentsIds?: string[];
-};
 
 export function CompanyCard() {
   const { id } = useParams<{ id: string }>();
   const { company, getCompany } = useCompaniesStore();
   const { total } = useCommentsStore();
-
-  const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
-    null,
-  );
-
-  const openModal = (company: CompanyType) => {
-    setSelectedCompany(company);
-  };
 
   useEffect(() => {
     getCompany(id);
@@ -62,7 +42,7 @@ export function CompanyCard() {
         <div className="w-full">
           <div className="flex justify-between items-start w-full">
             <h1 className="text-5xl font-bold">{company?.name}</h1>
-            <Button className="btn-success" onClick={() => openModal(company!)}>
+            <Button className="btn-success">
               <label htmlFor={'companies_add_comment_modal'}>
                 <Image
                   src="/icons/pencil.svg"
@@ -76,7 +56,6 @@ export function CompanyCard() {
           <p className="pt-4">{company?.description}</p>
         </div>
       </div>
-      <CompaniesPostCommentModal companyId={selectedCompany?.id || ''} />
       <Toast />
     </div>
   );

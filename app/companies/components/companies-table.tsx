@@ -1,29 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { CompaniesPostCommentModal } from '@/app/companies/modals/index';
 import { useCompaniesStore } from '@/store';
 import type { CompanyType } from '@/store/companies';
 import { Button, Avatar, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
   const { companies, loading } = useCompaniesStore();
-
-  const [selectedCompany, setSelectedCompany] = useState<CompanyType | null>(
-    null,
-  );
-
-  const openModal = (company: CompanyType) => {
-    setSelectedCompany(company);
-    const modal = document.getElementById(
-      'companies_add_comment_modal',
-    ) as HTMLInputElement;
-    if (modal) {
-      modal.checked = true;
-    }
-  };
 
   useEffect(() => {
     useCompaniesStore.getState().getCompanies({});
@@ -79,7 +64,7 @@ export function CompaniesTable() {
             </Button>
           </Tooltip>
           <Tooltip tip="Оставить отзыв">
-            <Button className="btn-success" onClick={() => openModal(company)}>
+            <Button className="btn-success">
               <Image
                 src="/icons/pencil.svg"
                 alt="Pencil"
@@ -96,7 +81,6 @@ export function CompaniesTable() {
   return (
     <>
       <Table columns={columns} data={companies} />
-      <CompaniesPostCommentModal companyId={selectedCompany?.id || ''} />
       <Toast />
     </>
   );

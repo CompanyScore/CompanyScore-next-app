@@ -3,9 +3,9 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import ThemeController from './theme-controller';
+import { ThemeController } from './';
 
-export default function HeaderMobile() {
+export function HeaderMobile() {
   const pathname = usePathname();
 
   const pages = [

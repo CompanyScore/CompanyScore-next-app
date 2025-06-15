@@ -9,6 +9,7 @@ export default {
     './ui/**/*.{js,ts,jsx,tsx,mdx}',
     './shared/**/*.{js,ts,jsx,tsx,mdx}',
     './public/**/*.{js,ts,jsx,tsx,mdx}',
+    './widgets/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -24,9 +25,21 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
-    themes: ['valentine', 'dark', 'light'],
-
-    // themes: ["valentine", "light", "coffee", "dark", "dim", "drakula"],
-    // synthwave", "black", "luxury", "pastel", "cyberpunk",
+    themes: [
+      {
+        light: {
+          primary: '#FDB24A',
+          'primary-content': '#1f2937',
+          secondary: '#ffffff',
+          'secondary-content': '#111827',
+          neutral: '#000000', // делает фон чёрным
+          'neutral-content': '#ffffff', // делает текст белым
+          success: '#22c55e',
+          error: '#ef4444',
+          warning: '#facc15',
+          info: '#3b82f6',
+        },
+      },
+    ],
   },
 } satisfies Config;

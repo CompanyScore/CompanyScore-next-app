@@ -1,4 +1,5 @@
 import { Button, Container, Title } from '@/ui';
+import { IconArrowRight } from '@tabler/icons-react';
 
 export const Steps = () => {
   const steps = [
@@ -25,7 +26,7 @@ export const Steps = () => {
     <div className=" bg-neutral-100 rounded-3xl">
       <Container>
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
-          /КАК ЭТО РАБОТАЕТ/
+          / КАК ЭТО РАБОТАЕТ /
         </p>
         <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
           Простые шаги к прозрачности
@@ -35,7 +36,7 @@ export const Steps = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex justify-between border-t-brand-300 border-t-2 py-10 px-7"
+              className="flex justify-between items-center flex-wrap gap-4 border-t-amber-700 border-t-2 py-10 px-7"
             >
               <div className="flex flex-col max-w-[600px]">
                 <Title
@@ -49,8 +50,8 @@ export const Steps = () => {
                 </p>
               </div>
               <div className="flex justify-end">
-                <Button className="mt-10 rounded-full border-2 px-6 py-3 text-lg font-normal text-black transition">
-                  {step.button}
+                <Button className="btn-secondary">
+                  {step.button} <IconArrowRight stroke={1} />
                 </Button>
               </div>
             </div>

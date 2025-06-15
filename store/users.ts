@@ -53,8 +53,12 @@ export const useUsersStore = create<CommentsState>(set => ({
         total: data.total,
         limit: data.limit,
       });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -67,8 +71,12 @@ export const useUsersStore = create<CommentsState>(set => ({
       set({
         user: data,
       });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });

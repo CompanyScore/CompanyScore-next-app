@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 
-export default function ThemeController() {
+export function ThemeController() {
   const [theme, setTheme] = useState(Cookies.get('theme') || 'light');
 
   const handleChangeTheme = (value: string) => {

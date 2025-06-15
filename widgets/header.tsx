@@ -2,11 +2,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { Avatar } from '@/ui';
-import ThemeController from './theme-controller';
 import { useProfileStore } from '@/store';
+import { ThemeController } from './';
+import { Avatar } from '@/ui';
 
-export default function Header() {
+export function Header() {
   const { profile, getProfile } = useProfileStore();
   const pathname = usePathname();
 

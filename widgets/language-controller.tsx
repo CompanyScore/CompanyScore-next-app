@@ -3,7 +3,7 @@
 import Cookies from 'js-cookie';
 import Image from 'next/image';
 
-export default function LanguageController() {
+export function LanguageController() {
   const handleChangeLanguage = (value: string) => {
     Cookies.set('language', value);
   };
