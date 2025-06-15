@@ -15,7 +15,7 @@ interface ProfileState {
   loading: boolean;
   error: string;
   getProfile: () => Promise<void>;
-  updateProfile: (formData: any) => Promise<void>;
+  updateProfile: (formData: ProfileType) => Promise<void>;
 }
 
 export const useProfileStore = create<ProfileState>(set => ({
@@ -41,8 +41,13 @@ export const useProfileStore = create<ProfileState>(set => ({
       set({
         profile: data,
       });
-    } catch (error: any) {
-      set({ error: error.message });
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
@@ -53,8 +58,12 @@ export const useProfileStore = create<ProfileState>(set => ({
 
     try {
       await useApi.patch(`/users`, formData);
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });

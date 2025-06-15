@@ -58,8 +58,12 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
       const { data } = await useApi.post(`/companies/`, company);
       set({ companies: [...get().companies, data] });
       return data;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -86,8 +90,12 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
         total: data.total,
         limit: data.limit,
       });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -101,8 +109,12 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
       const { data } = await useApi.get(`/companies/${id}`);
       set({ company: data });
       return data;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -115,8 +127,12 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
     try {
       const { data } = await useApi.get(`/companies/new/`);
       set({ companiesNew: data });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -133,9 +149,12 @@ export const useCompaniesStore = create<CompaniesState>((set, get) => ({
         countryOptions: fetchedCountries,
         cityOptions: fetchedCities,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
       const errorMessage =
-        error.response?.data?.message || 'Не удалось загрузить локации';
+        axiosError.response?.data?.message || 'Не удалось загрузить локации';
       set({ error: errorMessage });
     }
   },

@@ -26,6 +26,49 @@ type GetCommentsParams = {
   companyId?: string;
 };
 
+export type PostComment = {
+  companyId: string;
+  position: string;
+  grade: {
+    year: number;
+    month: number;
+  };
+  task: {
+    text: string;
+    rating: number;
+  };
+  interview: {
+    text: string;
+    rating: number;
+  };
+  work: {
+    rating: {
+      team: number;
+      management: number;
+      stack: number;
+      project: number;
+      workFormat: number;
+    };
+    finance: {
+      salary: number;
+      medicine: number;
+      premium: number;
+      bonuses: number;
+      stocks: number;
+      dividends: number;
+    };
+    other: {
+      education: number;
+      events: number;
+    };
+  };
+  recommendation: {
+    isRecommended: boolean;
+    reasonJoined: string;
+    reasonLeft: string;
+  };
+};
+
 interface CommentsState {
   comments: CommentType[];
   page: number;
@@ -34,7 +77,7 @@ interface CommentsState {
   loading: boolean;
   error: string;
   getComments: (params: GetCommentsParams) => Promise<void>;
-  postComment: (formData: any) => Promise<any>;
+  postComment: (formData: PostComment) => Promise<void>;
   updateComment: (
     commentId: string,
     text: string,
@@ -69,8 +112,12 @@ export const useCommentsStore = create<CommentsState>(set => ({
         total: data.total,
         limit: data.limit,
       });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Произошла ошибка';
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
       set({ error: errorMessage });
     } finally {
       set({ loading: false });
@@ -81,8 +128,8 @@ export const useCommentsStore = create<CommentsState>(set => ({
     const newComment = {
       companyId: formData.companyId,
       position: formData.position,
-      gradeYear: formData.grade.years,
-      gradeMonth: formData.grade.months,
+      gradeYear: formData.grade.year,
+      gradeMonth: formData.grade.month,
       taskText: formData.task.text,
       taskRating: formData.task.rating,
       interviewText: formData.interview.text,
@@ -110,9 +157,12 @@ export const useCommentsStore = create<CommentsState>(set => ({
     try {
       const { data } = await useApi.post('/comments', newComment);
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
       const errorMessage =
-        (await error.response?.data?.message) || 'Произошла ошибка';
+        (await axiosError.response?.data?.message) || 'Произошла ошибка';
       set({ error: errorMessage });
       throw new Error(errorMessage);
     } finally {
@@ -128,8 +178,13 @@ export const useCommentsStore = create<CommentsState>(set => ({
   ) => {
     try {
       await useApi.patch(`/comments/${commentId}`, { text, rating, position });
-    } catch (error: any) {
-      set({ error: error.message });
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }
@@ -138,8 +193,13 @@ export const useCommentsStore = create<CommentsState>(set => ({
   deleteComment: async (commentId: string) => {
     try {
       await useApi.delete(`/comments/${commentId}`);
-    } catch (error: any) {
-      set({ error: error.message });
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
+      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="footer bg-neutral text-neutral-content items-center p-8">
       <aside className="grid-flow-col items-center">

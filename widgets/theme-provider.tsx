@@ -3,15 +3,11 @@
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 
-export default function ThemeProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedTheme = Cookies.get('theme') || 'valentine';
+    const storedTheme = Cookies.get('theme') || 'light';
     Cookies.set('theme', storedTheme); // Сохраняем значение в Cookies, если его нет
     setTheme(storedTheme);
     document.documentElement.setAttribute('data-theme', storedTheme); // Устанавливаем атрибут для HTML
