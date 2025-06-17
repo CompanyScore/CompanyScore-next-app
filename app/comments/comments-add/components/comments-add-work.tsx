@@ -33,24 +33,20 @@ export const CommentsAddWork = () => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-3xl m-auto">
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
-        <Title size="2" position="center">
-          Период работы в компании
-        </Title>
+        <Title>Период работы в компании</Title>
         <div className="flex gap-4 m-auto">
           <Calendar />
           <Calendar />
         </div>
       </div>
 
-      <Title size="2" position="center">
-        Оцените работу
-      </Title>
+      <Title>Оцените работу</Title>
 
       <div className="flex flex-col gap-4 w-full m-auto">
         <div className="flex justify-content-between flex-wrap">
           <div className="flex flex-col gap-4 m-auto">
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените руководство</Title>
+              <Title>Оцените руководство</Title>
               <StarRating
                 value={form.work.rating.management}
                 onChange={val =>
@@ -68,7 +64,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените команду / коллектив</Title>
+              <Title>Оцените команду / коллектив</Title>
               <StarRating
                 value={form.work.rating.team}
                 onChange={val =>
@@ -86,7 +82,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените проект / задачи</Title>
+              <Title>Оцените проект / задачи</Title>
               <StarRating
                 value={form.work.rating.project}
                 onChange={val =>
@@ -104,7 +100,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените используемые технологии</Title>
+              <Title>Оцените используемые технологии</Title>
               <StarRating
                 value={form.work.rating.stack}
                 onChange={val =>
@@ -122,7 +118,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените возможности для обучения</Title>
+              <Title>Оцените возможности для обучения</Title>
               <StarRating
                 value={form.work.other.education}
                 onChange={val =>
@@ -140,7 +136,7 @@ export const CommentsAddWork = () => {
             </div>
 
             <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-              <Title size="2">Оцените корпоративные мероприятия</Title>
+              <Title>Оцените корпоративные мероприятия</Title>
               <StarRating
                 value={form.work.other.events}
                 onChange={val =>
@@ -171,7 +167,7 @@ export const CommentsAddWork = () => {
               onChange={handleCheckboxPartnership}
             />
 
-            <Title size="2">Проводятся ли performance review?</Title>
+            <Title>Проводятся ли performance review?</Title>
             <Radio
               options={[
                 { label: 'Нет', value: 0 },
@@ -192,7 +188,7 @@ export const CommentsAddWork = () => {
               }
             />
 
-            <Title size="2">Выберите возможность формата работы</Title>
+            <Title>Выберите возможность формата работы</Title>
             <Radio
               options={[
                 { label: 'Офис', value: 0 },

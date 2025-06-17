@@ -1,4 +1,4 @@
-type ButtonProps = {
+type Props = {
   children: React.ReactNode;
   disabled?: boolean;
   onClick?: () => void;
@@ -10,10 +10,10 @@ export function Button({
   disabled = false,
   onClick,
   className = 'btn-primary',
-}: ButtonProps) {
+}: Props) {
   return (
     <button
-      className={`btn px-4 py-2 rounded-full cursor-pointer ${className}`}
+      className={`btn px-4 py-2 rounded-full cursor-pointer font-normal ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

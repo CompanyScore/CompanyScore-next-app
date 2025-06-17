@@ -8,9 +8,7 @@ export const CommentsAddInterview = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">
-        Оцените собеседование
-      </Title>
+      <Title>Оцените собеседование</Title>
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
         <p>Качество и прозрачность коммуникации с рекрутером</p>
         <StarRating value={0} onChange={() => console.log('value')} />

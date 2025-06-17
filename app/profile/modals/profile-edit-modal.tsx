@@ -88,9 +88,7 @@ export function ProfileEditModal() {
 
   return (
     <Modal id="profile_edit_modal" className="max-h-[570px] h-full">
-      <Title size="3" position="center">
-        Редактирование профиля
-      </Title>
+      <Title>Редактирование профиля</Title>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center gap-4">

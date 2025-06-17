@@ -10,7 +10,7 @@ export function Container({ children, className }: Props) {
   return (
     <div
       className={classNames(
-        'max-w-7xl mx-auto py-16 md:py-24 px-7 w-full',
+        'max-w-7xl mx-auto py-12 md:py-24 px-6 md:px-7 w-full',
         className,
       )}
     >

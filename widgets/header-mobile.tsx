@@ -2,8 +2,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
-import { ThemeController } from './';
+// import { ThemeController } from './';
 
 export function HeaderMobile() {
   const pathname = usePathname();
@@ -19,9 +20,14 @@ export function HeaderMobile() {
   ];
 
   return (
-    <div className="flex min-[1300px]:hidden navbar bg-base-100">
+    <div className="flex min-[1300px]:hidden navbar bg-black text-white">
       <div className="navbar-start">
-        <div className="dropdown">
+        <Image src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
+        <div className="text-xl">CompanyScore</div>
+      </div>
+      <div className="navbar-center"></div>
+      <div className="navbar-end gap-2">
+        <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -40,7 +46,7 @@ export function HeaderMobile() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-black text-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {pages.map(({ href, label }) => (
               <Link
@@ -57,12 +63,7 @@ export function HeaderMobile() {
             ))}
           </ul>
         </div>
-      </div>
-      <div className="navbar-center">
-        <a className="btn btn-ghost text-xl">CompanyScore</a>
-      </div>
-      <div className="navbar-end gap-2">
-        <ThemeController />
+        {/* <ThemeController /> */}
         {/* <button className="btn btn-ghost btn-circle">
           <div className="indicator">
             <svg

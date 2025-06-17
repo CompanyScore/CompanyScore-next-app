@@ -31,7 +31,7 @@ export function UsersTable() {
   }
 
   if (!users.length) {
-    return <Title position="center">Пользователей еще нет</Title>;
+    return <Title>Пользователей еще нет</Title>;
   }
 
   const columns = [

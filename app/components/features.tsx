@@ -30,12 +30,10 @@ export const Features = () => {
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
         / ​почему мы /
       </p>
-      <Title size="4">Станьте частью перемен</Title>
+      <Title>Станьте частью перемен</Title>
       <p className="mt-4 mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
         Мы создаём пространство, где&nbsp;
-        <span className="font-semibold text-orange-600">
-          каждый голос важен
-        </span>
+        <span className="font-semibold text-amber-700">каждый голос важен</span>
         , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
         справедливым, чтобы каждый мог найти работу, где его ценят и уважают
       </p>
@@ -46,35 +44,23 @@ export const Features = () => {
         {features.map(feature => (
           <div
             key={feature.id}
-            className={`flex w-96 m-auto rounded-xl border p-6 border-neutral-400 bg-white `}
+            className={`flex flex-col w-96 h-[240px] m-auto rounded-xl border p-6 border-neutral-400 bg-white`}
           >
-            <div className={`flex flex-col`}>
-              <span className="text-xs text-amber-700">
-                &lt;{feature.id}&gt;
-              </span>
-              <Title
-                size="2"
-                className="whitespace-pre-line text-lg font-semibold mt-4"
-              >
-                {feature.title}
-              </Title>
-              <p className="mt-3 text-sm leading-relaxed text-neutral-700">
-                {feature.body}
-              </p>
-            </div>
+            <span className="text-xs text-amber-700">&lt;{feature.id}&gt;</span>
+            <h3 className="text-xl font-medium mt-4">{feature.title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+              {feature.body}
+            </p>
           </div>
         ))}
         <div
-          className={`flex justify-between m-auto rounded-xl border p-6 border-neutral-400 bg-orange-50 max-w-[800px] w-96 md:w-full`}
+          className={`flex justify-between m-auto rounded-xl border p-6 border-neutral-400 bg-orange-50 max-w-[800px] w-96 md:w-full h-[240px]`}
         >
-          <div className={`flex flex-col  w-80`}>
+          <div className={`flex flex-col max-w-80 w-full`}>
             <span className="text-xs text-amber-700">&lt;05&gt;</span>
-            <Title
-              size="2"
-              className="whitespace-pre-line text-lg font-semibold mt-4"
-            >
+            <h3 className="text-xl font-medium mt-4">
               Сообщество, меняющее рынок труда
-            </Title>
+            </h3>
             <p className="mt-3 text-sm leading-relaxed text-neutral-700">
               Мы верим, что честные отзывы помогают компаниям становиться лучше,
               а IT-специалистам — принимать обоснованные решения и находить

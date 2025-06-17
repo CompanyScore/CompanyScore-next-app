@@ -84,16 +84,16 @@ export const CommentsAddOptions = () => {
 
   return (
     <div className="flex flex-col gap-6 m-auto w-full">
-      <Title size="3">Заполнение формы отзыва</Title>
-      <Title size="1">
+      <Title>Заполнение формы отзыва</Title>
+      <Title>
         Укажите информацию про свою должность и о чем вы бы хотели оставить
         отзыв
       </Title>
 
       <div className="flex justify-between w-full">
-        <Title size="2">О себе</Title>
+        <Title>О себе</Title>
         <div className="w-full max-w-96">
-          <Title size="2">Должность</Title>
+          <Title>Должность</Title>
           <Select
             placeholder="Должность"
             isClearable
@@ -107,7 +107,7 @@ export const CommentsAddOptions = () => {
           />
         </div>
         <div>
-          <Title size="2">Стаж работы</Title>
+          <Title>Стаж работы</Title>
 
           <Input
             type="number"
@@ -116,7 +116,7 @@ export const CommentsAddOptions = () => {
             onChange={val => handleYearsChange(Number(val))}
           />
 
-          <Title size="1">Укажите общий стаж вашей работы</Title>
+          <Title>Укажите общий стаж вашей работы</Title>
 
           {/* <div className="flex flex-col gap-2 m-auto">
             <p>Количество месяцев</p>
@@ -134,8 +134,8 @@ export const CommentsAddOptions = () => {
 
       <div className="flex gap-6 m-auto w-full">
         <div className="flex flex-col">
-          <Title size="3">О чём отзыв?</Title>
-          <Title size="1">Выберите один или несколько вариантов</Title>
+          <Title>О чём отзыв?</Title>
+          <Title>Выберите один или несколько вариантов</Title>
         </div>
         <div className="flex flex-wrap w-full gap-10">
           <Card className="flex flex-col gap-4 max-w-96 w-full">
@@ -148,9 +148,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxTask}
               />
             </div>
-            <Title size="2" position="center">
-              Рассказать про тестовое задание
-            </Title>
+            <Title>Рассказать про тестовое задание</Title>
             <div>
               Оцените опыт прохождения тестового или технического задания.
               Расскажите, насколько оно соответствовало указанной вакансии,
@@ -167,9 +165,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxInterview}
               />
             </div>
-            <Title size="2" position="center">
-              Рассказать про собеседование
-            </Title>
+            <Title>Рассказать про собеседование</Title>
             <div>
               Оцените опыт прохождения собеседования. Поделитесь, получили ли вы
               предложение о работе, насколько собеседование отвечало вашим
@@ -186,9 +182,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxIntern}
               />
             </div>
-            <Title size="2" position="center">
-              Рассказать про стажировку
-            </Title>
+            <Title>Рассказать про стажировку</Title>
             <div>
               Оцените стажировку. Расскажите, была ли она оплачиваемой, помогла
               ли найти работу, насколько полезны были задачи и был ли у вас
@@ -205,9 +199,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxWork}
               />
             </div>
-            <Title size="2" position="center">
-              Рассказать про опыт работы
-            </Title>
+            <Title>Рассказать про опыт работы</Title>
             <div>
               Оцените работу в компании. Расскажите про условия работы, процессы
               управления корпоративную культуру, уровень зарплаты, социальный

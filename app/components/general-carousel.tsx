@@ -43,7 +43,7 @@ export function GeneralCarousel() {
   }
 
   if (companiesNew.length === 0) {
-    return <Title size="4">Нет новых компаний.</Title>;
+    return <Title>Нет новых компаний.</Title>;
   }
 
   return (
@@ -77,7 +77,7 @@ export function GeneralCarousel() {
             />
 
             <div className="max-[1300px]:hidden w-1/2 p-8 flex flex-col items-center justify-center text-base-content">
-              <Title size="3">{companiesNew[currentIndex]?.name}</Title>
+              <Title>{companiesNew[currentIndex]?.name}</Title>
               <p className="text-lg font-semibold ">
                 {companiesNew[currentIndex]?.rating}
               </p>

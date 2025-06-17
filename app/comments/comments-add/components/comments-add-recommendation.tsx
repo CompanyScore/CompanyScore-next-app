@@ -7,14 +7,14 @@ export const CommentsAddRecommendation = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="3">Ваши впечатления о компании</Title>
+      <Title>Ваши впечатления о компании</Title>
       <div>
         Расскажите о плюсах и минусах, и порекомендовали бы вы компанию другим
       </div>
       <div className="flex gap-20">
-        <Title size="2">Плюсы и минусы</Title>
+        <Title>Плюсы и минусы</Title>
         <div className="flex flex-col gap-4">
-          <Title size="2">Что вам особенно понравилось в этой компании?</Title>
+          <Title>Что вам особенно понравилось в этой компании?</Title>
           <textarea
             className="textarea textarea-primary w-full"
             placeholder="Ваш ответ..."
@@ -29,9 +29,7 @@ export const CommentsAddRecommendation = () => {
             }
           />
 
-          <Title size="2">
-            Что, по вашему мнению, можно улучшить в этой компании?
-          </Title>
+          <Title>Что, по вашему мнению, можно улучшить в этой компании?</Title>
           <textarea
             className="textarea textarea-primary w-full"
             placeholder="Ваш ответ..."
@@ -51,7 +49,7 @@ export const CommentsAddRecommendation = () => {
       <div className="divider"></div>
 
       <div className="flex gap-20 items-end">
-        <Title size="2">Рекомендация</Title>
+        <Title>Рекомендация</Title>
         <div>Посоветовали бы вы компанию другим?</div>
         <Radio
           options={[

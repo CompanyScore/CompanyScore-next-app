@@ -28,9 +28,7 @@ export const Steps = () => {
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
           / КАК ЭТО РАБОТАЕТ /
         </p>
-        <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
-          Простые шаги к прозрачности
-        </Title>
+        <Title className="font-semibold">Простые шаги к прозрачности</Title>
 
         <div className="flex flex-col justify-between mt-10">
           {steps.map((step, index) => (
@@ -39,18 +37,15 @@ export const Steps = () => {
               className="flex justify-between items-center flex-wrap gap-4 border-t-amber-700 border-t-2 py-10 px-7"
             >
               <div className="flex flex-col max-w-[600px]">
-                <Title
-                  size="2"
-                  className="whitespace-pre-line text-2xl font-semibold"
-                >
+                <h3 className="whitespace-pre-line text-2xl font-medium">
                   {step.title}
-                </Title>
+                </h3>
                 <p className="mt-3 text-base leading-relaxed text-neutral-700">
                   {step.description}
                 </p>
               </div>
               <div className="flex justify-end">
-                <Button className="btn-secondary">
+                <Button className="btn-neutral border border-1-black">
                   {step.button} <IconArrowRight stroke={1} />
                 </Button>
               </div>

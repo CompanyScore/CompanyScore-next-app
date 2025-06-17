@@ -14,10 +14,7 @@ export default function LinkedIn() {
   return (
     <Modal id="linkedin_modal">
       <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-        <Title
-          position="center"
-          className="text-xl font-semibold text-gray-600"
-        >
+        <Title className="text-xl font-semibold text-gray-600">
           Войти через LinkedIn
         </Title>
 

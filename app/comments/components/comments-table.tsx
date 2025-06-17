@@ -22,7 +22,7 @@ export function CommentsTable() {
   }
 
   if (!comments?.length) {
-    return <Title position="center">Список отзывов пуст</Title>;
+    return <Title>Список отзывов пуст</Title>;
   }
 
   const columns = [

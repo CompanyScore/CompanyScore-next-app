@@ -56,9 +56,7 @@ export function ProfileEditCommentModal({
 
   return (
     <Modal id="profile-edit-comment-modal">
-      <Title size="3" position="center">
-        Редактирование отзыва
-      </Title>
+      <Title>Редактирование отзыва</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label htmlFor="position" className="block mb-2">
