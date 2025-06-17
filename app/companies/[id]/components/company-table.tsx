@@ -46,9 +46,7 @@ export function CompanyTable() {
   }
 
   if (!comments.length) {
-    return (
-      <Title position="center">Оставьте первый отзыв для этой компании!</Title>
-    );
+    return <Title>Оставьте первый отзыв для этой компании!</Title>;
   }
 
   const columns = [

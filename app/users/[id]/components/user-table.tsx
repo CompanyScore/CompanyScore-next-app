@@ -36,7 +36,7 @@ export function UserTable() {
   if (!comments.length) {
     return (
       <Button className="btn-link">
-        <Title position="center">
+        <Title>
           <Link href="/companies" className="underline">
             Оставьте свой первый отзыв!
           </Link>

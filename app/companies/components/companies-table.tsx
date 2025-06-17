@@ -21,7 +21,7 @@ export function CompaniesTable() {
   }
 
   if (!companies?.length) {
-    return <Title position="center">Список компаний пуст</Title>;
+    return <Title>Список компаний пуст</Title>;
   }
 
   const columns = [

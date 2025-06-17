@@ -7,7 +7,7 @@ export const CommentsAddWork2 = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title position="center">Оцените работу 2</Title>
+      <Title>Оцените работу 2</Title>
 
       <div className="flex flex-col gap-4 w-full m-auto">
         <div className="flex justify-content-between flex-wrap">

@@ -33,14 +33,14 @@ export const CommentsAddWork = () => {
   return (
     <div className="flex flex-col gap-6 w-full max-w-3xl m-auto">
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
-        <Title position="center">Период работы в компании</Title>
+        <Title>Период работы в компании</Title>
         <div className="flex gap-4 m-auto">
           <Calendar />
           <Calendar />
         </div>
       </div>
 
-      <Title position="center">Оцените работу</Title>
+      <Title>Оцените работу</Title>
 
       <div className="flex flex-col gap-4 w-full m-auto">
         <div className="flex justify-content-between flex-wrap">

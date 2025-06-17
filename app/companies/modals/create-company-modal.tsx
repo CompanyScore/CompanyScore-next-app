@@ -83,7 +83,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
 
   return (
     <Modal id="create_company_modal">
-      <Title position="center">Предложите компанию</Title>
+      <Title>Предложите компанию</Title>
 
       <form onSubmit={onSubmit}>
         <div className="flex flex-col items-center gap-4 w-full max-w-xl m-auto">

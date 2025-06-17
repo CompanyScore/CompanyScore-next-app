@@ -148,7 +148,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxTask}
               />
             </div>
-            <Title position="center">Рассказать про тестовое задание</Title>
+            <Title>Рассказать про тестовое задание</Title>
             <div>
               Оцените опыт прохождения тестового или технического задания.
               Расскажите, насколько оно соответствовало указанной вакансии,
@@ -165,7 +165,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxInterview}
               />
             </div>
-            <Title position="center">Рассказать про собеседование</Title>
+            <Title>Рассказать про собеседование</Title>
             <div>
               Оцените опыт прохождения собеседования. Поделитесь, получили ли вы
               предложение о работе, насколько собеседование отвечало вашим
@@ -182,7 +182,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxIntern}
               />
             </div>
-            <Title position="center">Рассказать про стажировку</Title>
+            <Title>Рассказать про стажировку</Title>
             <div>
               Оцените стажировку. Расскажите, была ли она оплачиваемой, помогла
               ли найти работу, насколько полезны были задачи и был ли у вас
@@ -199,7 +199,7 @@ export const CommentsAddOptions = () => {
                 onChange={handleCheckboxWork}
               />
             </div>
-            <Title position="center">Рассказать про опыт работы</Title>
+            <Title>Рассказать про опыт работы</Title>
             <div>
               Оцените работу в компании. Расскажите про условия работы, процессы
               управления корпоративную культуру, уровень зарплаты, социальный
