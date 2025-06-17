@@ -7,14 +7,12 @@ export const CommentsAddWork2 = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">
-        Оцените работу 2
-      </Title>
+      <Title position="center">Оцените работу 2</Title>
 
       <div className="flex flex-col gap-4 w-full m-auto">
         <div className="flex justify-content-between flex-wrap">
           <div className="flex flex-col gap-4 m-auto">
-            <Title size="2">Уровень зарплаты</Title>
+            <Title>Уровень зарплаты</Title>
             <Input
               type="number"
               value={form.work.finance.salary}
@@ -31,7 +29,7 @@ export const CommentsAddWork2 = () => {
               }
             />
 
-            <Title size="2">Медицинкая страховка</Title>
+            <Title>Медицинкая страховка</Title>
             <Input
               type="number"
               value={form.work.finance.medicine}
@@ -48,7 +46,7 @@ export const CommentsAddWork2 = () => {
               }
             />
 
-            <Title size="2">Премии</Title>
+            <Title>Премии</Title>
             <Input
               type="number"
               value={form.work.finance.premium}
@@ -65,7 +63,7 @@ export const CommentsAddWork2 = () => {
               }
             />
 
-            <Title size="2">Бонусы</Title>
+            <Title>Бонусы</Title>
             <Input
               type="number"
               value={form.work.finance.bonuses}
@@ -82,7 +80,7 @@ export const CommentsAddWork2 = () => {
               }
             />
 
-            <Title size="2">Участие в опционах / акциях</Title>
+            <Title>Участие в опционах / акциях</Title>
             <Input
               type="number"
               value={form.work.finance.stocks}
@@ -99,7 +97,7 @@ export const CommentsAddWork2 = () => {
               }
             />
 
-            <Title size="2">Дополнительные выплаты / дивиденды</Title>
+            <Title>Дополнительные выплаты / дивиденды</Title>
             <Input
               type="number"
               value={form.work.finance.dividends}

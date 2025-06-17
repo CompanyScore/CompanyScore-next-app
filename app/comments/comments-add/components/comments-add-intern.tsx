@@ -8,9 +8,7 @@ export const CommentsAddIntern = () => {
 
   return (
     <div className="flex flex-col gap-6 m-auto">
-      <Title size="2" position="center">
-        Оцените cтажировку
-      </Title>
+      <Title position="center">Оцените cтажировку</Title>
 
       <p>Полезность стажировки для профессионального развития</p>
       <StarRating value={0} onChange={() => console.log('value')} />

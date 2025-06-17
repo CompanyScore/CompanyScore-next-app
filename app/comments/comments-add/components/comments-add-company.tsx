@@ -89,19 +89,17 @@ export const CommentsAddCompany = () => {
 
   return (
     <div>
-      <Title size="3">Выбор компании</Title>
+      <Title>Выбор компании</Title>
       <div className="mb-8">
         Укажите в какой стране и городе находится компания, про которую пойдет
         речь в отзыве
       </div>
 
       <div className="flex flex-row justify-between gap-20 w-full">
-        <Title size="2" className="w-full max-w-48">
-          Локация
-        </Title>
+        <Title className="w-full max-w-48">Локация</Title>
         <div className="flex flex-wrap items-end gap-4 w-full">
           <div className="w-full max-w-96">
-            <Title size="2">Страна</Title>
+            <Title>Страна</Title>
             <Select
               placeholder="Страна"
               isClearable
@@ -115,7 +113,7 @@ export const CommentsAddCompany = () => {
             />
           </div>
           <div className="w-full max-w-96">
-            <Title size="2">Город</Title>
+            <Title>Город</Title>
             <Select
               placeholder="Город"
               isClearable
@@ -135,12 +133,10 @@ export const CommentsAddCompany = () => {
       <div className="divider"></div>
 
       <div className="flex justify-between gap-20 w-full">
-        <Title size="2" className="w-full max-w-48">
-          Работодатель
-        </Title>
+        <Title className="w-full max-w-48">Работодатель</Title>
         <div className="flex flex-wrap items-end gap-4 w-full">
           <div className="w-full max-w-96">
-            <Title size="2">Компания</Title>
+            <Title>Компания</Title>
             <Select
               placeholder="Компания"
               isClearable

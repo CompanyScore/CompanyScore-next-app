@@ -8,9 +8,7 @@ export const CommentsAddTask = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <Title size="2" position="center">
-        Оцените техническое задание
-      </Title>
+      <Title position="center">Оцените техническое задание</Title>
       <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
         <p>Актуальность и применимость ТЗ к должности</p>
         <StarRating value={0} onChange={() => console.log('value')} />
