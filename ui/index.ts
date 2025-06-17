@@ -15,3 +15,4 @@ export { Container } from './container';
 export { Table } from './table';
 export { Accordion } from './accordion';
 export { Card } from './card';
+export { Carousel } from './carousel';

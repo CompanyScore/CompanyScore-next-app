@@ -3,7 +3,7 @@ import { Button, Container } from '@/ui';
 export const Call = () => {
   return (
     <div
-      className="bg-contain w-full bg-no-repeat rounded-t-3xl text-white"
+      className="bg-cover bg-no-repeat rounded-t-3xl text-white"
       style={{
         backgroundImage: 'url(imgs/background.png)',
       }}

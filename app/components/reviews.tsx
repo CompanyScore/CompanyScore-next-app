@@ -1,4 +1,4 @@
-import { Button, Container, Title } from '@/ui';
+import { Button, Carousel, Container, Title } from '@/ui';
 import { Card } from '@/ui/card';
 import { IconArrowRight } from '@tabler/icons-react';
 import { IconArrowLeft } from '@tabler/icons-react';
@@ -27,9 +27,7 @@ export const Reviews = () => {
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
         / ПОСЛЕДНИЕ ОТЗЫВЫ /
       </p>
-      <Title size="4" className="mb-4 text-2xl font-bold sm:text-3xl">
-        Истории из первых рук
-      </Title>
+      <Title className="mb-4">Истории из первых рук</Title>
       <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
         Здесь&nbsp;
         <span className="font-semibold text-amber-700">делятся опытом</span>
@@ -37,16 +35,17 @@ export const Reviews = () => {
         до повседневных рабочих будней. Узнайте, что скрывается за официальными
         описаниями вакансий
       </p>
-
-      <div className="flex justify-center flex-wrap mt-10 gap-6">
+      {/* className="flex justify-center flex-wrap mt-10 gap-6" */}
+      <Carousel>
         {reviews.map((review, index) => (
-          <Card key={index} className="max-w-[392px]">
+          <Card key={index} className="max-w-[300px] md:max-w-[392px]">
             <span className="font-semibold text-base">{review.title}</span>
             <p className="">{review.description}</p>
           </Card>
         ))}
-      </div>
-      <div className="flex justify-center gap-6 mt-8">
+      </Carousel>
+
+      <div className="hidden md:flex justify-center gap-6 mt-8">
         <Button className="btn-secondary rounded-full">
           <IconArrowLeft stroke={1} />
         </Button>
