@@ -10,7 +10,7 @@ export const Hero = () => {
 
   return (
     <div
-      className="flex items-center justify-center h-full max-h-[820px] bg-cover bg-no-repeat rounded-b-3xl"
+      className="flex items-center justify-center h-screen bg-cover bg-no-repeat rounded-b-3xl"
       style={{
         backgroundImage:
           'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(imgs/hero-bg.svg)',
@@ -25,13 +25,15 @@ export const Hero = () => {
             Ваш голос меняет рынок труда
           </Title>
 
-          <p className="mx-auto max-w-xl text-lg md:text-xl">
+          <p className="mx-auto max-w-2xl text-2xl">
             Поделитесь своим отзывом о работе в компании —
-            <br className="hidden sm:block" />
+            <br />
             помогите другим сделать правильный выбор
           </p>
 
-          <Button className="mt-10 btn-primary text-lg">Оставить отзыв</Button>
+          <Button className="mt-10 btn-primary text-xl font-normal">
+            Оставить отзыв
+          </Button>
         </div>
 
         <div className="flex flex-wrap justify-between gap-4 mt-20 w-full">

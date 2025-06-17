@@ -32,8 +32,8 @@ export const Reviews = () => {
       </Title>
       <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
         Здесь&nbsp;
-        <span className="font-semibold text-orange-600">делятся опытом</span>
-        &nbsp;рассказывают о реальных ситуациях — от первых собеседований
+        <span className="font-semibold text-amber-700">делятся опытом</span>
+        &nbsp; и рассказывают о реальных ситуациях — от первых собеседований
         до повседневных рабочих будней. Узнайте, что скрывается за официальными
         описаниями вакансий
       </p>
@@ -47,10 +47,10 @@ export const Reviews = () => {
         ))}
       </div>
       <div className="flex justify-center gap-6 mt-8">
-        <Button className="rounded-full">
+        <Button className="btn-secondary rounded-full">
           <IconArrowLeft stroke={1} />
         </Button>
-        <Button className="rounded-full">
+        <Button className="btn-secondary rounded-full">
           <IconArrowRight stroke={1} />
         </Button>
         {/* <Pagination page={1} total={1} limit={1} onPageChange={() => {}} /> */}

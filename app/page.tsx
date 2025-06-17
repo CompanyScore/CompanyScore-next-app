@@ -1,9 +1,5 @@
 import { Metadata } from 'next';
-import { Hero } from '@/app/components/hero';
-import { Features } from './components/features';
-import { Steps } from './components/steps';
-import { Reviews } from './components/reviews';
-import { Blog } from './components/blog';
+import { Hero, Features, Steps, Reviews, Blog, Call } from './components';
 
 export const metadata: Metadata = {
   title: 'CompanyScore | Home',
@@ -12,12 +8,13 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <section className="flex flex-col items-stretch justify-center gap-8">
+    <section className="flex flex-col items-stretch justify-center">
       <Hero />
       <Features />
       <Steps />
       <Reviews />
       <Blog />
+      <Call />
     </section>
   );
 }

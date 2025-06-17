@@ -13,6 +13,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'sans-serif'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -29,11 +32,13 @@ export default {
       {
         light: {
           primary: '#FDB24A',
-          'primary-content': '#1f2937',
-          secondary: '#ffffff',
-          'secondary-content': '#111827',
-          neutral: '#000000', // делает фон чёрным
-          'neutral-content': '#ffffff', // делает текст белым
+          // 'primary-content': '#1f2937',
+          'primary-content': '#262626',
+          secondary: '#E5E5E5',
+          // 'secondary-content': '#111827',
+          'secondary-content': '#262626',
+          neutral: '#ffffff',
+          'neutral-content': '#262626',
           success: '#22c55e',
           error: '#ef4444',
           warning: '#facc15',

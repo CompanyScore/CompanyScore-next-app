@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useProfileStore } from '@/store';
-import { ThemeController } from './';
+// import { ThemeController } from './';
 import { Avatar } from '@/ui';
+import Image from 'next/image';
 
 export function Header() {
   const { profile, getProfile } = useProfileStore();
@@ -25,10 +26,11 @@ export function Header() {
   }, [getProfile]);
 
   return (
-    <div className="hidden min-[1300px]:flex justify-between navbar bg-neutral text-neutral-content px-10">
+    <div className="hidden min-[1300px]:flex justify-between navbar bg-black text-white px-10">
       <div className="max-w-96 w-full">
-        {/* <Image src="/imgs/logo.png" alt="Logo" width={340} height={200} /> */}
-        <h1 className=" text-3xl">CompanyScore</h1>
+        <Image src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
+
+        <h1 className="text-3xl">CompanyScore</h1>
       </div>
       <div className="flex gap-10 text-2xl">
         {pages.map(({ href, label }) => (
@@ -53,7 +55,7 @@ export function Header() {
             }
           />
         </Link>
-        <ThemeController />
+        {/* <ThemeController /> */}
       </div>
     </div>
   );

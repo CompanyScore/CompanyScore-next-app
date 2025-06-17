@@ -13,7 +13,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`btn px-4 py-2 rounded-full cursor-pointer ${className}`}
+      className={`btn px-4 py-2 rounded-full cursor-pointer font-normal ${className}`}
       onClick={onClick}
       disabled={disabled}
     >

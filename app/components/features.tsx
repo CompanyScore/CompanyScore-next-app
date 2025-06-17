@@ -30,12 +30,10 @@ export const Features = () => {
       <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
         / ​почему мы /
       </p>
-      <Title size="4">Станьте частью перемен</Title>
+      <Title>Станьте частью перемен</Title>
       <p className="mt-4 mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
         Мы создаём пространство, где&nbsp;
-        <span className="font-semibold text-orange-600">
-          каждый голос важен
-        </span>
+        <span className="font-semibold text-amber-700">каждый голос важен</span>
         , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
         справедливым, чтобы каждый мог найти работу, где его ценят и уважают
       </p>
@@ -67,7 +65,7 @@ export const Features = () => {
         <div
           className={`flex justify-between m-auto rounded-xl border p-6 border-neutral-400 bg-orange-50 max-w-[800px] w-96 md:w-full`}
         >
-          <div className={`flex flex-col  w-80`}>
+          <div className={`flex flex-col  max-w-80 w-full`}>
             <span className="text-xs text-amber-700">&lt;05&gt;</span>
             <Title
               size="2"
