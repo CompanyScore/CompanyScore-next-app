@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { redirect } from 'next/navigation';
 import { useCompaniesStore } from '@/store';
 import type { CompanyType } from '@/store/companies';
-import { Button, Avatar, Tooltip, Title, Table, Toast } from '@/ui';
+import { Button, ImageTable, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
   const { companies, loading } = useCompaniesStore();
@@ -30,7 +30,7 @@ export function CompaniesTable() {
       title: 'Компания',
       render: (company: CompanyType) => (
         <div className="flex max-[650px]:justify-center items-center space-x-2 ">
-          <Avatar
+          <ImageTable
             className="max-[650px]:hidden"
             src={
               company?.logo

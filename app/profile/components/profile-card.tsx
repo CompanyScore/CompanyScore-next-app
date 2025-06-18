@@ -44,7 +44,7 @@ export function ProfileCard() {
               ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
               : '/imgs/avatar.jpg'
           }
-          alt="Avatar"
+          alt="ImageTable"
           width={400}
           height={400}
           className="max-w-sm rounded-lg shadow-2xl w-full"

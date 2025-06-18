@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { Button, Avatar, Tooltip, Title, Table } from '@/ui';
+import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
 import moment from 'moment';
 
 import { useCommentsStore, CommentType } from '@/store/сomments';
@@ -31,7 +31,7 @@ export function CommentsTable() {
       title: 'Компания',
       render: (comment: CommentType) => (
         <div className="flex items-center space-x-2">
-          <Avatar
+          <ImageTable
             src={
               comment.company?.logo
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`
@@ -47,7 +47,7 @@ export function CommentsTable() {
       title: 'Пользователь',
       render: (comment: CommentType) => (
         <div className="flex items-center space-x-2">
-          <Avatar
+          <ImageTable
             className="max-[650px]:hidden"
             src={
               comment.user?.avatar

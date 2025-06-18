@@ -9,6 +9,7 @@ type UserType = {
   description: string;
   commentsIds: string[];
   createDate: Date;
+  email: string;
 };
 
 type GetUsersParams = {

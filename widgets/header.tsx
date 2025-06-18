@@ -13,7 +13,7 @@ export function Header() {
 
   const pages = [
     { href: '/', label: 'Главная' },
-    { href: '/about', label: 'О нас' },
+    { href: '/about', label: 'О\u00A0нас' },
     { href: '/companies', label: 'Компании' },
     { href: '/comments', label: 'Отзывы' },
     { href: '/users', label: 'Пользователи' },
@@ -26,7 +26,7 @@ export function Header() {
   }, [getProfile]);
 
   return (
-    <div className="hidden min-[1300px]:flex justify-between navbar bg-black text-white px-10">
+    <div className="hidden min-[1300px]:flex justify-between items-center navbar bg-black text-white px-10">
       <div className="max-w-96 w-full">
         <Image src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
 
@@ -45,8 +45,55 @@ export function Header() {
           </Link>
         ))}
       </div>
-      <div className="flex justify-end gap-2 max-w-96 w-full">
-        <Link href="/profile">
+      <div className="flex items-center justify-end gap-2 max-w-96 w-full">
+        <div className="dropdown dropdown-bottom dropdown-end">
+          <div tabIndex={0} role="button" className="">
+            <Avatar
+              src={
+                profile?.avatar
+                  ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
+                  : '/imgs/avatar.jpg'
+              }
+            />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-white text-black border border-gray-200 rounded-xl shadow-lg z-[9999] w-96 p-4 space-y-2"
+          >
+            <li className="flex flex-row items-center border-b pb-2">
+              <Avatar
+                src={
+                  profile?.avatar
+                    ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
+                    : '/imgs/avatar.jpg'
+                }
+              />
+              <div className="flex flex-col items-start">
+                <div className="text-sm text-gray-700">{profile.name}</div>
+                <div className="text-xs text-gray-500">{profile.email}</div>
+              </div>
+            </li>
+            <li>
+              <Link
+                href="/profile"
+                className="hover:bg-gray-100 rounded px-2 py-1"
+              >
+                Профиль
+              </Link>
+            </li>
+            <li>
+              <a className="hover:bg-gray-100 rounded px-2 py-1">
+                Пароль и безопасность
+              </a>
+            </li>
+            <li>
+              <a className="text-red-500 hover:bg-red-50 rounded px-2 py-1">
+                Выйти
+              </a>
+            </li>
+          </ul>
+        </div>
+        {/* <Link href="/profile">
           <Avatar
             src={
               profile?.avatar
@@ -54,7 +101,7 @@ export function Header() {
                 : '/imgs/avatar.jpg'
             }
           />
-        </Link>
+        </Link> */}
         {/* <ThemeController /> */}
       </div>
     </div>

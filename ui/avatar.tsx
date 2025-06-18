@@ -1,19 +1,16 @@
 import Image from 'next/image';
-import classNames from 'classnames';
 
-type AvatarType = {
+type Props = {
   src: string;
   className?: string;
 };
 
-export function Avatar({ src, className }: AvatarType) {
+export function Avatar({ src, className }: Props) {
   return (
-    <Image
-      src={src}
-      alt="Avatar"
-      width={90}
-      height={80}
-      className={classNames('rounded object-contain max-h-20', className)}
-    />
+    <div className="avatar">
+      <div className={`ring-primary w-20 rounded-full ring-2 ${className}`}>
+        <Image src={src} alt="ImageTable" width={40} height={40} />
+      </div>
+    </div>
   );
 }
