@@ -32,19 +32,20 @@ export function Header() {
 
         <h1 className="text-3xl">CompanyScore</h1>
       </div>
-      <div className="flex gap-10 text-2xl">
+      <ul className="flex gap-10 text-2xl">
         {pages.map(({ href, label }) => (
-          <Link
-            key={href}
-            href={href}
-            className={`pb-1 min-w-16 ${
-              pathname === href ? 'border-b-2 border-white' : 'hover:border-b'
-            }`}
-          >
-            {label}
-          </Link>
+          <li key={href}>
+            <Link
+              href={href}
+              className={`pb-1 min-w-16 ${
+                pathname === href ? 'border-b-2 border-white' : 'hover:border-b'
+              }`}
+            >
+              {label}
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
       <div className="flex items-center justify-end gap-2 max-w-96 w-full">
         <div className="dropdown dropdown-bottom dropdown-end">
           <div tabIndex={0} role="button" className="">
@@ -93,15 +94,6 @@ export function Header() {
             </li>
           </ul>
         </div>
-        {/* <Link href="/profile">
-          <Avatar
-            src={
-              profile?.avatar
-                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`
-                : '/imgs/avatar.jpg'
-            }
-          />
-        </Link> */}
         {/* <ThemeController /> */}
       </div>
     </div>
