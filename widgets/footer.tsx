@@ -27,8 +27,8 @@ export function Footer() {
   return (
     <footer className="bg-black text-white">
       <Container>
-        <div className="flex justify-between flex-wrap gap-10 w-full">
-          <div className="flex items-center max-w-96 w-full">
+        <div className="flex items-start justify-between flex-wrap gap-10 w-full">
+          <div className="flex max-w-96 w-full">
             <Image
               src="/icons/header-logo.svg"
               alt="Logo"
