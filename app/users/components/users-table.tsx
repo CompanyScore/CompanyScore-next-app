@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Avatar, Button, Table, Title, Tooltip } from '@/ui';
+import { ImageTable, Button, Table, Title, Tooltip } from '@/ui';
 import moment from 'moment';
 
 import { useUsersStore } from '@/store';
@@ -40,7 +40,7 @@ export function UsersTable() {
       title: 'Пользователь',
       render: (user: UserType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
-          <Avatar
+          <ImageTable
             className="max-[650px]:hidden"
             src={
               user?.avatar

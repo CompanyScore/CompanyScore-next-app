@@ -1,6 +1,6 @@
 export { Button } from './button';
 export { Tooltip } from './tooltip';
-export { Avatar } from './avatar';
+export { ImageTable } from './image-table';
 export { Title } from './title';
 export { Input } from './input';
 export { Select2 } from './select-2';
@@ -16,3 +16,4 @@ export { Table } from './table';
 export { Accordion } from './accordion';
 export { Card } from './card';
 export { Carousel } from './carousel';
+export { Avatar } from './avatar';

@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { Button } from '@/ui';
 
 // import { ThemeController } from './';
 
@@ -10,13 +11,13 @@ export function HeaderMobile() {
   const pathname = usePathname();
 
   const pages = [
-    { href: '/profile', label: 'Профиль' },
     { href: '/', label: 'Главная' },
     { href: '/about', label: 'О нас' },
     { href: '/companies', label: 'Компании' },
     { href: '/users', label: 'Пользователи' },
     { href: '/analytic', label: 'Аналитика' },
     { href: '/blog', label: 'Блог' },
+    { href: '/profile', label: 'Профиль' },
   ];
 
   return (
@@ -31,7 +32,7 @@ export function HeaderMobile() {
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -44,25 +45,32 @@ export function HeaderMobile() {
               />
             </svg>
           </div>
+
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-black text-white rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu dropdown-content z-[9999] mt-3 w-screen max-w-screen bg-white text-black shadow-2xl rounded-none px-6 py-4 text-lg space-y-3"
           >
             {pages.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`pb-1 ${
-                  pathname === href
-                    ? 'border-b-2 border-white'
-                    : 'hover:border-b'
-                }`}
-              >
-                {label}
-              </Link>
+              <li key={href} className="border-b last:border-none">
+                <Link
+                  href={href}
+                  className={`block pb-2 transition-colors duration-150 text-center ${
+                    pathname === href
+                      ? 'text-black font-semibold border-b-2 border-black'
+                      : 'hover:text-amber-500'
+                  }`}
+                >
+                  {label}
+                </Link>
+              </li>
             ))}
+
+            <Button className="mt-20 btn-primary text-lg font-normal w-52 m-auto">
+              Оставить отзыв
+            </Button>
           </ul>
         </div>
+
         {/* <ThemeController /> */}
         {/* <button className="btn btn-ghost btn-circle">
           <div className="indicator">

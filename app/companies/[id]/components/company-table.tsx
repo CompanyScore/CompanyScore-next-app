@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { redirect, useParams } from 'next/navigation';
 
 import { useCommentsStore } from '@/store';
-import { Avatar, Button, Error, Table, Title, Tooltip } from '@/ui';
+import { ImageTable, Button, Error, Table, Title, Tooltip } from '@/ui';
 
 import moment from 'moment';
 import { useEffect } from 'react';
@@ -56,7 +56,7 @@ export function CompanyTable() {
       render: (comment: CommentType) => (
         <div className="flex max-[650px]:justify-center items-center gap-4">
           {comment?.user?.avatar ? (
-            <Avatar
+            <ImageTable
               className="max-[650px]:hidden"
               src={process.env.NEXT_PUBLIC_BACK + comment?.user?.avatar}
             />

@@ -8,6 +8,7 @@ export type ProfileType = {
   position?: string;
   description?: string;
   comments?: string[];
+  email?: string;
 };
 
 interface ProfileState {
