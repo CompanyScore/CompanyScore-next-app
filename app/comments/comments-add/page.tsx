@@ -3,12 +3,12 @@
 import { useState } from 'react';
 import { useCommentFormStore2 } from '@/store';
 import {
-  CommentsAddCompany,
   CommentsAddInterview,
   CommentsAddRecommendation,
   CommentsAddTask,
   CommentsAddWork,
   CommentsAddWork2,
+  CommentsAddWork3,
   CommentsAddOptions,
   CommentsAddIntern,
 } from './components';
@@ -21,12 +21,12 @@ export default function CommentsPage() {
 
   const steps = [
     'options',
-    'company',
     ...(form.task.isTask ? ['task'] : []),
     ...(form.interview.isInterview ? ['interview'] : []),
     ...(form.intern.isIntern ? ['intern'] : []),
     ...(form.work.isWork ? ['work'] : []),
     ...(form.work.isWork ? ['work2'] : []),
+    ...(form.work.isWork ? ['work3'] : []),
     'recommendation',
   ];
 
@@ -72,12 +72,12 @@ export default function CommentsPage() {
       )}
 
       {steps[currentStep] === 'options' && <CommentsAddOptions />}
-      {steps[currentStep] === 'company' && <CommentsAddCompany />}
       {steps[currentStep] === 'task' && <CommentsAddTask />}
       {steps[currentStep] === 'interview' && <CommentsAddInterview />}
       {steps[currentStep] === 'intern' && <CommentsAddIntern />}
       {steps[currentStep] === 'work' && <CommentsAddWork />}
       {steps[currentStep] === 'work2' && <CommentsAddWork2 />}
+      {steps[currentStep] === 'work3' && <CommentsAddWork3 />}
       {steps[currentStep] === 'recommendation' && <CommentsAddRecommendation />}
 
       <div className="flex justify-between mt-4">

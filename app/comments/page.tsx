@@ -12,7 +12,6 @@ export default function CommentsPage() {
       <Link href="/comments/comments-add" className="block w-[100%]">
         <Button className="btn-secondary mr-0 w-[100%]">Оставить отзыв</Button>
       </Link>
-      <div>Asd</div>
 
       <CommentsTable />
       <div className="flex justify-between">

@@ -1,4 +1,4 @@
-import { Checkbox, StarRating } from '@/shared';
+import { Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 import React from 'react';
 // import { useCommentFormStore2 } from '@/store';
@@ -7,34 +7,44 @@ export const CommentsAddIntern = () => {
   // const { form, updateForm } = useCommentFormStore2();
 
   return (
-    <div className="flex flex-col gap-6 m-auto">
+    <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените cтажировку</Title>
 
-      <p>Полезность стажировки для профессионального развития</p>
+      <p>Насколько полезным был ваш опыт стажировки?</p>
       <StarRating value={0} onChange={() => console.log('value')} />
 
-      <p>Поддержка и вовлеченность наставника/куратора</p>
+      <p>Насколько понятно были организованы задачи стажировки?</p>
       <StarRating value={0} onChange={() => console.log('value')} />
 
-      <p>Соответствие задач уровню стажера</p>
+      <p>Насколько соответствовали задачи уровню стажера?</p>
       <StarRating value={0} onChange={() => console.log('value')} />
 
-      <p>Общая атмосфера и отношение к стажерам в компании</p>
+      <p>Насколько интересными и развивающими были задачи?</p>
       <StarRating value={0} onChange={() => console.log('value')} />
 
-      <Checkbox
-        label="Была ли стажировка оплачиваемой?"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
+      <p>Как вы оцениваете доступность и поддержку наставника/руководителя?</p>
+      <StarRating value={0} onChange={() => console.log('value')} />
+
+      <p>Была ли стажировка оплачиваемой?</p>
+      <Radio
+        options={[
+          { label: 'Да', value: 5 },
+          { label: 'Нет', value: 0 },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
       />
 
-      <Checkbox
-        label="Предлагала ли компания трудоустройство после стажировки?"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
+      <p>Предлагала ли компания трудоустройство после стажировки?</p>
+      <Radio
+        options={[
+          { label: 'Да', value: 5 },
+          { label: 'Нет', value: 0 },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
       />
+
       {/* <div className="flex flex-col gap-4 w-full max-w-xl m-auto">
         <StarRating
           value={form.interview.rating}

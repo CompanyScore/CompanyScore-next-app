@@ -1,121 +1,189 @@
-import { Input, Title } from '@/ui';
-import React from 'react';
-import { useCommentFormStore2 } from '@/store';
+import { Radio } from '@/shared';
+import { Title } from '@/ui';
 
 export const CommentsAddWork2 = () => {
-  const { form, updateForm } = useCommentFormStore2();
-
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените работу 2</Title>
 
-      <div className="flex flex-col gap-4 w-full m-auto">
-        <div className="flex justify-content-between flex-wrap">
-          <div className="flex flex-col gap-4 m-auto">
-            <Title>Уровень зарплаты</Title>
-            <Input
-              type="number"
-              value={form.work.finance.salary}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      salary: Number(val),
-                    },
-                  },
-                })
-              }
-            />
+      <p>
+        Насколько рабочие задачи соответствовали должности и способствовали
+        вашему профессиональному развитию?
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Задачи не соответствовали должности и не развивали',
+            value: 5,
+          },
+          {
+            label: 'В целом соответствовали, но развитие ограниченное',
+            value: 2,
+          },
+          {
+            label: 'Полностью соответствовали и активно развивали навыки',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex flex-col"
+      />
 
-            <Title>Медицинкая страховка</Title>
-            <Input
-              type="number"
-              value={form.work.finance.medicine}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      medicine: Number(val),
-                    },
-                  },
-                })
-              }
-            />
+      <p>Насколько комфортной и удобной была ваша рабочая среда в офисе?</p>
+      <Radio
+        options={[
+          {
+            label: 'Очень некомфортно, мешало работе',
+            value: 5,
+          },
+          {
+            label: 'Нейтрально, терпимо, но можно улучшить',
+            value: 2,
+          },
+          {
+            label: 'Максимально комфортно, всё устраивало',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex flex-col"
+      />
 
-            <Title>Премии</Title>
-            <Input
-              type="number"
-              value={form.work.finance.premium}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      premium: Number(val),
-                    },
-                  },
-                })
-              }
-            />
+      <p>
+        Были ли вы свидетелем дискриминации по полу, возрасту, этнической
+        принадлежности и так далее?
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Нет',
+            value: 5,
+          },
+          {
+            label: 'Иногда',
+            value: 2,
+          },
+          {
+            label: 'Да',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex"
+      />
 
-            <Title>Бонусы</Title>
-            <Input
-              type="number"
-              value={form.work.finance.bonuses}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      bonuses: Number(val),
-                    },
-                  },
-                })
-              }
-            />
+      <p>
+        Насколько вам удавалось сохранять баланс между работой и личной
+        жизнью?????
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Не удавалось',
+            value: 5,
+          },
+          {
+            label: 'Удавалось тяжело',
+            value: 2,
+          },
+          {
+            label: 'Умеренно удавалось',
+            value: 0,
+          },
+          {
+            label: 'Легко удавалось',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex"
+      />
 
-            <Title>Участие в опционах / акциях</Title>
-            <Input
-              type="number"
-              value={form.work.finance.stocks}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      stocks: Number(val),
-                    },
-                  },
-                })
-              }
-            />
+      <p>
+        Как вы оцениваете этичность компании и её социальную ответственность?
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Есть проблемы с этикой и заботой о людях',
+            value: 5,
+          },
+          {
+            label: 'Неэтично, ответственности перед обществом нет',
+            value: 2,
+          },
+          {
+            label: 'В целом нормально, без ярких примеров',
+            value: 0,
+          },
+          {
+            label: 'Этичная компания, социально ответственная',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex flex-col"
+      />
 
-            <Title>Дополнительные выплаты / дивиденды</Title>
-            <Input
-              type="number"
-              value={form.work.finance.dividends}
-              onChange={val =>
-                updateForm({
-                  work: {
-                    ...form.work,
-                    finance: {
-                      ...form.work.finance,
-                      dividends: Number(val),
-                    },
-                  },
-                })
-              }
-            />
-          </div>
-        </div>
-      </div>
+      <p>
+        Проводилась ли в компании регулярная оценка эффективности вашей работы
+        (Performance Review)?
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Нет',
+            value: 5,
+          },
+          {
+            label: '3 месяца',
+            value: 2,
+          },
+          {
+            label: 'Полгода',
+            value: 0,
+          },
+          {
+            label: 'Год',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex"
+      />
+
+      <p>
+        Насколько вы были удовлетворены корпоративными мероприятиями в компании?
+      </p>
+      <Radio
+        options={[
+          {
+            label: 'Не было мероприятий',
+            value: 5,
+          },
+          {
+            label: 'Скорее не удовлетворён',
+            value: 2,
+          },
+          {
+            label: 'Нормально',
+            value: 0,
+          },
+          {
+            label: 'Полностью удовлетворён',
+            value: 0,
+          },
+        ]}
+        selectedValue={'value'}
+        onChange={value => console.log(value)}
+        className="flex"
+      />
     </div>
   );
 };
