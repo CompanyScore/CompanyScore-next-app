@@ -1,18 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
-import { Header, HeaderMobile, Footer, ThemeProvider } from '@/widgets';
+import { Header, HeaderMobile, Footer } from '@/widgets';
 import './globals.css';
-
-// const geistSans = Geist({
-//   variable: '--font-geist-sans',
-//   subsets: ['latin'],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: '--font-geist-mono',
-//   subsets: ['latin'],
-// });
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,16 +28,13 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} antialiased flex flex-col min-h-screen font-sans`}
       >
-        <ThemeProvider>
-          {refreshToken && (
-            <>
-              <Header />
-              <HeaderMobile />
-            </>
-          )}
-          <main className="flex-1 h-full">{children}</main>
-          {refreshToken && <Footer />}
-        </ThemeProvider>
+        {/* <ThemeProvider> */}
+        <Header />
+        <HeaderMobile />
+
+        <main className="flex-1 h-full">{children}</main>
+        {refreshToken && <Footer />}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
