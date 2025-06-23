@@ -14,9 +14,9 @@ export function middleware(request: NextRequest) {
   }
 
   // Если есть refreshToken, пропускаем запрос, чтобы сервер обновил токен
-  // if (refreshToken) {
-  //   return NextResponse.next();
-  // }
+  if (refreshToken) {
+    return NextResponse.next();
+  }
 
   // Если нет токена и пользователь НЕ на /login, перенаправляем на /login
   if (!accessToken && !refreshToken) {
