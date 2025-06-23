@@ -6,15 +6,11 @@ export const CommentsAddRecommendation = () => {
   const { form, updateForm } = useCommentFormStore2();
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 m-auto max-w-[900px] w-full">
       <Title>Ваши впечатления о компании</Title>
-      <div>
-        Расскажите о плюсах и минусах, и порекомендовали бы вы компанию другим
-      </div>
       <div className="flex gap-20">
-        <Title>Плюсы и минусы</Title>
-        <div className="flex flex-col gap-4">
-          <Title>Что вам особенно понравилось в этой компании?</Title>
+        <div className="flex flex-col gap-4 w-full">
+          <h3>Что вам особенно понравилось в этой компании?</h3>
           <textarea
             className="textarea textarea-primary w-full"
             placeholder="Ваш ответ..."
@@ -29,7 +25,7 @@ export const CommentsAddRecommendation = () => {
             }
           />
 
-          <Title>Что, по вашему мнению, можно улучшить в этой компании?</Title>
+          <h3>Что, по вашему мнению, можно улучшить в этой компании?</h3>
           <textarea
             className="textarea textarea-primary w-full"
             placeholder="Ваш ответ..."
@@ -46,10 +42,9 @@ export const CommentsAddRecommendation = () => {
         </div>
       </div>
 
-      <div className="divider"></div>
+      <div className="divider before:bg-black after:bg-black"></div>
 
-      <div className="flex gap-20 items-end">
-        <Title>Рекомендация</Title>
+      <div className="flex flex-col gap-4">
         <div>Посоветовали бы вы компанию другим?</div>
         <Radio
           options={[

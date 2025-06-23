@@ -12,7 +12,7 @@ export function CommentsTable() {
   const { comments, loading, getComments } = useCommentsStore();
 
   useEffect(() => {
-    getComments({});
+    useCommentsStore.getState().getComments({});
   }, [getComments]);
 
   if (loading) {
