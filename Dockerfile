@@ -4,49 +4,30 @@ FROM node:alpine AS builder
 # 2. Устанавливаем рабочую директорию
 WORKDIR /app
 
-# 3. Указываем build-time переменные
-ARG NEXT_PUBLIC_S3_IMAGES
-ARG NEXT_PUBLIC_BACK
-ARG NEXT_PUBLIC_FRONT
-
-# 4. Экспортируем переменные в ENV (для next.config.js / build)
-ENV NEXT_PUBLIC_S3_IMAGES=$NEXT_PUBLIC_S3_IMAGES
-ENV NEXT_PUBLIC_BACK=$NEXT_PUBLIC_BACK
-ENV NEXT_PUBLIC_FRONT=$NEXT_PUBLIC_FRONT
-
-# 5. Копируем package.json и package-lock.json для установки зависимостей
+# 3. Копируем package.json и package-lock.json
 COPY package.json package-lock.json ./
 
-# 6. Устанавливаем зависимости
+# 4. Устанавливаем зависимости
 RUN npm ci
 
-# 7. Копируем весь проект
+# 5. Копируем весь проект, включая .env.local
 COPY . .
 
-# 8. Собираем Next.js-приложение (переменные будут доступны)
+# 6. Собираем Next.js-приложение (Next сам подгрузит .env.local)
 RUN npm run build
 
-# 9. Оставляем только нужные файлы для продакшена
+# 7. Оставляем только нужные файлы для продакшена
 FROM node:alpine AS runner
 WORKDIR /app
 
-# 10. Копируем переменные (если нужно использовать на runtime — опционально)
-ARG NEXT_PUBLIC_S3_IMAGES
-ARG NEXT_PUBLIC_BACK
-ARG NEXT_PUBLIC_FRONT
-
-ENV NEXT_PUBLIC_S3_IMAGES=$NEXT_PUBLIC_S3_IMAGES
-ENV NEXT_PUBLIC_BACK=$NEXT_PUBLIC_BACK
-ENV NEXT_PUBLIC_FRONT=$NEXT_PUBLIC_FRONT
-
-# 11. Копируем файлы из builder-контейнера
+# 8. Копируем из builder только нужное
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/public ./public
 
-# 12. Открываем порт
+# 9. Открываем порт
 EXPOSE 3000
 
-# 13. Запускаем Next.js в продакшен-режиме
+# 10. Запускаем Next.js в продакшен-режиме
 CMD ["npm", "start"]
