@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+
 import { redirect } from 'next/navigation';
 import { ProfileEditCommentModal } from '../modals';
 import { useCommentsStore } from '@/store';
@@ -99,7 +99,7 @@ export function ProfileTable() {
               className="btn-neutral"
               onClick={() => redirect(`/companies/${comment.company.id}`)}
             >
-              <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+              <img src="/icons/file.svg" alt="File" width={25} height={25} />
             </Button>
           </Tooltip>
           <Tooltip tip="Редактировать">
@@ -108,7 +108,7 @@ export function ProfileTable() {
               onClick={() => openEditModal(comment)}
             >
               <label htmlFor="profile-edit-comment-modal">
-                <Image
+                <img
                   src="/icons/pencil.svg"
                   alt="Pencil"
                   width={25}

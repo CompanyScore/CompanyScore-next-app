@@ -1,7 +1,7 @@
 'use client';
 
 import { Container } from '@/ui';
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { useState } from 'react';
 import { BsLinkedin } from 'react-icons/bs';
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <Container>
         <div className="hero-content flex-col lg:flex-row-reverse justify-between p-10">
           <div className="relative w-full lg:w-1/2">
-            <Image
+            <img
               src="/imgs/google.jpeg"
               alt="Google"
               className="w-full rounded-lg"
@@ -101,7 +101,7 @@ export default function AboutPage() {
       <div className="justify-between gap-10 lg:flex">
         <div className="card card-side bg-base-20 shadow-xl flex-1 mt-10">
           <figure>
-            <Image
+            <img
               src="/imgs/dimash-ava.jpg"
               alt="Dimash Ava"
               className="w-full rounded-lg shadow-2xl"
@@ -125,7 +125,7 @@ export default function AboutPage() {
         </div>
         <div className="card card-side bg-base-20 shadow-xl flex-1 mt-10">
           <figure>
-            <Image
+            <img
               src="/imgs/adil-ava.jpg"
               alt="Adil Ava"
               className="w-full rounded-lg shadow-2xl"

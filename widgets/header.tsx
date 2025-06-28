@@ -5,7 +5,6 @@ import React, { useEffect } from 'react';
 import { useProfileStore } from '@/store';
 // import { ThemeController } from './';
 import { Avatar } from '@/ui';
-import Image from 'next/image';
 
 export function Header() {
   const { profile, getProfile } = useProfileStore();
@@ -28,7 +27,7 @@ export function Header() {
   return (
     <div className="hidden min-[1300px]:flex justify-between items-center navbar bg-black text-white px-10">
       <div className="max-w-96 w-full">
-        <Image src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
+        <img src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
 
         <h1 className="text-3xl">CompanyScore</h1>
       </div>

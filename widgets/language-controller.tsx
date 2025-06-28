@@ -1,7 +1,6 @@
 // 'use client';
 
 import Cookies from 'js-cookie';
-import Image from 'next/image';
 
 export function LanguageController() {
   const handleChangeLanguage = (value: string) => {
@@ -11,12 +10,7 @@ export function LanguageController() {
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn m-1">
-        <Image
-          src="/icons/language.svg"
-          alt="Language"
-          width={24}
-          height={24}
-        />
+        <img src="/icons/language.svg" alt="Language" width={24} height={24} />
         <svg
           width="12px"
           height="12px"

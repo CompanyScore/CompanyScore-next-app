@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Container } from '@/ui';
@@ -29,7 +29,7 @@ export function Footer() {
       <Container>
         <div className="flex items-start justify-between flex-wrap gap-10 w-full">
           <div className="flex max-w-96 w-full">
-            <Image
+            <img
               src="/icons/header-logo.svg"
               alt="Logo"
               width={32}

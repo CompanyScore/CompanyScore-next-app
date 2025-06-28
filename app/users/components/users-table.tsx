@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import { useUsersStore } from '@/store';
 import { redirect } from 'next/navigation';
-import Image from 'next/image';
 
 type UserType = {
   id: string;
@@ -76,7 +75,7 @@ export function UsersTable() {
             className="btn-neutral"
             onClick={() => redirect(`/users/${user.id}`)}
           >
-            <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+            <img src="/icons/file.svg" alt="File" width={25} height={25} />
           </Button>
         </Tooltip>
       ),

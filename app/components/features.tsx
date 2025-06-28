@@ -1,5 +1,4 @@
 import { Container, Title } from '@/ui';
-import Image from 'next/image';
 
 export const Features = () => {
   const features = [
@@ -68,7 +67,7 @@ export const Features = () => {
             </p>
           </div>
 
-          <Image
+          <img
             src="/imgs/logo.svg"
             width={300}
             height={232}

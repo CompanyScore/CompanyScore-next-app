@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Image from 'next/image';
+
 import { useParams } from 'next/navigation';
 import { useUsersStore } from '@/store';
 
@@ -25,7 +25,7 @@ export function UserCard() {
   return (
     <div className="relative hero bg-base-200">
       <div className="hero-content md:flex md:flex-row flex-col-reverse items-start justify-start gap-20 w-full">
-        <Image
+        <img
           src={
             user?.avatar
               ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${user.avatar}`
