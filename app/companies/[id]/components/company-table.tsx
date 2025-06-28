@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { redirect, useParams } from 'next/navigation';
 
 import { useCommentsStore } from '@/store';
@@ -94,7 +93,7 @@ export function CompanyTable() {
       render: (comment: CommentType) => (
         <Tooltip tip="Посмотреть">
           <Button onClick={() => redirect(`/users/${comment.user.id}`)}>
-            <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+            <img src="/icons/file.svg" alt="File" width={25} height={25} />
           </Button>
         </Tooltip>
       ),

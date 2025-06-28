@@ -1,5 +1,5 @@
 import { Button, Carousel, Container, Title } from '@/ui';
-import Image from 'next/image';
+
 import { IconArrowRight, IconEye } from '@tabler/icons-react';
 import { IconBook } from '@tabler/icons-react';
 
@@ -84,7 +84,7 @@ const WebBlog = ({ articles }: Props) => {
     <div className="hidden sm:flex flex-wrap justify-center gap-6 w-full m-auto">
       <div className="max-w-[600px] h-auto cursor-pointer">
         <div className="max-w-[626px] h-auto w-full overflow-hidden rounded-2xl">
-          <Image
+          <img
             src={articles[0].image}
             alt="first article image"
             width={626}
@@ -117,7 +117,7 @@ const WebBlog = ({ articles }: Props) => {
             index !== 0 && (
               <div className="flex gap-3 cursor-pointer " key={index}>
                 <div className="max-w-[224px] h-auto overflow-hidden rounded-2xl">
-                  <Image
+                  <img
                     src={article.image}
                     alt="article image"
                     width={224}
@@ -159,7 +159,7 @@ const MobileBlog = ({ articles }: Props) => {
       {articles.map((article, index) => (
         <div key={index} className="max-w-[300px] h-auto cursor-pointer">
           <div className="max-w-[300px] h-auto w-full overflow-hidden rounded-2xl">
-            <Image
+            <img
               src={article.image}
               alt="first article image"
               width={626}

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Error, Title } from '@/ui';
-import Image from 'next/image';
+
 import { FaChevronLeft, FaAngleRight } from 'react-icons/fa6';
 import { useCompaniesStore } from '@/store';
 
@@ -64,7 +64,7 @@ export function GeneralCarousel() {
             transition={{ duration: 1 }}
             className="flex justify-between max-[1300px]:justify-center w-full h-full bg-base-100 shadow-lg rounded-lg overflow-hidden"
           >
-            <Image
+            <img
               src={
                 companiesNew[currentIndex]?.logo
                   ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${companiesNew[currentIndex]?.logo}`

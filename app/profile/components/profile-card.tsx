@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Image from 'next/image';
+
 import { ProfileEditModal } from '../modals';
 import { useProfileStore } from '@/store';
 import { Error, Toast } from '@/ui';
@@ -30,7 +30,7 @@ export function ProfileCard() {
           htmlFor="profile_edit_modal"
           className="btn btn-neutral absolute top-4 right-10 rounded-md"
         >
-          <Image
+          <img
             src="/icons/settings.svg"
             alt="Settings Icon"
             width={40}
@@ -38,7 +38,7 @@ export function ProfileCard() {
             className="cursor-pointer"
           />
         </label>
-        <Image
+        <img
           src={
             profile?.avatar
               ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${profile.avatar}`

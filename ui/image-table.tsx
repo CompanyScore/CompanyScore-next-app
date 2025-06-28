@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import classNames from 'classnames';
 
 type Props = {
@@ -8,7 +7,7 @@ type Props = {
 
 export function ImageTable({ src, className }: Props) {
   return (
-    <Image
+    <img
       src={src}
       alt="ImageTable"
       width={90}

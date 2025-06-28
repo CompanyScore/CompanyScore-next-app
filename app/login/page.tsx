@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+
 import LinkedIn from './modals/linkedin-modal';
 
 export default function LoginPage() {
@@ -44,7 +44,7 @@ export default function LoginPage() {
       </div>
 
       <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
-        <Image
+        <img
           src="/imgs/comp.avif"
           width={100}
           height={100}

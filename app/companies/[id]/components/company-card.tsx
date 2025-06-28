@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
-import Image from 'next/image';
+
 import { Button, Toast } from '@/ui';
 import { useCommentsStore, useCompaniesStore } from '@/store';
 
@@ -19,7 +19,7 @@ export function CompanyCard() {
     <div className="hero bg-base-200 py-10">
       <div className="hero-content flex-col-reverse items-start justify-between w-full lg:flex-row">
         <div className="flex flex-col items-center gap-4 justify-center margin-auto">
-          <Image
+          <img
             width={420}
             height={70}
             alt="Company logo"
@@ -44,7 +44,7 @@ export function CompanyCard() {
             <h1 className="text-5xl font-bold">{company?.name}</h1>
             <Button className="btn-success">
               <label htmlFor={'companies_add_comment_modal'}>
-                <Image
+                <img
                   src="/icons/pencil.svg"
                   alt="Pencil"
                   width={25}

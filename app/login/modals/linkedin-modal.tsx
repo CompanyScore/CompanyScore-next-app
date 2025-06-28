@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 
 import { Title, Modal } from '@/ui';
 
@@ -19,7 +18,7 @@ export default function LinkedIn() {
         </Title>
 
         <div className="flex flex-col items-center w-full gap-8">
-          <Image
+          <img
             src="/icons/linkedin.svg"
             alt="LinkedIn"
             width={90}

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Image from 'next/image';
+
 import { redirect } from 'next/navigation';
 import { useCompaniesStore } from '@/store';
 import type { CompanyType } from '@/store/companies';
@@ -60,12 +60,12 @@ export function CompaniesTable() {
               className="btn-neutral"
               onClick={() => redirect(`/companies/${company.id}`)}
             >
-              <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+              <img src="/icons/file.svg" alt="File" width={25} height={25} />
             </Button>
           </Tooltip>
           <Tooltip tip="Оставить отзыв">
             <Button className="btn-success">
-              <Image
+              <img
                 src="/icons/pencil.svg"
                 alt="Pencil"
                 width={25}

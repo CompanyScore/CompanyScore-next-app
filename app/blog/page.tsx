@@ -1,7 +1,6 @@
 'use client';
 
 import { Container } from '@/ui';
-import Image from 'next/image';
 
 export default function BlogPage() {
   return (
@@ -14,7 +13,7 @@ export default function BlogPage() {
           <div className="card bg-base-100 max-w-96 shadow-xl w-full">
             <figure>
               {/* src="https://w0.peakpx.com/wallpaper/35/608/HD-wallpaper-scrooge-mcduck-money-duck-animation-coin-disney.jpg" */}
-              <Image
+              <img
                 src="/imgs/money.avif"
                 width={385}
                 height={100}

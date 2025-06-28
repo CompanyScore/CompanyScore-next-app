@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Image from 'next/image';
+
 import { redirect } from 'next/navigation';
 import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
 import moment from 'moment';
@@ -85,7 +85,7 @@ export function CommentsTable() {
               className="btn-neutral"
               onClick={() => redirect(`/comments/${comment.id}`)}
             >
-              <Image src="/icons/file.svg" alt="File" width={25} height={25} />
+              <img src="/icons/file.svg" alt="File" width={25} height={25} />
             </Button>
           </Tooltip>
         </div>

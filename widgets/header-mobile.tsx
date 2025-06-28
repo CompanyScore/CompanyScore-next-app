@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Image from 'next/image';
+
 import { Button } from '@/ui';
 
 // import { ThemeController } from './';
@@ -23,7 +23,7 @@ export function HeaderMobile() {
   return (
     <div className="flex min-[1300px]:hidden navbar bg-black text-white">
       <div className="navbar-start">
-        <Image src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
+        <img src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
         <div className="text-xl">CompanyScore</div>
       </div>
       <div className="navbar-center"></div>
