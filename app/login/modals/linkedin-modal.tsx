@@ -1,13 +1,32 @@
 'use client';
 
 import React from 'react';
-
+import { useRouter } from 'next/navigation';
 import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
+  const router = useRouter();
+
   const redirectToLinkedin = async () => {
-    const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
-    window.location.href = `${process.env.NEXT_PUBLIC_BACK}/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACK}/auth/linkedin/callback`,
+        {
+          credentials: 'include',
+        },
+      );
+
+      const data = await response.json();
+
+      if (data.accessToken && data.refreshToken) {
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
+        localStorage.setItem('userId', data.userId);
+        router.push('/profile');
+      }
+    } catch (err) {
+      console.error('Ошибка авторизации через LinkedIn', err);
+    }
   };
 
   return (
