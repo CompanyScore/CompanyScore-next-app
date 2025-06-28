@@ -21,3 +21,4 @@ jobs:
             git config pull.rebase false
             git pull origin main
             docker compose up -d --build frontend
+            docker image prune -f
