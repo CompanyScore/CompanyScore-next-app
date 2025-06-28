@@ -1,33 +1,26 @@
-# 1. Используем Node.js в качестве базового образа
+# Сборка проекта
 FROM node:alpine AS builder
 
-# 2. Устанавливаем рабочую директорию
 WORKDIR /app
 
-# 3. Копируем package.json и package-lock.json
 COPY package.json package-lock.json ./
-
-# 4. Устанавливаем зависимости
 RUN npm ci
 
-# 5. Копируем весь проект, включая .env.local
 COPY . .
-
-# 6. Собираем Next.js-приложение (Next сам подгрузит .env.local)
 RUN npm run build
 
-# 7. Оставляем только нужные файлы для продакшена
+# Продакшен-контейнер
 FROM node:alpine AS runner
 WORKDIR /app
 
-# 8. Копируем из builder только нужное
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+# Копируем standalone билд
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
 
-# 9. Открываем порт
+# Если используешь .env.local на runtime — скопируй его
+COPY --from=builder /app/.env.local ./.env.local
+
 EXPOSE 3000
-
-# 10. Запускаем Next.js в продакшен-режиме
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
