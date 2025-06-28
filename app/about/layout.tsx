@@ -10,7 +10,5 @@ export default function CompaniesLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <main className="flex-1 container mx-auto h-full px-4">{children}</main>
-  );
+  return <main className="flex-1 container mx-auto h-full">{children}</main>;
 }
