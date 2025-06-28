@@ -13,18 +13,24 @@ export default function ClientAuthWrapper({
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken');
+    const checkAuth = () => {
+      const accessToken = localStorage.getItem('accessToken');
+      const isLoginPage =
+        pathname === '/login' || pathname.startsWith('/login');
 
-    const isLoginPage = pathname === '/login' || pathname.startsWith('/login');
+      if (!accessToken && !isLoginPage) {
+        router.replace('/login');
+      } else {
+        setIsReady(true);
+      }
+    };
 
-    if (!accessToken && !isLoginPage) {
-      router.replace('/login');
-    } else {
-      setIsReady(true); // всё хорошо, показываем children
-    }
-  }, [pathname, router]);
+    // Проверяем после небольшого тайм-аута, чтобы дать браузеру прогрузиться
+    const timeout = setTimeout(checkAuth, 50);
 
-  // Пока не поняли, нужно ли редиректить — не рендерим
+    return () => clearTimeout(timeout);
+  }, [pathname]);
+
   if (!isReady) return null;
 
   return <>{children}</>;
