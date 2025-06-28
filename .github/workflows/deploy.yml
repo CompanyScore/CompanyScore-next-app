@@ -20,4 +20,7 @@ jobs:
             cd /opt/CompanyScore-next-app
             git config pull.rebase false
             git pull origin main
+            docker compose stop frontend
+            docker compose rm -f frontend
+            docker rmi $(docker images -q --filter=reference='*frontend*') || true
             docker compose up -d --build --pull always frontend
