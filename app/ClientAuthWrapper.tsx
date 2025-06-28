@@ -13,13 +13,10 @@ export default function ClientAuthWrapper({
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
-    const publicPaths = ['/login'];
 
-    const isPublic = publicPaths.includes(pathname);
-    const isLoggedIn = !!accessToken;
-
-    if (!isPublic && !isLoggedIn) {
-      router.push('/login');
+    // если мы не на /login и не залогинены — редиректим
+    if (pathname !== '/login' && !accessToken) {
+      router.replace('/login');
     }
   }, [pathname, router]);
 
