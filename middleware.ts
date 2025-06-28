@@ -4,6 +4,8 @@ import { NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const accessToken = request.cookies.get('accessToken')?.value;
   const refreshToken = request.cookies.get('refreshToken')?.value;
+  console.log('Access token', request.cookies.get('accessToken'));
+  console.log('Refresh token', request.cookies.get('refreshToken'));
   const pathname = request.nextUrl.pathname;
 
   // Если пользователь уже на /login, не выполняем редирект

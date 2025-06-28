@@ -11,7 +11,7 @@ export function Header() {
   const pathname = usePathname();
 
   const pages = [
-    { href: '/', label: '!Главная' },
+    { href: '/', label: 'Главная' },
     { href: '/about', label: 'О\u00A0нас' },
     { href: '/companies', label: 'Компании' },
     { href: '/comments', label: 'Отзывы' },
