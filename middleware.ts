@@ -7,9 +7,7 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Если пользователь уже на /login, не выполняем редирект
-  const publicPaths = ['/login', '/', '/about', '/blog'];
-
-  if (publicPaths.includes(pathname)) {
+  if (pathname === '/login') {
     return NextResponse.next();
   }
 
@@ -27,7 +25,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|icons|imgs|auth/linkedin|auth/linkedin/callback).*)',
-  ],
+  matcher: '/((?!_next/static|_next/image|favicon.ico|icons|imgs).*)',
 };
