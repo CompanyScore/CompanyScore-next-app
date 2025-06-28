@@ -18,5 +18,6 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd /opt/CompanyScore-next-app
+            git config pull.rebase false
             git pull origin main
             docker compose restart frontend
