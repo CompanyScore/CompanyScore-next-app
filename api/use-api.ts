@@ -63,7 +63,13 @@ useApi.interceptors.response.use(
         // можно удалить токены и перенаправить на login
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
-        window.location.href = '/login';
+
+        if (
+          typeof window !== 'undefined' &&
+          window.location.pathname !== '/login'
+        ) {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }
