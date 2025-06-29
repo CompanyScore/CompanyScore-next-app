@@ -3,6 +3,7 @@
 import React from 'react';
 
 import LinkedIn from './modals/linkedin-modal';
+import { RegistrationForm } from '@/widgets/registration-form';
 
 export default function LoginPage() {
   return (
@@ -38,9 +39,13 @@ export default function LoginPage() {
           </p>
         </div>
 
+        <RegistrationForm></RegistrationForm>
         <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
-          <label htmlFor="linkedin_modal">Войти через LinkedIn</label>
+          <label htmlFor="registration">Регистрация</label>
         </button>
+        {/* <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
+          <label htmlFor="linkedin_modal">Войти через LinkedIn</label>
+        </button> */}
       </div>
 
       <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
