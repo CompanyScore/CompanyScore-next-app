@@ -5,10 +5,10 @@ import React from 'react';
 import { Title, Modal } from '@/ui';
 
 export default function LinkedIn() {
-  // const redirectToLinkedin = async () => {
-  //   const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
-  //   window.location.href = `${process.env.NEXT_PUBLIC_BACK}/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
-  // };
+  const redirectToLinkedin = async () => {
+    const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BACK}/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
+  };
 
   return (
     <Modal id="linkedin_modal">
@@ -18,14 +18,14 @@ export default function LinkedIn() {
         </Title>
 
         <div className="flex flex-col items-center w-full gap-8">
-          {/* <img
+          <img
             src="/icons/linkedin.svg"
             alt="LinkedIn"
             width={90}
             height={90}
             className="cursor-pointer transition-transform duration-300 ease-out hover:scale-110 hover:rotate-6"
             onClick={redirectToLinkedin}
-          /> */}
+          />
 
           <p className="text-center text-sm text-gray-600 leading-relaxed max-w-xs">
             Войдите через LinkedIn, чтобы воспользоваться дополнительными
