@@ -28,7 +28,6 @@ export function Header() {
     <div className="hidden min-[1300px]:flex justify-between items-center navbar bg-black text-white px-10">
       <div className="max-w-96 w-full">
         <img src="/icons/header-logo.svg" alt="Logo" width={32} height={32} />
-
         <h1 className="text-3xl">CompanyScore</h1>
       </div>
       <ul className="flex gap-10 text-2xl">
