@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { cookies } from 'next/headers';
 import { Header, HeaderMobile, Footer } from '@/widgets';
 import './globals.css';
 
@@ -20,9 +19,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const refreshToken = cookieStore.get('refreshToken')?.value;
-
   return (
     <html lang="en">
       <body
@@ -33,7 +29,7 @@ export default async function RootLayout({
         <HeaderMobile />
 
         <main className="flex-1 h-full">{children}</main>
-        {refreshToken && <Footer />}
+        <Footer />
         {/* </ThemeProvider> */}
       </body>
     </html>
