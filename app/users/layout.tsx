@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'CompanyScore | Пользователи',
@@ -10,5 +12,12 @@ export default async function UsersLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
+  if (!accessToken) {
+    redirect('/login');
+  }
+
   return <>{children}</>;
 }
