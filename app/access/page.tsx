@@ -6,15 +6,13 @@ import { Container } from '@/ui';
 
 export default function AccessPage() {
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error] = useState('');
   const router = useRouter();
 
   const handleSubmit = () => {
-    if (password === '777888999') {
-      document.cookie = `hasAccess=true; path=/; max-age=3600`;
+    if (password) {
+      document.cookie = `hasAccess=${password}; path=/; max-age=3600`;
       router.push('/comments');
-    } else {
-      setError('Неверный пароль');
     }
   };
 
