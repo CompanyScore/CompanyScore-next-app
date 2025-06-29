@@ -1,17 +1,14 @@
 import axios from 'axios';
 
+// Создаем экземпляр axios
 export const useApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACK,
+  withCredentials: true, // Включаем куки (refreshToken)
 });
 
-// 👉 Добавляем accessToken из localStorage
+// Добавляем перехватчик для обновления accessToken
 useApi.interceptors.request.use(
   config => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
-    }
-
     if (config.data instanceof FormData) {
       config.headers['Content-Type'] = 'multipart/form-data';
     } else {
@@ -21,59 +18,31 @@ useApi.interceptors.request.use(
     config.headers['Cache-Control'] = 'no-cache';
     config.headers['Pragma'] = 'no-cache';
     config.headers['Expires'] = '0';
-
     return config;
   },
   error => Promise.reject(error),
 );
 
-// 👉 Обновляем токен при 401
 useApi.interceptors.response.use(
   response => response,
   async error => {
-    const originalRequest = error.config;
-
-    if (
-      error.response?.status === 401 &&
-      !originalRequest._retry // чтобы избежать зацикливания
-    ) {
-      originalRequest._retry = true;
-
+    if (error.response?.status === 401) {
       try {
-        const refreshToken = localStorage.getItem('refreshToken');
-        if (!refreshToken) throw new Error('Нет refreshToken');
-
-        const { data } = await axios.post(
-          `${process.env.NEXT_PUBLIC_BACK}/auth/refresh`,
-          { refreshToken },
+        // Запрашиваем новый accessToken
+        await axios.post(
+          process.env.NEXT_PUBLIC_BACK + `/auth/refresh`,
+          {},
           {
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            withCredentials: true,
           },
         );
 
-        localStorage.setItem('accessToken', data.accessToken);
-
-        // Повторяем исходный запрос с новым токеном
-        originalRequest.headers['Authorization'] = `Bearer ${data.accessToken}`;
-        return useApi.request(originalRequest);
+        return useApi.request(error.config); // Повторяем запрос
       } catch (refreshError) {
-        console.error('Ошибка обновления токена:', refreshError);
-        // можно удалить токены и перенаправить на login
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-
-        if (
-          typeof window !== 'undefined' &&
-          window.location.pathname !== '/login'
-        ) {
-          window.location.href = '/login';
-        }
+        console.error('Ошибка обновления accessToken:', refreshError);
         return Promise.reject(refreshError);
       }
     }
-
     return Promise.reject(error);
   },
 );
