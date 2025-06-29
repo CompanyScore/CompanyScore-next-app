@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Header, HeaderMobile, Footer } from '@/widgets';
 import './globals.css';
@@ -19,6 +21,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('accessToken')?.value;
+
+  if (!accessToken) {
+    redirect('/login');
+  }
+
   return (
     <html lang="en">
       <body
