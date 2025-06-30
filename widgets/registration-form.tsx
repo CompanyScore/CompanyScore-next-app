@@ -1,6 +1,7 @@
 import { useRegistrationForm } from '@/hook/use-registration-form';
-import { Button, Input, Modal, Title } from '@/ui';
+import { Button, Input, Modal, Title, useToast } from '@/ui';
 import { SubmitHandler } from 'react-hook-form';
+import { useAuthStore } from '@/store';
 
 type RegistrationFormData = {
   name: string;
@@ -9,6 +10,8 @@ type RegistrationFormData = {
 };
 
 export const RegistrationForm = () => {
+  const { registrationUser } = useAuthStore();
+
   const {
     setValue,
     watch,
@@ -17,15 +20,20 @@ export const RegistrationForm = () => {
     reset,
   } = useRegistrationForm();
 
+  const toast = useToast();
+
   const onSubmit: SubmitHandler<RegistrationFormData> = async data => {
     try {
       const formData = new FormData();
 
-      formData.append('name', data.name);
       formData.append('email', data.email);
       formData.append('password', data.password);
+      formData.append('name', data.name);
 
-      console.log(formData);
+      await registrationUser(formData);
+    } catch {
+      const error = useAuthStore.getState().error;
+      toast.error(error || 'Ошибка');
     } finally {
       resetForm();
     }
