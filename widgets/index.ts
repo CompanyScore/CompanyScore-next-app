@@ -4,3 +4,5 @@ export { Footer } from './footer';
 export { LanguageController } from './language-controller';
 export { ThemeController } from './theme-controller';
 export { ThemeProvider } from './theme-provider';
+export { RegistrationForm } from './registration-form';
+export { LoginForm } from './login-form';

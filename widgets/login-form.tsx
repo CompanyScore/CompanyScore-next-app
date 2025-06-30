@@ -1,16 +1,15 @@
-import { useRegistrationForm } from '@/hook';
+import { useLoginForm } from '@/hook';
 import { Button, Input, Modal, Title, useToast } from '@/ui';
 import { SubmitHandler } from 'react-hook-form';
 import { useAuthStore } from '@/store';
 
-type RegistrationFormData = {
-  name: string;
+type LoginFormData = {
   email: string;
   password: string;
 };
 
-export const RegistrationForm = () => {
-  const { registrationUser } = useAuthStore();
+export const LoginForm = () => {
+  const { loginUser } = useAuthStore();
 
   const {
     setValue,
@@ -18,19 +17,18 @@ export const RegistrationForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useRegistrationForm();
+  } = useLoginForm();
 
   const toast = useToast();
 
-  const onSubmit: SubmitHandler<RegistrationFormData> = async data => {
+  const onSubmit: SubmitHandler<LoginFormData> = async data => {
     try {
       const formData = new FormData();
 
       formData.append('email', data.email);
       formData.append('password', data.password);
-      formData.append('name', data.name);
 
-      await registrationUser(formData);
+      await loginUser(formData);
     } catch {
       const error = useAuthStore.getState().error;
       toast.error(error || 'Ошибка');
@@ -40,7 +38,7 @@ export const RegistrationForm = () => {
   };
 
   const closeModal = () => {
-    const modal = document.getElementById('registration') as HTMLInputElement;
+    const modal = document.getElementById('login') as HTMLInputElement;
     if (modal) {
       modal.checked = false;
     }
@@ -52,21 +50,10 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <Modal id="registration">
-      <Title>Регистрация</Title>
+    <Modal id="login">
+      <Title>Авторизация</Title>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col gap-5">
-          <div className="relative">
-            <Input
-              placeholder="Укажите имя"
-              type="text"
-              value={watch('name')}
-              onChange={val => setValue('name', String(val))}
-            />
-            <p className="text-error text-sm absolute">
-              {errors.name?.message}
-            </p>
-          </div>
           <div className="relative">
             <Input
               placeholder="Укажите email"
@@ -90,7 +77,7 @@ export const RegistrationForm = () => {
             </p>
           </div>
 
-          <Button className="btn-primary mt-2">Зарегестрироваться</Button>
+          <Button className="btn-primary mt-2">Авторизация</Button>
         </div>
       </form>
     </Modal>
