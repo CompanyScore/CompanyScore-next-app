@@ -21,40 +21,32 @@ export const CommentsAddTask = () => {
         </p>
         <StarRating value={0} onChange={() => console.log('value')} />
 
-        <p>
-          Насколько справедливо и объективно, по вашему мнению, оценили ваше
-          тестовое задание?
-        </p>
+        <p>Насколько справедливо и объективно оценили ваше тестовое задание?</p>
         <StarRating value={0} onChange={() => console.log('value')} />
 
         <p>Насколько разумным был объём и срок выполнения задания?</p>
         <StarRating value={0} onChange={() => console.log('value')} />
 
-        <p>
-          Насколько выполнение тестового задания помогло вам понять типовые
-          задачи и проекты, с которыми вы бы работали в компании?
-        </p>
+        <p>Насколько тестовое задание отражало реальные задачи в компании?</p>
         <StarRating value={0} onChange={() => console.log('value')} />
 
         <p>Получили ли вы обратную связь по результатам?</p>
 
         <div className="flex gap-4">
           <Checkbox
-            label="Развернутый ответ"
+            label="Нет"
             value="interview"
             selected={false} // Replace with actual state
             onChange={() => console.log('checkbox change')}
           />
-
           <Checkbox
             label="Шаблонный ответ"
             value="interview"
             selected={false} // Replace with actual state
             onChange={() => console.log('checkbox change')}
           />
-
           <Checkbox
-            label="Нет"
+            label="Развернутый ответ"
             value="interview"
             selected={false} // Replace with actual state
             onChange={() => console.log('checkbox change')}

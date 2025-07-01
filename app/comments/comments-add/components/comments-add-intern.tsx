@@ -1,4 +1,4 @@
-import { Radio, StarRating } from '@/shared';
+import { Calendar, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 import React from 'react';
 // import { useCommentFormStore2 } from '@/store';
@@ -10,7 +10,17 @@ export const CommentsAddIntern = () => {
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените cтажировку</Title>
 
-      <p>Насколько полезным был ваш опыт стажировки?</p>
+      <div className="flex">
+        <p>Период стажировки</p>
+        <p>
+          Это информация будет использоваться для аналитики и не будет
+          публиковаться в отзывах
+        </p>
+        <Calendar />
+        <Calendar />
+      </div>
+
+      <p>Насколько полезным была стажировки для вас?</p>
       <StarRating value={0} onChange={() => console.log('value')} />
 
       <p>Насколько понятно были организованы задачи стажировки?</p>
@@ -28,8 +38,8 @@ export const CommentsAddIntern = () => {
       <p>Была ли стажировка оплачиваемой?</p>
       <Radio
         options={[
-          { label: 'Да', value: 5 },
           { label: 'Нет', value: 0 },
+          { label: 'Да', value: 5 },
         ]}
         selectedValue={'value'}
         onChange={value => console.log(value)}
@@ -38,8 +48,8 @@ export const CommentsAddIntern = () => {
       <p>Предлагала ли компания трудоустройство после стажировки?</p>
       <Radio
         options={[
-          { label: 'Да', value: 5 },
           { label: 'Нет', value: 0 },
+          { label: 'Да', value: 5 },
         ]}
         selectedValue={'value'}
         onChange={value => console.log(value)}
