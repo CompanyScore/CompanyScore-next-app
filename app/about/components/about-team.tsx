@@ -30,7 +30,7 @@ const blocks: Block[] = [
 ];
 export const Team = () => {
   return (
-    <div className="bg-neutral-100 rounded-[50px]">
+    <div className="bg-neutral-100 rounded-[50px] md:pt-10">
       <Container>
         <div className="flex flex-col">
           <p className="mt-4 mb-2 text-xs font-semibold uppercase tracking-tighter text-neutral-400">

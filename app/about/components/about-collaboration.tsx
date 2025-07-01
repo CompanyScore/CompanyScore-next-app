@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export const Collaboration = () => {
   return (
-    <div className="bg-brand-50 rounded-[50px] md:pt-0 md:max-w-7xl m-auto">
+    <div className="bg-brand-50 rounded-[50px] md:pt-0">
       <Container className="flex flex-row">
         <div className="flex flex-col">
           <p className="text-xs font-semibold uppercase tracking-tighter text-neutral-400">
