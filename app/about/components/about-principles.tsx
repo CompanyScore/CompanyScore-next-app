@@ -1,5 +1,5 @@
+import { type Block } from '@/app/about/types';
 import { Container, Title } from '@/ui';
-import { type Block } from './about-team';
 
 const blocks: Block[] = [
   {
@@ -20,8 +20,8 @@ const blocks: Block[] = [
 ];
 export const Principles = () => {
   return (
-    <div className="rounded-[50px] md:pt-10 md:max-w-7xl m-auto">
-      <Container className="md:pt-12 pt-6">
+    <div className="rounded-[50px] md:max-w-7xl m-auto">
+      <Container>
         <div className="flex flex-col">
           <p className="mt-4 mb-2 text-xs font-semibold uppercase tracking-tighter text-neutral-400">
             / НАШИ ПРИНЦИПЫ /

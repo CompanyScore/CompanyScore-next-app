@@ -1,16 +1,6 @@
+import { type Block, type BlockProps } from '@/app/about/types';
 import { Button, Container, Title } from '@/ui';
 import { IconArrowUpRight } from '@tabler/icons-react';
-
-export type Block = {
-  title: string;
-  description: string;
-  offset?: boolean;
-  smallerFont?: boolean;
-  mobileOffset?: boolean;
-};
-export type BlockProps = {
-  blocks: Block[];
-};
 
 const blocks: Block[] = [
   { title: '2024', description: 'Основано в' },
@@ -30,7 +20,7 @@ const blocks: Block[] = [
 ];
 export const Team = () => {
   return (
-    <div className="bg-neutral-100 rounded-[50px] md:pt-10">
+    <div className="bg-neutral-100 rounded-[50px]">
       <Container>
         <div className="flex flex-col">
           <p className="mt-4 mb-2 text-xs font-semibold uppercase tracking-tighter text-neutral-400">
