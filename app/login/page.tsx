@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import LinkedIn from './modals/linkedin-modal';
 import { Auth } from '@/widgets/auth';
+import { Button } from '@/ui';
 
 export default function LoginPage() {
   const [visible, setVisible] = useState(false);
@@ -45,13 +46,13 @@ export default function LoginPage() {
           <div>Test</div>
         </NewModal> */}
         <Auth type="login" visible={visible} setVisible={setVisible} />
-        <button
+        <Button
           onClick={() => {
             setVisible(true);
           }}
         >
           Test
-        </button>
+        </Button>
 
         {/* <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
           <label htmlFor="linkedin_modal">Войти через LinkedIn</label>
