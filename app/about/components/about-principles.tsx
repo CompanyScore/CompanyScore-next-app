@@ -25,7 +25,7 @@ const blocks: Block[] = [
 export const Principles = () => {
   return (
     <div className="rounded-[50px] md:pt-10 md:max-w-7xl m-auto">
-      <Container className="md:pt-12">
+      <Container className="md:pt-12 pt-6">
         <div className="flex flex-col">
           <p className="mt-4 mb-2 text-xs font-semibold uppercase tracking-tighter text-neutral-400">
             / НАШИ ПРИНЦИПЫ /
@@ -45,7 +45,7 @@ export const Principles = () => {
             {blocks.map((block, index) => (
               <div
                 key={index}
-                className={`flex flex-col w-96 h-[240px] m-auto rounded-xl border p-8 border-neutral-400 bg-white`}
+                className={`flex flex-col w-96 h-[244px] m-auto rounded-[20px] border p-8 border-neutral-400 bg-white`}
               >
                 <div className="flex flex-row items-center">
                   <span className="text-6xl text-amber-700 ">[{++index}]</span>
