@@ -6,16 +6,19 @@ export const Collaboration = () => {
     <div className="bg-brand-50 rounded-[50px] md:pt-0 md:max-w-7xl m-auto">
       <Container className="flex flex-row">
         <div className="flex flex-col">
-          <p className="md:mt-4 mb-3 md:mb-2 text-xs font-semibold uppercase tracking-tighter text-neutral-400">
+          <p className="text-xs font-semibold uppercase tracking-tighter text-neutral-400">
             / СОТРУДНИЧЕСТВО /
           </p>
           <div className="flex flex-col md:flex-row justify-between">
-            <Title className="text-3xl md:leading-[1.2] md:w-2/3">
-              Мы открыты для 
-              <span className="text-amber-700">новых идей и партнёрств</span>,
-              которые помогут сделать рынок труда прозрачнее и удобнее для всех.
-              Если вы разделяете наши ценности и хотите вместе создавать
-              инновационные решения — свяжитесь с нами!
+            <Title className="mt-4 md:mt-4 md:text-3xl text-3xl md:leading-[1.2] md:w-2/3">
+              Мы&nbsp;открыты для&nbsp;
+              <span className="text-amber-700">
+                новых идей и&nbsp;партнёрств
+              </span>
+              , которые помогут сделать рынок труда прозрачнее и&nbsp;удобнее
+              для&nbsp;всех. Если&nbsp;вы&nbsp;разделяете наши ценности
+              и&nbsp;хотите вместе создавать инновационные решения&nbsp;&mdash;
+              свяжитесь с&nbsp;нами!
             </Title>
           </div>
         </div>
