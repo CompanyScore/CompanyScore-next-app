@@ -1,9 +1,5 @@
 import { Container, Title } from '@/ui';
-
-type Block = {
-  title: string;
-  description: string;
-};
+import { type Block } from './about-team';
 
 const blocks: Block[] = [
   {

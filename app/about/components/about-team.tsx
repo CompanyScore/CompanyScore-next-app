@@ -1,14 +1,14 @@
 import { Button, Container, Title } from '@/ui';
 import { IconArrowUpRight } from '@tabler/icons-react';
 
-type Block = {
+export type Block = {
   title: string;
   description: string;
   offset?: boolean;
   smallerFont?: boolean;
   mobileOffset?: boolean;
 };
-type BlockProps = {
+export type BlockProps = {
   blocks: Block[];
 };
 
