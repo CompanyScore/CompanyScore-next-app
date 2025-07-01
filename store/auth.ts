@@ -1,12 +1,18 @@
 import { useApi } from '@/api';
 import { create } from 'zustand';
 
+type AuthData = {
+  email: string;
+  password: string;
+  name?: string;
+};
+
 interface AuthState {
   isAuth: boolean;
   loading: boolean;
   error: string;
-  registrationUser: (formData: FormData) => Promise<void>;
-  loginUser: (formData: FormData) => Promise<void>;
+  registrationUser: (data: AuthData) => Promise<void>;
+  loginUser: (data: AuthData) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>(set => ({
@@ -14,11 +20,11 @@ export const useAuthStore = create<AuthState>(set => ({
   error: '',
   loading: false,
 
-  registrationUser: async formData => {
+  registrationUser: async (data: AuthData) => {
     set({ loading: true, error: '' });
 
     try {
-      await useApi.post('auth/register', formData);
+      await useApi.post('auth/register', data);
       set({ isAuth: true });
     } catch (error: unknown) {
       const axiosError = error as {
@@ -33,11 +39,11 @@ export const useAuthStore = create<AuthState>(set => ({
     }
   },
 
-  loginUser: async formData => {
+  loginUser: async (data: AuthData) => {
     set({ loading: true, error: '' });
 
     try {
-      await useApi.post('auth/login', formData);
+      await useApi.post('auth/login', data);
       set({ isAuth: true });
     } catch (error: unknown) {
       const axiosError = error as {

@@ -1,12 +1,13 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import LinkedIn from './modals/linkedin-modal';
-import { RegistrationForm } from '@/widgets';
-import { LoginForm } from '@/widgets';
+import { Auth } from '@/widgets/auth';
 
 export default function LoginPage() {
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
       <div className="w-full lg:w-1/2 lg:mr-10 mt-12 lg:mt-0">
@@ -40,15 +41,18 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <RegistrationForm />
-        <LoginForm />
-        <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
-          <label htmlFor="registration">Регистрация</label>
+        {/* <NewModal visible={visible} setVisible={setVisible}>
+          <div>Test</div>
+        </NewModal> */}
+        <Auth type="login" visible={visible} setVisible={setVisible} />
+        <button
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          Test
         </button>
 
-        <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
-          <label htmlFor="login">Авторизация</label>
-        </button>
         {/* <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
           <label htmlFor="linkedin_modal">Войти через LinkedIn</label>
         </button> */}
