@@ -47,7 +47,7 @@ export const Team = () => {
             </Title>
             <div className="flex md:justify-end md:items-end pt-6 md:pt-0">
               <Button className="btn-neutral border border-1-black max-w-[302px] w-80 h-14 text-xl">
-                Подробнее о команде <IconArrowUpRight stroke={1} />
+                Подробнее о команде <IconArrowUpRight stroke={2} />
               </Button>
             </div>
           </div>
