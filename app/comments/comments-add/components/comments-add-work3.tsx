@@ -1,7 +1,8 @@
-import { Input, Title } from '@/ui';
+import { Input, Title, Tooltip } from '@/ui';
 import React from 'react';
 import { useCommentFormStore2 } from '@/store';
 import { Checkbox, Radio } from '@/shared';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 export const CommentsAddWork3 = () => {
   const { form, updateForm } = useCommentFormStore2();
@@ -11,9 +12,12 @@ export const CommentsAddWork3 = () => {
       <Title>Оцените работу 3</Title>
 
       <p>
-        Насколько вы были удовлетворены уровнем выплаты бонусов, премии или
-        мотивационных надбавок?
+        icon Эти данные помогут нам лучше понять уровень компенсации и
+        прозрачность системы оплаты труда. Пожалуйста, указывайте значения в
+        долларах США за один год на период вашей работы в этой компании.
       </p>
+
+      <p>Насколько вы были удовлетворены уровнем выплаты бонусов и премий?</p>
       <Input
         type="number"
         value={form.work.finance.bonuses}
@@ -32,20 +36,16 @@ export const CommentsAddWork3 = () => {
       <Radio
         options={[
           {
-            label: 'Бонусов не было или они были совсем незначительными',
+            label: 'Не было',
             value: 0,
           },
           {
-            label: 'Выплаты были, но ниже ожиданий',
+            label: 'Выплаты редкие',
             value: 2,
           },
-          { label: 'В среднем, ничего особенного', value: 5 },
+          { label: 'В целом нормально', value: 5 },
           {
-            label: 'Бонусы в целом устраивали.',
-            value: 5,
-          },
-          {
-            label: 'Всё соответствовало ожиданиям или даже лучше',
+            label: 'Полностью устраивали',
             value: 5,
           },
         ]}
@@ -83,20 +83,16 @@ export const CommentsAddWork3 = () => {
       <Radio
         options={[
           {
-            label: 'Страховка бесполезна или почти ничего не покрывает',
+            label: 'Страховки не было',
             value: 0,
           },
           {
-            label: 'Покрытие слабое, мало что реально доступно',
+            label: 'Страховка была, условия слабые',
             value: 2,
           },
-          { label: 'Покрытие базовое, могло быть лучше', value: 5 },
+          { label: 'В целом норм, покрытие ограниченное', value: 5 },
           {
-            label: 'Лечиться можно, основные услуги покрывались',
-            value: 5,
-          },
-          {
-            label: 'Всё нужное включено, страховка надёжная',
+            label: 'Полностью устраивала, всё покрывалось',
             value: 5,
           },
         ]}
@@ -115,10 +111,12 @@ export const CommentsAddWork3 = () => {
         }
       />
 
-      <p>
-        Предлагает ли компания долевое участие, акции, партнёрство или долю от
-        прибыли сотрудникам?
-      </p>
+      <div className="flex items-center gap-2">
+        <p>Предлагает ли компания долю от прибыли сотрудникам?</p>
+        <Tooltip tip="долевое участие, акции, партнёрство, дивиденды">
+          <IconInfoCircle stroke={1} />
+        </Tooltip>
+      </div>
       <Input
         type="number"
         value={form.work.finance.stocks}
@@ -137,16 +135,16 @@ export const CommentsAddWork3 = () => {
       <Radio
         options={[
           {
-            label: 'Да, предлагается широкой группе сотрудников',
-            value: 0,
-          },
-          {
             label: 'Нет, такие возможности не предусмотрены',
-            value: 2,
+            value: 0,
           },
           {
             label:
               'Да, но только ограниченному кругу (топ-менеджмент, ключевые специалисты)',
+            value: 2,
+          },
+          {
+            label: 'Да, для всех сотрудников',
             value: 5,
           },
         ]}
@@ -165,10 +163,7 @@ export const CommentsAddWork3 = () => {
         }
       />
 
-      <p>
-        Предоставлялись ли следующие социальные выплаты и льготы? (отметьте всё,
-        что применимо)
-      </p>
+      <p>Предоставлялись ли следующие социальные выплаты и льготы?</p>
 
       <Checkbox
         label="Материальная помощь при трудных обстоятельствах"
@@ -183,7 +178,7 @@ export const CommentsAddWork3 = () => {
         onChange={() => console.log('checkbox change')}
       />
       <Checkbox
-        label="Компенсация питания / бесплатное питание"
+        label="Бесплатное питание"
         value="interview"
         selected={false} // Replace with actual state
         onChange={() => console.log('checkbox change')}

@@ -12,11 +12,26 @@ export const CommentsAddOptions = () => {
     <div className="flex flex-col gap-6 m-auto w-full max-w-[900px]">
       <Title>Оставить отзыв</Title>
 
+      <Company />
       <PositionAndWorkExperience />
 
       <div className="divider before:bg-black after:bg-black"></div>
 
-      <Company />
+      <p>Желаете оставить отзыв анонимно?</p>
+      <div className="flex gap-4">
+        <Checkbox
+          label="Да"
+          value="interview"
+          selected={false} // Replace with actual state
+          onChange={() => console.log('checkbox change')}
+        />
+        <Checkbox
+          label="Нет"
+          value="interview"
+          selected={false} // Replace with actual state
+          onChange={() => console.log('checkbox change')}
+        />
+      </div>
 
       <div className="divider before:bg-black after:bg-black"></div>
 
@@ -86,7 +101,7 @@ const PositionAndWorkExperience = () => {
         onChange={handlePositionChange}
       />
 
-      <p>Стаж работы</p>
+      <p>Стаж работы до момента взаимодействия с компанией</p>
       <div className="flex gap-4 w-full">
         <div className="flex items-center gap-2 w-full">
           <Select

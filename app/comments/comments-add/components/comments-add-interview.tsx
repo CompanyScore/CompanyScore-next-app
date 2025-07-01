@@ -38,7 +38,19 @@ export const CommentsAddInterview = () => {
           onChange={() => console.log('checkbox change')}
         />
         <Checkbox
-          label="Прохождение видеособеседования (запись ответов на камеру без интервьюера)"
+          label="Интервью с HR"
+          value="interview"
+          selected={false} // Replace with actual state
+          onChange={() => console.log('checkbox change')}
+        />
+        <Checkbox
+          label="Видео презентация (запись ответов на камеру без интервьюера)"
+          value="interview"
+          selected={false} // Replace with actual state
+          onChange={() => console.log('checkbox change')}
+        />
+        <Checkbox
+          label="Кейс-задания / бизнес-кейсы"
           value="interview"
           selected={false} // Replace with actual state
           onChange={() => console.log('checkbox change')}
@@ -55,12 +67,6 @@ export const CommentsAddInterview = () => {
           selected={false} // Replace with actual state
           onChange={() => console.log('checkbox change')}
         />
-        <Checkbox
-          label="Выполняли ли вы кейс-задания / бизнес-кейсы? Если да укажите количество"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
 
         <p>
           Сколько времени занял весь процесс собеседований — от подачи заявки до
@@ -69,7 +75,7 @@ export const CommentsAddInterview = () => {
 
         <Radio
           options={[
-            { label: 'ТМенее 3 дней', value: 5 },
+            { label: 'Менее 3 дней', value: 5 },
             { label: '3-7 дней', value: 2 },
             {
               label: '1-2 недели',

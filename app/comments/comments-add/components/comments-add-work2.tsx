@@ -1,5 +1,6 @@
-import { Radio } from '@/shared';
-import { Title } from '@/ui';
+import { Checkbox, Radio } from '@/shared';
+import { Title, Tooltip } from '@/ui';
+import { IconInfoCircle } from '@tabler/icons-react';
 
 export const CommentsAddWork2 = () => {
   return (
@@ -75,37 +76,14 @@ export const CommentsAddWork2 = () => {
         className="flex"
       />
 
-      <p>
-        Насколько вам удавалось сохранять баланс между работой и личной
-        жизнью?????
-      </p>
-      <Radio
-        options={[
-          {
-            label: 'Не удавалось',
-            value: 5,
-          },
-          {
-            label: 'Удавалось тяжело',
-            value: 2,
-          },
-          {
-            label: 'Умеренно удавалось',
-            value: 0,
-          },
-          {
-            label: 'Легко удавалось',
-            value: 0,
-          },
-        ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
-        className="flex"
-      />
-
-      <p>
-        Как вы оцениваете этичность компании и её социальную ответственность?
-      </p>
+      <div className="flex items-center gap-2">
+        <p>
+          Как вы оцениваете этичность компании и её социальную ответственность?
+        </p>
+        <Tooltip tip="Оцениваются честность, порядочность компании и её отношение к сотрудникам, обществу и окружающей среде">
+          <IconInfoCircle stroke={1} />
+        </Tooltip>
+      </div>
       <Radio
         options={[
           {
@@ -113,15 +91,15 @@ export const CommentsAddWork2 = () => {
             value: 5,
           },
           {
-            label: 'Неэтично, ответственности перед обществом нет',
+            label: 'Этичность скорее формальная',
             value: 2,
           },
           {
-            label: 'В целом нормально, без ярких примеров',
+            label: 'В целом соблюдает нормы',
             value: 0,
           },
           {
-            label: 'Этичная компания, социально ответственная',
+            label: 'Компания ведёт себя честно и проявляет заботу о людях',
             value: 0,
           },
         ]}
@@ -159,30 +137,71 @@ export const CommentsAddWork2 = () => {
       />
 
       <p>
-        Насколько вы были удовлетворены корпоративными мероприятиями в компании?
+        Организовывала ли компания за свой счёт корпоративные мероприятия
+        (праздники, выезды, тимбилдинги)?
       </p>
       <Radio
         options={[
           {
-            label: 'Не было мероприятий',
+            label: 'Мероприятий не было',
             value: 5,
           },
           {
-            label: 'Скорее не удовлетворён',
+            label: 'Проводились редко',
             value: 2,
           },
           {
-            label: 'Нормально',
+            label: 'Проводили, было норм',
             value: 0,
           },
           {
-            label: 'Полностью удовлетворён',
+            label: 'Часто и на хорошем уровне',
             value: 0,
           },
         ]}
         selectedValue={'value'}
         onChange={value => console.log(value)}
         className="flex"
+      />
+
+      <p>
+        Какие формы обучения или повышения квалификации поддерживала компания?
+      </p>
+      <Checkbox
+        label="Онлайн-курсы (оплата видеокурсов и платформ)"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
+      />
+      <Checkbox
+        label="Очные курсы или тренинги"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
+      />
+      <Checkbox
+        label="Обучение в вузе / магистратуре / MBA"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
+      />
+      <Checkbox
+        label="Частичная оплата обучения"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
+      />
+      <Checkbox
+        label="Воркшопы и лекции внутри компании"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
+      />
+      <Checkbox
+        label="Командировки на обучение или конференции"
+        value="interview"
+        selected={false} // Replace with actual state
+        onChange={() => console.log('checkbox change')}
       />
     </div>
   );
