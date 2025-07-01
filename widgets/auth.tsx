@@ -2,10 +2,11 @@
 
 import { useLoginForm, useRegistrationForm } from '@/hook';
 import { useAuthStore } from '@/store';
-import { Button, Input, useToast } from '@/ui';
+import { Button, Input, Loading, useToast } from '@/ui';
 import { NewModal } from '@/ui/new-modal';
 import { useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
+import classNames from 'classnames';
 
 type Auth = {
   type: string;
@@ -26,13 +27,21 @@ type RegistrationFormData = {
 
 export function Auth({ type, visible, setVisible }: Auth) {
   const [isLoginMode, setLoginMode] = useState(type === 'login');
+  const { loading } = useAuthStore();
 
   return (
     <NewModal visible={visible} setVisible={setVisible}>
-      <h4 className="text-xl font-bold text-center mb-7">Добро пожаловать</h4>
+      {loading && (
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
+          <Loading />
+        </div>
+      )}
+      <h4 className="text-xl font-bold text-center mb-7">
+        {isLoginMode ? 'Авторизация' : 'Регистрация'}
+      </h4>
       <div>
-        <LoginForm resetForm={visible} visible={isLoginMode} />
-        <RegistrationForm resetForm={visible} visible={!isLoginMode} />
+        <LoginForm visible={isLoginMode && visible} />
+        <RegistrationForm visible={!isLoginMode && visible} />
       </div>
       <div className="flex justify-end my-3 text-sm">
         <button
@@ -58,13 +67,7 @@ export function Auth({ type, visible, setVisible }: Auth) {
   );
 }
 
-function LoginForm({
-  resetForm,
-  visible,
-}: {
-  resetForm: boolean;
-  visible: boolean;
-}) {
+function LoginForm({ visible }: { visible: boolean }) {
   const { loginUser } = useAuthStore();
 
   const {
@@ -77,10 +80,8 @@ function LoginForm({
   } = useLoginForm();
 
   useEffect(() => {
-    if (!resetForm) {
-      reset();
-    }
-  }, [resetForm]);
+    reset();
+  }, [visible]);
 
   const toast = useToast();
 
@@ -114,7 +115,7 @@ function LoginForm({
           type="text"
           value={watch('email')}
           onChange={val => handleValueChange('email', String(val))}
-          className={`${errors.email ? 'input-error' : ''}`}
+          className={classNames({ 'input-error': errors.email })}
         />
         <p className="text-error text-xs absolute">{errors.email?.message}</p>
       </div>
@@ -124,7 +125,7 @@ function LoginForm({
           type="password"
           value={watch('password')}
           onChange={val => handleValueChange('password', String(val))}
-          className={`${errors.password ? 'input-error' : ''}`}
+          className={classNames({ 'input-error': errors.password })}
         />
         <p className="text-error text-xs absolute">
           {errors.password?.message}
@@ -136,13 +137,7 @@ function LoginForm({
   );
 }
 
-function RegistrationForm({
-  resetForm,
-  visible,
-}: {
-  resetForm: boolean;
-  visible: boolean;
-}) {
+function RegistrationForm({ visible }: { visible: boolean }) {
   const { registrationUser } = useAuthStore();
 
   const {
@@ -155,10 +150,8 @@ function RegistrationForm({
   } = useRegistrationForm();
 
   useEffect(() => {
-    if (!resetForm) {
-      reset();
-    }
-  }, [resetForm]);
+    reset();
+  }, [visible]);
 
   const toast = useToast();
 
@@ -196,7 +189,7 @@ function RegistrationForm({
           type="text"
           value={watch('name')}
           onChange={val => handleValueChange('name', String(val))}
-          className={`${errors.name ? 'input-error' : ''}`}
+          className={classNames({ 'input-error': errors.name })}
         />
         <p className="text-error text-xs absolute">{errors.name?.message}</p>
       </div>
@@ -206,7 +199,7 @@ function RegistrationForm({
           type="text"
           value={watch('email')}
           onChange={val => handleValueChange('email', String(val))}
-          className={`${errors.email ? 'input-error' : ''}`}
+          className={classNames({ 'input-error': errors.email })}
         />
         <p className="text-error text-xs absolute">{errors.email?.message}</p>
       </div>
@@ -216,7 +209,7 @@ function RegistrationForm({
           type="password"
           value={watch('password')}
           onChange={val => handleValueChange('password', String(val))}
-          className={`${errors.password ? 'input-error' : ''}`}
+          className={classNames({ 'input-error': errors.password })}
         />
         <p className="text-error text-xs absolute">
           {errors.password?.message}
