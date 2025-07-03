@@ -1,40 +1,70 @@
-import { Calendar, Checkbox, Radio, StarRating } from '@/shared';
+import { Calendar, Radio, StarRating } from '@/shared';
 import React from 'react';
-import { useCommentFormStore2 } from '@/store';
+import { workFormStore } from '@/form';
 import { Input, Title, Tooltip } from '@/ui';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 
-export const CommentsAddWork = () => {
-  const { form, updateForm } = useCommentFormStore2();
+export const CommentsAddWorkPrimary = () => {
+  const { workForm, updateWorkForm } = workFormStore();
+
+  const fromDate = workForm.primary.period.from
+    ? new Date(workForm.primary.period.from)
+    : null;
+
+  const toDate = workForm.primary.period.to
+    ? new Date(workForm.primary.period.to)
+    : null;
+
+  const handleFromChange = (date: Date | null) => {
+    updateWorkForm({
+      primary: {
+        ...workForm.primary,
+        period: {
+          ...workForm.primary.period,
+          from: date ? date.toISOString().split('T')[0] : '',
+        },
+      },
+    });
+  };
+
+  const handleToChange = (date: Date | null) => {
+    updateWorkForm({
+      primary: {
+        ...workForm.primary,
+        period: {
+          ...workForm.primary.period,
+          to: date ? date.toISOString().split('T')[0] : '',
+        },
+      },
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
-      {/* <div className="flex flex-col gap-4 w-full">
-        <Title>Период работы в компании</Title>
-        <div className="flex gap-4 m-auto">
-          <Calendar />
-          <Calendar />
-        </div>
-      </div> */}
+      <Title>Оцените работу: Primary</Title>
 
-      <Title>Оцените работу</Title>
-
-      <p>
-        icon! Эти вопросы влияют на итоговую оценку компании. Мы считаем их
-        ключевыми — именно они чаще всего определяют, останется ли человек в
-        компании. Отсутствие даже одного из этих пунктов может стать причиной
-        увольнения.
-      </p>
+      <div className="flex gap-2">
+        <IconMessage2Exclamation stroke={1} width={50} />
+        <p>
+          Эти вопросы влияют на итоговую оценку компании. Мы считаем их
+          ключевыми — именно они чаще всего определяют, останется ли человек в
+          компании. Отсутствие даже одного из этих пунктов может стать причиной
+          увольнения.
+        </p>
+      </div>
 
       <div className="flex flex-col gap-4">
         <p>Период работы</p>
-        <p>
-          icon! Это информация будет использоваться для аналитики и не будет
-          публиковаться в отзывах
-        </p>
-        <div className="flex">
-          <Calendar />
-          <Calendar />
+        <div className="flex gap-2">
+          <IconMessage2Exclamation stroke={1} width={50} />
+          <p>
+            Это информация будет использоваться для аналитики и не будет
+            публиковаться в отзывах
+          </p>
+        </div>
+        <div className="flex gap-4">
+          <Calendar label="От" value={fromDate} onChange={handleFromChange} />
+          <Calendar label="До" value={toDate} onChange={handleToChange} />
         </div>
 
         <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
@@ -45,15 +75,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.management}
+            value={workForm.primary.management}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    management: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  management: val,
                 },
               })
             }
@@ -68,15 +95,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.team}
+            value={workForm.primary.team}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    team: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  team: val,
                 },
               })
             }
@@ -91,15 +115,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.project}
+            value={workForm.primary.project}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    project: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  project: val,
                 },
               })
             }
@@ -114,15 +135,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.stack}
+            value={workForm.primary.stack}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    stack: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  stack: val,
                 },
               })
             }
@@ -137,15 +155,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.stack}
+            value={workForm.primary.workingSchedule}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    stack: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  workingSchedule: val,
                 },
               })
             }
@@ -160,15 +175,12 @@ export const CommentsAddWork = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={form.work.rating.stack}
+            value={workForm.primary.stability}
             onChange={val =>
-              updateForm({
-                work: {
-                  ...form.work,
-                  rating: {
-                    ...form.work.rating,
-                    stack: val,
-                  },
+              updateWorkForm({
+                primary: {
+                  ...workForm.primary,
+                  stability: val,
                 },
               })
             }
@@ -178,14 +190,14 @@ export const CommentsAddWork = () => {
         <p>Уровень зарплаты</p>
         <Input
           type="number"
-          value={form.work.finance.salary}
+          value={workForm.primary.salary.value}
           onChange={val =>
-            updateForm({
-              work: {
-                ...form.work,
-                finance: {
-                  ...form.work.finance,
-                  salary: Number(val),
+            updateWorkForm({
+              primary: {
+                ...workForm.primary,
+                salary: {
+                  ...workForm.primary.salary,
+                  value: Number(val),
                 },
               },
             })
@@ -201,26 +213,26 @@ export const CommentsAddWork = () => {
             },
             {
               label: 'Ниже рынка',
-              value: 2,
+              value: 1,
             },
             {
               label: 'В целом норм по рынку',
-              value: 5,
+              value: 2,
             },
             {
               label: 'Полностью устраивала',
               value: 5,
             },
           ]}
-          selectedValue={form.work.rating.workFormat}
+          selectedValue={workForm.primary.salary.points}
           className="flex flex-col"
           onChange={val =>
-            updateForm({
-              work: {
-                ...form.work,
-                rating: {
-                  ...form.work.rating,
-                  workFormat: Number(val),
+            updateWorkForm({
+              primary: {
+                ...workForm.primary,
+                salary: {
+                  ...workForm.primary.salary,
+                  points: Number(val),
                 },
               },
             })
@@ -228,23 +240,31 @@ export const CommentsAddWork = () => {
         />
 
         <p>Выберите возможность формата работы</p>
-        <Checkbox
-          label="Офис"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Гибрид"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Онлайн"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
+        <Radio
+          options={[
+            {
+              label: 'Офис',
+              value: 0,
+            },
+            {
+              label: 'Гибрид',
+              value: 2,
+            },
+            {
+              label: 'Онлайн',
+              value: 5,
+            },
+          ]}
+          selectedValue={workForm.primary.workFormat}
+          className="flex flex-col"
+          onChange={val =>
+            updateWorkForm({
+              primary: {
+                ...workForm.primary,
+                workFormat: Number(val),
+              },
+            })
+          }
         />
       </div>
     </div>

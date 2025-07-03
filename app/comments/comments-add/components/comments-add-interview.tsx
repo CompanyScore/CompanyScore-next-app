@@ -1,72 +1,101 @@
+import React, { useEffect } from 'react';
+import { interviewFormStore } from '@/form';
 import { Checkbox, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
-import React from 'react';
-// import { useCommentFormStore2 } from '@/store';
+import { useInterviewStageStore } from '@/store';
 
 export const CommentsAddInterview = () => {
-  // const { form, updateForm } = useCommentFormStore2();
+  const { interviewForm, updateInterviewForm } = interviewFormStore();
+  const { stages, getInterviewStages, loading } = useInterviewStageStore();
+
+  useEffect(() => {
+    getInterviewStages();
+  }, [getInterviewStages]);
+
+  const handleStageChange = (id: string) => {
+    const updatedStages = interviewForm.stages.includes(id)
+      ? interviewForm.stages.filter(stageId => stageId !== id)
+      : [...interviewForm.stages, id];
+
+    updateInterviewForm({
+      ...interviewForm,
+      stages: updatedStages,
+    });
+  };
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените собеседование</Title>
       <div className="flex flex-col gap-4 w-full m-auto">
         <p>Насколько описание вакансии соответствовало этой позиции ?</p>
-        <StarRating value={0} onChange={() => console.log('value')} />
+        <StarRating
+          value={interviewForm.correspondedPosition}
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              correspondedPosition: Number(val),
+            })
+          }
+        />
 
         <p>Насколько чётко и грамотно были организованы этапы собеседования?</p>
-        <StarRating value={0} onChange={() => console.log('value')} />
+        <StarRating
+          value={interviewForm.clearlyStages}
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              clearlyStages: Number(val),
+            })
+          }
+        />
 
         <p>
           Насколько вежливо и уважительно с вами общались представители
           компании?
         </p>
-        <StarRating value={0} onChange={() => console.log('value')} />
+        <StarRating
+          value={interviewForm.talkedPolitely}
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              talkedPolitely: Number(val),
+            })
+          }
+        />
 
         <p>
           Насколько вопросы на собеседовании соответствовали должности и
           предполагаемым задачам?
         </p>
-        <StarRating value={0} onChange={() => console.log('value')} />
+        <StarRating
+          value={interviewForm.realWork}
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              realWork: Number(val),
+            })
+          }
+        />
 
         <p>
           Какие этапы были в вашем собеседовании? (отметьте всё, что применимо)
         </p>
-        <Checkbox
-          label="Тест (логика, аналитика, профнавыки)"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Интервью с HR"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Видео презентация (запись ответов на камеру без интервьюера)"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Кейс-задания / бизнес-кейсы"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Интервью с руководителем / техническим специалистом"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
-        <Checkbox
-          label="Интервью с командой"
-          value="interview"
-          selected={false} // Replace with actual state
-          onChange={() => console.log('checkbox change')}
-        />
+
+        <div className="flex flex-col gap-2">
+          {loading ? (
+            <p>Загрузка...</p>
+          ) : (
+            stages.map(stage => (
+              <Checkbox
+                key={stage.id}
+                value={stage.id}
+                label={stage.label}
+                selected={interviewForm.stages.includes(stage.id)}
+                onChange={() => handleStageChange(stage.id)}
+              />
+            ))
+          )}
+        </div>
 
         <p>
           Сколько времени занял весь процесс собеседований — от подачи заявки до
@@ -76,52 +105,45 @@ export const CommentsAddInterview = () => {
         <Radio
           options={[
             { label: 'Менее 3 дней', value: 5 },
-            { label: '3-7 дней', value: 2 },
+            { label: '3-7 дней', value: 4 },
             {
               label: '1-2 недели',
-              value: 0,
+              value: 3,
             },
             {
               label: 'Около месяца',
-              value: 0,
+              value: 1,
             },
             { label: 'Более 2 месяцев', value: 0 },
           ]}
           selectedValue={'value'}
-          onChange={value => console.log(value)}
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              interviewTime: Number(val),
+            })
+          }
           className="flex flex-col"
         />
-        {/* <StarRating
-          value={form.interview.rating}
-          onChange={val =>
-            updateForm({ interview: { ...form.interview, rating: val } })
-          }
-        /> */}
 
         <p>Была ли обратная связь после интервью?</p>
         <Radio
           options={[
-            { label: 'Нет', value: 5 },
-            { label: 'Шаблонный ответ', value: 2 },
+            { label: 'Нет', value: 0 },
+            { label: 'Шаблонный ответ', value: 500 },
             {
               label: 'Развернутый ответ',
-              value: 0,
+              value: 1000,
             },
           ]}
           selectedValue={'value'}
-          onChange={value => console.log(value)}
-        />
-
-        {/* <textarea
-          className="textarea textarea-primary w-full"
-          placeholder="Поделитесь опытом собеседования"
-          value={form.interview.text}
-          onChange={e =>
-            updateForm({
-              interview: { ...form.interview, text: e.target.value },
+          onChange={val =>
+            updateInterviewForm({
+              ...interviewForm,
+              feedback: Number(val),
             })
           }
-        /> */}
+        />
       </div>
     </div>
   );

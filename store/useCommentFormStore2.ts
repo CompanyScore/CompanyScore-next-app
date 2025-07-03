@@ -13,6 +13,7 @@ interface FormType {
   };
   intern: {
     isIntern: boolean;
+    useful: number;
     text: string;
     rating: number;
   };
