@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+// components/shared/Calendar.tsx
+import React from 'react';
 import DatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
-// CSS Modules, react-datepicker-cssmodules.css
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+interface CalendarProps {
+  label?: string;
+  value: Date | null;
+  onChange: (date: Date | null) => void;
+}
 
-export const Calendar = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-
+export const Calendar = ({ label, value, onChange }: CalendarProps) => {
   return (
-    <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
+    <div className="flex flex-col gap-1">
+      {label && <p>{label}</p>}
+      <DatePicker
+        selected={value}
+        onChange={onChange}
+        dateFormat="yyyy-MM-dd"
+        className="border px-2 py-1 rounded"
+      />
+    </div>
   );
 };

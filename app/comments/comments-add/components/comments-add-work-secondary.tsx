@@ -1,11 +1,36 @@
+import { workFormStore } from '@/form';
 import { Checkbox, Radio } from '@/shared';
+import { useWorkEducationStore } from '@/store';
 import { Title, Tooltip } from '@/ui';
 import { IconInfoCircle } from '@tabler/icons-react';
+import { useEffect } from 'react';
 
-export const CommentsAddWork2 = () => {
+export const CommentsAddWorkSecondary = () => {
+  const { items, getWorkEducation, loading } = useWorkEducationStore();
+  const { workForm, updateWorkForm } = workFormStore();
+
+  useEffect(() => {
+    getWorkEducation();
+  }, [getWorkEducation]);
+
+  const handleChange = (id: string) => {
+    const selected = workForm.secondary.education.includes(id)
+      ? workForm.secondary.education.filter(e => e !== id)
+      : [...workForm.secondary.education, id];
+
+    updateWorkForm({
+      secondary: {
+        ...workForm.secondary,
+        education: selected,
+      },
+    });
+  };
+
+  if (loading) return <p>Загрузка...</p>;
+
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
-      <Title>Оцените работу 2</Title>
+      <Title>Оцените работу: Secondary</Title>
 
       <p>
         Насколько рабочие задачи соответствовали должности и способствовали
@@ -15,7 +40,7 @@ export const CommentsAddWork2 = () => {
         options={[
           {
             label: 'Задачи не соответствовали должности и не развивали',
-            value: 5,
+            value: 0,
           },
           {
             label: 'В целом соответствовали, но развитие ограниченное',
@@ -23,11 +48,18 @@ export const CommentsAddWork2 = () => {
           },
           {
             label: 'Полностью соответствовали и активно развивали навыки',
-            value: 0,
+            value: 5,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.development}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              development: Number(val),
+            },
+          })
+        }
         className="flex flex-col"
       />
 
@@ -36,7 +68,7 @@ export const CommentsAddWork2 = () => {
         options={[
           {
             label: 'Очень некомфортно, мешало работе',
-            value: 5,
+            value: 0,
           },
           {
             label: 'Нейтрально, терпимо, но можно улучшить',
@@ -44,11 +76,18 @@ export const CommentsAddWork2 = () => {
           },
           {
             label: 'Максимально комфортно, всё устраивало',
-            value: 0,
+            value: 5,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.comfort}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              comfort: Number(val),
+            },
+          })
+        }
         className="flex flex-col"
       />
 
@@ -63,16 +102,19 @@ export const CommentsAddWork2 = () => {
             value: 5,
           },
           {
-            label: 'Иногда',
-            value: 2,
-          },
-          {
             label: 'Да',
             value: 0,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.discrimination}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              discrimination: Number(val),
+            },
+          })
+        }
         className="flex"
       />
 
@@ -88,23 +130,30 @@ export const CommentsAddWork2 = () => {
         options={[
           {
             label: 'Есть проблемы с этикой и заботой о людях',
-            value: 5,
+            value: 0,
           },
           {
             label: 'Этичность скорее формальная',
-            value: 2,
+            value: 1,
           },
           {
             label: 'В целом соблюдает нормы',
-            value: 0,
+            value: 3,
           },
           {
             label: 'Компания ведёт себя честно и проявляет заботу о людях',
-            value: 0,
+            value: 5,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.ethics}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              ethics: Number(val),
+            },
+          })
+        }
         className="flex flex-col"
       />
 
@@ -116,7 +165,7 @@ export const CommentsAddWork2 = () => {
         options={[
           {
             label: 'Нет',
-            value: 5,
+            value: 0,
           },
           {
             label: '3 месяца',
@@ -124,15 +173,22 @@ export const CommentsAddWork2 = () => {
           },
           {
             label: 'Полгода',
-            value: 0,
+            value: 3,
           },
           {
             label: 'Год',
-            value: 0,
+            value: 5,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.performanceReview}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              performanceReview: Number(val),
+            },
+          })
+        }
         className="flex"
       />
 
@@ -144,30 +200,53 @@ export const CommentsAddWork2 = () => {
         options={[
           {
             label: 'Мероприятий не было',
-            value: 5,
+            value: 0,
           },
           {
             label: 'Проводились редко',
-            value: 2,
+            value: 1,
           },
           {
             label: 'Проводили, было норм',
-            value: 0,
+            value: 3,
           },
           {
             label: 'Часто и на хорошем уровне',
-            value: 0,
+            value: 5,
           },
         ]}
-        selectedValue={'value'}
-        onChange={value => console.log(value)}
+        selectedValue={workForm.secondary.events}
+        onChange={val =>
+          updateWorkForm({
+            secondary: {
+              ...workForm.secondary,
+              events: Number(val),
+            },
+          })
+        }
         className="flex"
       />
 
       <p>
         Какие формы обучения или повышения квалификации поддерживала компания?
       </p>
-      <Checkbox
+      <div className="flex flex-col gap-2">
+        {loading ? (
+          <p>Загрузка...</p>
+        ) : (
+          items.map(item => (
+            <Checkbox
+              key={item.id}
+              value={item.id}
+              label={item.label}
+              selected={workForm.secondary.education.includes(item.id)}
+              onChange={() => handleChange(item.id)}
+            />
+          ))
+        )}
+      </div>
+
+      {/* <Checkbox
         label="Онлайн-курсы (оплата видеокурсов и платформ)"
         value="interview"
         selected={false} // Replace with actual state
@@ -202,7 +281,7 @@ export const CommentsAddWork2 = () => {
         value="interview"
         selected={false} // Replace with actual state
         onChange={() => console.log('checkbox change')}
-      />
+      /> */}
     </div>
   );
 };

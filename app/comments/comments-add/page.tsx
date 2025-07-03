@@ -1,41 +1,54 @@
 'use client';
 
 import { useState } from 'react';
-import { useCommentFormStore2 } from '@/store';
+import {
+  commentFormStore,
+  internshipFormStore,
+  interviewFormStore,
+  taskFormStore,
+  workFormStore,
+} from '@/form';
+
 import {
   CommentsAddInterview,
   CommentsAddRecommendation,
   CommentsAddTask,
-  CommentsAddWork,
-  CommentsAddWork2,
-  CommentsAddWork3,
+  CommentsAddWorkPrimary,
+  CommentsAddWorkSecondary,
+  CommentsAddWorkFinance,
   CommentsAddOptions,
-  CommentsAddIntern,
+  CommentsAddInternship,
 } from './components';
+
 import { Toast } from '@/ui';
 
 export default function CommentsPage() {
-  const { form } = useCommentFormStore2();
-  // const { postComment, error } = useCommentsStore();
+  const { commentForm } = commentFormStore();
+  const { taskForm } = taskFormStore();
+  const { interviewForm } = interviewFormStore();
+  const { internshipForm } = internshipFormStore();
+  const { workForm } = workFormStore();
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     'options',
-    ...(form.task.isTask ? ['task'] : []),
-    ...(form.interview.isInterview ? ['interview'] : []),
-    ...(form.intern.isIntern ? ['intern'] : []),
-    ...(form.work.isWork ? ['work'] : []),
-    ...(form.work.isWork ? ['work2'] : []),
-    ...(form.work.isWork ? ['work3'] : []),
+    ...(taskForm.isTask ? ['task'] : []),
+    ...(interviewForm.isInterview ? ['interview'] : []),
+    ...(internshipForm.isInternship ? ['intern'] : []),
+    ...(workForm.isWork ? ['work'] : []),
+    ...(workForm.isWork ? ['work2'] : []),
+    ...(workForm.isWork ? ['work3'] : []),
     'recommendation',
   ];
 
   // const toast = useToast();
 
   const log = () => {
-    // console.log('form', form);
-    console.log(steps.length);
-    console.log(currentStep);
+    console.log('commentForm', commentForm);
+    console.log('taskForm', taskForm);
+    console.log('interviewForm', interviewForm);
+    console.log('internshipForm', internshipForm);
+    console.log('workForm', workForm);
   };
 
   // const handleNext = async () => {
@@ -74,10 +87,10 @@ export default function CommentsPage() {
       {steps[currentStep] === 'options' && <CommentsAddOptions />}
       {steps[currentStep] === 'task' && <CommentsAddTask />}
       {steps[currentStep] === 'interview' && <CommentsAddInterview />}
-      {steps[currentStep] === 'intern' && <CommentsAddIntern />}
-      {steps[currentStep] === 'work' && <CommentsAddWork />}
-      {steps[currentStep] === 'work2' && <CommentsAddWork2 />}
-      {steps[currentStep] === 'work3' && <CommentsAddWork3 />}
+      {steps[currentStep] === 'intern' && <CommentsAddInternship />}
+      {steps[currentStep] === 'work' && <CommentsAddWorkPrimary />}
+      {steps[currentStep] === 'work2' && <CommentsAddWorkSecondary />}
+      {steps[currentStep] === 'work3' && <CommentsAddWorkFinance />}
       {steps[currentStep] === 'recommendation' && <CommentsAddRecommendation />}
 
       <div className="flex justify-between mt-4">
@@ -94,7 +107,7 @@ export default function CommentsPage() {
             if (currentStep < steps.length - 1) {
               setCurrentStep(prev => prev + 1);
             } else {
-              // TODO: handleSubmit
+              // handleSubmit
             }
           }}
           className="btn btn-primary"
