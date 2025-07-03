@@ -201,48 +201,6 @@ export const CommentsAddWorkFinance = () => {
           ))
         )}
       </div>
-      {/* <Checkbox
-        label="Материальная помощь при трудных обстоятельствах"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Оплата/субсидия на обучение, курсы"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Бесплатное питание"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Выплаты к рождению ребёнка"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Компенсация аренды жилья"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Компенсация расходов на проезд"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Выплаты к профессиональным праздникам"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      /> */}
     </div>
   );
 };
