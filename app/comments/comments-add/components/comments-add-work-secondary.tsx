@@ -26,8 +26,6 @@ export const CommentsAddWorkSecondary = () => {
     });
   };
 
-  if (loading) return <p>Загрузка...</p>;
-
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените работу: Secondary</Title>
@@ -224,7 +222,7 @@ export const CommentsAddWorkSecondary = () => {
             },
           })
         }
-        className="flex"
+        className="flex flex-col"
       />
 
       <p>
@@ -245,43 +243,6 @@ export const CommentsAddWorkSecondary = () => {
           ))
         )}
       </div>
-
-      {/* <Checkbox
-        label="Онлайн-курсы (оплата видеокурсов и платформ)"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Очные курсы или тренинги"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Обучение в вузе / магистратуре / MBA"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Частичная оплата обучения"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Воркшопы и лекции внутри компании"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      />
-      <Checkbox
-        label="Командировки на обучение или конференции"
-        value="interview"
-        selected={false} // Replace with actual state
-        onChange={() => console.log('checkbox change')}
-      /> */}
     </div>
   );
 };
