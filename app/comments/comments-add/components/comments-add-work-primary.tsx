@@ -44,7 +44,7 @@ export const CommentsAddWorkPrimary = () => {
       <Title>Оцените работу: Primary</Title>
 
       <div className="flex gap-2">
-        <IconMessage2Exclamation stroke={1} width={50} />
+        <IconMessage2Exclamation stroke={1} />
         <p>
           Эти вопросы влияют на итоговую оценку компании. Мы считаем их
           ключевыми — именно они чаще всего определяют, останется ли человек в
@@ -56,7 +56,7 @@ export const CommentsAddWorkPrimary = () => {
       <div className="flex flex-col gap-4">
         <p>Период работы</p>
         <div className="flex gap-2">
-          <IconMessage2Exclamation stroke={1} width={50} />
+          <IconMessage2Exclamation stroke={1} />
           <p>
             Это информация будет использоваться для аналитики и не будет
             публиковаться в отзывах

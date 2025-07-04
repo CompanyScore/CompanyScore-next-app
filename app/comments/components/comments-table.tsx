@@ -62,12 +62,13 @@ export function CommentsTable() {
     {
       key: 'rating',
       title: 'Рейтинг',
-      render: (comment: CommentType) => comment.rating ?? 'Нет данных',
+      render: (comment: CommentType) => comment.id ?? 'Нет данных',
     },
     {
       key: 'position',
       title: 'Должность',
-      render: (comment: CommentType) => comment.position ?? 'Нет информации',
+      render: (comment: CommentType) =>
+        comment.userPosition ?? 'Нет информации',
     },
     {
       key: 'createDate',

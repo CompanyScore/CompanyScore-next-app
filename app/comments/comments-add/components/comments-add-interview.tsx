@@ -27,7 +27,7 @@ export const CommentsAddInterview = () => {
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
       <Title>Оцените собеседование</Title>
       <div className="flex flex-col gap-4 w-full m-auto">
-        <p>Насколько описание вакансии соответствовало этой позиции ?</p>
+        <p>Насколько описание вакансии соответствовало этой позиции?</p>
         <StarRating
           value={interviewForm.correspondedPosition}
           onChange={val =>
@@ -104,15 +104,15 @@ export const CommentsAddInterview = () => {
 
         <Radio
           options={[
-            { label: 'Менее 3 дней', value: 5 },
-            { label: '3-7 дней', value: 4 },
+            { label: 'Менее 3 дней', value: 1000 },
+            { label: '3-7 дней', value: 750 },
             {
               label: '1-2 недели',
-              value: 3,
+              value: 500,
             },
             {
               label: 'Около месяца',
-              value: 1,
+              value: 250,
             },
             { label: 'Более 2 месяцев', value: 0 },
           ]}
@@ -130,7 +130,7 @@ export const CommentsAddInterview = () => {
         <Radio
           options={[
             { label: 'Нет', value: 0 },
-            { label: 'Шаблонный ответ', value: 500 },
+            { label: 'Шаблонный ответ', value: 300 },
             {
               label: 'Развернутый ответ',
               value: 1000,

@@ -10,16 +10,16 @@ type ProfileEditCommentModalProps = {
   comment?: { id: string; text: string; rating: number; position?: string };
 };
 
-type CommentFormData = {
-  comment: string;
-  rating: number;
-  position: string;
-};
+// type CommentFormData = {
+//   comment: string;
+//   rating: number;
+//   position: string;
+// };
 
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
-  const { getComments, updateComment } = useCommentsStore();
+  const { getComments } = useCommentsStore();
 
   const toast = useToast();
 
@@ -38,14 +38,14 @@ export function ProfileEditCommentModal({
     }
   }, [comment, setValue]);
 
-  const onSubmit = async (data: CommentFormData) => {
+  const onSubmit = async () => {
     try {
-      await updateComment(
-        comment!.id,
-        data.comment,
-        data.rating,
-        data.position,
-      );
+      // await updateComment(
+      //   comment!.id,
+      //   data.comment,
+      //   data.rating,
+      //   data.position,
+      // );
       getComments({});
       toast.success('Отзыв обновлен');
     } catch {
