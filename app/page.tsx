@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+
 import { Hero, Features, Steps, Reviews, Blog, Call } from './components';
 
 export const metadata: Metadata = {
@@ -9,13 +8,6 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
-
-  if (!accessToken) {
-    redirect('/login');
-  }
-
   return (
     <section className="flex flex-col items-stretch justify-center">
       <Hero />
