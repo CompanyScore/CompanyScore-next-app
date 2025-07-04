@@ -3,70 +3,49 @@ import { useApi } from '@/api';
 
 export type CommentType = {
   id: string;
-  rating: number;
-  createDate: Date;
-  text: string;
-  position: string;
-  company: {
-    id: number;
-    logo: string;
-    name: string;
+  userPosition: string;
+  userGrade: {
+    years: number;
+    months: number;
   };
+  isRecommended: number;
+  reasonJoined: string;
+  reasonLeft: string;
+  createDate: Date;
   user: {
     id: string;
     name: string;
     avatar: string;
+  };
+  company: {
+    id: string;
+    name: string;
+    logo: string;
   };
 };
 
 type GetCommentsParams = {
   page?: number;
   limit?: number;
-  userId?: string;
   companyId?: string;
 };
 
 export type PostComment = {
   companyId: string;
-  position: string;
-  grade: {
-    year: number;
-    month: number;
+  companyLocation: {
+    country: string;
+    city: string;
   };
-  task: {
-    text: string;
-    rating: number;
+  userPosition: string;
+  userGrade: {
+    years: number;
+    months: number;
   };
-  interview: {
-    text: string;
-    rating: number;
-  };
-  work: {
-    rating: {
-      team: number;
-      management: number;
-      stack: number;
-      project: number;
-      workFormat: number;
-    };
-    finance: {
-      salary: number;
-      medicine: number;
-      premium: number;
-      bonuses: number;
-      stocks: number;
-      dividends: number;
-    };
-    other: {
-      education: number;
-      events: number;
-    };
-  };
-  recommendation: {
-    isRecommended: boolean;
-    reasonJoined: string;
-    reasonLeft: string;
-  };
+  isAnonym: number;
+
+  isRecommended: number;
+  reasonJoined: string;
+  reasonLeft: string;
 };
 
 interface CommentsState {
@@ -77,14 +56,7 @@ interface CommentsState {
   loading: boolean;
   error: string;
   getComments: (params: GetCommentsParams) => Promise<void>;
-  postComment: (formData: PostComment) => Promise<void>;
-  updateComment: (
-    commentId: string,
-    text: string,
-    rating: number,
-    position: string,
-  ) => Promise<void>;
-  deleteComment: (commentId: string) => Promise<void>;
+  postComment: (commentForm: PostComment) => Promise<void>;
 }
 
 export const useCommentsStore = create<CommentsState>(set => ({
@@ -124,38 +96,24 @@ export const useCommentsStore = create<CommentsState>(set => ({
     }
   },
 
-  postComment: async formData => {
-    const newComment = {
-      companyId: formData.companyId,
-      position: formData.position,
-      gradeYear: formData.grade.year,
-      gradeMonth: formData.grade.month,
-      taskText: formData.task.text,
-      taskRating: formData.task.rating,
-      interviewText: formData.interview.text,
-      interviewRating: formData.interview.rating,
-      workRatingTeam: formData.work.rating.team,
-      workRatingManagement: formData.work.rating.management,
-      workRatingStack: formData.work.rating.stack,
-      workRatingProject: formData.work.rating.project,
-      workRatingWorkFormat: formData.work.rating.workFormat,
-      workRatingFinanceSalary: formData.work.finance.salary,
-      workRatingFinanceMedicine: formData.work.finance.medicine,
-      workRatingFinancePremium: formData.work.finance.premium,
-      workRatingFinanceBonuses: formData.work.finance.bonuses,
-      workRatingFinanceStocks: formData.work.finance.stocks,
-      workRatingFinanceDividends: formData.work.finance.dividends,
-      workRatingOtherEducation: formData.work.other.education,
-      workRatingOtherEvents: formData.work.other.events,
-      recommendationIsRecommended: formData.recommendation.isRecommended,
-      recommendationReasonJoined: formData.recommendation.reasonJoined,
-      recommendationReasonLeft: formData.recommendation.reasonLeft,
+  postComment: async commentForm => {
+    const payload = {
+      companyId: commentForm.companyId,
+      companyCountry: commentForm.companyLocation.country,
+      companyCity: commentForm.companyLocation.city,
+      userPosition: commentForm.userPosition,
+      userGradeYears: commentForm.userGrade.years,
+      userGradeMonths: commentForm.userGrade.months,
+      isAnonym: commentForm.isAnonym,
+      isRecommended: commentForm.isRecommended,
+      reasonJoined: commentForm.reasonJoined,
+      reasonLeft: commentForm.reasonLeft,
     };
 
     set({ loading: true, error: '' });
 
     try {
-      const { data } = await useApi.post('/comments', newComment);
+      const { data } = await useApi.post('/comments', payload);
       return data;
     } catch (error: unknown) {
       const axiosError = error as {
@@ -165,41 +123,6 @@ export const useCommentsStore = create<CommentsState>(set => ({
         (await axiosError.response?.data?.message) || 'Произошла ошибка';
       set({ error: errorMessage });
       throw new Error(errorMessage);
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  updateComment: async (
-    commentId: string,
-    text: string,
-    rating: number,
-    position: string,
-  ) => {
-    try {
-      await useApi.patch(`/comments/${commentId}`, { text, rating, position });
-    } catch (error: unknown) {
-      const axiosError = error as {
-        response?: { data?: { message?: string } };
-      };
-      const errorMessage =
-        axiosError.response?.data?.message || 'Произошла ошибка';
-      set({ error: errorMessage });
-    } finally {
-      set({ loading: false });
-    }
-  },
-
-  deleteComment: async (commentId: string) => {
-    try {
-      await useApi.delete(`/comments/${commentId}`);
-    } catch (error: unknown) {
-      const axiosError = error as {
-        response?: { data?: { message?: string } };
-      };
-      const errorMessage =
-        axiosError.response?.data?.message || 'Произошла ошибка';
-      set({ error: errorMessage });
     } finally {
       set({ loading: false });
     }

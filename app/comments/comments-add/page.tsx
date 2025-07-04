@@ -20,10 +20,13 @@ import {
   CommentsAddInternship,
 } from './components';
 
-import { Button, Toast } from '@/ui';
+import { Button, Toast, useToast } from '@/ui';
+import { useCommentsStore } from '@/store';
+import { redirect } from 'next/navigation';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
+  const { comments, postComment, error } = useCommentsStore();
   const { taskForm } = taskFormStore();
   const { interviewForm } = interviewFormStore();
   const { internshipForm } = internshipFormStore();
@@ -41,7 +44,7 @@ export default function CommentsPage() {
     'recommendation',
   ];
 
-  // const toast = useToast();
+  const toast = useToast();
 
   const log = () => {
     console.log('commentForm', commentForm);
@@ -51,28 +54,19 @@ export default function CommentsPage() {
     console.log('workForm', workForm);
   };
 
-  // const handleNext = async () => {
-  //   if (currentStep === steps) return;
-  //   setCurrentStep(prev => prev + 1);
-  // };
+  const sendForm = async () => {
+    try {
+      const commentId = await postComment(commentForm);
+      toast.success('Отзыв успешно отправлен');
+      console.log(commentId);
+      console.log(comments);
 
-  // const handlePrev = () => {
-  //   if (currentStep > 1) {
-  //     setCurrentStep(prev => prev - 1);
-  //   }
-  // };
-
-  // const sendForm = async () => {
-  //   try {
-  //     const commentId = await postComment(form);
-  //     toast.success('Отзыв успешно отправлен');
-  //     console.log(commentId);
-  //     // redirect(`/comments/${commentId}`);
-  //     redirect(`/comments`);
-  //   } catch {
-  //     toast.error(error);
-  //   }
-  // };
+      // redirect(`/comments/${commentId}`);
+      redirect(`/comments`);
+    } catch {
+      toast.error(error);
+    }
+  };
 
   return (
     <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-[1280px] m-auto">
@@ -108,7 +102,7 @@ export default function CommentsPage() {
             if (currentStep < steps.length - 1) {
               setCurrentStep(prev => prev + 1);
             } else {
-              // handleSubmit
+              sendForm();
             }
           }}
           className="btn-primary ml-auto"

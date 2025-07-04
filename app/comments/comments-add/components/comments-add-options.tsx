@@ -59,91 +59,6 @@ export const CommentsAddOptions = () => {
   );
 };
 
-const PositionAndWorkExperience = () => {
-  const { commentForm, updateCommentForm } = commentFormStore();
-
-  const positionOptions: OptionType[] = positions.map(pos => ({
-    label: pos,
-    value: pos,
-  }));
-
-  const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
-
-  const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(y => ({
-    label: `${y}`,
-    value: y,
-  }));
-
-  return (
-    <div className="flex flex-col justify-between gap-4 w-full">
-      <p className="text-lg">Должность</p>
-      <Select
-        placeholder="Должность"
-        isClearable
-        options={positionOptions}
-        value={
-          positionOptions.find(opt => opt.value === commentForm.userPosition) ??
-          null
-        }
-        onChange={option =>
-          updateCommentForm({
-            ...commentForm,
-            userPosition: option?.value ? String(option.value) : '',
-          })
-        }
-      />
-
-      <p>Стаж работы до момента взаимодействия с компанией</p>
-      <div className="flex gap-4 w-full">
-        <div className="flex items-center gap-2 w-full">
-          <Select
-            placeholder="Лет опыта"
-            isClearable
-            options={yearOptions}
-            value={
-              yearOptions.find(
-                opt => opt.value === commentForm.userGrade.years,
-              ) ?? null
-            }
-            onChange={val =>
-              updateCommentForm({
-                ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  years: Number(val),
-                },
-              })
-            }
-          />
-          <p>лет</p>
-        </div>
-        <div className="flex items-center gap-2 w-full">
-          <Select
-            placeholder="Месяцев опыта"
-            isClearable
-            options={monthOptions}
-            value={
-              yearOptions.find(
-                opt => opt.value === commentForm.userGrade.years,
-              ) ?? null
-            }
-            onChange={val =>
-              updateCommentForm({
-                ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  months: Number(val),
-                },
-              })
-            }
-          />
-          <p>месяцев</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const Company = () => {
   const { commentForm, updateCommentForm } = commentFormStore();
   const { companies, getCompanies } = useCompaniesStore();
@@ -258,6 +173,91 @@ const Company = () => {
         <Button onClick={openModal}>Добавить компанию</Button>
       </div>
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
+    </div>
+  );
+};
+
+const PositionAndWorkExperience = () => {
+  const { commentForm, updateCommentForm } = commentFormStore();
+
+  const positionOptions: OptionType[] = positions.map(pos => ({
+    label: pos,
+    value: pos,
+  }));
+
+  const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
+
+  const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(y => ({
+    label: `${y}`,
+    value: y,
+  }));
+
+  return (
+    <div className="flex flex-col justify-between gap-4 w-full">
+      <p className="text-lg">Должность</p>
+      <Select
+        placeholder="Должность"
+        isClearable
+        options={positionOptions}
+        value={
+          positionOptions.find(opt => opt.value === commentForm.userPosition) ??
+          null
+        }
+        onChange={option =>
+          updateCommentForm({
+            ...commentForm,
+            userPosition: option?.value ? String(option.value) : '',
+          })
+        }
+      />
+
+      <p>Стаж работы до момента взаимодействия с компанией</p>
+      <div className="flex gap-4 w-full">
+        <div className="flex items-center gap-2 w-full">
+          <Select
+            placeholder="Лет опыта"
+            isClearable
+            options={yearOptions}
+            value={
+              yearOptions.find(
+                opt => opt.value === commentForm.userGrade.years,
+              ) ?? null
+            }
+            onChange={val =>
+              updateCommentForm({
+                ...commentForm,
+                userGrade: {
+                  ...commentForm.userGrade,
+                  years: Number(val?.value),
+                },
+              })
+            }
+          />
+          <p>лет</p>
+        </div>
+        <div className="flex items-center gap-2 w-full">
+          <Select
+            placeholder="Месяцев опыта"
+            isClearable
+            options={monthOptions}
+            value={
+              monthOptions.find(
+                opt => opt.value === commentForm.userGrade.months,
+              ) ?? null
+            }
+            onChange={val =>
+              updateCommentForm({
+                ...commentForm,
+                userGrade: {
+                  ...commentForm.userGrade,
+                  months: Number(val?.value),
+                },
+              })
+            }
+          />
+          <p>месяцев</p>
+        </div>
+      </div>
     </div>
   );
 };
