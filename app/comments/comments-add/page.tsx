@@ -20,7 +20,7 @@ import {
   CommentsAddInternship,
 } from './components';
 
-import { Toast } from '@/ui';
+import { Button, Toast } from '@/ui';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
@@ -94,15 +94,16 @@ export default function CommentsPage() {
       {steps[currentStep] === 'recommendation' && <CommentsAddRecommendation />}
 
       <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setCurrentStep(prev => Math.max(prev - 1, 0))}
-          disabled={currentStep === 0}
-          className="btn btn-outline"
-        >
-          Назад
-        </button>
+        {currentStep != 0 && (
+          <Button
+            onClick={() => setCurrentStep(prev => Math.max(prev - 1, 0))}
+            disabled={currentStep === 0}
+          >
+            Назад
+          </Button>
+        )}
 
-        <button
+        <Button
           onClick={() => {
             if (currentStep < steps.length - 1) {
               setCurrentStep(prev => prev + 1);
@@ -110,15 +111,15 @@ export default function CommentsPage() {
               // handleSubmit
             }
           }}
-          className="btn btn-primary"
+          className="btn-primary ml-auto"
         >
           {currentStep === steps.length - 1 ? 'Отправить' : 'Далее'}
-        </button>
+        </Button>
       </div>
 
-      <button onClick={log} className="btn mt-8 btn-neutral self-center">
+      <Button onClick={log} className="btn-secondary self-center">
         Log form
-      </button>
+      </Button>
       <Toast />
     </section>
   );

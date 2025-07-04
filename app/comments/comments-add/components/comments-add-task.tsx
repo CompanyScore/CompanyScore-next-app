@@ -57,7 +57,7 @@ export const CommentsAddTask = () => {
             },
             {
               label: 'Шаблонный ответ',
-              value: 500,
+              value: 300,
             },
             {
               label: 'Развернутый ответ',

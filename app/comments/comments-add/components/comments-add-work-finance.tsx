@@ -33,9 +33,9 @@ export const CommentsAddWorkFinance = () => {
       <div className="flex gap-2">
         <IconMessage2Exclamation stroke={1} width={50} />
         <p>
-          icon Эти данные помогут нам лучше понять уровень компенсации и
-          прозрачность системы оплаты труда. Пожалуйста, указывайте значения в
-          долларах США за один год на период вашей работы в этой компании.
+          Эти данные помогут нам лучше понять уровень компенсации и прозрачность
+          системы оплаты труда. Пожалуйста, указывайте значения в долларах США
+          за один год на период вашей работы в этой компании.
         </p>
       </div>
 
@@ -63,9 +63,9 @@ export const CommentsAddWorkFinance = () => {
           },
           {
             label: 'Выплаты редкие',
-            value: 2,
+            value: 1,
           },
-          { label: 'В целом нормально', value: 5 },
+          { label: 'В целом нормально', value: 2 },
           {
             label: 'Полностью устраивали',
             value: 5,
@@ -110,9 +110,9 @@ export const CommentsAddWorkFinance = () => {
           },
           {
             label: 'Страховка была, условия слабые',
-            value: 2,
+            value: 1,
           },
-          { label: 'В целом норм, покрытие ограниченное', value: 5 },
+          { label: 'В целом норм, покрытие ограниченное', value: 2 },
           {
             label: 'Полностью устраивала, всё покрывалось',
             value: 5,
@@ -191,13 +191,18 @@ export const CommentsAddWorkFinance = () => {
           <p>Загрузка...</p>
         ) : (
           items.map(item => (
-            <Checkbox
-              key={item.id}
-              value={item.id}
-              label={item.label}
-              selected={workForm.finance.socialBenefits.includes(item.id)}
-              onChange={() => handleChange(item.id)}
-            />
+            <div key={item.id} className="flex items-center gap-2">
+              <Checkbox
+                value={item.id}
+                label={item.label}
+                selected={workForm.finance.socialBenefits.includes(item.id)}
+                onChange={() => handleChange(item.id)}
+              />
+
+              <Tooltip tip="Стиль управления, доступность и открытость руководства, качество обратной связи">
+                <IconInfoCircle stroke={1} />
+              </Tooltip>
+            </div>
           ))
         )}
       </div>

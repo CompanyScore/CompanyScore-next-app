@@ -13,6 +13,10 @@ import { Button, Card, Title } from '@/ui';
 import { OptionType, Select } from '@/ui/select';
 import { countriesWithCities } from '@/constants/countriesWithCities';
 import { CreateCompanyModal } from '@/app/companies/modals';
+import { IconChecklist } from '@tabler/icons-react';
+import { IconMicrophone } from '@tabler/icons-react';
+import { IconSchool } from '@tabler/icons-react';
+import { IconCurrencyDollar } from '@tabler/icons-react';
 
 export const CommentsAddOptions = () => {
   const { commentForm, updateCommentForm } = commentFormStore();
@@ -26,7 +30,7 @@ export const CommentsAddOptions = () => {
 
       <div className="divider before:bg-black after:bg-black"></div>
 
-      <p>Желаете оставить отзыв анонимно?</p>
+      <p className="text-lg">Желаете оставить отзыв анонимно?</p>
 
       <Radio
         options={[
@@ -63,34 +67,8 @@ const PositionAndWorkExperience = () => {
     value: pos,
   }));
 
-  const handlePositionChange = (option: OptionType | null) => {
-    updateCommentForm({
-      ...commentForm,
-      userPosition: option?.value ? String(option.value) : '',
-    });
-  };
-
-  const handleYearChange = (years: number) => {
-    updateCommentForm({
-      ...commentForm,
-      userGrade: {
-        ...commentForm.userGrade,
-        years,
-      },
-    });
-  };
-
-  const handleMonthChange = (months: number) => {
-    updateCommentForm({
-      ...commentForm,
-      userGrade: {
-        ...commentForm.userGrade,
-        months,
-      },
-    });
-  };
-
   const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
+
   const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(y => ({
     label: `${y}`,
     value: y,
@@ -98,7 +76,7 @@ const PositionAndWorkExperience = () => {
 
   return (
     <div className="flex flex-col justify-between gap-4 w-full">
-      <p>Должность</p>
+      <p className="text-lg">Должность</p>
       <Select
         placeholder="Должность"
         isClearable
@@ -107,7 +85,12 @@ const PositionAndWorkExperience = () => {
           positionOptions.find(opt => opt.value === commentForm.userPosition) ??
           null
         }
-        onChange={handlePositionChange}
+        onChange={option =>
+          updateCommentForm({
+            ...commentForm,
+            userPosition: option?.value ? String(option.value) : '',
+          })
+        }
       />
 
       <p>Стаж работы до момента взаимодействия с компанией</p>
@@ -122,7 +105,15 @@ const PositionAndWorkExperience = () => {
                 opt => opt.value === commentForm.userGrade.years,
               ) ?? null
             }
-            onChange={val => handleYearChange(Number(val))}
+            onChange={val =>
+              updateCommentForm({
+                ...commentForm,
+                userGrade: {
+                  ...commentForm.userGrade,
+                  years: Number(val),
+                },
+              })
+            }
           />
           <p>лет</p>
         </div>
@@ -136,7 +127,15 @@ const PositionAndWorkExperience = () => {
                 opt => opt.value === commentForm.userGrade.years,
               ) ?? null
             }
-            onChange={val => handleMonthChange(Number(val))}
+            onChange={val =>
+              updateCommentForm({
+                ...commentForm,
+                userGrade: {
+                  ...commentForm.userGrade,
+                  months: Number(val),
+                },
+              })
+            }
           />
           <p>месяцев</p>
         </div>
@@ -192,13 +191,6 @@ const Company = () => {
     value: company.id ?? '',
   }));
 
-  const onSelectCompany = (option: OptionType | null) => {
-    updateCommentForm({
-      ...commentForm,
-      companyId: option?.value ? String(option.value) : '',
-    });
-  };
-
   const onGetCreatedCompanyId = async (
     companyId: string,
     country: string,
@@ -221,7 +213,7 @@ const Company = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <p>Компания</p>
+      <p className="text-lg">Компания</p>
       <div className="flex gap-4">
         <Select
           placeholder="Страна"
@@ -256,7 +248,12 @@ const Company = () => {
             companyOptions.find(opt => opt.value === commentForm.companyId) ??
             null
           }
-          onChange={onSelectCompany}
+          onChange={option =>
+            updateCommentForm({
+              ...commentForm,
+              companyId: option?.value ? String(option.value) : '',
+            })
+          }
         />
         <Button onClick={openModal}>Добавить компанию</Button>
       </div>
@@ -271,48 +268,28 @@ const Forms = () => {
   const { internshipForm, updateInternshipForm } = internshipFormStore();
   const { workForm, updateWorkForm } = workFormStore();
 
-  const handleCheckboxTask = () => {
-    updateTaskForm({
-      ...taskForm,
-      isTask: !taskForm.isTask,
-    });
-  };
-
-  const handleCheckboxInterview = () => {
-    updateInterviewForm({
-      ...interviewForm,
-      isInterview: !interviewForm.isInterview,
-    });
-  };
-
-  const handleCheckboxIntern = () => {
-    updateInternshipForm({
-      ...internshipForm,
-      isInternship: !internshipForm.isInternship,
-    });
-  };
-
-  const handleCheckboxWork = () => {
-    updateWorkForm({
-      ...workForm,
-      isWork: !workForm.isWork,
-    });
-  };
   return (
     <div className="flex flex-col gap-6 m-auto w-full">
-      <h3>Выберите форму</h3>
+      <h3 className="text-lg">Выберите форму</h3>
       <div className="flex flex-wrap w-full gap-10">
         <Card className="flex flex-col gap-4 max-w-96 w-full">
           <div className="flex justify-between">
-            <div>icon</div>
+            <div className="flex items-center">
+              <IconChecklist stroke={2} className="text-primary w-10 h-10" />
+              <h3 className="text-lg">Техническое задание</h3>
+            </div>
             <Checkbox
               label=""
               value="task"
               selected={taskForm.isTask}
-              onChange={handleCheckboxTask}
+              onChange={() =>
+                updateTaskForm({
+                  ...taskForm,
+                  isTask: !taskForm.isTask,
+                })
+              }
             />
           </div>
-          <h3>Рассказать про тестовое задание</h3>
           <div>
             Оцените опыт прохождения тестового или технического задания.
             Расскажите, насколько оно соответствовало указанной вакансии,
@@ -321,15 +298,22 @@ const Forms = () => {
         </Card>
         <Card className="flex flex-col gap-4 max-w-96 w-full">
           <div className="flex justify-between">
-            <div>icon</div>
+            <div className="flex items-center">
+              <IconMicrophone stroke={2} className="text-primary w-10 h-10" />
+              <h3 className="text-lg">Собеседование</h3>
+            </div>
             <Checkbox
               label=""
               value="interview"
               selected={interviewForm.isInterview}
-              onChange={handleCheckboxInterview}
+              onChange={() =>
+                updateInterviewForm({
+                  ...interviewForm,
+                  isInterview: !interviewForm.isInterview,
+                })
+              }
             />
           </div>
-          <h3>Рассказать про собеседование</h3>
           <div>
             Оцените опыт прохождения собеседования. Поделитесь, получили ли вы
             предложение о работе, насколько собеседование отвечало вашим
@@ -338,15 +322,22 @@ const Forms = () => {
         </Card>
         <Card className="flex flex-col gap-4 max-w-96 w-full">
           <div className="flex justify-between">
-            <div>icon</div>
+            <div className="flex items-center gap-1">
+              <IconSchool stroke={2} className="text-primary w-10 h-10" />
+              <h3 className="text-lg">Стажировка</h3>
+            </div>
             <Checkbox
               label=""
               value="intern"
               selected={internshipForm.isInternship}
-              onChange={handleCheckboxIntern}
+              onChange={() =>
+                updateInternshipForm({
+                  ...internshipForm,
+                  isInternship: !internshipForm.isInternship,
+                })
+              }
             />
           </div>
-          <h3>Рассказать про стажировку</h3>
           <div>
             Оцените стажировку. Расскажите, была ли она оплачиваемой, помогла ли
             найти работу, насколько полезны были задачи и был ли у вас
@@ -355,15 +346,25 @@ const Forms = () => {
         </Card>
         <Card className="flex flex-col gap-4 max-w-96 w-full">
           <div className="flex justify-between">
-            <div>icon</div>
+            <div className="flex items-center">
+              <IconCurrencyDollar
+                stroke={2}
+                className="text-primary w-10 h-10"
+              />
+              <h3 className="text-lg">Опыт работы</h3>
+            </div>
             <Checkbox
               label=""
               value="work"
               selected={workForm.isWork}
-              onChange={handleCheckboxWork}
+              onChange={() =>
+                updateWorkForm({
+                  ...workForm,
+                  isWork: !workForm.isWork,
+                })
+              }
             />
           </div>
-          <h3>Рассказать про опыт работы</h3>
           <div>
             Оцените работу в компании. Расскажите про условия работы, процессы
             управления корпоративную культуру, уровень зарплаты, социальный

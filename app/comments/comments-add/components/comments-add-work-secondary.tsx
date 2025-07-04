@@ -232,15 +232,34 @@ export const CommentsAddWorkSecondary = () => {
         {loading ? (
           <p>Загрузка...</p>
         ) : (
-          items.map(item => (
-            <Checkbox
-              key={item.id}
-              value={item.id}
-              label={item.label}
-              selected={workForm.secondary.education.includes(item.id)}
-              onChange={() => handleChange(item.id)}
-            />
-          ))
+          items.map(item => {
+            const withTooltip = {
+              part_uni_pay:
+                'Компания оплачивала часть стоимости обучения в колледже, университете или MBA.',
+              full_uni_pay:
+                'Компания оплачивала полную стоимость обучения в колледже, университете или MBA.',
+              trainings:
+                'Практические обучающие сессии или лекции внутри компании',
+            } as Record<string, string>;
+
+            const isSelected = workForm.secondary.education.includes(item.id);
+
+            return (
+              <div key={item.id} className="flex items-center gap-2">
+                <Checkbox
+                  value={item.id}
+                  label={item.label}
+                  selected={isSelected}
+                  onChange={() => handleChange(item.id)}
+                />
+                {withTooltip[item.id] && (
+                  <Tooltip tip={withTooltip[item.id]}>
+                    <IconInfoCircle stroke={1} />
+                  </Tooltip>
+                )}
+              </div>
+            );
+          })
         )}
       </div>
     </div>

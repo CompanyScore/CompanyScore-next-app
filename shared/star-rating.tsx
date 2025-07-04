@@ -9,7 +9,7 @@ type Props = {
 export function StarRating({ value, onChange }: Props) {
   return (
     <div className="flex gap-1">
-      {[1, 2, 3, 4, 5].map(star => (
+      {[0, 250, 500, 750, 1000].map(star => (
         <button
           key={star}
           onClick={() => onChange(star)}
