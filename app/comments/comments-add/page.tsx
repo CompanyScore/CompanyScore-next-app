@@ -1,65 +1,72 @@
 'use client';
 
 import { useState } from 'react';
-import { useCommentFormStore2 } from '@/store';
+import {
+  commentFormStore,
+  internshipFormStore,
+  interviewFormStore,
+  taskFormStore,
+  workFormStore,
+} from '@/form';
+
 import {
   CommentsAddInterview,
   CommentsAddRecommendation,
   CommentsAddTask,
-  CommentsAddWork,
-  CommentsAddWork2,
-  CommentsAddWork3,
+  CommentsAddWorkPrimary,
+  CommentsAddWorkSecondary,
+  CommentsAddWorkFinance,
   CommentsAddOptions,
-  CommentsAddIntern,
+  CommentsAddInternship,
 } from './components';
-import { Toast } from '@/ui';
+
+import { Button, Toast, useToast } from '@/ui';
+import { useCommentsStore } from '@/store';
+import { redirect } from 'next/navigation';
 
 export default function CommentsPage() {
-  const { form } = useCommentFormStore2();
-  // const { postComment, error } = useCommentsStore();
+  const { commentForm } = commentFormStore();
+  const { comments, postComment, error } = useCommentsStore();
+  const { taskForm } = taskFormStore();
+  const { interviewForm } = interviewFormStore();
+  const { internshipForm } = internshipFormStore();
+  const { workForm } = workFormStore();
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     'options',
-    ...(form.task.isTask ? ['task'] : []),
-    ...(form.interview.isInterview ? ['interview'] : []),
-    ...(form.intern.isIntern ? ['intern'] : []),
-    ...(form.work.isWork ? ['work'] : []),
-    ...(form.work.isWork ? ['work2'] : []),
-    ...(form.work.isWork ? ['work3'] : []),
+    ...(taskForm.isTask ? ['task'] : []),
+    ...(interviewForm.isInterview ? ['interview'] : []),
+    ...(internshipForm.isInternship ? ['intern'] : []),
+    ...(workForm.isWork ? ['work'] : []),
+    ...(workForm.isWork ? ['work2'] : []),
+    ...(workForm.isWork ? ['work3'] : []),
     'recommendation',
   ];
 
-  // const toast = useToast();
+  const toast = useToast();
 
   const log = () => {
-    // console.log('form', form);
-    console.log(steps.length);
-    console.log(currentStep);
+    console.log('commentForm', commentForm);
+    console.log('taskForm', taskForm);
+    console.log('interviewForm', interviewForm);
+    console.log('internshipForm', internshipForm);
+    console.log('workForm', workForm);
   };
 
-  // const handleNext = async () => {
-  //   if (currentStep === steps) return;
-  //   setCurrentStep(prev => prev + 1);
-  // };
+  const sendForm = async () => {
+    try {
+      const commentId = await postComment(commentForm);
+      toast.success('Отзыв успешно отправлен');
+      console.log(commentId);
+      console.log(comments);
 
-  // const handlePrev = () => {
-  //   if (currentStep > 1) {
-  //     setCurrentStep(prev => prev - 1);
-  //   }
-  // };
-
-  // const sendForm = async () => {
-  //   try {
-  //     const commentId = await postComment(form);
-  //     toast.success('Отзыв успешно отправлен');
-  //     console.log(commentId);
-  //     // redirect(`/comments/${commentId}`);
-  //     redirect(`/comments`);
-  //   } catch {
-  //     toast.error(error);
-  //   }
-  // };
+      // redirect(`/comments/${commentId}`);
+      redirect(`/comments`);
+    } catch {
+      toast.error(error);
+    }
+  };
 
   return (
     <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-[1280px] m-auto">
@@ -74,38 +81,39 @@ export default function CommentsPage() {
       {steps[currentStep] === 'options' && <CommentsAddOptions />}
       {steps[currentStep] === 'task' && <CommentsAddTask />}
       {steps[currentStep] === 'interview' && <CommentsAddInterview />}
-      {steps[currentStep] === 'intern' && <CommentsAddIntern />}
-      {steps[currentStep] === 'work' && <CommentsAddWork />}
-      {steps[currentStep] === 'work2' && <CommentsAddWork2 />}
-      {steps[currentStep] === 'work3' && <CommentsAddWork3 />}
+      {steps[currentStep] === 'intern' && <CommentsAddInternship />}
+      {steps[currentStep] === 'work' && <CommentsAddWorkPrimary />}
+      {steps[currentStep] === 'work2' && <CommentsAddWorkSecondary />}
+      {steps[currentStep] === 'work3' && <CommentsAddWorkFinance />}
       {steps[currentStep] === 'recommendation' && <CommentsAddRecommendation />}
 
       <div className="flex justify-between mt-4">
-        <button
-          onClick={() => setCurrentStep(prev => Math.max(prev - 1, 0))}
-          disabled={currentStep === 0}
-          className="btn btn-outline"
-        >
-          Назад
-        </button>
+        {currentStep != 0 && (
+          <Button
+            onClick={() => setCurrentStep(prev => Math.max(prev - 1, 0))}
+            disabled={currentStep === 0}
+          >
+            Назад
+          </Button>
+        )}
 
-        <button
+        <Button
           onClick={() => {
             if (currentStep < steps.length - 1) {
               setCurrentStep(prev => prev + 1);
             } else {
-              // TODO: handleSubmit
+              sendForm();
             }
           }}
-          className="btn btn-primary"
+          className="btn-primary ml-auto"
         >
           {currentStep === steps.length - 1 ? 'Отправить' : 'Далее'}
-        </button>
+        </Button>
       </div>
 
-      <button onClick={log} className="btn mt-8 btn-neutral self-center">
+      <Button onClick={log} className="btn-secondary self-center">
         Log form
-      </button>
+      </Button>
       <Toast />
     </section>
   );
