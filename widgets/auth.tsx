@@ -2,7 +2,7 @@
 
 import { useLoginForm, useRegistrationForm } from '@/hook';
 import { useAuthStore } from '@/store';
-import { Button, Input, Loading, useToast } from '@/ui';
+import { Button, Input, Loading } from '@/ui';
 import { NewModal } from '@/ui/new-modal';
 import { useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
@@ -68,7 +68,7 @@ export function Auth({ type, visible, setVisible }: Auth) {
 }
 
 function LoginForm({ visible }: { visible: boolean }) {
-  const { loginUser } = useAuthStore();
+  const { loginUser, error } = useAuthStore();
 
   const {
     setValue,
@@ -77,24 +77,27 @@ function LoginForm({ visible }: { visible: boolean }) {
     formState: { errors },
     reset,
     clearErrors,
+    setError,
   } = useLoginForm();
 
   useEffect(() => {
     reset();
   }, [visible]);
 
-  const toast = useToast();
+  useEffect(() => {
+    if (error) {
+      setError('email', { type: 'manual', message: error });
+      setError('password', { type: 'manual', message: error });
+    }
+  }, [error, setError]);
 
   const onSubmit: SubmitHandler<LoginFormData> = async data => {
-    try {
-      await loginUser({
-        email: data.email,
-        password: data.password,
-      });
-    } catch {
-      const error = useAuthStore.getState().error;
-      toast.error(error || 'Ошибка');
-    } finally {
+    await loginUser({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (!error) {
       reset();
     }
   };
@@ -138,7 +141,7 @@ function LoginForm({ visible }: { visible: boolean }) {
 }
 
 function RegistrationForm({ visible }: { visible: boolean }) {
-  const { registrationUser } = useAuthStore();
+  const { registrationUser, error } = useAuthStore();
 
   const {
     setValue,
@@ -147,25 +150,29 @@ function RegistrationForm({ visible }: { visible: boolean }) {
     formState: { errors },
     reset,
     clearErrors,
+    setError,
   } = useRegistrationForm();
 
   useEffect(() => {
     reset();
   }, [visible]);
 
-  const toast = useToast();
+  useEffect(() => {
+    if (error) {
+      setError('name', { type: 'manual', message: error });
+      setError('email', { type: 'manual', message: error });
+      setError('password', { type: 'manual', message: error });
+    }
+  }, [error, setError]);
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async data => {
-    try {
-      await registrationUser({
-        email: data.email,
-        password: data.password,
-        name: data.name,
-      });
-    } catch {
-      const error = useAuthStore.getState().error;
-      toast.error(error || 'Ошибка');
-    } finally {
+    await registrationUser({
+      email: data.email,
+      password: data.password,
+      name: data.name,
+    });
+
+    if (!error) {
       reset();
     }
   };
