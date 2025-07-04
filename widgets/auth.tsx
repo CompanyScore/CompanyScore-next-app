@@ -27,7 +27,13 @@ type RegistrationFormData = {
 
 export function Auth({ type, visible, setVisible }: Auth) {
   const [isLoginMode, setLoginMode] = useState(type === 'login');
-  const { loading } = useAuthStore();
+  const { loading, isAuth } = useAuthStore();
+
+  useEffect(() => {
+    if (isAuth) {
+      setVisible(false);
+    }
+  }, [isAuth]);
 
   return (
     <NewModal visible={visible} setVisible={setVisible}>
@@ -88,18 +94,16 @@ function LoginForm({ visible }: { visible: boolean }) {
     if (error) {
       setError('email', { type: 'manual', message: error });
       setError('password', { type: 'manual', message: error });
+    } else {
+      reset();
     }
-  }, [error, setError]);
+  }, [error, reset, setError]);
 
   const onSubmit: SubmitHandler<LoginFormData> = async data => {
     await loginUser({
       email: data.email,
       password: data.password,
     });
-
-    if (!error) {
-      reset();
-    }
   };
 
   const handleValueChange = (type: 'email' | 'password', value: string) => {
@@ -162,8 +166,10 @@ function RegistrationForm({ visible }: { visible: boolean }) {
       setError('name', { type: 'manual', message: error });
       setError('email', { type: 'manual', message: error });
       setError('password', { type: 'manual', message: error });
+    } else {
+      reset();
     }
-  }, [error, setError]);
+  }, [error, reset, setError]);
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async data => {
     await registrationUser({
@@ -171,10 +177,6 @@ function RegistrationForm({ visible }: { visible: boolean }) {
       password: data.password,
       name: data.name,
     });
-
-    if (!error) {
-      reset();
-    }
   };
 
   const handleValueChange = (

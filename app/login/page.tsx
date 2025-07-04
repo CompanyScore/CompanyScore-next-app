@@ -47,11 +47,12 @@ export default function LoginPage() {
         </NewModal> */}
         <Auth type="login" visible={visible} setVisible={setVisible} />
         <Button
+          className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600"
           onClick={() => {
             setVisible(true);
           }}
         >
-          Test
+          Авторизоваться
         </Button>
 
         {/* <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">

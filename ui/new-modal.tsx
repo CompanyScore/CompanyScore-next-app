@@ -12,6 +12,8 @@ export function NewModal({ children, visible, setVisible }: Modal) {
   if (modalRef.current) {
     if (visible) {
       modalRef.current.showModal();
+    } else {
+      modalRef.current.close();
     }
   }
 
