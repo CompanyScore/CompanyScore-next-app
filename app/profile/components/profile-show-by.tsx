@@ -1,10 +1,10 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useCommentsStore } from '@/store/api';
+import { useCommentApi } from '@/store/api';
 
 export function ProfileShowBy() {
-  const { getComments, comments, limit } = useCommentsStore();
+  const { getComments, comments, limit } = useCommentApi();
 
   const onLimitChange = (newLimit: number) => {
     getComments({ page: 1, limit: newLimit });

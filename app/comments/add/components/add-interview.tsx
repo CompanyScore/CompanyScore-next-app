@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { interviewFormStore } from '@/store/form';
 import { Checkbox, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
-import { useInterviewStageStore } from '@/store/api';
+import { useInterviewStageApi } from '@/store/api';
 
 export const AddInterview = () => {
   const { interviewForm, updateInterviewForm } = interviewFormStore();
-  const { stages, getInterviewStages, loading } = useInterviewStageStore();
+  const { stages, getInterviewStages, loading } = useInterviewStageApi();
 
   useEffect(() => {
     getInterviewStages();

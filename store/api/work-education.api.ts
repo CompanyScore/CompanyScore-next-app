@@ -12,7 +12,7 @@ interface WorkEducationStore {
   getWorkEducation: () => void;
 }
 
-export const useWorkEducationStore = create<WorkEducationStore>(set => ({
+export const useWorkEducationApi = create<WorkEducationStore>(set => ({
   items: [],
   loading: false,
 

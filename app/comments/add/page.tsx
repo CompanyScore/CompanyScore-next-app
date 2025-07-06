@@ -21,15 +21,18 @@ import {
 } from './components';
 
 import { Button, Toast, useToast } from '@/ui';
-import { useCommentInterviewApi, useCommentsStore } from '@/store/api';
+import {
+  useCommentInterviewApi,
+  useCommentApi,
+  useCommentTaskApi,
+} from '@/store/api';
 import { redirect } from 'next/navigation';
-import { useTaskStore } from '@/store/api/task.api';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
-  const { comments, postComment, error } = useCommentsStore();
+  const { comments, postComment, error } = useCommentApi();
   const { createInterviewForm } = useCommentInterviewApi();
-  const { postTaskStore } = useTaskStore();
+  const { postTaskStore } = useCommentTaskApi();
   const { taskForm } = taskFormStore();
   const { interviewForm } = interviewFormStore();
   const { internshipForm } = internshipFormStore();

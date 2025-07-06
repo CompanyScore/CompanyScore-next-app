@@ -1,12 +1,12 @@
 import { workFormStore } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
-import { useWorkEducationStore } from '@/store/api';
+import { useWorkEducationApi } from '@/store/api';
 import { Title, Tooltip } from '@/ui';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useEffect } from 'react';
 
 export const AddWorkSecondary = () => {
-  const { items, getWorkEducation, loading } = useWorkEducationStore();
+  const { items, getWorkEducation, loading } = useWorkEducationApi();
   const { workForm, updateWorkForm } = workFormStore();
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useCompaniesStore } from '@/store/api';
+import { useCompanyStore } from '@/store/api';
 import {
   commentFormStore,
   internshipFormStore,
@@ -56,7 +56,7 @@ export const AddOptions = () => {
 
 const Company = () => {
   const { commentForm, updateCommentForm } = commentFormStore();
-  const { companies, getCompanies } = useCompaniesStore();
+  const { companies, getCompanies } = useCompanyStore();
 
   const countryOptions: OptionType[] = countriesWithCities.map(
     ({ label, value }) => ({

@@ -1,9 +1,9 @@
 'use client';
 import { Pagination } from '@/shared';
-import { useUsersStore } from '@/store/api';
+import { useUserApi } from '@/store/api';
 
 export function UsersPagination() {
-  const { users, getUsers, page, limit, total } = useUsersStore();
+  const { users, getUsers, page, limit, total } = useUserApi();
 
   const onPageChange = (newPage: number) => {
     getUsers({ page: newPage, limit });

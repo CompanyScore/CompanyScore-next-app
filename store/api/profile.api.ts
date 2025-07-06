@@ -19,7 +19,7 @@ interface ProfileState {
   updateProfile: (formData: FormData) => Promise<void>;
 }
 
-export const useProfileStore = create<ProfileState>(set => ({
+export const useProfileApi = create<ProfileState>(set => ({
   profile: {
     id: '',
     name: '',

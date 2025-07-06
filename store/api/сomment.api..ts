@@ -55,7 +55,7 @@ interface CommentsState {
   postComment: (commentForm: PostComment) => Promise<string>;
 }
 
-export const useCommentsStore = create<CommentsState>(set => ({
+export const useCommentApi = create<CommentsState>(set => ({
   comments: [],
   page: 1,
   total: 0,

@@ -1,7 +1,7 @@
 'use client';
 
 import { useLoginForm, useRegistrationForm } from '@/hook';
-import { useAuthStore } from '@/store/api';
+import { useAuthApi } from '@/store/api';
 import { Button, Input, Loading } from '@/ui';
 import { NewModal } from '@/ui/new-modal';
 import { useEffect, useState } from 'react';
@@ -27,7 +27,7 @@ type RegistrationFormData = {
 
 export function Auth({ type, visible, setVisible }: Auth) {
   const [isLoginMode, setLoginMode] = useState(type === 'login');
-  const { loading, isAuth } = useAuthStore();
+  const { loading, isAuth } = useAuthApi();
 
   const redirectToLinkedin = async () => {
     const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
@@ -84,7 +84,7 @@ export function Auth({ type, visible, setVisible }: Auth) {
 }
 
 function LoginForm({ visible }: { visible: boolean }) {
-  const { loginUser, error } = useAuthStore();
+  const { loginUser, error } = useAuthApi();
 
   const {
     setValue,
@@ -155,7 +155,7 @@ function LoginForm({ visible }: { visible: boolean }) {
 }
 
 function RegistrationForm({ visible }: { visible: boolean }) {
-  const { registrationUser, error } = useAuthStore();
+  const { registrationUser, error } = useAuthApi();
 
   const {
     setValue,

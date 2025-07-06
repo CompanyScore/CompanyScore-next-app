@@ -3,12 +3,12 @@
 import { useEffect } from 'react';
 
 import { useParams } from 'next/navigation';
-import { useUsersStore } from '@/store/api';
+import { useUserApi } from '@/store/api';
 
 export function UserCard() {
   const { id } = useParams<{ id: string }>();
 
-  const { user, loading, getUser } = useUsersStore();
+  const { user, loading, getUser } = useUserApi();
 
   useEffect(() => {
     if (id) {

@@ -3,15 +3,15 @@
 import React, { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
-import { useCompaniesStore } from '@/store/api';
+import { useCompanyStore } from '@/store/api';
 import type { CompanyType } from '@/store/api/companies.api';
 import { Button, ImageTable, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
-  const { companies, loading } = useCompaniesStore();
+  const { companies, loading } = useCompanyStore();
 
   useEffect(() => {
-    useCompaniesStore.getState().getCompanies({});
+    useCompanyStore.getState().getCompanies({});
   }, []);
 
   if (loading) {

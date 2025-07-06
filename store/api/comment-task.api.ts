@@ -6,7 +6,7 @@ interface TaskStore {
   postTaskStore: (commentId: string) => Promise<void>;
 }
 
-export const useTaskStore = create<TaskStore>(() => ({
+export const useCommentTaskApi = create<TaskStore>(() => ({
   postTaskStore: async commentId => {
     const { taskForm } = taskFormStore.getState();
 

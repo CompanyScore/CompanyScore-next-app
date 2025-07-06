@@ -1,9 +1,15 @@
-export { useCommentsStore } from './сomments.api.';
-export { useProfileStore } from './profile.api';
-export { useCompaniesStore } from './companies.api';
-export { useUsersStore } from './users.api';
-export { useAuthStore } from './auth.api';
-export { useInterviewStageStore } from './interview-stage.api';
-export { useWorkEducationStore } from './work-education.api';
-export { useWorkSocialBenefitStore } from './work-social-benefit.api';
+export { useCommentApi } from './сomment.api.';
+export { useCommentTaskApi } from './comment-task.api';
 export { useCommentInterviewApi } from './comment-interview.api';
+export { useInterviewStageApi } from './interview-stage.api';
+
+export { useWorkEducationApi } from './work-education.api';
+export { useWorkSocialBenefitApi } from './work-social-benefit.api';
+
+export { useProfileApi } from './profile.api';
+
+export { useCompanyStore } from './companies.api';
+
+export { useUserApi } from './users.api';
+
+export { useAuthApi } from './auth.api';

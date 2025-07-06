@@ -39,7 +39,7 @@ interface CompaniesState {
   getLocations: (selectedCountry: string) => Promise<void>;
 }
 
-export const useCompaniesStore = create<CompaniesState>((set, get) => ({
+export const useCompanyStore = create<CompaniesState>((set, get) => ({
   companies: [],
   company: null,
   companiesNew: [],

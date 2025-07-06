@@ -29,7 +29,7 @@ type CommentsState = {
   getUser: (id: string) => Promise<void>;
 };
 
-export const useUsersStore = create<CommentsState>(set => ({
+export const useUserApi = create<CommentsState>(set => ({
   users: [],
   user: null,
   page: 1,

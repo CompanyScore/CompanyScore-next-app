@@ -1,10 +1,10 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useCompaniesStore } from '@/store/api';
+import { useCompanyStore } from '@/store/api';
 
 export function CompaniesShowBy() {
-  const { companies, getCompanies, limit } = useCompaniesStore();
+  const { companies, getCompanies, limit } = useCompanyStore();
 
   const onLimitChange = (newLimit: number) => {
     getCompanies({ limit: newLimit });

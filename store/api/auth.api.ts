@@ -15,7 +15,7 @@ interface AuthState {
   loginUser: (data: AuthData) => Promise<void>;
 }
 
-export const useAuthStore = create<AuthState>(set => ({
+export const useAuthApi = create<AuthState>(set => ({
   isAuth: false,
   error: '',
   loading: false,

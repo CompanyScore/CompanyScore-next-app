@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useCommentsStore } from '@/store/api';
+import { useCommentApi } from '@/store/api';
 import { Button, Dropdown, Modal, Textarea, Title, useToast } from '@/ui';
 import { positions } from '@/constants';
 import { useCommentForm } from '@/hook';
@@ -19,7 +19,7 @@ type ProfileEditCommentModalProps = {
 export function ProfileEditCommentModal({
   comment,
 }: ProfileEditCommentModalProps) {
-  const { getComments } = useCommentsStore();
+  const { getComments } = useCommentApi();
 
   const toast = useToast();
 
@@ -49,7 +49,7 @@ export function ProfileEditCommentModal({
       getComments({});
       toast.success('Отзыв обновлен');
     } catch {
-      const error = useCommentsStore.getState().error;
+      const error = useCommentApi.getState().error;
       toast.error(error || 'Ошибка');
     }
   };

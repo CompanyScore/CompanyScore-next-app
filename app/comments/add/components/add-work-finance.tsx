@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { Checkbox, Radio } from '@/shared';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 import { workFormStore } from '@/store/form';
-import { useWorkSocialBenefitStore } from '@/store/api';
+import { useWorkSocialBenefitApi } from '@/store/api';
 
 export const AddWorkFinance = () => {
   const { workForm, updateWorkForm } = workFormStore();
-  const { items, getWorkSocialBenefits, loading } = useWorkSocialBenefitStore();
+  const { items, getWorkSocialBenefits, loading } = useWorkSocialBenefitApi();
 
   useEffect(() => {
     getWorkSocialBenefits();

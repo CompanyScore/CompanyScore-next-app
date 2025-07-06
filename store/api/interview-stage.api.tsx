@@ -13,7 +13,7 @@ interface InterviewStagesStore {
   getInterviewStages: () => Promise<void>;
 }
 
-export const useInterviewStageStore = create<InterviewStagesStore>(set => ({
+export const useInterviewStageApi = create<InterviewStagesStore>(set => ({
   stages: [],
   loading: false,
   error: null,

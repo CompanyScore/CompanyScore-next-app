@@ -2,7 +2,7 @@
 
 import { Button, Input, Modal, Textarea, Title, Select, useToast } from '@/ui';
 import { positions } from '@/constants';
-import { useProfileStore } from '@/store/api';
+import { useProfileApi } from '@/store/api';
 import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -28,7 +28,7 @@ export const useProfileEditForm = () => {
 };
 
 export function ProfileEditModal() {
-  const { getProfile, updateProfile } = useProfileStore();
+  const { getProfile, updateProfile } = useProfileApi();
 
   const {
     handleSubmit,
@@ -75,7 +75,7 @@ export function ProfileEditModal() {
       toast.success('Данные обновлены');
       resetForm();
     } catch {
-      const error = useProfileStore.getState().error;
+      const error = useProfileApi.getState().error;
       toast.error(error || 'Ошибка');
       resetForm();
     }

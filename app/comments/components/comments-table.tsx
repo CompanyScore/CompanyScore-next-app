@@ -6,13 +6,13 @@ import { redirect } from 'next/navigation';
 import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
 import moment from 'moment';
 
-import { useCommentsStore, CommentType } from '@/store/api/сomments.api.';
+import { useCommentApi, CommentType } from '@/store/api/сomment.api.';
 
 export function CommentsTable() {
-  const { comments, loading, getComments } = useCommentsStore();
+  const { comments, loading, getComments } = useCommentApi();
 
   useEffect(() => {
-    useCommentsStore.getState().getComments({});
+    useCommentApi.getState().getComments({});
   }, [getComments]);
 
   if (loading) {

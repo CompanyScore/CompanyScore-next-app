@@ -1,6 +1,6 @@
 'use client';
 
-import { useCompaniesStore } from '@/store/api';
+import { useCompanyStore } from '@/store/api';
 import { countriesWithCities } from '@/constants';
 import { Button, Select, Input, Modal, Title, useToast } from '@/ui';
 import { useState } from 'react';
@@ -16,7 +16,7 @@ type Props = {
 
 export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   const toast = useToast();
-  const { getCompanies, createCompany } = useCompaniesStore();
+  const { getCompanies, createCompany } = useCompanyStore();
 
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
@@ -74,7 +74,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
       resetForm();
       closeModal();
     } catch {
-      const error = useCompaniesStore.getState().error;
+      const error = useCompanyStore.getState().error;
       toast.error(error || 'Ошибка');
       resetForm();
       closeModal();
