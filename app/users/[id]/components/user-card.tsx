@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { useParams } from 'next/navigation';
-import { useUsersStore } from '@/store';
+import { useUsersStore } from '@/store/api';
 
 export function UserCard() {
   const { id } = useParams<{ id: string }>();

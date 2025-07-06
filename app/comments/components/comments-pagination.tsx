@@ -1,6 +1,6 @@
 'use client';
 import { Pagination } from '@/shared';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 
 export function CommentsPagination() {
   const { comments, getComments, page, limit, total } = useCommentsStore();

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { ImageTable, Button, Table, Title, Tooltip } from '@/ui';
 import moment from 'moment';
 
-import { useUsersStore } from '@/store';
+import { useUsersStore } from '@/store/api';
 import { redirect } from 'next/navigation';
 
 type UserType = {

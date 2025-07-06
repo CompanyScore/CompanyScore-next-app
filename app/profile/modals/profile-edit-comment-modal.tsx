@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 import { Button, Dropdown, Modal, Textarea, Title, useToast } from '@/ui';
 import { positions } from '@/constants';
 import { useCommentForm } from '@/hook';

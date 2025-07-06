@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
-import { taskFormStore } from '@/form';
+import { taskFormStore } from '@/store/form';
 
 export type TaskStoreType = {
   isTask: boolean;

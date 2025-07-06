@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Error, Title } from '@/ui';
 
 import { FaChevronLeft, FaAngleRight } from 'react-icons/fa6';
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 
 export function CompaniesCarousel() {
   const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();

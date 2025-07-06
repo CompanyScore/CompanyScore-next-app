@@ -1,8 +1,8 @@
-import { commentFormStore } from '@/form';
+import { commentFormStore } from '@/store/form';
 import { Radio } from '@/shared';
 import { Title } from '@/ui';
 
-export const CommentsAddRecommendation = () => {
+export const AddRecommendation = () => {
   const { commentForm, updateCommentForm } = commentFormStore();
 
   return (

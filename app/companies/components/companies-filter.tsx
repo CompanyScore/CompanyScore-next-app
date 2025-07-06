@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Searcher } from '@/shared';
 import { Error, Button, Toast, Select } from '@/ui';
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 import { CreateCompanyModal } from '@/app/companies/modals';
 import { OptionType } from '@/ui/select';
 

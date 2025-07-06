@@ -1,0 +1,8 @@
+export { useCommentsStore } from './сomments.api.';
+export { useProfileStore } from './profile.api';
+export { useCompaniesStore } from './companies.api';
+export { useUsersStore } from './users.api';
+export { useAuthStore } from './auth.api';
+export { useInterviewStageStore } from './interview-stage.api';
+export { useWorkEducationStore } from './work-education.api';
+export { useWorkSocialBenefitStore } from './work-social-benefit.api';

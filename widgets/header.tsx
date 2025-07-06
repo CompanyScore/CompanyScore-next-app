@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { useProfileStore } from '@/store';
+import { useProfileStore } from '@/store/api';
 // import { ThemeController } from './';
 import { Avatar } from '@/ui';
 

@@ -1,10 +1,10 @@
 import { Calendar, Radio, StarRating } from '@/shared';
 import React from 'react';
-import { workFormStore } from '@/form';
+import { workFormStore } from '@/store/form';
 import { Input, Title, Tooltip } from '@/ui';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 
-export const CommentsAddWorkPrimary = () => {
+export const AddWorkPrimary = () => {
   const { workForm, updateWorkForm } = workFormStore();
 
   const fromDate = workForm.primary.period.from

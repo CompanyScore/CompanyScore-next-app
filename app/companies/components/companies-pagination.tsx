@@ -1,6 +1,6 @@
 'use client';
 import { Pagination } from '@/shared';
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 
 export function CompaniesPagination() {
   const { companies, getCompanies, limit, page, total } = useCompaniesStore();

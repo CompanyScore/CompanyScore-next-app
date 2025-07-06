@@ -2,7 +2,7 @@
 
 import { Button, Input, Modal, Textarea, Title, Select, useToast } from '@/ui';
 import { positions } from '@/constants';
-import { useProfileStore } from '@/store';
+import { useProfileStore } from '@/store/api';
 import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

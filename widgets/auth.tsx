@@ -1,7 +1,7 @@
 'use client';
 
 import { useLoginForm, useRegistrationForm } from '@/hook';
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/store/api';
 import { Button, Input, Loading } from '@/ui';
 import { NewModal } from '@/ui/new-modal';
 import { useEffect, useState } from 'react';
@@ -28,6 +28,11 @@ type RegistrationFormData = {
 export function Auth({ type, visible, setVisible }: Auth) {
   const [isLoginMode, setLoginMode] = useState(type === 'login');
   const { loading, isAuth } = useAuthStore();
+
+  const redirectToLinkedin = async () => {
+    const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
+    window.location.href = `${process.env.NEXT_PUBLIC_BACK}/auth/linkedin?returnUrl=${encodeURIComponent(returnUrl)}`;
+  };
 
   useEffect(() => {
     if (isAuth) {
@@ -65,8 +70,13 @@ export function Auth({ type, visible, setVisible }: Auth) {
             : 'Зарегистрироваться с помощью'}
         </p>
         <div className="flex justify-center gap-5">
-          <img className="w-[35px]" src="/icons/linkedin.svg"></img>
-          <img className="w-[35px]" src="/icons/github.svg"></img>
+          <img
+            className="w-[35px]"
+            src="/icons/linkedin.svg"
+            alt="linkedin"
+            onClick={redirectToLinkedin}
+          ></img>
+          <img className="w-[35px]" src="/icons/github.svg" alt="github"></img>
         </div>
       </div>
     </NewModal>

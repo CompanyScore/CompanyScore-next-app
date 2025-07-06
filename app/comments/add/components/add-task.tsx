@@ -1,9 +1,9 @@
 import React from 'react';
-import { taskFormStore } from '@/form';
+import { taskFormStore } from '@/store/form';
 import { Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 
-export const CommentsAddTask = () => {
+export const AddTask = () => {
   const { taskForm, updateTaskForm } = taskFormStore();
 
   return (

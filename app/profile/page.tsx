@@ -7,7 +7,7 @@ import {
   ProfileTable,
 } from './components';
 import { Title } from '@/ui';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 
 export default function ProfilePage() {
   const { total } = useCommentsStore();

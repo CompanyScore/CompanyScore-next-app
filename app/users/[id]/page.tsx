@@ -2,7 +2,7 @@
 
 import { UserCard, UserPagination, UserShowBy, UserTable } from './components';
 import { Title } from '@/ui';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 
 export default function UserPage() {
   const { total } = useCommentsStore();

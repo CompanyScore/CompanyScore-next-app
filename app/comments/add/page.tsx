@@ -7,23 +7,23 @@ import {
   interviewFormStore,
   taskFormStore,
   workFormStore,
-} from '@/form';
+} from '@/store/form';
 
 import {
-  CommentsAddInterview,
-  CommentsAddRecommendation,
-  CommentsAddTask,
-  CommentsAddWorkPrimary,
-  CommentsAddWorkSecondary,
-  CommentsAddWorkFinance,
-  CommentsAddOptions,
-  CommentsAddInternship,
+  AddInterview,
+  AddRecommendation,
+  AddTask,
+  AddWorkPrimary,
+  AddWorkSecondary,
+  AddWorkFinance,
+  AddOptions,
+  AddInternship,
 } from './components';
 
 import { Button, Toast, useToast } from '@/ui';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 import { redirect } from 'next/navigation';
-import { useTaskStore } from '@/store/taskStore';
+import { useTaskStore } from '@/store/api/task.api';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
@@ -84,14 +84,14 @@ export default function CommentsPage() {
         />
       )}
 
-      {steps[currentStep] === 'options' && <CommentsAddOptions />}
-      {steps[currentStep] === 'task' && <CommentsAddTask />}
-      {steps[currentStep] === 'interview' && <CommentsAddInterview />}
-      {steps[currentStep] === 'intern' && <CommentsAddInternship />}
-      {steps[currentStep] === 'work' && <CommentsAddWorkPrimary />}
-      {steps[currentStep] === 'work2' && <CommentsAddWorkSecondary />}
-      {steps[currentStep] === 'work3' && <CommentsAddWorkFinance />}
-      {steps[currentStep] === 'recommendation' && <CommentsAddRecommendation />}
+      {steps[currentStep] === 'options' && <AddOptions />}
+      {steps[currentStep] === 'task' && <AddTask />}
+      {steps[currentStep] === 'interview' && <AddInterview />}
+      {steps[currentStep] === 'intern' && <AddInternship />}
+      {steps[currentStep] === 'work' && <AddWorkPrimary />}
+      {steps[currentStep] === 'work2' && <AddWorkSecondary />}
+      {steps[currentStep] === 'work3' && <AddWorkFinance />}
+      {steps[currentStep] === 'recommendation' && <AddRecommendation />}
 
       <div className="flex justify-between mt-4">
         {currentStep != 0 && (

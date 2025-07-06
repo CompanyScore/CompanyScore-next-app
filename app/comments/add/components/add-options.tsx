@@ -1,12 +1,12 @@
 import React from 'react';
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 import {
   commentFormStore,
   internshipFormStore,
   interviewFormStore,
   taskFormStore,
   workFormStore,
-} from '@/form';
+} from '@/store/form';
 import { positions } from '@/constants';
 import { Checkbox, Radio } from '@/shared';
 import { Button, Card, Title } from '@/ui';
@@ -18,7 +18,7 @@ import { IconMicrophone } from '@tabler/icons-react';
 import { IconSchool } from '@tabler/icons-react';
 import { IconCurrencyDollar } from '@tabler/icons-react';
 
-export const CommentsAddOptions = () => {
+export const AddOptions = () => {
   const { commentForm, updateCommentForm } = commentFormStore();
 
   return (

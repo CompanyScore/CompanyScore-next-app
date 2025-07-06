@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { ProfileEditModal } from '../modals';
-import { useProfileStore } from '@/store';
+import { useProfileStore } from '@/store/api';
 import { Error, Toast } from '@/ui';
 
 export function ProfileCard() {

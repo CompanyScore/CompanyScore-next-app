@@ -1,7 +1,7 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 
 export function ProfileShowBy() {
   const { getComments, comments, limit } = useCommentsStore();

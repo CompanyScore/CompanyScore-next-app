@@ -1,9 +1,9 @@
 import React from 'react';
-import { internshipFormStore } from '@/form';
+import { internshipFormStore } from '@/store/form';
 import { Calendar, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 
-export const CommentsAddInternship = () => {
+export const AddInternship = () => {
   const { internshipForm, updateInternshipForm } = internshipFormStore();
 
   const fromDate = internshipForm.period.from

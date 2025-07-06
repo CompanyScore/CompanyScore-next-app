@@ -1,6 +1,6 @@
 'use client';
 
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 import { countriesWithCities } from '@/constants';
 import { Button, Select, Input, Modal, Title, useToast } from '@/ui';
 import { useState } from 'react';

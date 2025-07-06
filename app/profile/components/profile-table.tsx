@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 // import { redirect } from 'next/navigation';
 // import { ProfileEditCommentModal } from '../modals';
-import { useCommentsStore } from '@/store';
+import { useCommentsStore } from '@/store/api';
 // import moment from 'moment';
 // import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { Button, Title, Toast } from '@/ui';

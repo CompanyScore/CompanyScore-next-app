@@ -2,10 +2,10 @@ import { Input, Title, Tooltip } from '@/ui';
 import React, { useEffect } from 'react';
 import { Checkbox, Radio } from '@/shared';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
-import { workFormStore } from '@/form';
-import { useWorkSocialBenefitStore } from '@/store';
+import { workFormStore } from '@/store/form';
+import { useWorkSocialBenefitStore } from '@/store/api';
 
-export const CommentsAddWorkFinance = () => {
+export const AddWorkFinance = () => {
   const { workForm, updateWorkForm } = workFormStore();
   const { items, getWorkSocialBenefits, loading } = useWorkSocialBenefitStore();
 

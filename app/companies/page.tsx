@@ -8,7 +8,7 @@ import {
   CompaniesText,
 } from './components';
 import { Title } from '@/ui';
-import { useCompaniesStore } from '@/store';
+import { useCompaniesStore } from '@/store/api';
 
 export default function CompaniesPage() {
   const { total } = useCompaniesStore();
