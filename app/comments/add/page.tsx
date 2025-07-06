@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import {
-  commentFormStore,
-  internshipFormStore,
-  interviewFormStore,
-  taskFormStore,
-  workFormStore,
+  useCommentForm,
+  useCommentInternshipForm,
+  useCommentInterviewForm,
+  useCommentTaskForm,
+  useCommentWorkForm,
 } from '@/store/form';
 
 import {
@@ -29,24 +29,24 @@ import {
 import { redirect } from 'next/navigation';
 
 export default function CommentsPage() {
-  const { commentForm } = commentFormStore();
+  const { commentForm } = useCommentForm();
   const { comments, postComment, error } = useCommentApi();
   const { createInterviewForm } = useCommentInterviewApi();
   const { postTaskStore } = useCommentTaskApi();
-  const { taskForm } = taskFormStore();
-  const { interviewForm } = interviewFormStore();
-  const { internshipForm } = internshipFormStore();
-  const { workForm } = workFormStore();
+  const { commentTaskForm } = useCommentTaskForm();
+  const { commentInterviewForm } = useCommentInterviewForm();
+  const { commentInternshipForm } = useCommentInternshipForm();
+  const { commentWorkForm } = useCommentWorkForm();
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
     'options',
-    ...(taskForm.isTask ? ['task'] : []),
-    ...(interviewForm.isInterview ? ['interview'] : []),
-    ...(internshipForm.isInternship ? ['intern'] : []),
-    ...(workForm.isWork ? ['work'] : []),
-    ...(workForm.isWork ? ['work2'] : []),
-    ...(workForm.isWork ? ['work3'] : []),
+    ...(commentTaskForm.isTask ? ['task'] : []),
+    ...(commentInterviewForm.isInterview ? ['interview'] : []),
+    ...(commentInternshipForm.isInternship ? ['intern'] : []),
+    ...(commentWorkForm.isWork ? ['work'] : []),
+    ...(commentWorkForm.isWork ? ['work2'] : []),
+    ...(commentWorkForm.isWork ? ['work3'] : []),
     'recommendation',
   ];
 
@@ -54,22 +54,22 @@ export default function CommentsPage() {
 
   const log = () => {
     console.log('commentForm', commentForm);
-    console.log('taskForm', taskForm);
-    console.log('interviewForm', interviewForm);
-    console.log('internshipForm', internshipForm);
-    console.log('workForm', workForm);
+    console.log('commentTaskForm', commentTaskForm);
+    console.log('commentInterviewForm', commentInterviewForm);
+    console.log('commentInternshipForm', commentInternshipForm);
+    console.log('commentWorkForm', commentWorkForm);
   };
 
   const sendForm = async () => {
     try {
       const commentId = await postComment(commentForm);
 
-      if (commentId && taskForm.isTask) {
+      if (commentId && commentTaskForm.isTask) {
         const taskId = await postTaskStore(commentId);
         console.log(taskId);
       }
 
-      if (commentId && interviewForm.isInterview) {
+      if (commentId && commentInterviewForm.isInterview) {
         const taskId = await createInterviewForm(commentId);
         console.log(taskId);
       }

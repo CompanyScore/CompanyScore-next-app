@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
-import { interviewFormStore } from '../form';
+import { useCommentInterviewForm } from '../form';
 
 interface CommentInterviewFormApiState {
   createInterviewForm: (commentId: string) => Promise<void>;
@@ -9,11 +9,11 @@ interface CommentInterviewFormApiState {
 export const useCommentInterviewApi = create<CommentInterviewFormApiState>(
   () => ({
     createInterviewForm: async commentId => {
-      const { interviewForm } = interviewFormStore.getState();
+      const { commentInterviewForm } = useCommentInterviewForm.getState();
 
       await useApi.post(`/comment-interview/`, {
         commentId,
-        ...interviewForm,
+        ...commentInterviewForm,
       });
     },
   }),

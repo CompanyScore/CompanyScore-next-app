@@ -1,31 +1,32 @@
 import React from 'react';
-import { internshipFormStore } from '@/store/form';
+import { useCommentInternshipForm } from '@/store/form';
 import { Calendar, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 
 export const AddInternship = () => {
-  const { internshipForm, updateInternshipForm } = internshipFormStore();
+  const { commentInternshipForm, updateCommentInternshipForm } =
+    useCommentInternshipForm();
 
-  const fromDate = internshipForm.period.from
-    ? new Date(internshipForm.period.from)
+  const fromDate = commentInternshipForm.period.from
+    ? new Date(commentInternshipForm.period.from)
     : null;
-  const toDate = internshipForm.period.to
-    ? new Date(internshipForm.period.to)
+  const toDate = commentInternshipForm.period.to
+    ? new Date(commentInternshipForm.period.to)
     : null;
 
   const handleFromChange = (date: Date | null) => {
-    updateInternshipForm({
+    updateCommentInternshipForm({
       period: {
-        ...internshipForm.period,
+        ...commentInternshipForm.period,
         from: date ? date.toISOString().split('T')[0] : '',
       },
     });
   };
 
   const handleToChange = (date: Date | null) => {
-    updateInternshipForm({
+    updateCommentInternshipForm({
       period: {
-        ...internshipForm.period,
+        ...commentInternshipForm.period,
         to: date ? date.toISOString().split('T')[0] : '',
       },
     });
@@ -49,10 +50,10 @@ export const AddInternship = () => {
 
       <p>Насколько полезным была стажировки для вас?</p>
       <StarRating
-        value={internshipForm.isUseful}
+        value={commentInternshipForm.isUseful}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             isUseful: val,
           })
         }
@@ -60,10 +61,10 @@ export const AddInternship = () => {
 
       <p>Насколько понятно были организованы задачи стажировки?</p>
       <StarRating
-        value={internshipForm.clearlyOrganized}
+        value={commentInternshipForm.clearlyOrganized}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             clearlyOrganized: val,
           })
         }
@@ -71,10 +72,10 @@ export const AddInternship = () => {
 
       <p>Насколько соответствовали задачи уровню стажера?</p>
       <StarRating
-        value={internshipForm.correspondedInternLevel}
+        value={commentInternshipForm.correspondedInternLevel}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             correspondedInternLevel: val,
           })
         }
@@ -82,10 +83,10 @@ export const AddInternship = () => {
 
       <p>Насколько интересными и развивающими были задачи?</p>
       <StarRating
-        value={internshipForm.developingAssignment}
+        value={commentInternshipForm.developingAssignment}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             developingAssignment: val,
           })
         }
@@ -93,10 +94,10 @@ export const AddInternship = () => {
 
       <p>Как вы оцениваете доступность и поддержку наставника/руководителя?</p>
       <StarRating
-        value={internshipForm.supportSupervisor}
+        value={commentInternshipForm.supportSupervisor}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             supportSupervisor: val,
           })
         }
@@ -108,10 +109,10 @@ export const AddInternship = () => {
           { label: 'Нет', value: 0 },
           { label: 'Да', value: 1000 },
         ]}
-        selectedValue={internshipForm.isPaid}
+        selectedValue={commentInternshipForm.isPaid}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             isPaid: Number(val),
           })
         }
@@ -123,10 +124,10 @@ export const AddInternship = () => {
           { label: 'Нет', value: 0 },
           { label: 'Да', value: 1000 },
         ]}
-        selectedValue={internshipForm.isOffer}
+        selectedValue={commentInternshipForm.isOffer}
         onChange={val =>
-          updateInternshipForm({
-            ...internshipForm,
+          updateCommentInternshipForm({
+            ...commentInternshipForm,
             isOffer: Number(val),
           })
         }

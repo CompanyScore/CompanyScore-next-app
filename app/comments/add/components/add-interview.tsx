@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { interviewFormStore } from '@/store/form';
+import { useCommentInterviewForm } from '@/store/form';
 import { Checkbox, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 import { useInterviewStageApi } from '@/store/api';
 
 export const AddInterview = () => {
-  const { interviewForm, updateInterviewForm } = interviewFormStore();
+  const { commentInterviewForm, updateCommentInterviewForm } =
+    useCommentInterviewForm();
   const { stages, getInterviewStages, loading } = useInterviewStageApi();
 
   useEffect(() => {
@@ -13,12 +14,12 @@ export const AddInterview = () => {
   }, [getInterviewStages]);
 
   const handleStageChange = (id: string) => {
-    const updatedStages = interviewForm.stages.includes(id)
-      ? interviewForm.stages.filter(stageId => stageId !== id)
-      : [...interviewForm.stages, id];
+    const updatedStages = commentInterviewForm.stages.includes(id)
+      ? commentInterviewForm.stages.filter(stageId => stageId !== id)
+      : [...commentInterviewForm.stages, id];
 
-    updateInterviewForm({
-      ...interviewForm,
+    updateCommentInterviewForm({
+      ...commentInterviewForm,
       stages: updatedStages,
     });
   };
@@ -29,10 +30,10 @@ export const AddInterview = () => {
       <div className="flex flex-col gap-4 w-full m-auto">
         <p>Насколько описание вакансии соответствовало этой позиции?</p>
         <StarRating
-          value={interviewForm.correspondedPosition}
+          value={commentInterviewForm.correspondedPosition}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               correspondedPosition: Number(val),
             })
           }
@@ -40,10 +41,10 @@ export const AddInterview = () => {
 
         <p>Насколько чётко и грамотно были организованы этапы собеседования?</p>
         <StarRating
-          value={interviewForm.clearlyStages}
+          value={commentInterviewForm.clearlyStages}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               clearlyStages: Number(val),
             })
           }
@@ -54,10 +55,10 @@ export const AddInterview = () => {
           компании?
         </p>
         <StarRating
-          value={interviewForm.talkedPolitely}
+          value={commentInterviewForm.talkedPolitely}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               talkedPolitely: Number(val),
             })
           }
@@ -68,10 +69,10 @@ export const AddInterview = () => {
           предполагаемым задачам?
         </p>
         <StarRating
-          value={interviewForm.realWork}
+          value={commentInterviewForm.realWork}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               realWork: Number(val),
             })
           }
@@ -90,7 +91,7 @@ export const AddInterview = () => {
                 key={stage.id}
                 value={stage.id}
                 label={stage.label}
-                selected={interviewForm.stages.includes(stage.id)}
+                selected={commentInterviewForm.stages.includes(stage.id)}
                 onChange={() => handleStageChange(stage.id)}
               />
             ))
@@ -116,10 +117,10 @@ export const AddInterview = () => {
             },
             { label: 'Более 2 месяцев', value: 0 },
           ]}
-          selectedValue={interviewForm.interviewTime}
+          selectedValue={commentInterviewForm.interviewTime}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               interviewTime: Number(val),
             })
           }
@@ -136,10 +137,10 @@ export const AddInterview = () => {
               value: 1000,
             },
           ]}
-          selectedValue={interviewForm.feedback}
+          selectedValue={commentInterviewForm.feedback}
           onChange={val =>
-            updateInterviewForm({
-              ...interviewForm,
+            updateCommentInterviewForm({
+              ...commentInterviewForm,
               feedback: Number(val),
             })
           }

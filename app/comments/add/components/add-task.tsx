@@ -1,10 +1,10 @@
 import React from 'react';
-import { taskFormStore } from '@/store/form';
+import { useCommentTaskForm } from '@/store/form';
 import { Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
 
 export const AddTask = () => {
-  const { taskForm, updateTaskForm } = taskFormStore();
+  const { commentTaskForm, updateCommentTaskForm } = useCommentTaskForm();
 
   return (
     <div className="flex flex-col gap-6  max-w-[900px] w-full m-auto">
@@ -14,9 +14,12 @@ export const AddTask = () => {
           Насколько чётко были сформулированы требования к тестовому заданию?
         </p>
         <StarRating
-          value={taskForm.requirementsForTask}
+          value={commentTaskForm.requirementsForTask}
           onChange={val =>
-            updateTaskForm({ ...taskForm, requirementsForTask: val })
+            updateCommentTaskForm({
+              ...commentTaskForm,
+              requirementsForTask: val,
+            })
           }
         />
 
@@ -25,26 +28,34 @@ export const AddTask = () => {
           должности?
         </p>
         <StarRating
-          value={taskForm.taskLevel}
-          onChange={val => updateTaskForm({ ...taskForm, taskLevel: val })}
+          value={commentTaskForm.taskLevel}
+          onChange={val =>
+            updateCommentTaskForm({ ...commentTaskForm, taskLevel: val })
+          }
         />
 
         <p>Насколько справедливо и объективно оценили ваше тестовое задание?</p>
         <StarRating
-          value={taskForm.fairAssessment}
-          onChange={val => updateTaskForm({ ...taskForm, fairAssessment: val })}
+          value={commentTaskForm.fairAssessment}
+          onChange={val =>
+            updateCommentTaskForm({ ...commentTaskForm, fairAssessment: val })
+          }
         />
 
         <p>Насколько разумным был объём и срок выполнения задания?</p>
         <StarRating
-          value={taskForm.taskSize}
-          onChange={val => updateTaskForm({ ...taskForm, taskSize: val })}
+          value={commentTaskForm.taskSize}
+          onChange={val =>
+            updateCommentTaskForm({ ...commentTaskForm, taskSize: val })
+          }
         />
 
         <p>Насколько тестовое задание отражало реальные задачи в компании?</p>
         <StarRating
-          value={taskForm.realWork}
-          onChange={val => updateTaskForm({ ...taskForm, realWork: val })}
+          value={commentTaskForm.realWork}
+          onChange={val =>
+            updateCommentTaskForm({ ...commentTaskForm, realWork: val })
+          }
         />
 
         <p>Получили ли вы обратную связь по результатам?</p>
@@ -64,9 +75,9 @@ export const AddTask = () => {
               value: 1000,
             },
           ]}
-          selectedValue={taskForm.feedback}
+          selectedValue={commentTaskForm.feedback}
           onChange={val =>
-            updateTaskForm({ ...taskForm, feedback: Number(val) })
+            updateCommentTaskForm({ ...commentTaskForm, feedback: Number(val) })
           }
         />
       </div>

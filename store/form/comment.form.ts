@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface CommentFormType {
+type CommentFormType = {
   companyId: string;
   companyLocation: {
     country: string;
@@ -16,14 +16,14 @@ interface CommentFormType {
   isRecommended: number;
   reasonJoined: string;
   reasonLeft: string;
-}
+};
 
-interface CommentFormState {
+type CommentFormState = {
   commentForm: CommentFormType;
   updateCommentForm: (updatedFields: Partial<CommentFormType>) => void;
-}
+};
 
-export const commentFormStore = create<CommentFormState>(set => ({
+export const useCommentForm = create<CommentFormState>(set => ({
   commentForm: {
     companyId: '',
     companyLocation: {

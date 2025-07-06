@@ -1,4 +1,4 @@
-import { workFormStore } from '@/store/form';
+import { useCommentWorkForm } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
 import { useWorkEducationApi } from '@/store/api';
 import { Title, Tooltip } from '@/ui';
@@ -7,20 +7,20 @@ import { useEffect } from 'react';
 
 export const AddWorkSecondary = () => {
   const { items, getWorkEducation, loading } = useWorkEducationApi();
-  const { workForm, updateWorkForm } = workFormStore();
+  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
 
   useEffect(() => {
     getWorkEducation();
   }, [getWorkEducation]);
 
   const handleChange = (id: string) => {
-    const selected = workForm.secondary.education.includes(id)
-      ? workForm.secondary.education.filter(e => e !== id)
-      : [...workForm.secondary.education, id];
+    const selected = commentWorkForm.secondary.education.includes(id)
+      ? commentWorkForm.secondary.education.filter(e => e !== id)
+      : [...commentWorkForm.secondary.education, id];
 
-    updateWorkForm({
+    updateCommentWorkForm({
       secondary: {
-        ...workForm.secondary,
+        ...commentWorkForm.secondary,
         education: selected,
       },
     });
@@ -49,11 +49,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.development}
+        selectedValue={commentWorkForm.secondary.development}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               development: Number(val),
             },
           })
@@ -77,11 +77,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.comfort}
+        selectedValue={commentWorkForm.secondary.comfort}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               comfort: Number(val),
             },
           })
@@ -104,11 +104,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.discrimination}
+        selectedValue={commentWorkForm.secondary.discrimination}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               discrimination: Number(val),
             },
           })
@@ -143,11 +143,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.ethics}
+        selectedValue={commentWorkForm.secondary.ethics}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               ethics: Number(val),
             },
           })
@@ -178,11 +178,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.performanceReview}
+        selectedValue={commentWorkForm.secondary.performanceReview}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               performanceReview: Number(val),
             },
           })
@@ -213,11 +213,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={workForm.secondary.events}
+        selectedValue={commentWorkForm.secondary.events}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             secondary: {
-              ...workForm.secondary,
+              ...commentWorkForm.secondary,
               events: Number(val),
             },
           })
@@ -242,7 +242,9 @@ export const AddWorkSecondary = () => {
                 'Практические обучающие сессии или лекции внутри компании',
             } as Record<string, string>;
 
-            const isSelected = workForm.secondary.education.includes(item.id);
+            const isSelected = commentWorkForm.secondary.education.includes(
+              item.id,
+            );
 
             return (
               <div key={item.id} className="flex items-center gap-2">

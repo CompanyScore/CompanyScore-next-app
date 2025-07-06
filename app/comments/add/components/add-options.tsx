@@ -1,11 +1,11 @@
 import React from 'react';
 import { useCompanyStore } from '@/store/api';
 import {
-  commentFormStore,
-  internshipFormStore,
-  interviewFormStore,
-  taskFormStore,
-  workFormStore,
+  useCommentForm,
+  useCommentInternshipForm,
+  useCommentInterviewForm,
+  useCommentTaskForm,
+  useCommentWorkForm,
 } from '@/store/form';
 import { positions } from '@/constants';
 import { Checkbox, Radio } from '@/shared';
@@ -19,7 +19,7 @@ import { IconSchool } from '@tabler/icons-react';
 import { IconCurrencyDollar } from '@tabler/icons-react';
 
 export const AddOptions = () => {
-  const { commentForm, updateCommentForm } = commentFormStore();
+  const { commentForm, updateCommentForm } = useCommentForm();
 
   return (
     <div className="flex flex-col gap-6 m-auto w-full max-w-[900px]">
@@ -55,7 +55,7 @@ export const AddOptions = () => {
 };
 
 const Company = () => {
-  const { commentForm, updateCommentForm } = commentFormStore();
+  const { commentForm, updateCommentForm } = useCommentForm();
   const { companies, getCompanies } = useCompanyStore();
 
   const countryOptions: OptionType[] = countriesWithCities.map(
@@ -173,7 +173,7 @@ const Company = () => {
 };
 
 const PositionAndWorkExperience = () => {
-  const { commentForm, updateCommentForm } = commentFormStore();
+  const { commentForm, updateCommentForm } = useCommentForm();
 
   const positionOptions: OptionType[] = positions.map(pos => ({
     label: pos,
@@ -258,10 +258,12 @@ const PositionAndWorkExperience = () => {
 };
 
 const Forms = () => {
-  const { taskForm, updateTaskForm } = taskFormStore();
-  const { interviewForm, updateInterviewForm } = interviewFormStore();
-  const { internshipForm, updateInternshipForm } = internshipFormStore();
-  const { workForm, updateWorkForm } = workFormStore();
+  const { commentTaskForm, updateCommentTaskForm } = useCommentTaskForm();
+  const { commentInterviewForm, updateCommentInterviewForm } =
+    useCommentInterviewForm();
+  const { commentInternshipForm, updateCommentInternshipForm } =
+    useCommentInternshipForm();
+  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
 
   return (
     <div className="flex flex-col gap-6 m-auto w-full">
@@ -276,11 +278,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="task"
-              selected={taskForm.isTask}
+              selected={commentTaskForm.isTask}
               onChange={() =>
-                updateTaskForm({
-                  ...taskForm,
-                  isTask: !taskForm.isTask,
+                updateCommentTaskForm({
+                  ...commentTaskForm,
+                  isTask: !commentTaskForm.isTask,
                 })
               }
             />
@@ -300,11 +302,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="interview"
-              selected={interviewForm.isInterview}
+              selected={commentInterviewForm.isInterview}
               onChange={() =>
-                updateInterviewForm({
-                  ...interviewForm,
-                  isInterview: !interviewForm.isInterview,
+                updateCommentInterviewForm({
+                  ...commentInterviewForm,
+                  isInterview: !commentInterviewForm.isInterview,
                 })
               }
             />
@@ -324,11 +326,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="intern"
-              selected={internshipForm.isInternship}
+              selected={commentInternshipForm.isInternship}
               onChange={() =>
-                updateInternshipForm({
-                  ...internshipForm,
-                  isInternship: !internshipForm.isInternship,
+                updateCommentInternshipForm({
+                  ...commentInternshipForm,
+                  isInternship: !commentInternshipForm.isInternship,
                 })
               }
             />
@@ -351,11 +353,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="work"
-              selected={workForm.isWork}
+              selected={commentWorkForm.isWork}
               onChange={() =>
-                updateWorkForm({
-                  ...workForm,
-                  isWork: !workForm.isWork,
+                updateCommentWorkForm({
+                  ...commentWorkForm,
+                  isWork: !commentWorkForm.isWork,
                 })
               }
             />

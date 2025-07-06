@@ -2,11 +2,11 @@ import { Input, Title, Tooltip } from '@/ui';
 import React, { useEffect } from 'react';
 import { Checkbox, Radio } from '@/shared';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
-import { workFormStore } from '@/store/form';
+import { useCommentWorkForm } from '@/store/form';
 import { useWorkSocialBenefitApi } from '@/store/api';
 
 export const AddWorkFinance = () => {
-  const { workForm, updateWorkForm } = workFormStore();
+  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
   const { items, getWorkSocialBenefits, loading } = useWorkSocialBenefitApi();
 
   useEffect(() => {
@@ -14,13 +14,13 @@ export const AddWorkFinance = () => {
   }, [getWorkSocialBenefits]);
 
   const handleChange = (id: string) => {
-    const selected = workForm.finance.socialBenefits.includes(id)
-      ? workForm.finance.socialBenefits.filter(e => e !== id)
-      : [...workForm.finance.socialBenefits, id];
+    const selected = commentWorkForm.finance.socialBenefits.includes(id)
+      ? commentWorkForm.finance.socialBenefits.filter(e => e !== id)
+      : [...commentWorkForm.finance.socialBenefits, id];
 
-    updateWorkForm({
+    updateCommentWorkForm({
       finance: {
-        ...workForm.finance,
+        ...commentWorkForm.finance,
         socialBenefits: selected,
       },
     });
@@ -42,13 +42,13 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем выплаты бонусов и премий?</p>
       <Input
         type="number"
-        value={workForm.finance.bonusesAndPremium.value}
+        value={commentWorkForm.finance.bonusesAndPremium.value}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               bonusesAndPremium: {
-                ...workForm.finance.bonusesAndPremium,
+                ...commentWorkForm.finance.bonusesAndPremium,
                 value: Number(val),
               },
             },
@@ -72,13 +72,13 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={workForm.finance.bonusesAndPremium.points}
+        selectedValue={commentWorkForm.finance.bonusesAndPremium.points}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               bonusesAndPremium: {
-                ...workForm.finance.bonusesAndPremium,
+                ...commentWorkForm.finance.bonusesAndPremium,
                 points: Number(val),
               },
             },
@@ -89,13 +89,13 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем медицинской страховки?</p>
       <Input
         type="number"
-        value={workForm.finance.medicine.value}
+        value={commentWorkForm.finance.medicine.value}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               medicine: {
-                ...workForm.finance.medicine,
+                ...commentWorkForm.finance.medicine,
                 value: Number(val),
               },
             },
@@ -119,13 +119,13 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={workForm.finance.medicine.points}
+        selectedValue={commentWorkForm.finance.medicine.points}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               medicine: {
-                ...workForm.finance.medicine,
+                ...commentWorkForm.finance.medicine,
                 points: Number(val),
               },
             },
@@ -141,13 +141,13 @@ export const AddWorkFinance = () => {
       </div>
       <Input
         type="number"
-        value={workForm.finance.profitShare.value}
+        value={commentWorkForm.finance.profitShare.value}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               profitShare: {
-                ...workForm.finance.profitShare,
+                ...commentWorkForm.finance.profitShare,
                 value: Number(val),
               },
             },
@@ -171,13 +171,13 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={workForm.finance.profitShare.points}
+        selectedValue={commentWorkForm.finance.profitShare.points}
         onChange={val =>
-          updateWorkForm({
+          updateCommentWorkForm({
             finance: {
-              ...workForm.finance,
+              ...commentWorkForm.finance,
               profitShare: {
-                ...workForm.finance.profitShare,
+                ...commentWorkForm.finance.profitShare,
                 points: Number(val),
               },
             },
@@ -195,7 +195,9 @@ export const AddWorkFinance = () => {
               <Checkbox
                 value={item.id}
                 label={item.label}
-                selected={workForm.finance.socialBenefits.includes(item.id)}
+                selected={commentWorkForm.finance.socialBenefits.includes(
+                  item.id,
+                )}
                 onChange={() => handleChange(item.id)}
               />
 

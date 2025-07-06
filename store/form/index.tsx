@@ -1,5 +1,5 @@
-export { commentFormStore } from './comment.form';
-export { taskFormStore } from './task.form';
-export { interviewFormStore } from './interview.form';
-export { internshipFormStore } from './internship.form';
-export { workFormStore } from './work.form';
+export { useCommentForm } from './comment.form';
+export { useCommentTaskForm } from './comment-task.form';
+export { useCommentInterviewForm } from './comment-interview.form';
+export { useCommentInternshipForm } from './comment-internship.form';
+export { useCommentWorkForm } from './comment-work.form';

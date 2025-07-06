@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface WorkFormType {
+type CommentWorkFormType = {
   isWork: boolean;
   primary: {
     period: {
@@ -43,15 +43,15 @@ interface WorkFormType {
     };
     socialBenefits: string[];
   };
-}
+};
 
-interface WorkFormState {
-  workForm: WorkFormType;
-  updateWorkForm: (updatedFields: Partial<WorkFormType>) => void;
-}
+type CommentWorkFormState = {
+  commentWorkForm: CommentWorkFormType;
+  updateCommentWorkForm: (updatedFields: Partial<CommentWorkFormType>) => void;
+};
 
-export const workFormStore = create<WorkFormState>(set => ({
-  workForm: {
+export const useCommentWorkForm = create<CommentWorkFormState>(set => ({
+  commentWorkForm: {
     isWork: false,
     primary: {
       period: {
@@ -98,8 +98,8 @@ export const workFormStore = create<WorkFormState>(set => ({
     },
   },
 
-  updateWorkForm: updatedFields =>
+  updateCommentWorkForm: updatedFields =>
     set(state => ({
-      workForm: { ...state.workForm, ...updatedFields },
+      commentWorkForm: { ...state.commentWorkForm, ...updatedFields },
     })),
 }));
