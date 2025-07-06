@@ -8,8 +8,8 @@ export { useWorkSocialBenefitApi } from './work-social-benefit.api';
 
 export { useProfileApi } from './profile.api';
 
-export { useCompanyStore } from './companies.api';
+export { useCompanyStore } from './company.api';
 
-export { useUserApi } from './users.api';
+export { useUserApi } from './user.api';
 
 export { useAuthApi } from './auth.api';

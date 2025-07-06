@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
 import { useCompanyStore } from '@/store/api';
-import type { CompanyType } from '@/store/api/companies.api';
+import type { CompanyType } from '@/store/api/company.api';
 import { Button, ImageTable, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
