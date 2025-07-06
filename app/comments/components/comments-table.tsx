@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
 import moment from 'moment';
 
-import { useCommentApi, CommentType } from '@/store/api/сomment.api.';
+import { useCommentApi, CommentType } from '@/store/api/comment.api';
 
 export function CommentsTable() {
   const { comments, loading, getComments } = useCommentApi();

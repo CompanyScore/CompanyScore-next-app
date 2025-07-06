@@ -1,4 +1,4 @@
-export { useCommentApi } from './сomment.api.';
+export { useCommentApi } from './comment.api';
 export { useCommentTaskApi } from './comment-task.api';
 export { useCommentInterviewApi } from './comment-interview.api';
 export { useInterviewStageApi } from './interview-stage.api';
