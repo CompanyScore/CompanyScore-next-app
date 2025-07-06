@@ -42,11 +42,11 @@ export const CommentsAddWorkSecondary = () => {
           },
           {
             label: 'В целом соответствовали, но развитие ограниченное',
-            value: 2,
+            value: 500,
           },
           {
             label: 'Полностью соответствовали и активно развивали навыки',
-            value: 5,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.development}
@@ -70,11 +70,11 @@ export const CommentsAddWorkSecondary = () => {
           },
           {
             label: 'Нейтрально, терпимо, но можно улучшить',
-            value: 2,
+            value: 500,
           },
           {
             label: 'Максимально комфортно, всё устраивало',
-            value: 5,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.comfort}
@@ -97,11 +97,11 @@ export const CommentsAddWorkSecondary = () => {
         options={[
           {
             label: 'Нет',
-            value: 5,
+            value: 0,
           },
           {
             label: 'Да',
-            value: 0,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.discrimination}
@@ -132,15 +132,15 @@ export const CommentsAddWorkSecondary = () => {
           },
           {
             label: 'Этичность скорее формальная',
-            value: 1,
+            value: 300,
           },
           {
             label: 'В целом соблюдает нормы',
-            value: 3,
+            value: 600,
           },
           {
             label: 'Компания ведёт себя честно и проявляет заботу о людях',
-            value: 5,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.ethics}
@@ -167,15 +167,15 @@ export const CommentsAddWorkSecondary = () => {
           },
           {
             label: '3 месяца',
-            value: 2,
+            value: 300,
           },
           {
             label: 'Полгода',
-            value: 3,
+            value: 600,
           },
           {
             label: 'Год',
-            value: 5,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.performanceReview}
@@ -202,15 +202,15 @@ export const CommentsAddWorkSecondary = () => {
           },
           {
             label: 'Проводились редко',
-            value: 1,
+            value: 300,
           },
           {
             label: 'Проводили, было норм',
-            value: 3,
+            value: 600,
           },
           {
             label: 'Часто и на хорошем уровне',
-            value: 5,
+            value: 1000,
           },
         ]}
         selectedValue={workForm.secondary.events}

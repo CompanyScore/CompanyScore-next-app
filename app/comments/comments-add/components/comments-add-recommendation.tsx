@@ -13,8 +13,8 @@ export const CommentsAddRecommendation = () => {
         <Radio
           options={[
             { label: 'Нет', value: 0 },
-            { label: 'Не уверен', value: 2 },
-            { label: 'Да', value: 5 },
+            { label: 'Не уверен', value: 500 },
+            { label: 'Да', value: 1000 },
           ]}
           selectedValue={commentForm.isRecommended}
           onChange={value =>

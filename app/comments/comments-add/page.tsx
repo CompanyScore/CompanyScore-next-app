@@ -23,10 +23,12 @@ import {
 import { Button, Toast, useToast } from '@/ui';
 import { useCommentsStore } from '@/store';
 import { redirect } from 'next/navigation';
+import { useTaskStore } from '@/store/taskStore';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
   const { comments, postComment, error } = useCommentsStore();
+  const { postTaskStore } = useTaskStore();
   const { taskForm } = taskFormStore();
   const { interviewForm } = interviewFormStore();
   const { internshipForm } = internshipFormStore();
@@ -57,6 +59,10 @@ export default function CommentsPage() {
   const sendForm = async () => {
     try {
       const commentId = await postComment(commentForm);
+      if (commentId) {
+        const taskId = await postTaskStore(commentId);
+        console.log(taskId);
+      }
       toast.success('Отзыв успешно отправлен');
       console.log(commentId);
       console.log(comments);

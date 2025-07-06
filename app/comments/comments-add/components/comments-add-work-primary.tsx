@@ -213,15 +213,15 @@ export const CommentsAddWorkPrimary = () => {
             },
             {
               label: 'Ниже рынка',
-              value: 1,
+              value: 300,
             },
             {
               label: 'В целом норм по рынку',
-              value: 2,
+              value: 600,
             },
             {
               label: 'Полностью устраивала',
-              value: 5,
+              value: 1000,
             },
           ]}
           selectedValue={workForm.primary.salary.points}
@@ -248,11 +248,11 @@ export const CommentsAddWorkPrimary = () => {
             },
             {
               label: 'Гибрид',
-              value: 2,
+              value: 500,
             },
             {
               label: 'Онлайн',
-              value: 5,
+              value: 1000,
             },
           ]}
           selectedValue={workForm.primary.workFormat}

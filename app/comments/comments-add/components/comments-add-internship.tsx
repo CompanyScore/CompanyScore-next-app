@@ -106,7 +106,7 @@ export const CommentsAddInternship = () => {
       <Radio
         options={[
           { label: 'Нет', value: 0 },
-          { label: 'Да', value: 5 },
+          { label: 'Да', value: 1000 },
         ]}
         selectedValue={internshipForm.isPaid}
         onChange={val =>
@@ -121,7 +121,7 @@ export const CommentsAddInternship = () => {
       <Radio
         options={[
           { label: 'Нет', value: 0 },
-          { label: 'Да', value: 5 },
+          { label: 'Да', value: 1000 },
         ]}
         selectedValue={internshipForm.isOffer}
         onChange={val =>

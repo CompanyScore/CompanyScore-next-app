@@ -56,7 +56,7 @@ interface CommentsState {
   loading: boolean;
   error: string;
   getComments: (params: GetCommentsParams) => Promise<void>;
-  postComment: (commentForm: PostComment) => Promise<void>;
+  postComment: (commentForm: PostComment) => Promise<string>;
 }
 
 export const useCommentsStore = create<CommentsState>(set => ({

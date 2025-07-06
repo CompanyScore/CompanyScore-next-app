@@ -63,12 +63,12 @@ export const CommentsAddWorkFinance = () => {
           },
           {
             label: 'Выплаты редкие',
-            value: 1,
+            value: 300,
           },
-          { label: 'В целом нормально', value: 2 },
+          { label: 'В целом нормально', value: 600 },
           {
             label: 'Полностью устраивали',
-            value: 5,
+            value: 1000,
           },
         ]}
         className="flex flex-col"
@@ -110,12 +110,12 @@ export const CommentsAddWorkFinance = () => {
           },
           {
             label: 'Страховка была, условия слабые',
-            value: 1,
+            value: 300,
           },
-          { label: 'В целом норм, покрытие ограниченное', value: 2 },
+          { label: 'В целом норм, покрытие ограниченное', value: 600 },
           {
             label: 'Полностью устраивала, всё покрывалось',
-            value: 5,
+            value: 1000,
           },
         ]}
         className="flex flex-col"
@@ -163,11 +163,11 @@ export const CommentsAddWorkFinance = () => {
           {
             label:
               'Да, но только ограниченному кругу (топ-менеджмент, ключевые специалисты)',
-            value: 2,
+            value: 500,
           },
           {
             label: 'Да, для всех сотрудников',
-            value: 5,
+            value: 1000,
           },
         ]}
         className="flex flex-col"

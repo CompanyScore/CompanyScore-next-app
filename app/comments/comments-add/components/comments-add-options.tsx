@@ -27,11 +27,8 @@ export const CommentsAddOptions = () => {
 
       <Company />
       <PositionAndWorkExperience />
-
       <div className="divider before:bg-black after:bg-black"></div>
-
       <p className="text-lg">Желаете оставить отзыв анонимно?</p>
-
       <Radio
         options={[
           {
@@ -51,9 +48,7 @@ export const CommentsAddOptions = () => {
           })
         }
       />
-
       <div className="divider before:bg-black after:bg-black"></div>
-
       <Forms />
     </div>
   );

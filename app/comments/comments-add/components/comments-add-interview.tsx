@@ -130,7 +130,7 @@ export const CommentsAddInterview = () => {
         <Radio
           options={[
             { label: 'Нет', value: 0 },
-            { label: 'Шаблонный ответ', value: 300 },
+            { label: 'Шаблонный ответ', value: 500 },
             {
               label: 'Развернутый ответ',
               value: 1000,
