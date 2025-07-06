@@ -32,10 +32,6 @@ type GetCommentsParams = {
 
 export type PostComment = {
   companyId: string;
-  companyLocation: {
-    country: string;
-    city: string;
-  };
   userPosition: string;
   userGrade: {
     years: number;
@@ -99,8 +95,6 @@ export const useCommentsStore = create<CommentsState>(set => ({
   postComment: async commentForm => {
     const payload = {
       companyId: commentForm.companyId,
-      companyCountry: commentForm.companyLocation.country,
-      companyCity: commentForm.companyLocation.city,
       userPosition: commentForm.userPosition,
       userGradeYears: commentForm.userGrade.years,
       userGradeMonths: commentForm.userGrade.months,

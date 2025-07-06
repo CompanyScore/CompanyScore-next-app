@@ -6,3 +6,4 @@ export { useAuthStore } from './auth.api';
 export { useInterviewStageStore } from './interview-stage.api';
 export { useWorkEducationStore } from './work-education.api';
 export { useWorkSocialBenefitStore } from './work-social-benefit.api';
+export { useCommentInterviewApi } from './comment-interview.api';

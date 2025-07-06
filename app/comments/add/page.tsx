@@ -21,13 +21,14 @@ import {
 } from './components';
 
 import { Button, Toast, useToast } from '@/ui';
-import { useCommentsStore } from '@/store/api';
+import { useCommentInterviewApi, useCommentsStore } from '@/store/api';
 import { redirect } from 'next/navigation';
 import { useTaskStore } from '@/store/api/task.api';
 
 export default function CommentsPage() {
   const { commentForm } = commentFormStore();
   const { comments, postComment, error } = useCommentsStore();
+  const { createInterviewForm } = useCommentInterviewApi();
   const { postTaskStore } = useTaskStore();
   const { taskForm } = taskFormStore();
   const { interviewForm } = interviewFormStore();
@@ -59,10 +60,17 @@ export default function CommentsPage() {
   const sendForm = async () => {
     try {
       const commentId = await postComment(commentForm);
-      if (commentId) {
+
+      if (commentId && taskForm.isTask) {
         const taskId = await postTaskStore(commentId);
         console.log(taskId);
       }
+
+      if (commentId && interviewForm.isInterview) {
+        const taskId = await createInterviewForm(commentId);
+        console.log(taskId);
+      }
+
       toast.success('Отзыв успешно отправлен');
       console.log(commentId);
       console.log(comments);

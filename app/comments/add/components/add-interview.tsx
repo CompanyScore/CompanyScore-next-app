@@ -116,7 +116,7 @@ export const AddInterview = () => {
             },
             { label: 'Более 2 месяцев', value: 0 },
           ]}
-          selectedValue={'value'}
+          selectedValue={interviewForm.interviewTime}
           onChange={val =>
             updateInterviewForm({
               ...interviewForm,
@@ -136,7 +136,7 @@ export const AddInterview = () => {
               value: 1000,
             },
           ]}
-          selectedValue={'value'}
+          selectedValue={interviewForm.feedback}
           onChange={val =>
             updateInterviewForm({
               ...interviewForm,

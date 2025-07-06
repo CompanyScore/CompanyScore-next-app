@@ -10,7 +10,7 @@ export default function CommentsPage() {
   return (
     <Container className="flex flex-col gap-4">
       <Title>Отзывы</Title>
-      <Link href="/comments/comments-add" className="self-end">
+      <Link href="/comments/add" className="self-end">
         <Button>Оставить отзыв</Button>
       </Link>
 
