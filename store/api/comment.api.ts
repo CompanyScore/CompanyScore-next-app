@@ -95,7 +95,7 @@ export const useCommentApi = create<CommentsState>(set => ({
   postComment: async commentForm => {
     const payload = {
       companyId: commentForm.companyId,
-      userPosition: commentForm.userPosition,
+      userPosition: commentForm.userPositionId,
       userGradeYears: commentForm.userGrade.years,
       userGradeMonths: commentForm.userGrade.months,
       isAnonym: commentForm.isAnonym,
