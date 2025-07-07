@@ -7,19 +7,19 @@ import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 export const AddWorkPrimary = () => {
   const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
 
-  const fromDate = commentWorkForm.primary.periodFrom
-    ? new Date(commentWorkForm.primary.periodFrom)
+  const fromDate = commentWorkForm.primary.dateFrom
+    ? new Date(commentWorkForm.primary.dateFrom)
     : null;
 
-  const toDate = commentWorkForm.primary.periodTo
-    ? new Date(commentWorkForm.primary.periodTo)
+  const toDate = commentWorkForm.primary.dateTo
+    ? new Date(commentWorkForm.primary.dateTo)
     : null;
 
   const handleFromChange = (date: Date | null) => {
     updateCommentWorkForm({
       primary: {
         ...commentWorkForm.primary,
-        periodFrom: date ?? null,
+        dateFrom: date ?? null,
       },
     });
   };
@@ -28,7 +28,7 @@ export const AddWorkPrimary = () => {
     updateCommentWorkForm({
       primary: {
         ...commentWorkForm.primary,
-        periodTo: date ?? null,
+        dateTo: date ?? null,
       },
     });
   };

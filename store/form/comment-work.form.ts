@@ -3,8 +3,8 @@ import { create } from 'zustand';
 type CommentWorkFormType = {
   isWork: boolean;
   primary: {
-    periodFrom: Date | null;
-    periodTo: Date | null;
+    dateFrom: Date | null;
+    dateTo: Date | null;
     management: number;
     team: number;
     project: number;
@@ -44,8 +44,8 @@ export const useCommentWorkForm = create<CommentWorkFormState>(set => ({
   commentWorkForm: {
     isWork: false,
     primary: {
-      periodFrom: null,
-      periodTo: null,
+      dateFrom: null,
+      dateTo: null,
       management: 0,
       team: 0,
       project: 0,

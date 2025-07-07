@@ -7,28 +7,24 @@ export const AddInternship = () => {
   const { commentInternshipForm, updateCommentInternshipForm } =
     useCommentInternshipForm();
 
-  const fromDate = commentInternshipForm.period.from
-    ? new Date(commentInternshipForm.period.from)
+  const fromDate = commentInternshipForm.dateFrom
+    ? new Date(commentInternshipForm.dateFrom)
     : null;
-  const toDate = commentInternshipForm.period.to
-    ? new Date(commentInternshipForm.period.to)
+  const toDate = commentInternshipForm.dateTo
+    ? new Date(commentInternshipForm.dateTo)
     : null;
 
   const handleFromChange = (date: Date | null) => {
     updateCommentInternshipForm({
-      period: {
-        ...commentInternshipForm.period,
-        from: date ?? null, // просто передаём Date или null
-      },
+      ...commentInternshipForm,
+      dateFrom: date ?? null,
     });
   };
 
   const handleToChange = (date: Date | null) => {
     updateCommentInternshipForm({
-      period: {
-        ...commentInternshipForm.period,
-        to: date ?? null,
-      },
+      ...commentInternshipForm,
+      dateTo: date ?? null,
     });
   };
 
