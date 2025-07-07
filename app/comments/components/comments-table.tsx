@@ -68,7 +68,7 @@ export function CommentsTable() {
       key: 'position',
       title: 'Должность',
       render: (comment: CommentType) =>
-        comment.userPosition ?? 'Нет информации',
+        comment.userPositionId ?? 'Нет информации',
     },
     {
       key: 'createDate',

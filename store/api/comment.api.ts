@@ -32,7 +32,7 @@ type GetCommentsParams = {
 
 export type PostComment = {
   companyId: string;
-  userPosition: string;
+  userPositionId: string;
   userGrade: {
     years: number;
     months: number;
