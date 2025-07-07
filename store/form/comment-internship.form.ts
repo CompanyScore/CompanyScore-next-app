@@ -3,8 +3,8 @@ import { create } from 'zustand';
 type CommentInternshipFormType = {
   isInternship: boolean;
   period: {
-    from: string;
-    to: string;
+    from: Date | null;
+    to: Date | null;
   };
   isUseful: number;
   clearlyOrganized: number;
@@ -27,8 +27,8 @@ export const useCommentInternshipForm = create<CommentInternshipFormFormState>(
     commentInternshipForm: {
       isInternship: false,
       period: {
-        from: '',
-        to: '',
+        from: null,
+        to: null,
       },
       isUseful: 0,
       clearlyOrganized: 0,

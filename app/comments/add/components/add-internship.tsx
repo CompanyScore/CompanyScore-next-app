@@ -18,7 +18,7 @@ export const AddInternship = () => {
     updateCommentInternshipForm({
       period: {
         ...commentInternshipForm.period,
-        from: date ? date.toISOString().split('T')[0] : '',
+        from: date ?? null, // просто передаём Date или null
       },
     });
   };
@@ -27,7 +27,7 @@ export const AddInternship = () => {
     updateCommentInternshipForm({
       period: {
         ...commentInternshipForm.period,
-        to: date ? date.toISOString().split('T')[0] : '',
+        to: date ?? null,
       },
     });
   };

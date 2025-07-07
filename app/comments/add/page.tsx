@@ -25,6 +25,7 @@ import {
   useCommentInterviewApi,
   useCommentApi,
   useCommentTaskApi,
+  useCommentInternshipApi,
 } from '@/store/api';
 import { redirect } from 'next/navigation';
 
@@ -32,6 +33,7 @@ export default function CommentsPage() {
   const { commentForm } = useCommentForm();
   const { comments, postComment, error } = useCommentApi();
   const { createInterviewForm } = useCommentInterviewApi();
+  const { createInternshipForm } = useCommentInternshipApi();
   const { postTaskStore } = useCommentTaskApi();
   const { commentTaskForm } = useCommentTaskForm();
   const { commentInterviewForm } = useCommentInterviewForm();
@@ -72,6 +74,11 @@ export default function CommentsPage() {
       if (commentId && commentInterviewForm.isInterview) {
         const taskId = await createInterviewForm(commentId);
         console.log(taskId);
+      }
+
+      if (commentId && commentInternshipForm.isInternship) {
+        const internshipId = await createInternshipForm(commentId);
+        console.log(internshipId);
       }
 
       toast.success('Отзыв успешно отправлен');
