@@ -7,22 +7,19 @@ import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 export const AddWorkPrimary = () => {
   const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
 
-  const fromDate = commentWorkForm.primary.period.from
-    ? new Date(commentWorkForm.primary.period.from)
+  const fromDate = commentWorkForm.primary.periodFrom
+    ? new Date(commentWorkForm.primary.periodFrom)
     : null;
 
-  const toDate = commentWorkForm.primary.period.to
-    ? new Date(commentWorkForm.primary.period.to)
+  const toDate = commentWorkForm.primary.periodTo
+    ? new Date(commentWorkForm.primary.periodTo)
     : null;
 
   const handleFromChange = (date: Date | null) => {
     updateCommentWorkForm({
       primary: {
         ...commentWorkForm.primary,
-        period: {
-          ...commentWorkForm.primary.period,
-          from: date ? date.toISOString().split('T')[0] : '',
-        },
+        periodFrom: date ?? null,
       },
     });
   };
@@ -31,10 +28,7 @@ export const AddWorkPrimary = () => {
     updateCommentWorkForm({
       primary: {
         ...commentWorkForm.primary,
-        period: {
-          ...commentWorkForm.primary.period,
-          to: date ? date.toISOString().split('T')[0] : '',
-        },
+        periodTo: date ?? null,
       },
     });
   };
@@ -190,15 +184,12 @@ export const AddWorkPrimary = () => {
         <p>Уровень зарплаты</p>
         <Input
           type="number"
-          value={commentWorkForm.primary.salary.value}
+          value={commentWorkForm.primary.salaryValue}
           onChange={val =>
             updateCommentWorkForm({
               primary: {
                 ...commentWorkForm.primary,
-                salary: {
-                  ...commentWorkForm.primary.salary,
-                  value: Number(val),
-                },
+                salaryValue: Number(val),
               },
             })
           }
@@ -224,16 +215,13 @@ export const AddWorkPrimary = () => {
               value: 1000,
             },
           ]}
-          selectedValue={commentWorkForm.primary.salary.points}
+          selectedValue={commentWorkForm.primary.salaryPoints}
           className="flex flex-col"
           onChange={val =>
             updateCommentWorkForm({
               primary: {
                 ...commentWorkForm.primary,
-                salary: {
-                  ...commentWorkForm.primary.salary,
-                  points: Number(val),
-                },
+                salaryPoints: Number(val),
               },
             })
           }

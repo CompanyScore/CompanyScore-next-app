@@ -42,15 +42,12 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем выплаты бонусов и премий?</p>
       <Input
         type="number"
-        value={commentWorkForm.finance.bonusesAndPremium.value}
+        value={commentWorkForm.finance.bonusesValue}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              bonusesAndPremium: {
-                ...commentWorkForm.finance.bonusesAndPremium,
-                value: Number(val),
-              },
+              bonusesValue: Number(val),
             },
           })
         }
@@ -72,15 +69,12 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.bonusesAndPremium.points}
+        selectedValue={commentWorkForm.finance.bonusesPoints}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              bonusesAndPremium: {
-                ...commentWorkForm.finance.bonusesAndPremium,
-                points: Number(val),
-              },
+              bonusesPoints: Number(val),
             },
           })
         }
@@ -89,15 +83,12 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем медицинской страховки?</p>
       <Input
         type="number"
-        value={commentWorkForm.finance.medicine.value}
+        value={commentWorkForm.finance.medicineValue}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              medicine: {
-                ...commentWorkForm.finance.medicine,
-                value: Number(val),
-              },
+              medicineValue: Number(val),
             },
           })
         }
@@ -119,15 +110,12 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.medicine.points}
+        selectedValue={commentWorkForm.finance.medicinePoints}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              medicine: {
-                ...commentWorkForm.finance.medicine,
-                points: Number(val),
-              },
+              medicinePoints: Number(val),
             },
           })
         }
@@ -141,15 +129,12 @@ export const AddWorkFinance = () => {
       </div>
       <Input
         type="number"
-        value={commentWorkForm.finance.profitShare.value}
+        value={commentWorkForm.finance.profitShareValue}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              profitShare: {
-                ...commentWorkForm.finance.profitShare,
-                value: Number(val),
-              },
+              profitShareValue: Number(val),
             },
           })
         }
@@ -171,15 +156,12 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.profitShare.points}
+        selectedValue={commentWorkForm.finance.profitSharePoints}
         onChange={val =>
           updateCommentWorkForm({
             finance: {
               ...commentWorkForm.finance,
-              profitShare: {
-                ...commentWorkForm.finance.profitShare,
-                points: Number(val),
-              },
+              profitSharePoints: Number(val),
             },
           })
         }

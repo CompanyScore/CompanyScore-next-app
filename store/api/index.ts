@@ -3,6 +3,7 @@ export { useCommentTaskApi } from './comment-task.api';
 export { useCommentInterviewApi } from './comment-interview.api';
 export { useInterviewStageApi } from './interview-stage.api';
 export { useCommentInternshipApi } from './comment-internship.api';
+export { useCommentWorkApi } from './comment-work.api';
 
 export { useWorkEducationApi } from './work-education.api';
 export { useWorkSocialBenefitApi } from './work-social-benefit.api';

@@ -14,14 +14,14 @@ export const AddWorkSecondary = () => {
   }, [getWorkEducation]);
 
   const handleChange = (id: string) => {
-    const selected = commentWorkForm.secondary.education.includes(id)
-      ? commentWorkForm.secondary.education.filter(e => e !== id)
-      : [...commentWorkForm.secondary.education, id];
+    const selected = commentWorkForm.secondary.educations.includes(id)
+      ? commentWorkForm.secondary.educations.filter(e => e !== id)
+      : [...commentWorkForm.secondary.educations, id];
 
     updateCommentWorkForm({
       secondary: {
         ...commentWorkForm.secondary,
-        education: selected,
+        educations: selected,
       },
     });
   };
@@ -242,7 +242,7 @@ export const AddWorkSecondary = () => {
                 'Практические обучающие сессии или лекции внутри компании',
             } as Record<string, string>;
 
-            const isSelected = commentWorkForm.secondary.education.includes(
+            const isSelected = commentWorkForm.secondary.educations.includes(
               item.id,
             );
 

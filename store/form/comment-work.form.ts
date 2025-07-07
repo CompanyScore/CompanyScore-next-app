@@ -3,10 +3,8 @@ import { create } from 'zustand';
 type CommentWorkFormType = {
   isWork: boolean;
   primary: {
-    period: {
-      from: string;
-      to: string;
-    };
+    periodFrom: Date | null;
+    periodTo: Date | null;
     management: number;
     team: number;
     project: number;
@@ -14,10 +12,8 @@ type CommentWorkFormType = {
     workingSchedule: number;
     workFormat: number;
     stability: number;
-    salary: {
-      points: number;
-      value: number;
-    };
+    salaryPoints: number;
+    salaryValue: number;
   };
   secondary: {
     development: number;
@@ -26,21 +22,15 @@ type CommentWorkFormType = {
     ethics: number;
     performanceReview: number;
     events: number;
-    education: string[];
+    educations: string[];
   };
   finance: {
-    bonusesAndPremium: {
-      points: number;
-      value: number;
-    };
-    medicine: {
-      points: number;
-      value: number;
-    };
-    profitShare: {
-      points: number;
-      value: number;
-    };
+    bonusesPoints: number;
+    bonusesValue: number;
+    medicinePoints: number;
+    medicineValue: number;
+    profitSharePoints: number;
+    profitShareValue: number;
     socialBenefits: string[];
   };
 };
@@ -54,10 +44,8 @@ export const useCommentWorkForm = create<CommentWorkFormState>(set => ({
   commentWorkForm: {
     isWork: false,
     primary: {
-      period: {
-        from: '',
-        to: '',
-      },
+      periodFrom: null,
+      periodTo: null,
       management: 0,
       team: 0,
       project: 0,
@@ -65,10 +53,8 @@ export const useCommentWorkForm = create<CommentWorkFormState>(set => ({
       workingSchedule: 0,
       workFormat: 0,
       stability: 0,
-      salary: {
-        points: 0,
-        value: 0,
-      },
+      salaryPoints: 0,
+      salaryValue: 0,
     },
 
     secondary: {
@@ -78,22 +64,16 @@ export const useCommentWorkForm = create<CommentWorkFormState>(set => ({
       ethics: 0,
       performanceReview: 0,
       events: 0,
-      education: [],
+      educations: [],
     },
 
     finance: {
-      bonusesAndPremium: {
-        points: 0,
-        value: 0,
-      },
-      medicine: {
-        points: 0,
-        value: 0,
-      },
-      profitShare: {
-        points: 0,
-        value: 0,
-      },
+      bonusesPoints: 0,
+      bonusesValue: 0,
+      medicinePoints: 0,
+      medicineValue: 0,
+      profitSharePoints: 0,
+      profitShareValue: 0,
       socialBenefits: [],
     },
   },
