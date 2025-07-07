@@ -15,3 +15,5 @@ export { useCompanyStore } from './company.api';
 export { useUserApi } from './user.api';
 
 export { useAuthApi } from './auth.api';
+
+export { usePositionApi } from './position.api';

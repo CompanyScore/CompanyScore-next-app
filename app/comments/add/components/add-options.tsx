@@ -1,5 +1,5 @@
-import React from 'react';
-import { useCompanyStore } from '@/store/api';
+import React, { useEffect } from 'react';
+import { useCompanyStore, usePositionApi } from '@/store/api';
 import {
   useCommentForm,
   useCommentInternshipForm,
@@ -7,7 +7,6 @@ import {
   useCommentTaskForm,
   useCommentWorkForm,
 } from '@/store/form';
-import { positions } from '@/constants';
 import { Checkbox, Radio } from '@/shared';
 import { Button, Card, Title } from '@/ui';
 import { OptionType, Select } from '@/ui/select';
@@ -174,10 +173,15 @@ const Company = () => {
 
 const PositionAndWorkExperience = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
+  const { positions, getPositions } = usePositionApi();
+
+  useEffect(() => {
+    getPositions();
+  }, [getPositions]);
 
   const positionOptions: OptionType[] = positions.map(pos => ({
-    label: pos,
-    value: pos,
+    label: pos.title,
+    value: pos.id,
   }));
 
   const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
