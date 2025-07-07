@@ -199,13 +199,14 @@ const PositionAndWorkExperience = () => {
         isClearable
         options={positionOptions}
         value={
-          positionOptions.find(opt => opt.value === commentForm.userPosition) ??
-          null
+          positionOptions.find(
+            opt => opt.value === commentForm.userPositionId,
+          ) ?? null
         }
         onChange={option =>
           updateCommentForm({
             ...commentForm,
-            userPosition: option?.value ? String(option.value) : '',
+            userPositionId: option?.value ? String(option.value) : '',
           })
         }
       />
