@@ -3,7 +3,7 @@ import { useApi } from '@/api';
 
 export type CommentType = {
   id: string;
-  userPosition: string;
+  userPositionId: string;
   userGrade: {
     years: number;
     months: number;
