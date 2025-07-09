@@ -5,7 +5,7 @@ import {
   useCommentInternshipForm,
   useCommentInterviewForm,
   useCommentTaskForm,
-  useCommentWorkForm,
+  useCommentWorkPrimaryForm,
 } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
 import { Button, Card, Title } from '@/ui';
@@ -268,7 +268,8 @@ const Forms = () => {
     useCommentInterviewForm();
   const { commentInternshipForm, updateCommentInternshipForm } =
     useCommentInternshipForm();
-  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
+  const { commentWorkPrimaryForm, updateCommentWorkPrimaryForm } =
+    useCommentWorkPrimaryForm();
 
   return (
     <div className="flex flex-col gap-6 m-auto w-full">
@@ -358,11 +359,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="work"
-              selected={commentWorkForm.isWork}
+              selected={commentWorkPrimaryForm.isWork}
               onChange={() =>
-                updateCommentWorkForm({
-                  ...commentWorkForm,
-                  isWork: !commentWorkForm.isWork,
+                updateCommentWorkPrimaryForm({
+                  ...commentWorkPrimaryForm,
+                  isWork: !commentWorkPrimaryForm.isWork,
                 })
               }
             />
