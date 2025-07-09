@@ -1,14 +1,10 @@
 export { useCommentApi } from './comment.api';
 export { useCommentTaskApi } from './comment-task.api';
 export { useCommentInterviewApi } from './comment-interview.api';
-export { useInterviewStageApi } from './interview-stage.api';
 export { useCommentInternshipApi } from './comment-internship.api';
 export { useCommentWorkPrimaryApi } from './comment-work-primary.api';
 export { useCommentWorkSecondaryApi } from './comment-work-secondary.api';
 export { useCommentWorkFinanceApi } from './comment-work-finance.api';
-
-export { useWorkEducationApi } from './work-education.api';
-export { useWorkSocialBenefitApi } from './work-social-benefit.api';
 
 export { useProfileApi } from './profile.api';
 
