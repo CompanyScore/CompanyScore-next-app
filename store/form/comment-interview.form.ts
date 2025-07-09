@@ -1,14 +1,20 @@
 import { create } from 'zustand';
 
-type CommentInterviewFormType = {
+export type CommentInterviewFormType = {
   isInterview: boolean;
   correspondedPosition: number;
   clearlyStages: number;
   talkedPolitely: number;
   realWork: number;
-  stages: string[];
   interviewTime: number;
   feedback: number;
+  isTestStage: boolean;
+  isVideoStage: boolean;
+  isHrStage: boolean;
+  isTaskStage: boolean;
+  isTechStage: boolean;
+  isTeamStage: boolean;
+  isFinalStage: boolean;
 };
 
 type CommentInterviewFormState = {
@@ -26,9 +32,15 @@ export const useCommentInterviewForm = create<CommentInterviewFormState>(
       clearlyStages: 0,
       talkedPolitely: 0,
       realWork: 0,
-      stages: [],
       interviewTime: 0,
       feedback: 0,
+      isVideoStage: false,
+      isHrStage: false,
+      isTestStage: false,
+      isTaskStage: false,
+      isTechStage: false,
+      isTeamStage: false,
+      isFinalStage: false,
     },
     updateCommentInterviewForm: updatedFields =>
       set(state => ({
