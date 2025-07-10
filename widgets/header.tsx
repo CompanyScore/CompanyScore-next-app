@@ -2,12 +2,12 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
-import { useProfileStore } from '@/store';
+import { useProfileApi } from '@/store/api';
 // import { ThemeController } from './';
 import { Avatar } from '@/ui';
 
 export function Header() {
-  const { profile, getProfile } = useProfileStore();
+  const { profile, getProfile } = useProfileApi();
   const pathname = usePathname();
 
   const pages = [

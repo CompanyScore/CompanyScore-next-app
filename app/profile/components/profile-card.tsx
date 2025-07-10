@@ -3,11 +3,11 @@
 import { useEffect } from 'react';
 
 import { ProfileEditModal } from '../modals';
-import { useProfileStore } from '@/store';
+import { useProfileApi } from '@/store/api';
 import { Error, Toast } from '@/ui';
 
 export function ProfileCard() {
-  const { profile, loading, error, getProfile } = useProfileStore();
+  const { profile, loading, error, getProfile } = useProfileApi();
 
   useEffect(() => {
     getProfile();

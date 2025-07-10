@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Error, Title } from '@/ui';
 
 import { FaChevronLeft, FaAngleRight } from 'react-icons/fa6';
-import { useCompaniesStore } from '@/store';
+import { useCompanyStore } from '@/store/api';
 
 export function GeneralCarousel() {
-  const { loading, error, companiesNew, getCompaniesNew } = useCompaniesStore();
+  const { loading, error, companiesNew, getCompaniesNew } = useCompanyStore();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = useCallback(() => {

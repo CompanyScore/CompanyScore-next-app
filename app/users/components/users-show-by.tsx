@@ -1,10 +1,10 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useUsersStore } from '@/store';
+import { useUserApi } from '@/store/api';
 
 export function UsersShowBy() {
-  const { getUsers, users, limit } = useUsersStore();
+  const { getUsers, users, limit } = useUserApi();
 
   const onLimitChange = (newLimit: number) => {
     getUsers({ page: 1, limit: newLimit });

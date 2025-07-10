@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { ImageTable, Button, Table, Title, Tooltip } from '@/ui';
 import moment from 'moment';
 
-import { useUsersStore } from '@/store';
+import { useUserApi } from '@/store/api';
 import { redirect } from 'next/navigation';
 
 type UserType = {
@@ -17,7 +17,7 @@ type UserType = {
 };
 
 export function UsersTable() {
-  const { users, loading, getUsers } = useUsersStore();
+  const { users, loading, getUsers } = useUserApi();
 
   useEffect(() => {
     getUsers({});

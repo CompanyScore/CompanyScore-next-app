@@ -2,7 +2,7 @@
 
 // import { redirect, useParams } from 'next/navigation';
 
-// import { useCommentsStore } from '@/store';
+// import { useCommentApi } from '@/store';
 // import { ImageTable, Button, Error, Table, Title, Tooltip } from '@/ui';
 
 // import moment from 'moment';
@@ -28,7 +28,7 @@
 
 // export function CompanyTable() {
 //   const { id } = useParams<{ id: string }>();
-//   const { comments, getComments, loading, error } = useCommentsStore();
+//   const { comments, getComments, loading, error } = useCommentApi();
 
 //   useEffect(() => {
 //     getComments({ companyId: id });

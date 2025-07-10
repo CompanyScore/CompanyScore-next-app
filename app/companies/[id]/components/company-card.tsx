@@ -4,12 +4,12 @@ import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { Button, Toast } from '@/ui';
-import { useCommentsStore, useCompaniesStore } from '@/store';
+import { useCommentApi, useCompanyStore } from '@/store/api';
 
 export function CompanyCard() {
   const { id } = useParams<{ id: string }>();
-  const { company, getCompany } = useCompaniesStore();
-  const { total } = useCommentsStore();
+  const { company, getCompany } = useCompanyStore();
+  const { total } = useCommentApi();
 
   useEffect(() => {
     getCompany(id);

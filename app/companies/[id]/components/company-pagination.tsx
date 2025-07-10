@@ -1,9 +1,9 @@
 'use client';
 import { Pagination } from '@/shared';
-import { useCommentsStore } from '@/store';
+import { useCommentApi } from '@/store/api';
 
 export function CompanyPagination() {
-  const { comments, getComments, limit, page, total } = useCommentsStore();
+  const { comments, getComments, limit, page, total } = useCommentApi();
 
   const onPageChange = (newPage: number) => {
     getComments({ limit, page: newPage });

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Searcher } from '@/shared';
 import { Error, Button, Toast, Select } from '@/ui';
-import { useCompaniesStore } from '@/store';
+import { useCompanyStore } from '@/store/api';
 import { CreateCompanyModal } from '@/app/companies/modals';
 import { OptionType } from '@/ui/select';
 
@@ -14,7 +14,7 @@ const ratingOptions: OptionType[] = ['1', '2', '3', '4', '5'].map(r => ({
 
 export function CompaniesFilter() {
   const { getLocations, countryOptions, cityOptions, getCompanies, error } =
-    useCompaniesStore();
+    useCompanyStore();
 
   const [selectedRating, setSelectedRating] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');

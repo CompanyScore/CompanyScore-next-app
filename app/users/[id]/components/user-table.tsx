@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 // import { redirect } from 'next/navigation';
-import { useCommentsStore } from '@/store';
+import { useCommentApi } from '@/store/api';
 // import moment from 'moment';
 import { Button, Title } from '@/ui';
 import Link from 'next/link';
@@ -20,7 +20,7 @@ export type CommentType = {
   };
 };
 export function UserTable() {
-  const { comments, loading, getComments } = useCommentsStore();
+  const { comments, loading, getComments } = useCommentApi();
 
   useEffect(() => {
     getComments({});

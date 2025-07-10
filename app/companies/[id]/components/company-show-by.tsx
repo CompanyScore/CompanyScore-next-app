@@ -1,10 +1,10 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useCommentsStore } from '@/store';
+import { useCommentApi } from '@/store/api';
 
 export function CompanyShowBy() {
-  const { comments, getComments, limit } = useCommentsStore();
+  const { comments, getComments, limit } = useCommentApi();
 
   const onLimitChange = (newLimit: number) => {
     getComments({ limit: newLimit });

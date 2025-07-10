@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 // import { redirect } from 'next/navigation';
 // import { ProfileEditCommentModal } from '../modals';
-import { useCommentsStore } from '@/store';
+import { useCommentApi } from '@/store/api';
 // import moment from 'moment';
 // import { IoIosCloseCircleOutline } from 'react-icons/io';
 import { Button, Title, Toast } from '@/ui';
@@ -22,7 +22,7 @@ export type CommentType = {
 };
 
 export function ProfileTable() {
-  const { comments, loading, getComments } = useCommentsStore();
+  const { comments, loading, getComments } = useCommentApi();
 
   // const [selectedComment, setSelectedComment] = useState<
   //   CommentType | undefined

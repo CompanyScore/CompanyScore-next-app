@@ -1,10 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import LinkedIn from './modals/linkedin-modal';
+import { Auth } from '@/widgets/auth';
+import { Button } from '@/ui';
 
 export default function LoginPage() {
+  const [visible, setVisible] = useState(false);
+
   return (
     <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen">
       <div className="w-full lg:w-1/2 lg:mr-10 mt-12 lg:mt-0">
@@ -38,9 +42,22 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
+        {/* <NewModal visible={visible} setVisible={setVisible}>
+          <div>Test</div>
+        </NewModal> */}
+        <Auth type="login" visible={visible} setVisible={setVisible} />
+        <Button
+          className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600"
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          Авторизоваться
+        </Button>
+
+        {/* <button className="btn bg-blue-500 text-white mt-6 self-start hover:bg-blue-600">
           <label htmlFor="linkedin_modal">Войти через LinkedIn</label>
-        </button>
+        </button> */}
       </div>
 
       <div className="w-full lg:w-1/2 mt-12 lg:mt-0 flex justify-center">
