@@ -12,6 +12,16 @@ export type CompanyType = {
   commentsIds?: string[];
 };
 
+type CompanyCountryOrCity = {
+  id: string;
+  name: string;
+};
+
+type CompanyData = Omit<CompanyType, 'city' | 'country'> & {
+  city: CompanyCountryOrCity;
+  country: CompanyCountryOrCity;
+};
+
 type GetCompaniesParams = {
   page?: number;
   limit?: number;
@@ -84,8 +94,17 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
           page: params.page,
         },
       });
+
+      const companies = data.data.map((company: CompanyData) => {
+        return {
+          ...company,
+          country: company.country?.name,
+          city: company.city?.name,
+        };
+      });
+
       set({
-        companies: data.data,
+        companies,
         page: data.page,
         total: data.total,
         limit: data.limit,
