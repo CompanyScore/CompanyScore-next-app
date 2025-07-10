@@ -41,39 +41,18 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
     setSelectedName('');
   };
 
-  const countryOptions: OptionType[] = countryAndCity.map(
-    ({ name: label, id: value }) => ({
-      label,
-      value,
-    }),
-  );
+  const countryOptions: OptionType[] = countryAndCity.map(({ name, id }) => ({
+    label: name,
+    value: id,
+  }));
 
   const cityOptions: OptionType[] =
     countryAndCity
       .find(c => c.id === selectedCountry)
-      ?.cities.map(({ id, name }) => ({
+      ?.cities.map(({ name }) => ({
         label: name,
-        value: id,
+        value: name,
       })) || [];
-
-  // const countryOptions: OptionType[] = countriesWithCities.map(
-  //   ({ label, value }) => ({
-  //     label,
-  //     value,
-  //   }),
-  // );
-
-  /* tyt */
-  // const { getCountriesAndCities } = useCountriesAndCitiesStore();
-  // getCountriesAndCities()
-
-  // const cityOptions: OptionType[] =
-  //   countriesWithCities //ddd
-  //     .find(c => c.value === selectedCountry)
-  //     ?.cities.map(city => ({
-  //       label: city,
-  //       value: city,
-  //     })) || [];
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
