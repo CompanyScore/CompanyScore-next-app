@@ -55,7 +55,7 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
   companiesNew: [],
   page: 1,
   total: 0,
-  limit: 5,
+  limit: 3,
   loading: false,
   error: '',
   countryOptions: [],
@@ -82,7 +82,6 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
 
   getCompanies: async (params: GetCompaniesParams) => {
     set({ loading: true, error: '' });
-
     try {
       const { data } = await useApi.get(`/companies/`, {
         params: {
@@ -90,8 +89,8 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
           country: params.selectedCountry,
           city: params.selectedCity,
           rating: params.selectedRating,
-          limit: params.limit,
-          page: params.page,
+          limit: params.limit ?? get().limit,
+          page: params.page ?? get().page,
         },
       });
 
@@ -104,11 +103,16 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
       });
 
       set({
-        companies,
+        companies: [...get().companies, ...companies],
         page: data.page,
         total: data.total,
-        limit: data.limit,
       });
+
+      if (params.limit) {
+        set({
+          limit: params.limit,
+        });
+      }
     } catch (error: unknown) {
       const axiosError = error as {
         response?: { data?: { message?: string } };

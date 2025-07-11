@@ -1,9 +1,5 @@
 'use client';
-import {
-  CompaniesFilter,
-  CompaniesList,
-  CompaniesPagination,
-} from './components';
+import { CompaniesFilter, CompaniesList } from './components';
 import { Container, Title } from '@/ui';
 import { useCompanyStore } from '@/store/api';
 
@@ -32,7 +28,6 @@ export default function CompaniesPage() {
         <Title>{`Компаний: ${total}`}</Title>
         <CompaniesFilter />
         <CompaniesList />
-        <CompaniesPagination />
       </section>
     </Container>
   );
