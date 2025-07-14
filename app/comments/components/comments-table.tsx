@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
-import { useCommentApi, CommentType } from '@/store/api/comment.api';
+import { useCommentApi, GetCommentType } from '@/store/api/comment.api';
 
 import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
 import { IconFile, IconTrash } from '@tabler/icons-react';
@@ -30,7 +30,7 @@ export function CommentsTable() {
     {
       key: 'company',
       title: 'Компания',
-      render: (comment: CommentType) => (
+      render: (comment: GetCommentType) => (
         <div className="flex items-center space-x-2">
           <ImageTable
             src={
@@ -46,7 +46,7 @@ export function CommentsTable() {
     {
       key: 'user',
       title: 'Пользователь',
-      render: (comment: CommentType) => (
+      render: (comment: GetCommentType) => (
         <div className="flex items-center space-x-2">
           <ImageTable
             className="max-[650px]:hidden"
@@ -61,26 +61,41 @@ export function CommentsTable() {
       ),
     },
     {
-      key: 'rating',
+      key: 'score',
       title: 'Рейтинг',
-      render: (comment: CommentType) => comment.id ?? 'Нет данных',
+      render: (comment: GetCommentType) => comment.score ?? 'Нет данных',
+    },
+    {
+      key: 'stars',
+      title: 'Баллы',
+      render: (comment: GetCommentType) => comment.stars ?? 'Нет данных',
+    },
+    {
+      key: 'taskScore',
+      title: 'taskScore',
+      render: (comment: GetCommentType) => comment.taskScore ?? 'Нет данных',
+    },
+    {
+      key: 'taskStars',
+      title: 'taskStars',
+      render: (comment: GetCommentType) => comment.taskStars ?? 'Нет данных',
     },
     {
       key: 'position',
       title: 'Должность',
-      render: (comment: CommentType) =>
-        comment.userPositionId ?? 'Нет информации',
+      render: (comment: GetCommentType) =>
+        comment.user.position.title ?? 'Нет информации',
     },
     {
       key: 'createDate',
       title: 'Дата создания',
-      render: (comment: CommentType) =>
+      render: (comment: GetCommentType) =>
         moment(comment.createDate).format('MMM Do YY'),
     },
     {
       key: 'actions',
       title: 'Действия',
-      render: (comment: CommentType) => (
+      render: (comment: GetCommentType) => (
         <div className="flex justify-center items-center space-x-2 h-full">
           <Tooltip tip="Посмотреть">
             <Button onClick={() => redirect(`/comments/${comment.id}`)}>
