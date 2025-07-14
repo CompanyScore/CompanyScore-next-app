@@ -5,7 +5,10 @@ type UserType = {
   id: string;
   name: string;
   avatar: string;
-  positionId: string;
+  position: {
+    id: string;
+    title: number;
+  };
   description: string;
   commentsIds: string[];
   createDate: Date;
