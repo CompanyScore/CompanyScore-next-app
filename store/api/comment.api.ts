@@ -53,6 +53,7 @@ interface CommentsState {
   error: string;
   getComments: (params: GetCommentsParams) => Promise<void>;
   postComment: (commentForm: PostComment) => Promise<string>;
+  deleteComment: (commentId: string) => Promise<string>;
 }
 
 export const useCommentApi = create<CommentsState>(set => ({
@@ -108,6 +109,25 @@ export const useCommentApi = create<CommentsState>(set => ({
 
     try {
       const { data } = await useApi.post('/comments', payload);
+      return data;
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        (await axiosError.response?.data?.message) || 'Произошла ошибка';
+      set({ error: errorMessage });
+      throw new Error(errorMessage);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  deleteComment: async (commentId: string) => {
+    set({ loading: true, error: '' });
+
+    try {
+      const { data } = await useApi.delete(`/comments/${commentId}`);
       return data;
     } catch (error: unknown) {
       const axiosError = error as {

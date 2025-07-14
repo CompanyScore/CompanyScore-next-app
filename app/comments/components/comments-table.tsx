@@ -3,13 +3,14 @@
 import { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
-import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
-import moment from 'moment';
-
 import { useCommentApi, CommentType } from '@/store/api/comment.api';
 
+import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
+import { IconFile, IconTrash } from '@tabler/icons-react';
+import moment from 'moment';
+
 export function CommentsTable() {
-  const { comments, loading, getComments } = useCommentApi();
+  const { comments, loading, getComments, deleteComment } = useCommentApi();
 
   useEffect(() => {
     useCommentApi.getState().getComments({});
@@ -82,11 +83,11 @@ export function CommentsTable() {
       render: (comment: CommentType) => (
         <div className="flex justify-center items-center space-x-2 h-full">
           <Tooltip tip="Посмотреть">
-            <Button
-              className="btn-neutral"
-              onClick={() => redirect(`/comments/${comment.id}`)}
-            >
-              <img src="/icons/file.svg" alt="File" width={25} height={25} />
+            <Button onClick={() => redirect(`/comments/${comment.id}`)}>
+              <IconFile stroke={2} />
+            </Button>
+            <Button onClick={() => deleteComment(comment.id)}>
+              <IconTrash stroke={2} className="text-red-600" />
             </Button>
           </Tooltip>
         </div>

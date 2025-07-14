@@ -9,37 +9,47 @@ export const AddWorkFinance = () => {
   const { commentWorkFinanceForm, updateCommentWorkFinanceForm } =
     useCommentWorkFinanceForm();
 
-  const socials: { label: string; value: keyof CommentWorkFinanceFormType }[] =
-    [
-      {
-        label: 'Бесплатное питание',
-        value: 'isFreeMealsSocial',
-      },
-      {
-        label: 'Компенсация проезда',
-        value: 'isTransportSocial',
-      },
-      {
-        label: 'Компенсация жилья',
-        value: 'isHousingSocial',
-      },
-      {
-        label: 'Праздничные выплаты',
-        value: 'isHolidayBonusSocial',
-      },
-      {
-        label: 'Оплата обучения',
-        value: 'isEducationSocial',
-      },
-      {
-        label: 'Выплаты на ребёнка',
-        value: 'isChildAllowanceSocial',
-      },
-      {
-        label: 'Материальная помощь',
-        value: 'isFinancialAssistSocial',
-      },
-    ];
+  const socials: {
+    label: string;
+    value: keyof CommentWorkFinanceFormType;
+    score: number;
+  }[] = [
+    {
+      label: 'Бесплатное питание',
+      value: 'isFreeMealsSocial',
+      score: 150,
+    },
+    {
+      label: 'Компенсация проезда',
+      value: 'isTransportSocial',
+      score: 200,
+    },
+    {
+      label: 'Компенсация жилья',
+      value: 'isHousingSocial',
+      score: 300,
+    },
+    {
+      label: 'Праздничные выплаты',
+      value: 'isHolidayBonusSocial',
+      score: 250,
+    },
+    {
+      label: 'Оплата обучения',
+      value: 'isEducationSocial',
+      score: 400,
+    },
+    {
+      label: 'Выплаты на ребёнка',
+      value: 'isChildAllowanceSocial',
+      score: 300,
+    },
+    {
+      label: 'Материальная помощь',
+      value: 'isFinancialAssistSocial',
+      score: 350,
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
@@ -181,7 +191,10 @@ export const AddWorkFinance = () => {
             onChange={() =>
               updateCommentWorkFinanceForm({
                 ...commentWorkFinanceForm,
-                [social.value]: !commentWorkFinanceForm[social.value],
+                [social.value]:
+                  commentWorkFinanceForm[social.value] === social.score
+                    ? 0
+                    : social.score,
               })
             }
           />
