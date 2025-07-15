@@ -3,14 +3,28 @@
 import { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
-import { useCommentApi, GetCommentType } from '@/store/api/comment.api';
+import { useCommentApi } from '@/store/api/comment.api';
 
-import { Button, ImageTable, Tooltip, Title, Table } from '@/ui';
-import { IconFile, IconTrash } from '@tabler/icons-react';
+import { Button, ImageTable, Title, Card } from '@/ui';
+import { IconTrash } from '@tabler/icons-react';
 import moment from 'moment';
+import Avatar, { genConfig } from 'react-nice-avatar';
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  animals,
+} from 'unique-names-generator';
+import { FaStar } from 'react-icons/fa';
 
 export function CommentsTable() {
   const { comments, loading, getComments, deleteComment } = useCommentApi();
+
+  const config = genConfig();
+  const nickname = uniqueNamesGenerator({
+    dictionaries: [adjectives, animals],
+    style: 'capital',
+    separator: ' ',
+  });
 
   useEffect(() => {
     useCommentApi.getState().getComments({});
@@ -26,93 +40,59 @@ export function CommentsTable() {
     return <Title>Список отзывов пуст</Title>;
   }
 
-  const columns = [
-    {
-      key: 'company',
-      title: 'Компания',
-      render: (comment: GetCommentType) => (
-        <div className="flex items-center space-x-2">
-          <ImageTable
-            src={
-              comment.company?.logo
-                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`
-                : '/imgs/company-logo.jpg'
-            }
-          />
-          <p>{comment.company?.name ?? 'Неизвестная компания'}</p>
-        </div>
-      ),
-    },
-    {
-      key: 'user',
-      title: 'Пользователь',
-      render: (comment: GetCommentType) => (
-        <div className="flex items-center space-x-2">
-          <ImageTable
-            className="max-[650px]:hidden"
-            src={
-              comment.user?.avatar
-                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.user.avatar}`
-                : '/imgs/avatar.jpg'
-            }
-          />
-          <p>{comment.user?.name ?? 'Неизвестный пользователь'}</p>
-        </div>
-      ),
-    },
-    {
-      key: 'score',
-      title: 'Рейтинг',
-      render: (comment: GetCommentType) => comment.score ?? 'Нет данных',
-    },
-    {
-      key: 'stars',
-      title: 'Баллы',
-      render: (comment: GetCommentType) => comment.stars ?? 'Нет данных',
-    },
-    {
-      key: 'taskScore',
-      title: 'taskScore',
-      render: (comment: GetCommentType) => comment.taskScore ?? 'Нет данных',
-    },
-    {
-      key: 'taskStars',
-      title: 'taskStars',
-      render: (comment: GetCommentType) => comment.taskStars ?? 'Нет данных',
-    },
-    {
-      key: 'position',
-      title: 'Должность',
-      render: (comment: GetCommentType) =>
-        comment.user.position.title ?? 'Нет информации',
-    },
-    {
-      key: 'createDate',
-      title: 'Дата создания',
-      render: (comment: GetCommentType) =>
-        moment(comment.createDate).format('MMM Do YY'),
-    },
-    {
-      key: 'actions',
-      title: 'Действия',
-      render: (comment: GetCommentType) => (
-        <div className="flex justify-center items-center space-x-2 h-full">
-          <Tooltip tip="Посмотреть">
-            <Button onClick={() => redirect(`/comments/${comment.id}`)}>
-              <IconFile stroke={2} />
-            </Button>
-            <Button onClick={() => deleteComment(comment.id)}>
-              <IconTrash stroke={2} className="text-red-600" />
-            </Button>
-          </Tooltip>
-        </div>
-      ),
-    },
-  ];
-
   return (
     <>
-      <Table columns={columns} data={comments} />
+      {comments.map(comment => (
+        <Card
+          key={comment.id}
+          className="flex flex-col gap-4 max-w-96"
+          onClick={() => redirect(`/comments/${comment.id}`)}
+        >
+          <div className="flex items-center gap-2">
+            <ImageTable
+              src={
+                comment.company?.logo
+                  ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`
+                  : '/imgs/company-logo.jpg'
+              }
+            />
+            {comment.company.name}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {comment.user?.avatar ? (
+              <ImageTable
+                className="max-[650px]:hidden"
+                src={
+                  `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.user.avatar}`
+
+                  // : '/imgs/avatar.jpg'
+                }
+              />
+            ) : (
+              <Avatar className="w-24 h-24" {...config} />
+            )}
+            <p>{comment.user?.name ?? nickname}</p>
+          </div>
+
+          <div className="flex gap-4">
+            {comment.score}
+            <div className="flex items-center">
+              {comment.stars}
+              <FaStar className="text-yellow-400" />
+            </div>
+          </div>
+
+          <div className="flex flex-col">
+            <span>{comment.user.position.title}</span>
+            {moment(comment.createDate).format('MMM Do YY')}
+          </div>
+
+          <Button onClick={() => deleteComment(comment.id)}>
+            <IconTrash stroke={2} className="text-red-600" />
+          </Button>
+        </Card>
+      ))}
     </>
   );
 }
