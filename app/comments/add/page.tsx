@@ -6,7 +6,9 @@ import {
   useCommentInternshipForm,
   useCommentInterviewForm,
   useCommentTaskForm,
-  useCommentWorkForm,
+  useCommentWorkPrimaryForm,
+  useCommentWorkSecondaryForm,
+  useCommentWorkFinanceForm,
 } from '@/store/form';
 
 import {
@@ -26,7 +28,9 @@ import {
   useCommentApi,
   useCommentTaskApi,
   useCommentInternshipApi,
-  useCommentWorkApi,
+  useCommentWorkPrimaryApi,
+  useCommentWorkSecondaryApi,
+  useCommentWorkFinanceApi,
 } from '@/store/api';
 import { redirect } from 'next/navigation';
 
@@ -39,8 +43,12 @@ export default function CommentsPage() {
   const { commentTaskForm } = useCommentTaskForm();
   const { commentInterviewForm } = useCommentInterviewForm();
   const { commentInternshipForm } = useCommentInternshipForm();
-  const { createWorkForm } = useCommentWorkApi();
-  const { commentWorkForm } = useCommentWorkForm();
+  const { createCommentWorkPrimaryForm } = useCommentWorkPrimaryApi();
+  const { createCommentWorkSecondaryForm } = useCommentWorkSecondaryApi();
+  const { createCommentWorkFinanceForm } = useCommentWorkFinanceApi();
+  const { commentWorkPrimaryForm } = useCommentWorkPrimaryForm();
+  const { commentWorkSecondaryForm } = useCommentWorkSecondaryForm();
+  const { commentWorkFinanceForm } = useCommentWorkFinanceForm();
   const [currentStep, setCurrentStep] = useState(0);
 
   const steps = [
@@ -48,9 +56,9 @@ export default function CommentsPage() {
     ...(commentTaskForm.isTask ? ['task'] : []),
     ...(commentInterviewForm.isInterview ? ['interview'] : []),
     ...(commentInternshipForm.isInternship ? ['intern'] : []),
-    ...(commentWorkForm.isWork ? ['work'] : []),
-    ...(commentWorkForm.isWork ? ['work2'] : []),
-    ...(commentWorkForm.isWork ? ['work3'] : []),
+    ...(commentWorkPrimaryForm.isWork ? ['work'] : []),
+    ...(commentWorkPrimaryForm.isWork ? ['work2'] : []),
+    ...(commentWorkPrimaryForm.isWork ? ['work3'] : []),
     'recommendation',
   ];
 
@@ -61,12 +69,14 @@ export default function CommentsPage() {
     console.log('commentTaskForm', commentTaskForm);
     console.log('commentInterviewForm', commentInterviewForm);
     console.log('commentInternshipForm', commentInternshipForm);
-    console.log('commentWorkForm', commentWorkForm);
+    console.log('commentWorkPrimaryForm', commentWorkPrimaryForm);
+    console.log('commentWorkSecondaryForm', commentWorkSecondaryForm);
+    console.log('commentWorkFinanceForm', commentWorkFinanceForm);
   };
 
   const sendForm = async () => {
     try {
-      const commentId = await postComment(commentForm);
+      const commentId = await postComment();
 
       if (commentId && commentTaskForm.isTask) {
         const taskId = await postTaskStore(commentId);
@@ -83,8 +93,18 @@ export default function CommentsPage() {
         console.log(internshipId);
       }
 
-      if (commentId && commentWorkForm.isWork) {
-        const workId = await createWorkForm(commentId);
+      if (commentId && commentWorkPrimaryForm.isWork) {
+        const workId = await createCommentWorkPrimaryForm(commentId);
+        console.log(workId);
+      }
+
+      if (commentId && commentWorkPrimaryForm.isWork) {
+        const workId = await createCommentWorkSecondaryForm(commentId);
+        console.log(workId);
+      }
+
+      if (commentId && commentWorkPrimaryForm.isWork) {
+        const workId = await createCommentWorkFinanceForm(commentId);
         console.log(workId);
       }
 

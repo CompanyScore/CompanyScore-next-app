@@ -1,28 +1,54 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useCommentInterviewForm } from '@/store/form';
 import { Checkbox, Radio, StarRating } from '@/shared';
 import { Title } from '@/ui';
-import { useInterviewStageApi } from '@/store/api';
+import { CommentInterviewFormType } from '@/store/form/comment-interview.form';
 
 export const AddInterview = () => {
   const { commentInterviewForm, updateCommentInterviewForm } =
     useCommentInterviewForm();
-  const { stages, getInterviewStages, loading } = useInterviewStageApi();
 
-  useEffect(() => {
-    getInterviewStages();
-  }, [getInterviewStages]);
-
-  const handleStageChange = (id: string) => {
-    const updatedStages = commentInterviewForm.stages.includes(id)
-      ? commentInterviewForm.stages.filter(stageId => stageId !== id)
-      : [...commentInterviewForm.stages, id];
-
-    updateCommentInterviewForm({
-      ...commentInterviewForm,
-      stages: updatedStages,
-    });
-  };
+  const stages: {
+    label: string;
+    value: keyof CommentInterviewFormType;
+    score: number;
+  }[] = [
+    {
+      label: 'Видео презентация',
+      value: 'isVideoStage',
+      score: 100,
+    },
+    {
+      label: 'Интервью с HR',
+      value: 'isHrStage',
+      score: 150,
+    },
+    {
+      label: 'Тест',
+      value: 'isTestStage',
+      score: 200,
+    },
+    {
+      label: 'Техническое задание',
+      value: 'isTaskStage',
+      score: 250,
+    },
+    {
+      label: 'Техническое интервью',
+      value: 'isTechStage',
+      score: 300,
+    },
+    {
+      label: 'Интервью с командой',
+      value: 'isTeamStage',
+      score: 200,
+    },
+    {
+      label: 'Финальное интервью',
+      value: 'isFinalStage',
+      score: 300,
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
@@ -83,19 +109,23 @@ export const AddInterview = () => {
         </p>
 
         <div className="flex flex-col gap-2">
-          {loading ? (
-            <p>Загрузка...</p>
-          ) : (
-            stages.map(stage => (
-              <Checkbox
-                key={stage.id}
-                value={stage.id}
-                label={stage.label}
-                selected={commentInterviewForm.stages.includes(stage.id)}
-                onChange={() => handleStageChange(stage.id)}
-              />
-            ))
-          )}
+          {stages.map(stage => (
+            <Checkbox
+              key={stage.label}
+              value={stage.value}
+              label={stage.label}
+              selected={Boolean(commentInterviewForm[stage.value])}
+              onChange={() =>
+                updateCommentInterviewForm({
+                  ...commentInterviewForm,
+                  [stage.value]:
+                    commentInterviewForm[stage.value] === stage.score
+                      ? 0
+                      : stage.score,
+                })
+              }
+            />
+          ))}
         </div>
 
         <p>

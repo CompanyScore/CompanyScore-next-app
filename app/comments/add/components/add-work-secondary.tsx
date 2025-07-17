@@ -1,30 +1,49 @@
-import { useCommentWorkForm } from '@/store/form';
+import { useCommentWorkSecondaryForm } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
-import { useWorkEducationApi } from '@/store/api';
 import { Title, Tooltip } from '@/ui';
 import { IconInfoCircle } from '@tabler/icons-react';
-import { useEffect } from 'react';
+import { CommentWorkSecondaryFormType } from '@/store/form/comment-work-secondary.form';
 
 export const AddWorkSecondary = () => {
-  const { items, getWorkEducation, loading } = useWorkEducationApi();
-  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
+  const { commentWorkSecondaryForm, updateCommentWorkSecondaryForm } =
+    useCommentWorkSecondaryForm();
 
-  useEffect(() => {
-    getWorkEducation();
-  }, [getWorkEducation]);
-
-  const handleChange = (id: string) => {
-    const selected = commentWorkForm.secondary.educations.includes(id)
-      ? commentWorkForm.secondary.educations.filter(e => e !== id)
-      : [...commentWorkForm.secondary.educations, id];
-
-    updateCommentWorkForm({
-      secondary: {
-        ...commentWorkForm.secondary,
-        educations: selected,
-      },
-    });
-  };
+  const educations: {
+    label: string;
+    value: keyof CommentWorkSecondaryFormType;
+    score: number;
+  }[] = [
+    {
+      label: 'Онлайн курсы',
+      value: 'isOnlineCoursesEdu',
+      score: 100,
+    },
+    {
+      label: 'Оффлайн курсы',
+      value: 'isOfflineCoursesEdu',
+      score: 150,
+    },
+    {
+      label: 'Тренинги',
+      value: 'isTrainingsEdu',
+      score: 200,
+    },
+    {
+      label: 'Командировки',
+      value: 'isBusinessTripsEdu',
+      score: 150,
+    },
+    {
+      label: 'Частичная оплата учебы',
+      value: 'isPartUniPayEdu',
+      score: 250,
+    },
+    {
+      label: 'Полная оплата учебы',
+      value: 'isFullUniPayEdu',
+      score: 300,
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
@@ -49,13 +68,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.development}
+        selectedValue={commentWorkSecondaryForm.development}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              development: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            development: Number(val),
           })
         }
         className="flex flex-col"
@@ -77,13 +94,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.comfort}
+        selectedValue={commentWorkSecondaryForm.comfort}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              comfort: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            comfort: Number(val),
           })
         }
         className="flex flex-col"
@@ -104,13 +119,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.discrimination}
+        selectedValue={commentWorkSecondaryForm.discrimination}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              discrimination: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            discrimination: Number(val),
           })
         }
         className="flex"
@@ -143,13 +156,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.ethics}
+        selectedValue={commentWorkSecondaryForm.ethics}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              ethics: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            ethics: Number(val),
           })
         }
         className="flex flex-col"
@@ -178,13 +189,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.performanceReview}
+        selectedValue={commentWorkSecondaryForm.performanceReview}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              performanceReview: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            performanceReview: Number(val),
           })
         }
         className="flex"
@@ -213,13 +222,11 @@ export const AddWorkSecondary = () => {
             value: 1000,
           },
         ]}
-        selectedValue={commentWorkForm.secondary.events}
+        selectedValue={commentWorkSecondaryForm.events}
         onChange={val =>
-          updateCommentWorkForm({
-            secondary: {
-              ...commentWorkForm.secondary,
-              events: Number(val),
-            },
+          updateCommentWorkSecondaryForm({
+            ...commentWorkSecondaryForm,
+            events: Number(val),
           })
         }
         className="flex flex-col"
@@ -228,41 +235,25 @@ export const AddWorkSecondary = () => {
       <p>
         Какие формы обучения или повышения квалификации поддерживала компания?
       </p>
+
       <div className="flex flex-col gap-2">
-        {loading ? (
-          <p>Загрузка...</p>
-        ) : (
-          items.map(item => {
-            const withTooltip = {
-              part_uni_pay:
-                'Компания оплачивала часть стоимости обучения в колледже, университете или MBA.',
-              full_uni_pay:
-                'Компания оплачивала полную стоимость обучения в колледже, университете или MBA.',
-              trainings:
-                'Практические обучающие сессии или лекции внутри компании',
-            } as Record<string, string>;
-
-            const isSelected = commentWorkForm.secondary.educations.includes(
-              item.id,
-            );
-
-            return (
-              <div key={item.id} className="flex items-center gap-2">
-                <Checkbox
-                  value={item.id}
-                  label={item.label}
-                  selected={isSelected}
-                  onChange={() => handleChange(item.id)}
-                />
-                {withTooltip[item.id] && (
-                  <Tooltip tip={withTooltip[item.id]}>
-                    <IconInfoCircle stroke={1} />
-                  </Tooltip>
-                )}
-              </div>
-            );
-          })
-        )}
+        {educations.map(education => (
+          <Checkbox
+            key={education.label}
+            value={education.value}
+            label={education.label}
+            selected={Boolean(commentWorkSecondaryForm[education.value])}
+            onChange={() =>
+              updateCommentWorkSecondaryForm({
+                ...commentWorkSecondaryForm,
+                [education.value]:
+                  commentWorkSecondaryForm[education.value] === education.score
+                    ? 0
+                    : education.score,
+              })
+            }
+          />
+        ))}
       </div>
     </div>
   );

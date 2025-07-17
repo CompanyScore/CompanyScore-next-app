@@ -1,35 +1,32 @@
 import { Calendar, Radio, StarRating } from '@/shared';
 import React from 'react';
-import { useCommentWorkForm } from '@/store/form';
+import { useCommentWorkPrimaryForm } from '@/store/form';
 import { Input, Title, Tooltip } from '@/ui';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 
 export const AddWorkPrimary = () => {
-  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
+  const { commentWorkPrimaryForm, updateCommentWorkPrimaryForm } =
+    useCommentWorkPrimaryForm();
 
-  const fromDate = commentWorkForm.primary.dateFrom
-    ? new Date(commentWorkForm.primary.dateFrom)
+  const fromDate = commentWorkPrimaryForm.dateFrom
+    ? new Date(commentWorkPrimaryForm.dateFrom)
     : null;
 
-  const toDate = commentWorkForm.primary.dateTo
-    ? new Date(commentWorkForm.primary.dateTo)
+  const toDate = commentWorkPrimaryForm.dateTo
+    ? new Date(commentWorkPrimaryForm.dateTo)
     : null;
 
   const handleFromChange = (date: Date | null) => {
-    updateCommentWorkForm({
-      primary: {
-        ...commentWorkForm.primary,
-        dateFrom: date ?? null,
-      },
+    updateCommentWorkPrimaryForm({
+      ...commentWorkPrimaryForm,
+      dateFrom: date ?? null,
     });
   };
 
   const handleToChange = (date: Date | null) => {
-    updateCommentWorkForm({
-      primary: {
-        ...commentWorkForm.primary,
-        dateTo: date ?? null,
-      },
+    updateCommentWorkPrimaryForm({
+      ...commentWorkPrimaryForm,
+      dateTo: date ?? null,
     });
   };
 
@@ -69,13 +66,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.management}
+            value={commentWorkPrimaryForm.management}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  management: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                management: val,
               })
             }
           />
@@ -89,13 +84,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.team}
+            value={commentWorkPrimaryForm.team}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  team: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                team: val,
               })
             }
           />
@@ -109,13 +102,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.project}
+            value={commentWorkPrimaryForm.project}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  project: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                project: val,
               })
             }
           />
@@ -129,13 +120,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.stack}
+            value={commentWorkPrimaryForm.stack}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  stack: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                stack: val,
               })
             }
           />
@@ -149,13 +138,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.workingSchedule}
+            value={commentWorkPrimaryForm.workingSchedule}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  workingSchedule: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                workingSchedule: val,
               })
             }
           />
@@ -169,13 +156,11 @@ export const AddWorkPrimary = () => {
             </Tooltip>
           </div>
           <StarRating
-            value={commentWorkForm.primary.stability}
+            value={commentWorkPrimaryForm.stability}
             onChange={val =>
-              updateCommentWorkForm({
-                primary: {
-                  ...commentWorkForm.primary,
-                  stability: val,
-                },
+              updateCommentWorkPrimaryForm({
+                ...commentWorkPrimaryForm,
+                stability: val,
               })
             }
           />
@@ -184,13 +169,11 @@ export const AddWorkPrimary = () => {
         <p>Уровень зарплаты</p>
         <Input
           type="number"
-          value={commentWorkForm.primary.salaryValue}
+          value={commentWorkPrimaryForm.salaryValue}
           onChange={val =>
-            updateCommentWorkForm({
-              primary: {
-                ...commentWorkForm.primary,
-                salaryValue: Number(val),
-              },
+            updateCommentWorkPrimaryForm({
+              ...commentWorkPrimaryForm,
+              salaryValue: Number(val),
             })
           }
         />
@@ -215,14 +198,12 @@ export const AddWorkPrimary = () => {
               value: 1000,
             },
           ]}
-          selectedValue={commentWorkForm.primary.salaryPoints}
+          selectedValue={commentWorkPrimaryForm.salaryPoints}
           className="flex flex-col"
           onChange={val =>
-            updateCommentWorkForm({
-              primary: {
-                ...commentWorkForm.primary,
-                salaryPoints: Number(val),
-              },
+            updateCommentWorkPrimaryForm({
+              ...commentWorkPrimaryForm,
+              salaryPoints: Number(val),
             })
           }
         />
@@ -243,14 +224,12 @@ export const AddWorkPrimary = () => {
               value: 1000,
             },
           ]}
-          selectedValue={commentWorkForm.primary.workFormat}
+          selectedValue={commentWorkPrimaryForm.workFormat}
           className="flex flex-col"
           onChange={val =>
-            updateCommentWorkForm({
-              primary: {
-                ...commentWorkForm.primary,
-                workFormat: Number(val),
-              },
+            updateCommentWorkPrimaryForm({
+              ...commentWorkPrimaryForm,
+              workFormat: Number(val),
             })
           }
         />

@@ -39,7 +39,7 @@ export function UserCard() {
 
         <div className="w-full">
           <h1 className="text-5xl font-bold">{user?.name}</h1>
-          <p className="mt-4">{user?.position}</p>
+          <p className="mt-4">{user?.position?.title}</p>
           <p className="mt-4">{user?.description}</p>
         </div>
       </div>

@@ -5,7 +5,7 @@ import {
   useCommentInternshipForm,
   useCommentInterviewForm,
   useCommentTaskForm,
-  useCommentWorkForm,
+  useCommentWorkPrimaryForm,
 } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
 import { Button, Card, Title } from '@/ui';
@@ -220,16 +220,13 @@ const PositionAndWorkExperience = () => {
             options={yearOptions}
             value={
               yearOptions.find(
-                opt => opt.value === commentForm.userGrade.years,
+                opt => opt.value === commentForm.userGradeYears,
               ) ?? null
             }
             onChange={val =>
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  years: Number(val?.value),
-                },
+                userGradeYears: Number(val?.value),
               })
             }
           />
@@ -242,16 +239,13 @@ const PositionAndWorkExperience = () => {
             options={monthOptions}
             value={
               monthOptions.find(
-                opt => opt.value === commentForm.userGrade.months,
+                opt => opt.value === commentForm.userGradeMonths,
               ) ?? null
             }
             onChange={val =>
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  months: Number(val?.value),
-                },
+                userGradeMonths: Number(val?.value),
               })
             }
           />
@@ -268,7 +262,8 @@ const Forms = () => {
     useCommentInterviewForm();
   const { commentInternshipForm, updateCommentInternshipForm } =
     useCommentInternshipForm();
-  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
+  const { commentWorkPrimaryForm, updateCommentWorkPrimaryForm } =
+    useCommentWorkPrimaryForm();
 
   return (
     <div className="flex flex-col gap-6 m-auto w-full">
@@ -358,11 +353,11 @@ const Forms = () => {
             <Checkbox
               label=""
               value="work"
-              selected={commentWorkForm.isWork}
+              selected={commentWorkPrimaryForm.isWork}
               onChange={() =>
-                updateCommentWorkForm({
-                  ...commentWorkForm,
-                  isWork: !commentWorkForm.isWork,
+                updateCommentWorkPrimaryForm({
+                  ...commentWorkPrimaryForm,
+                  isWork: !commentWorkPrimaryForm.isWork,
                 })
               }
             />

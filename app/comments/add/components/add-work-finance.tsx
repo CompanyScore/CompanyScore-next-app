@@ -1,30 +1,55 @@
 import { Input, Title, Tooltip } from '@/ui';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Checkbox, Radio } from '@/shared';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
-import { useCommentWorkForm } from '@/store/form';
-import { useWorkSocialBenefitApi } from '@/store/api';
+import { useCommentWorkFinanceForm } from '@/store/form';
+import { CommentWorkFinanceFormType } from '@/store/form/comment-work-finance.form';
 
 export const AddWorkFinance = () => {
-  const { commentWorkForm, updateCommentWorkForm } = useCommentWorkForm();
-  const { items, getWorkSocialBenefits, loading } = useWorkSocialBenefitApi();
+  const { commentWorkFinanceForm, updateCommentWorkFinanceForm } =
+    useCommentWorkFinanceForm();
 
-  useEffect(() => {
-    getWorkSocialBenefits();
-  }, [getWorkSocialBenefits]);
-
-  const handleChange = (id: string) => {
-    const selected = commentWorkForm.finance.socialBenefits.includes(id)
-      ? commentWorkForm.finance.socialBenefits.filter(e => e !== id)
-      : [...commentWorkForm.finance.socialBenefits, id];
-
-    updateCommentWorkForm({
-      finance: {
-        ...commentWorkForm.finance,
-        socialBenefits: selected,
-      },
-    });
-  };
+  const socials: {
+    label: string;
+    value: keyof CommentWorkFinanceFormType;
+    score: number;
+  }[] = [
+    {
+      label: 'Бесплатное питание',
+      value: 'isFreeMealsSocial',
+      score: 150,
+    },
+    {
+      label: 'Компенсация проезда',
+      value: 'isTransportSocial',
+      score: 200,
+    },
+    {
+      label: 'Компенсация жилья',
+      value: 'isHousingSocial',
+      score: 300,
+    },
+    {
+      label: 'Праздничные выплаты',
+      value: 'isHolidayBonusSocial',
+      score: 250,
+    },
+    {
+      label: 'Оплата обучения',
+      value: 'isEducationSocial',
+      score: 400,
+    },
+    {
+      label: 'Выплаты на ребёнка',
+      value: 'isChildAllowanceSocial',
+      score: 300,
+    },
+    {
+      label: 'Материальная помощь',
+      value: 'isFinancialAssistSocial',
+      score: 350,
+    },
+  ];
 
   return (
     <div className="flex flex-col gap-6 max-w-[900px] w-full m-auto">
@@ -42,13 +67,11 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем выплаты бонусов и премий?</p>
       <Input
         type="number"
-        value={commentWorkForm.finance.bonusesValue}
+        value={commentWorkFinanceForm.bonusesValue}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              bonusesValue: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            bonusesValue: Number(val),
           })
         }
       />
@@ -69,13 +92,11 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.bonusesPoints}
+        selectedValue={commentWorkFinanceForm.bonusesPoints}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              bonusesPoints: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            bonusesPoints: Number(val),
           })
         }
       />
@@ -83,13 +104,11 @@ export const AddWorkFinance = () => {
       <p>Насколько вы были удовлетворены уровнем медицинской страховки?</p>
       <Input
         type="number"
-        value={commentWorkForm.finance.medicineValue}
+        value={commentWorkFinanceForm.medicineValue}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              medicineValue: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            medicineValue: Number(val),
           })
         }
       />
@@ -110,13 +129,11 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.medicinePoints}
+        selectedValue={commentWorkFinanceForm.medicinePoints}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              medicinePoints: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            medicinePoints: Number(val),
           })
         }
       />
@@ -129,13 +146,11 @@ export const AddWorkFinance = () => {
       </div>
       <Input
         type="number"
-        value={commentWorkForm.finance.profitShareValue}
+        value={commentWorkFinanceForm.profitShareValue}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              profitShareValue: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            profitShareValue: Number(val),
           })
         }
       />
@@ -156,39 +171,34 @@ export const AddWorkFinance = () => {
           },
         ]}
         className="flex flex-col"
-        selectedValue={commentWorkForm.finance.profitSharePoints}
+        selectedValue={commentWorkFinanceForm.profitSharePoints}
         onChange={val =>
-          updateCommentWorkForm({
-            finance: {
-              ...commentWorkForm.finance,
-              profitSharePoints: Number(val),
-            },
+          updateCommentWorkFinanceForm({
+            ...commentWorkFinanceForm,
+            profitSharePoints: Number(val),
           })
         }
       />
 
       <p>Предоставлялись ли следующие социальные выплаты и льготы?</p>
       <div className="flex flex-col gap-2">
-        {loading ? (
-          <p>Загрузка...</p>
-        ) : (
-          items.map(item => (
-            <div key={item.id} className="flex items-center gap-2">
-              <Checkbox
-                value={item.id}
-                label={item.label}
-                selected={commentWorkForm.finance.socialBenefits.includes(
-                  item.id,
-                )}
-                onChange={() => handleChange(item.id)}
-              />
-
-              <Tooltip tip="Стиль управления, доступность и открытость руководства, качество обратной связи">
-                <IconInfoCircle stroke={1} />
-              </Tooltip>
-            </div>
-          ))
-        )}
+        {socials.map(social => (
+          <Checkbox
+            key={social.label}
+            value={social.value}
+            label={social.label}
+            selected={Boolean(commentWorkFinanceForm[social.value])}
+            onChange={() =>
+              updateCommentWorkFinanceForm({
+                ...commentWorkFinanceForm,
+                [social.value]:
+                  commentWorkFinanceForm[social.value] === social.score
+                    ? 0
+                    : social.score,
+              })
+            }
+          />
+        ))}
       </div>
     </div>
   );
