@@ -12,6 +12,16 @@ export type CompanyType = {
   commentsIds?: string[];
 };
 
+type CompanyCountryOrCity = {
+  id: string;
+  name: string;
+};
+
+type CompanyData = Omit<CompanyType, 'city' | 'country'> & {
+  city: CompanyCountryOrCity;
+  country: CompanyCountryOrCity;
+};
+
 type GetCompaniesParams = {
   page?: number;
   limit?: number;
@@ -45,7 +55,7 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
   companiesNew: [],
   page: 1,
   total: 0,
-  limit: 5,
+  limit: 3,
   loading: false,
   error: '',
   countryOptions: [],
@@ -72,7 +82,6 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
 
   getCompanies: async (params: GetCompaniesParams) => {
     set({ loading: true, error: '' });
-
     try {
       const { data } = await useApi.get(`/companies/`, {
         params: {
@@ -80,16 +89,30 @@ export const useCompanyStore = create<CompaniesState>((set, get) => ({
           country: params.selectedCountry,
           city: params.selectedCity,
           rating: params.selectedRating,
-          limit: params.limit,
-          page: params.page,
+          limit: params.limit ?? get().limit,
+          page: params.page ?? get().page,
         },
       });
+
+      const companies = data.data.map((company: CompanyData) => {
+        return {
+          ...company,
+          country: company.country?.name,
+          city: company.city?.name,
+        };
+      });
+
       set({
-        companies: data.data,
+        companies: [...get().companies, ...companies],
         page: data.page,
         total: data.total,
-        limit: data.limit,
       });
+
+      if (params.limit) {
+        set({
+          limit: params.limit,
+        });
+      }
     } catch (error: unknown) {
       const axiosError = error as {
         response?: { data?: { message?: string } };
