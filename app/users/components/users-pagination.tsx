@@ -1,24 +1,24 @@
 'use client';
 import { Pagination } from '@/shared';
-import { useUserApi } from '@/store/api';
+import { useUsers } from '@/store/api/user.api';
+import { useState } from 'react';
 
 export function UsersPagination() {
-  const { users, getUsers, page, limit, total } = useUserApi();
+  const [page, setPage] = useState(1);
+  const limit = 5;
 
-  const onPageChange = (newPage: number) => {
-    getUsers({ page: newPage, limit });
-  };
+  const { data, isLoading } = useUsers({ page, limit });
 
-  if (!users.length) {
-    return;
+  if (isLoading || !data?.users.length) {
+    return null;
   }
 
   return (
     <Pagination
       page={page}
       limit={limit}
-      total={total}
-      onPageChange={onPageChange}
+      total={data.total}
+      onPageChange={setPage}
     />
   );
 }

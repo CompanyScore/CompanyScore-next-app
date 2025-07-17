@@ -1,17 +1,22 @@
 'use client';
 
 import { ShowBy } from '@/shared';
-import { useUserApi } from '@/store/api';
+import { useUsers } from '@/store/api/user.api';
+import { useState } from 'react';
 
 export function UsersShowBy() {
-  const { getUsers, users, limit } = useUserApi();
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading } = useUsers({ page, limit });
 
   const onLimitChange = (newLimit: number) => {
-    getUsers({ page: 1, limit: newLimit });
+    setLimit(newLimit);
+    setPage(1); // сбрасываем на первую страницу при изменении лимита
   };
 
-  if (!users.length) {
-    return;
+  if (isLoading || !data?.users.length) {
+    return null;
   }
 
   return <ShowBy limit={limit} onLimitChange={onLimitChange} />;

@@ -1,10 +1,9 @@
 import React from 'react';
-import { useEffect } from 'react';
 import { ImageTable, Button, Table, Title, Tooltip } from '@/ui';
 import moment from 'moment';
 
-import { useUserApi } from '@/store/api';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { useUsers } from '@/store/api/user.api';
 
 type UserType = {
   id: string;
@@ -20,19 +19,13 @@ type UserType = {
 };
 
 export function UsersTable() {
-  const { users, loading, getUsers } = useUserApi();
+  const { data, isLoading, error } = useUsers({ page: 1, limit: 5 });
+  const router = useRouter();
 
-  useEffect(() => {
-    getUsers({});
-  }, [getUsers]);
+  if (isLoading) return <div>Загрузка...</div>;
+  if (error) return <div>Ошибка!</div>;
 
-  if (loading) {
-    return (
-      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
-    );
-  }
-
-  if (!users.length) {
+  if (!data?.users.length) {
     return <Title>Пользователей еще нет</Title>;
   }
 
@@ -76,7 +69,7 @@ export function UsersTable() {
         <Tooltip tip="Посмотреть">
           <Button
             className="btn-neutral"
-            onClick={() => redirect(`/users/${user.id}`)}
+            onClick={() => router.push(`/users/${user.id}`)}
           >
             <img src="/icons/file.svg" alt="File" width={25} height={25} />
           </Button>
@@ -85,5 +78,5 @@ export function UsersTable() {
     },
   ];
 
-  return <Table columns={columns} data={users} />;
+  return <Table columns={columns} data={data.users} />;
 }
