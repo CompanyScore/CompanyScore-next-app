@@ -5,7 +5,10 @@ type UserType = {
   id: string;
   name: string;
   avatar: string;
-  position: string;
+  position: {
+    id: string;
+    title: number;
+  };
   description: string;
   commentsIds: string[];
   createDate: Date;
@@ -17,7 +20,7 @@ type GetUsersParams = {
   limit?: number;
 };
 
-type CommentsState = {
+type UsersState = {
   users: UserType[];
   user: UserType | null;
   page: number;
@@ -29,7 +32,7 @@ type CommentsState = {
   getUser: (id: string) => Promise<void>;
 };
 
-export const useUserApi = create<CommentsState>(set => ({
+export const useUserApi = create<UsersState>(set => ({
   users: [],
   user: null,
   page: 1,

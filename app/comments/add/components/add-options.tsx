@@ -220,16 +220,13 @@ const PositionAndWorkExperience = () => {
             options={yearOptions}
             value={
               yearOptions.find(
-                opt => opt.value === commentForm.userGrade.years,
+                opt => opt.value === commentForm.userGradeYears,
               ) ?? null
             }
             onChange={val =>
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  years: Number(val?.value),
-                },
+                userGradeYears: Number(val?.value),
               })
             }
           />
@@ -242,16 +239,13 @@ const PositionAndWorkExperience = () => {
             options={monthOptions}
             value={
               monthOptions.find(
-                opt => opt.value === commentForm.userGrade.months,
+                opt => opt.value === commentForm.userGradeMonths,
               ) ?? null
             }
             onChange={val =>
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  months: Number(val?.value),
-                },
+                userGradeMonths: Number(val?.value),
               })
             }
           />

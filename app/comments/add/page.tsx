@@ -76,7 +76,7 @@ export default function CommentsPage() {
 
   const sendForm = async () => {
     try {
-      const commentId = await postComment(commentForm);
+      const commentId = await postComment();
 
       if (commentId && commentTaskForm.isTask) {
         const taskId = await postTaskStore(commentId);

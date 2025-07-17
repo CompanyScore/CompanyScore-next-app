@@ -10,7 +10,10 @@ type UserType = {
   id: string;
   name: string;
   avatar: string;
-  position: string;
+  position: {
+    id: string;
+    title: number;
+  };
   description: string;
   commentsIds: string[];
   createDate: Date;
@@ -54,7 +57,7 @@ export function UsersTable() {
     {
       key: 'position',
       title: 'Должность',
-      render: (user: UserType) => user.position,
+      render: (user: UserType) => user.position.title,
     },
     {
       key: 'commentsCount',
