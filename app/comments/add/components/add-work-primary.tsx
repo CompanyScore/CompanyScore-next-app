@@ -1,8 +1,8 @@
 import { Calendar, Radio, StarRating } from '@/shared';
 import React from 'react';
 import { useCommentWorkPrimaryForm } from '@/store/form';
-import { Input, Title, Tooltip } from '@/ui';
-import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
+import { Input, Title } from '@/ui';
+import { IconMessage2Exclamation } from '@tabler/icons-react';
 
 export const AddWorkPrimary = () => {
   const { commentWorkPrimaryForm, updateCommentWorkPrimaryForm } =
@@ -58,12 +58,13 @@ export const AddWorkPrimary = () => {
           <Calendar label="До" value={toDate} onChange={handleToChange} />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Руководоство</p>
-            <Tooltip tip="Стиль управления, доступность и открытость руководства, качество обратной связи">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Стиль управления, доступность и открытость руководства, качество
+              обратной связи
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.management}
@@ -76,12 +77,13 @@ export const AddWorkPrimary = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center  gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Копоративная культура</p>
-            <Tooltip tip="Атмосфера в коллективе, ценности компании, поддержка, стиль общения">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Атмосфера в коллективе, ценности компании, поддержка, стиль
+              общения
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.team}
@@ -94,12 +96,12 @@ export const AddWorkPrimary = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center  gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Проекты</p>
-            <Tooltip tip="Интересность, значимость и соответствие проектов вашим ожиданиям">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Интересность, значимость и соответствие проектов вашим ожиданиям
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.project}
@@ -112,12 +114,13 @@ export const AddWorkPrimary = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center  gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Технологии</p>
-            <Tooltip tip="Уровень современных технологий и инструментов, используемых в работе">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Уровень современных технологий и инструментов, используемых в
+              работе
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.stack}
@@ -130,12 +133,13 @@ export const AddWorkPrimary = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center  gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Рабочий график</p>
-            <Tooltip tip="Наличие переработок и сверхурочной работы, соблюдение нормального графика">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Наличие переработок и сверхурочной работы, соблюдение нормального
+              графика
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.workingSchedule}
@@ -148,12 +152,12 @@ export const AddWorkPrimary = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-2 border-b-2 border-gray-300 pb-4">
-          <div className="flex items-center  gap-2">
+        <div className="flex justify-between gap-2 w-full border-b-2 border-gray-300 pb-4">
+          <div className="flex flex-col gap-2 max-w-80">
             <p>Стабильность</p>
-            <Tooltip tip="Финансовая стабильность компании, своевременная оплата труда">
-              <IconInfoCircle stroke={1} />
-            </Tooltip>
+            <p className="text-neutral-500 text-sm">
+              Финансовая стабильность компании, своевременная оплата труда
+            </p>
           </div>
           <StarRating
             value={commentWorkPrimaryForm.stability}
