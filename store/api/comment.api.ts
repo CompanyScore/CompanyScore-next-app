@@ -1,22 +1,43 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
+import { useCommentForm } from '../form';
 
-export type CommentType = {
+export type GetSingleCommentType = GetCommentType & {
+  taskScore?: number;
+  taskStars?: number;
+  interviewScore?: number;
+  interviewStars?: number;
+  internshipScore?: number;
+  internshipStars?: number;
+  workPrimaryScore?: number;
+  workPrimaryStars?: number;
+  workSecondaryScore?: number;
+  workSecondaryStars?: number;
+  workFinanceScore?: number;
+  workFinanceStars?: number;
+};
+
+export type GetCommentType = {
   id: string;
-  userPositionId: string;
-  userGrade: {
-    years: number;
-    months: number;
-  };
   isRecommended: number;
   reasonJoined: string;
   reasonLeft: string;
   createDate: Date;
+  score: number;
+  stars: number;
+
   user: {
     id: string;
     name: string;
     avatar: string;
+    gradeYears: number;
+    gradeMonths: number;
+    position: {
+      id: number;
+      title: number;
+    };
   };
+
   company: {
     id: string;
     name: string;
@@ -24,38 +45,28 @@ export type CommentType = {
   };
 };
 
-type GetCommentsParams = {
+type GetCommentsParamsType = {
   page?: number;
   limit?: number;
   companyId?: string;
 };
 
-export type PostComment = {
-  companyId: string;
-  userPositionId: string;
-  userGrade: {
-    years: number;
-    months: number;
-  };
-  isAnonym: number;
-
-  isRecommended: number;
-  reasonJoined: string;
-  reasonLeft: string;
-};
-
 interface CommentsState {
-  comments: CommentType[];
+  comment: GetSingleCommentType | null;
+  comments: GetCommentType[];
   page: number;
   total: number;
   limit: number;
   loading: boolean;
   error: string;
-  getComments: (params: GetCommentsParams) => Promise<void>;
-  postComment: (commentForm: PostComment) => Promise<string>;
+  getCommentById: (commentId: string) => Promise<void>;
+  getComments: (params: GetCommentsParamsType) => Promise<void>;
+  postComment: () => Promise<string>;
+  deleteComment: (commentId: string) => Promise<string>;
 }
 
 export const useCommentApi = create<CommentsState>(set => ({
+  comment: null,
   comments: [],
   page: 1,
   total: 0,
@@ -63,7 +74,26 @@ export const useCommentApi = create<CommentsState>(set => ({
   loading: false,
   error: '',
 
-  getComments: async (params: GetCommentsParams) => {
+  getCommentById: async (commentId: string) => {
+    set({ loading: true, error: '', comment: null });
+
+    try {
+      const { data } = await useApi.get(`/comments/${commentId}`);
+      set({ comment: data });
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        axiosError.response?.data?.message || 'Произошла ошибка';
+      set({ error: errorMessage });
+      throw new Error(errorMessage);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  getComments: async (params: GetCommentsParamsType) => {
     set({ loading: true, error: '' });
 
     try {
@@ -74,8 +104,9 @@ export const useCommentApi = create<CommentsState>(set => ({
           limit: params.limit,
         },
       });
+
       set({
-        comments: data.data,
+        comments: data.comments,
         page: data.page,
         total: data.total,
         limit: data.limit,
@@ -92,22 +123,32 @@ export const useCommentApi = create<CommentsState>(set => ({
     }
   },
 
-  postComment: async commentForm => {
-    const payload = {
-      companyId: commentForm.companyId,
-      userPositionId: commentForm.userPositionId,
-      userGradeYears: commentForm.userGrade.years,
-      userGradeMonths: commentForm.userGrade.months,
-      isAnonym: commentForm.isAnonym,
-      isRecommended: commentForm.isRecommended,
-      reasonJoined: commentForm.reasonJoined,
-      reasonLeft: commentForm.reasonLeft,
-    };
+  postComment: async () => {
+    const { commentForm } = useCommentForm.getState();
 
     set({ loading: true, error: '' });
 
     try {
-      const { data } = await useApi.post('/comments', payload);
+      const { data } = await useApi.post('/comments', commentForm);
+      return data;
+    } catch (error: unknown) {
+      const axiosError = error as {
+        response?: { data?: { message?: string } };
+      };
+      const errorMessage =
+        (await axiosError.response?.data?.message) || 'Произошла ошибка';
+      set({ error: errorMessage });
+      throw new Error(errorMessage);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  deleteComment: async (commentId: string) => {
+    set({ loading: true, error: '' });
+
+    try {
+      const { data } = await useApi.delete(`/comments/${commentId}`);
       return data;
     } catch (error: unknown) {
       const axiosError = error as {
