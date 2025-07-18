@@ -17,7 +17,14 @@ export function CompaniesCard({
 }: CompaniesCardProps) {
   return (
     <Card className="flex flex-col w-96">
-      <img src={logo ? logo : '/imgs/company-logo.jpg'} alt={`Logo ${name}`} />
+      <img
+        src={
+          logo
+            ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${logo}`
+            : '/imgs/company-logo.jpg'
+        }
+        alt={`Logo ${name}`}
+      />
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <p>Страна: {country}</p>
