@@ -46,11 +46,11 @@ export const Blog = () => {
   return (
     <div className="bg-neutral-100 rounded-3xl">
       <Container>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">
           / БЛОГ /
         </p>
         <Title className="mb-4">Советы и инсайты</Title>
-        <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+        <p className="mb-12 max-w-xl text-sm leading-relaxed text-neutral-700 sm:text-base">
           Наш блог — это &nbsp;
           <span className="font-semibold text-amber-700">
             не просто истории:&nbsp;
@@ -95,18 +95,18 @@ const WebBlog = ({ articles }: Props) => {
 
         <div className="flex mt-6 flex-col gap-2">
           <div className="flex">
-            <span className="text-neutral-500 w-full">{articles[0].date}</span>
+            <span className="text-neutral-600 w-full">{articles[0].date}</span>
             <div className="w-full flex justify-end">
-              <span className="flex gap-1 text-neutral-500">
+              <span className="flex gap-1 text-neutral-600">
                 <IconEye stroke={1} /> {articles[0].reads} &nbsp;
               </span>
-              <span className="flex gap-1 text-neutral-500">
+              <span className="flex gap-1 text-neutral-600">
                 <IconBook stroke={1} /> {articles[0].minutes}
               </span>
             </div>
           </div>
           <h3 className="text-2xl font-medium">{articles[0].title}</h3>
-          <p className="text-lg text-neutral-500">
+          <p className="text-lg text-neutral-600">
             {articles[0].excerpt.slice(0, 110)}...
           </p>
         </div>
@@ -127,18 +127,18 @@ const WebBlog = ({ articles }: Props) => {
                 </div>
                 <div className="flex flex-col gap-2 max-w-96">
                   <div className="flex justify-between">
-                    <span className=" text-neutral-500">{article.date}</span>
+                    <span className=" text-neutral-600">{article.date}</span>
                     <div className="flex">
-                      <span className="flex gap-1 text-neutral-500">
+                      <span className="flex gap-1 text-neutral-600">
                         <IconEye stroke={1} /> {article.reads} &nbsp;
                       </span>
-                      <span className="flex gap-1 text-neutral-500">
+                      <span className="flex gap-1 text-neutral-600">
                         <IconBook stroke={1} /> {article.minutes}
                       </span>
                     </div>
                   </div>
                   <h3 className="text-xl font-medium">{article.title}</h3>
-                  <p className="text-base text-neutral-500">
+                  <p className="text-base text-neutral-600">
                     {article.excerpt.slice(0, 70)}...
                   </p>
                 </div>
@@ -170,18 +170,18 @@ const MobileBlog = ({ articles }: Props) => {
 
           <div className="flex mt-6 flex-col gap-2">
             <div className="flex">
-              <span className="text-neutral-500 w-full">{article.date}</span>
+              <span className="text-neutral-600 w-full">{article.date}</span>
               <div className="w-full flex justify-end">
-                <span className="flex gap-1 text-neutral-500">
+                <span className="flex gap-1 text-neutral-600">
                   <IconEye stroke={1} /> {article.reads} &nbsp;
                 </span>
-                <span className="flex gap-1 text-neutral-500">
+                <span className="flex gap-1 text-neutral-600">
                   <IconBook stroke={1} /> {article.minutes}
                 </span>
               </div>
             </div>
             <h3 className="text-2xl font-medium">{article.title}</h3>
-            <p className="text-lg text-neutral-500">
+            <p className="text-lg text-neutral-600">
               {article.excerpt.slice(0, 56)}...
             </p>
           </div>

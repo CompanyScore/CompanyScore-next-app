@@ -26,41 +26,39 @@ export const Features = () => {
 
   return (
     <Container>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">
         / ​почему мы /
       </p>
       <Title>Станьте частью перемен</Title>
-      <p className="mt-4 mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+      <p className="mt-4 mb-12 max-w-2xl text-xl leading-relaxed text-neutral-700 sm:text-base">
         Мы создаём пространство, где&nbsp;
         <span className="font-semibold text-amber-700">каждый голос важен</span>
         , а опыт — ценен. Наша миссия — сделать рынок труда прозрачным и
         справедливым, чтобы каждый мог найти работу, где его ценят и уважают
       </p>
 
-      {/* 'border-neutral-200 bg-orange-50'  */}
-
       <div className={`flex justify-between gap-6 flex-wrap w-full`}>
         {features.map(feature => (
           <div
             key={feature.id}
-            className={`flex flex-col w-96 h-[240px] m-auto rounded-xl border p-6 border-neutral-400 bg-white`}
+            className={`flex flex-col w-96 rounded-xl border p-8 border-neutral-400 bg-white`}
           >
             <span className="text-xs text-amber-700">&lt;{feature.id}&gt;</span>
-            <h3 className="text-xl font-medium mt-4">{feature.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+            <h3 className="text-2xl font-medium mt-4">{feature.title}</h3>
+            <p className="mt-3 text-base leading-relaxed text-neutral-700">
               {feature.body}
             </p>
           </div>
         ))}
         <div
-          className={`flex justify-between m-auto rounded-xl border p-6 border-neutral-400 bg-orange-50 max-w-[800px] w-96 md:w-full h-[240px]`}
+          className={`flex justify-between rounded-xl border p-6 border-neutral-400 bg-orange-50 max-w-[800px] w-96 md:w-full`}
         >
           <div className={`flex flex-col max-w-80 w-full`}>
             <span className="text-xs text-amber-700">&lt;05&gt;</span>
-            <h3 className="text-xl font-medium mt-4">
+            <h3 className="text-2xl font-medium mt-4">
               Сообщество, меняющее рынок труда
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-neutral-700">
+            <p className="mt-3 text-base leading-relaxed text-neutral-700">
               Мы верим, что честные отзывы помогают компаниям становиться лучше,
               а IT-специалистам — принимать обоснованные решения и находить
               лучшие возможности
