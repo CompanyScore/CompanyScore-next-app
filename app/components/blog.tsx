@@ -44,7 +44,7 @@ export const Blog = () => {
   ];
 
   return (
-    <div className="bg-neutral-100 rounded-3xl">
+    <div className="bg-neutral-100 rounded-t-3xl">
       <Container>
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">
           / БЛОГ /
