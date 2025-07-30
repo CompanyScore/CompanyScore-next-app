@@ -1,0 +1,1 @@
+export { fetchUsersSSR } from './users';
