@@ -1,22 +1,24 @@
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
+// eslint.config.js
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import next from 'eslint-config-next';
+import reactHooks from 'eslint-plugin-react-hooks';
+import prettier from 'eslint-config-prettier';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const eslintConfig = [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
-
+export default [
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  next,
   {
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     rules: {
-      '@next/next/no-img-element': 'off', // <--- отключаем правило
+      'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@next/next/no-img-element': 'off',
     },
   },
+  prettier,
 ];
-
-export default eslintConfig;
