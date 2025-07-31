@@ -7,8 +7,8 @@ export async function fetchUsersSSR() {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACK}/users/public?page=1&limit=5`,
       {
-        cache: 'no-cache',
-        // next: { revalidate: 60 },
+        // cache: 'no-cache',
+        next: { revalidate: 60 },
       },
     );
 
