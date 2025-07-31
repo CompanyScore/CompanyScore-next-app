@@ -1,11 +1,14 @@
-import { create } from 'zustand';
 import { useApi } from '@/api';
+import { useQuery } from '@tanstack/react-query';
 
 type UserType = {
   id: string;
   name: string;
   avatar: string;
-  position: string;
+  position: {
+    id: string;
+    title: number;
+  };
   description: string;
   commentsIds: string[];
   createDate: Date;
@@ -17,30 +20,17 @@ type GetUsersParams = {
   limit?: number;
 };
 
-type CommentsState = {
+type GetUsersResponse = {
   users: UserType[];
-  user: UserType | null;
   page: number;
   total: number;
   limit: number;
-  loading: boolean;
-  error: string;
-  getUsers: (params: GetUsersParams) => Promise<void>;
-  getUser: (id: string) => Promise<void>;
 };
 
-export const useUserApi = create<CommentsState>(set => ({
-  users: [],
-  user: null,
-  page: 1,
-  total: 0,
-  limit: 5,
-  loading: false,
-  error: '',
-
-  getUsers: async (params: GetUsersParams) => {
-    set({ loading: true, error: '' });
-    try {
+export const useUsers = (params: GetUsersParams = {}) => {
+  return useQuery<GetUsersResponse>({
+    queryKey: ['users', params],
+    queryFn: async () => {
       const { data } = await useApi.get(`/users`, {
         params: {
           isDeleted: false,
@@ -48,39 +38,18 @@ export const useUserApi = create<CommentsState>(set => ({
           limit: params.limit,
         },
       });
-      set({
-        users: data.data,
-        page: data.page,
-        total: data.total,
-        limit: data.limit,
-      });
-    } catch (error: unknown) {
-      const axiosError = error as {
-        response?: { data?: { message?: string } };
-      };
-      const errorMessage =
-        axiosError.response?.data?.message || 'Произошла ошибка';
-      set({ error: errorMessage });
-    } finally {
-      set({ loading: false });
-    }
-  },
-  getUser: async (id: string) => {
-    set({ loading: true, error: '' });
-    try {
+      return data;
+    },
+  });
+};
+
+export const useUser = (id: string) => {
+  return useQuery<UserType>({
+    queryKey: ['user', id],
+    queryFn: async () => {
       const { data } = await useApi.get(`/users/${id}`);
-      set({
-        user: data,
-      });
-    } catch (error: unknown) {
-      const axiosError = error as {
-        response?: { data?: { message?: string } };
-      };
-      const errorMessage =
-        axiosError.response?.data?.message || 'Произошла ошибка';
-      set({ error: errorMessage });
-    } finally {
-      set({ loading: false });
-    }
-  },
-}));
+      return data;
+    },
+    enabled: !!id, // не запрашиваем, если id пустой
+  });
+};

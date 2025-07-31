@@ -9,7 +9,7 @@ import { Button, ImageTable, Tooltip, Title, Table, Toast } from '@/ui';
 
 export function CompaniesTable() {
   const { companies, loading } = useCompanyStore();
-
+  console.log(companies);
   useEffect(() => {
     useCompanyStore.getState().getCompanies({});
   }, []);

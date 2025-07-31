@@ -1,5 +1,9 @@
-import React, { useEffect } from 'react';
-import { useCompanyStore, usePositionApi } from '@/store/api';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  useCompanyStore,
+  usePositionApi,
+  usePositionCategoryApi,
+} from '@/store/api';
 import {
   useCommentForm,
   useCommentInternshipForm,
@@ -174,93 +178,138 @@ const Company = () => {
 const PositionAndWorkExperience = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
   const { positions, getPositions } = usePositionApi();
+  const { categories, getCategories } = usePositionCategoryApi();
+
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
+    commentForm.userPositionCategoryId || null,
+  );
 
   useEffect(() => {
     getPositions();
-  }, [getPositions]);
+    getCategories();
+  }, [getPositions, getCategories]);
 
-  const positionOptions: OptionType[] = positions.map(pos => ({
-    label: pos.title,
-    value: pos.id,
-  }));
+  const categoryOptions = useMemo(() => {
+    return categories.map(cat => ({
+      label: cat.title,
+      value: cat.id,
+    }));
+  }, [categories]);
+
+  const filteredPositionOptions = useMemo(() => {
+    return positions
+      .filter(
+        pos => pos.category.id === selectedCategoryId || !selectedCategoryId,
+      )
+      .map(pos => ({
+        label: pos.title,
+        value: pos.id,
+      }));
+  }, [positions, selectedCategoryId]);
 
   const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
-
-  const monthOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(y => ({
-    label: `${y}`,
-    value: y,
+  const monthOptions = Array.from({ length: 12 }, (_, i) => ({
+    label: `${i + 1}`,
+    value: i + 1,
   }));
 
   return (
-    <div className="flex flex-col justify-between gap-4 w-full">
-      <p className="text-lg">Должность</p>
-      <Select
-        placeholder="Должность"
-        isClearable
-        options={positionOptions}
-        value={
-          positionOptions.find(
-            opt => opt.value === commentForm.userPositionId,
-          ) ?? null
-        }
-        onChange={option =>
-          updateCommentForm({
-            ...commentForm,
-            userPositionId: option?.value ? String(option.value) : '',
-          })
-        }
-      />
-
-      <p>Стаж работы до момента взаимодействия с компанией</p>
-      <div className="flex gap-4 w-full">
-        <div className="flex items-center gap-2 w-full">
+    <div className="flex flex-col justify-between gap-6 w-full">
+      <div className="flex gap-4">
+        <div className="w-full">
+          <p className="text-lg">Категория должности</p>
           <Select
-            placeholder="Лет опыта"
+            placeholder="Категория"
             isClearable
-            options={yearOptions}
+            options={categoryOptions}
             value={
-              yearOptions.find(
-                opt => opt.value === commentForm.userGrade.years,
-              ) ?? null
+              categoryOptions.find(opt => opt.value === selectedCategoryId) ??
+              null
             }
-            onChange={val =>
+            onChange={option => {
+              const categoryId = option?.value || null;
+              setSelectedCategoryId(String(categoryId));
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  years: Number(val?.value),
-                },
-              })
-            }
+                userPositionCategoryId: String(categoryId) || '',
+                userPositionId: '',
+              });
+            }}
           />
-          <p>лет</p>
         </div>
-        <div className="flex items-center gap-2 w-full">
+
+        <div className="w-full">
+          <p className="text-lg">Должность</p>
           <Select
-            placeholder="Месяцев опыта"
+            placeholder="Должность"
             isClearable
-            options={monthOptions}
+            isDisabled={!selectedCategoryId} // 🔒 блокируем если не выбрана категория
+            options={filteredPositionOptions}
             value={
-              monthOptions.find(
-                opt => opt.value === commentForm.userGrade.months,
+              filteredPositionOptions.find(
+                opt => opt.value === commentForm.userPositionId,
               ) ?? null
             }
-            onChange={val =>
+            onChange={option =>
               updateCommentForm({
                 ...commentForm,
-                userGrade: {
-                  ...commentForm.userGrade,
-                  months: Number(val?.value),
-                },
+                userPositionId: option?.value ? String(option.value) : '',
               })
             }
           />
-          <p>месяцев</p>
+        </div>
+      </div>
+
+      <div>
+        <p className="text-lg">
+          Стаж работы до момента взаимодействия с компанией
+        </p>
+        <div className="flex gap-4 w-full">
+          <div className="flex items-center gap-2 w-full">
+            <Select
+              placeholder="Лет опыта"
+              isClearable
+              options={yearOptions}
+              value={
+                yearOptions.find(
+                  opt => opt.value === commentForm.userGradeYears,
+                ) ?? null
+              }
+              onChange={val =>
+                updateCommentForm({
+                  ...commentForm,
+                  userGradeYears: Number(val?.value),
+                })
+              }
+            />
+            <p>лет</p>
+          </div>
+          <div className="flex items-center gap-2 w-full">
+            <Select
+              placeholder="Месяцев опыта"
+              isClearable
+              options={monthOptions}
+              value={
+                monthOptions.find(
+                  opt => opt.value === commentForm.userGradeMonths,
+                ) ?? null
+              }
+              onChange={val =>
+                updateCommentForm({
+                  ...commentForm,
+                  userGradeMonths: Number(val?.value),
+                })
+              }
+            />
+            <p>месяцев</p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
+export default PositionAndWorkExperience;
 
 const Forms = () => {
   const { commentTaskForm, updateCommentTaskForm } = useCommentTaskForm();

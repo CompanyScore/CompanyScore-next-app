@@ -8,34 +8,45 @@ export const AddInterview = () => {
   const { commentInterviewForm, updateCommentInterviewForm } =
     useCommentInterviewForm();
 
-  const stages: { label: string; value: keyof CommentInterviewFormType }[] = [
+  const stages: {
+    label: string;
+    value: keyof CommentInterviewFormType;
+    score: number;
+  }[] = [
     {
       label: 'Видео презентация',
       value: 'isVideoStage',
+      score: 100,
     },
     {
       label: 'Интервью с HR',
       value: 'isHrStage',
+      score: 150,
     },
     {
       label: 'Тест',
       value: 'isTestStage',
+      score: 200,
     },
     {
       label: 'Техническое задание',
       value: 'isTaskStage',
+      score: 250,
     },
     {
       label: 'Техническое интервью',
       value: 'isTechStage',
+      score: 300,
     },
     {
       label: 'Интервью с командой',
       value: 'isTeamStage',
+      score: 200,
     },
     {
       label: 'Финальное интервью',
       value: 'isFinalStage',
+      score: 300,
     },
   ];
 
@@ -107,7 +118,10 @@ export const AddInterview = () => {
               onChange={() =>
                 updateCommentInterviewForm({
                   ...commentInterviewForm,
-                  [stage.value]: !commentInterviewForm[stage.value],
+                  [stage.value]:
+                    commentInterviewForm[stage.value] === stage.score
+                      ? 0
+                      : stage.score,
                 })
               }
             />

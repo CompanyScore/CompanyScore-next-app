@@ -1,15 +1,17 @@
-'use client';
+// app/users/page.tsx
 
-import { UsersPagination, UsersShowBy, UsersTable } from './components';
+import { fetchUsersSSR } from '@/api/server/users';
+import { UsersFilter, UsersList } from './components';
 
-export default function UsersPage() {
+// export const revalidate = 60;
+
+export default async function UsersPage() {
+  const data = await fetchUsersSSR();
+
   return (
-    <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-      <UsersTable />
-      <div className="flex justify-between">
-        <UsersShowBy />
-        <UsersPagination />
-      </div>
+    <section className="flex flex-col gap-8 py-8 md:py-10 m-auto">
+      <UsersFilter />
+      <UsersList users={data?.users || []} />
     </section>
   );
 }

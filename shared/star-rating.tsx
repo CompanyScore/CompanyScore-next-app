@@ -18,7 +18,7 @@ export function StarRating({ value, onChange }: Props) {
             'text-gray-400': star > value,
           })}
         >
-          <FaStar />
+          <FaStar className="w-8 h-8" />
         </button>
       ))}
     </div>

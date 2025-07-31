@@ -11,30 +11,37 @@ export const AddWorkSecondary = () => {
   const educations: {
     label: string;
     value: keyof CommentWorkSecondaryFormType;
+    score: number;
   }[] = [
     {
       label: 'Онлайн курсы',
       value: 'isOnlineCoursesEdu',
+      score: 100,
     },
     {
       label: 'Оффлайн курсы',
       value: 'isOfflineCoursesEdu',
+      score: 150,
     },
     {
       label: 'Тренинги',
       value: 'isTrainingsEdu',
+      score: 200,
     },
     {
       label: 'Командировки',
       value: 'isBusinessTripsEdu',
+      score: 150,
     },
     {
       label: 'Частичная оплата учебы',
       value: 'isPartUniPayEdu',
+      score: 250,
     },
     {
       label: 'Полная оплата учебы',
       value: 'isFullUniPayEdu',
+      score: 300,
     },
   ];
 
@@ -239,7 +246,10 @@ export const AddWorkSecondary = () => {
             onChange={() =>
               updateCommentWorkSecondaryForm({
                 ...commentWorkSecondaryForm,
-                [education.value]: !commentWorkSecondaryForm[education.value],
+                [education.value]:
+                  commentWorkSecondaryForm[education.value] === education.score
+                    ? 0
+                    : education.score,
               })
             }
           />

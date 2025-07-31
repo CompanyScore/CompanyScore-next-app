@@ -37,6 +37,9 @@ useApi.interceptors.response.use(
           },
         );
 
+        // Проверяем, что токен уже активен
+        await useApi.get('/auth/me'); // Получим 200, если всё ок
+
         return useApi.request(error.config); // Повторяем запрос
       } catch (refreshError) {
         console.error('Ошибка обновления accessToken:', refreshError);
