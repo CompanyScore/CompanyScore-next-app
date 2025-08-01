@@ -4,6 +4,7 @@ import './globals.css';
 
 import { Tanstack } from './tanstack';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ProtectedRoute } from '@/widgets/protected-route';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,8 +26,9 @@ export default async function RootLayout({
         <Tanstack>
           <Header />
           <HeaderMobile />
-
-          <main className="flex-1 h-full">{children}</main>
+          <ProtectedRoute>
+            <main className="flex-1 h-full">{children}</main>
+          </ProtectedRoute>
           <Footer />
           <ReactQueryDevtools initialIsOpen={false} />
         </Tanstack>

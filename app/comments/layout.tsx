@@ -13,12 +13,7 @@ export default async function CommentsLayout({
   children: React.ReactNode;
 }>) {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken')?.value;
   const hasAccess = cookieStore.get('hasAccess')?.value;
-
-  if (!accessToken) {
-    redirect('/login');
-  }
 
   if (hasAccess != '777888999') {
     redirect('/access');
