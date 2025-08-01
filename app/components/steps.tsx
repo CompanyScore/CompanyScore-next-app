@@ -1,4 +1,4 @@
-import { Button, Container, Title } from '@/ui';
+import { Button, Container, Title } from '@/shared/ui';
 import { IconArrowRight } from '@tabler/icons-react';
 
 export const Steps = () => {

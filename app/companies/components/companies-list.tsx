@@ -1,6 +1,6 @@
 import { useCompanyStore } from '@/store/api';
 import { CompaniesCard } from './companies-card';
-import InfinityList from '@/shared/infinity-list';
+import { InfinityList } from '@/shared/ui';
 
 export function CompaniesList() {
   const { companies, limit, total, page, getCompanies, loading } =

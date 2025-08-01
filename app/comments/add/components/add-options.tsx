@@ -12,8 +12,8 @@ import {
   useCommentWorkPrimaryForm,
 } from '@/store/form';
 import { Checkbox, Radio } from '@/shared';
-import { Button, Card, Title } from '@/ui';
-import { OptionType, Select } from '@/ui/select';
+import { Button, Card, Title } from '@/shared/ui';
+import { OptionType, Select } from '@/shared/ui/select';
 import { countriesWithCities } from '@/constants/countriesWithCities';
 import { CreateCompanyModal } from '@/app/companies/modals';
 import { IconChecklist } from '@tabler/icons-react';

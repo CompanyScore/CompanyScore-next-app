@@ -1,4 +1,4 @@
-import { Container, Title } from '@/ui';
+import { Container, Title } from '@/shared/ui';
 
 export const Features = () => {
   const features = [

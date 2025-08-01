@@ -1,6 +1,6 @@
 'use client';
 
-import { Searcher } from '@/shared';
+import { Searcher } from '@/shared/ui';
 import { useUsersFilterStore } from '@/store/users-filter.store';
 
 export const UsersFilter = () => {

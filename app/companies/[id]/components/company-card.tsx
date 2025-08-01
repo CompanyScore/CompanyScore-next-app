@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { Button, Toast } from '@/ui';
+import { Button, Toast } from '@/shared/ui';
 import { useCommentApi, useCompanyStore } from '@/store/api';
 
 export function CompanyCard() {

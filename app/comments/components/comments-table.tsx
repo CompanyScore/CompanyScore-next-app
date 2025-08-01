@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { redirect } from 'next/navigation';
 import { useCommentApi } from '@/store/api/comment.api';
 
-import { Button, ImageTable, Title, Card } from '@/ui';
+import { Button, ImageTable, Title, Card } from '@/shared/ui';
 import { IconTrash } from '@tabler/icons-react';
 import moment from 'moment';
 import Avatar, { genConfig } from 'react-nice-avatar';

@@ -1,6 +1,6 @@
 'use client';
 
-import { ShowBy } from '@/shared';
+import { ShowBy } from '@/shared/ui';
 import { useCompanyStore } from '@/store/api';
 
 export function CompaniesShowBy() {

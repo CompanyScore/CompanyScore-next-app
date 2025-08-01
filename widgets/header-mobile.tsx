@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Button } from '@/ui';
+import { Button } from '@/shared/ui';
 
 // import { ThemeController } from './';
 

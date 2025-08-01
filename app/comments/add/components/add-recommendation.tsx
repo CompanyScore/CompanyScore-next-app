@@ -1,6 +1,6 @@
 import { useCommentForm } from '@/store/form';
 import { Radio } from '@/shared';
-import { Title } from '@/ui';
+import { Title } from '@/shared/ui';
 
 export const AddRecommendation = () => {
   const { commentForm, updateCommentForm } = useCommentForm();

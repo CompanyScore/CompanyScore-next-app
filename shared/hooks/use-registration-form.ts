@@ -1,11 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '@/utils';
+import { registrationSchema } from '@/shared/schema';
 
-export const useLoginForm = () => {
+export const useRegistrationForm = () => {
   return useForm({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(registrationSchema),
     defaultValues: {
+      name: '',
       email: '',
       password: '',
     },

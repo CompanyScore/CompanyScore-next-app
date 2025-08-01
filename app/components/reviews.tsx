@@ -1,5 +1,5 @@
-import { Button, Carousel, Container, Title } from '@/ui';
-import { Card } from '@/ui/card';
+import { Button, Carousel, Container, Title } from '@/shared/ui';
+import { Card } from '@/shared/ui/card';
 import { IconArrowRight } from '@tabler/icons-react';
 import { IconArrowLeft } from '@tabler/icons-react';
 

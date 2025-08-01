@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useProfileApi } from '@/store/api';
 // import { ThemeController } from './';
-import { Avatar } from '@/ui';
+import { Avatar } from '@/shared/ui';
 
 export function Header() {
   const { profile, getProfile } = useProfileApi();

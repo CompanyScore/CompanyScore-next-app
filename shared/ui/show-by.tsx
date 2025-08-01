@@ -1,7 +1,7 @@
 import React from 'react';
-import { Select } from '@/ui';
+import { Select } from '@/shared/ui';
 import { SingleValue } from 'react-select';
-import { OptionType } from '@/ui/select';
+import { OptionType } from '@/shared/ui/select';
 
 const numberOptions: OptionType[] = [5, 10, 15, 20].map(n => ({
   label: n.toString(),

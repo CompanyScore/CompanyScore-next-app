@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { useAuth } from '@/hook/use-auth';
+import { useAuth } from '@/shared/hooks/use-auth';
 import { useEffect } from 'react';
 
 const PROTECTED_PATHS = ['/analytic', '/profile'];

@@ -4,7 +4,7 @@ import './globals.css';
 
 import { Tanstack } from './tanstack';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { ProtectedRoute } from '@/widgets/protected-route';
+import { ProtectedRoute } from '@/features/protected-route';
 
 const inter = Inter({
   subsets: ['latin'],

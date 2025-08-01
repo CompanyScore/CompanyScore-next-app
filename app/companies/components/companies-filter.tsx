@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Searcher } from '@/shared';
-import { Error, Button, Toast, Select } from '@/ui';
+import { Searcher } from '@/shared/ui';
+import { Error, Button, Toast, Select } from '@/shared/ui';
 import { useCompanyStore } from '@/store/api';
 import { CreateCompanyModal } from '@/app/companies/modals';
-import { OptionType } from '@/ui/select';
+import { OptionType } from '@/shared/ui/select';
 
 const ratingOptions: OptionType[] = ['1', '2', '3', '4', '5'].map(r => ({
   label: r,

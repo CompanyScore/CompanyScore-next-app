@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { commentSchema } from '@/utils/commentSchema';
+import { commentSchema } from '@/shared/schema/commentSchema';
 
 export const useCommentForm = () => {
   return useForm({

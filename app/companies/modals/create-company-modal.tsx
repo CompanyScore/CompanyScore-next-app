@@ -1,9 +1,9 @@
 'use client';
 
 import { useCompanyStore } from '@/store/api';
-import { Button, Select, Input, Modal, Title, useToast } from '@/ui';
+import { Button, Select, Input, Modal, Title, useToast } from '@/shared/ui';
 import { useEffect, useState } from 'react';
-import { OptionType } from '@/ui/select';
+import { OptionType } from '@/shared/ui/select';
 import { useCountriesAndCitiesStore } from '@/store/api/countries-cities.api';
 
 type Props = {

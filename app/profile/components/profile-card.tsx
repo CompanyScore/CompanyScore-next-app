@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 
 import { ProfileEditModal } from '../modals';
 import { useProfileApi } from '@/store/api';
-import { Error, Toast } from '@/ui';
+import { Error, Toast } from '@/shared/ui';
 
 export function ProfileCard() {
   const { profile, loading, error, getProfile } = useProfileApi();

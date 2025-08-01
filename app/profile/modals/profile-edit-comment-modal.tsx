@@ -2,9 +2,16 @@
 
 import { useEffect } from 'react';
 import { useCommentApi } from '@/store/api';
-import { Button, Dropdown, Modal, Textarea, Title, useToast } from '@/ui';
+import {
+  Button,
+  Dropdown,
+  Modal,
+  Textarea,
+  Title,
+  useToast,
+} from '@/shared/ui';
 import { positions } from '@/constants';
-import { useCommentForm } from '@/hook';
+import { useCommentForm } from '@/shared/hooks';
 
 type ProfileEditCommentModalProps = {
   comment?: { id: string; text: string; rating: number; position?: string };

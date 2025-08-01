@@ -1,4 +1,4 @@
-import { Input, Title, Tooltip } from '@/ui';
+import { Input, Title, Tooltip } from '@/shared/ui';
 import React from 'react';
 import { Checkbox, Radio } from '@/shared';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';

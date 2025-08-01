@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { suggestPostSchema } from '@/utils/suggestPostSchema';
+import { suggestPostSchema } from '@/shared/schema/suggestPostSchema';
 
 export const useSuggestPostForm = () => {
   return useForm({

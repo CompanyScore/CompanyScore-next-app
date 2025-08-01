@@ -1,4 +1,4 @@
-import { Button, Carousel, Container, Title } from '@/ui';
+import { Button, Carousel, Container, Title } from '@/shared/ui';
 
 import { IconArrowRight, IconEye } from '@tabler/icons-react';
 import { IconBook } from '@tabler/icons-react';

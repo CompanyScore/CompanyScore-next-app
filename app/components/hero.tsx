@@ -1,4 +1,4 @@
-import { Button, Container } from '@/ui';
+import { Button, Container } from '@/shared/ui';
 
 export const Hero = () => {
   const cards = [
