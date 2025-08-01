@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCommentTaskForm } from '@/store/form';
-import { Radio, StarRating } from '@/shared';
+import { Radio, StarRating } from '@/shared/ui';
 import { Title } from '@/shared/ui';
 
 export const AddTask = () => {

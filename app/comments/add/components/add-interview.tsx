@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCommentInterviewForm } from '@/store/form';
-import { Checkbox, Radio, StarRating } from '@/shared';
+import { Checkbox, Radio, StarRating } from '@/shared/ui';
 import { Title } from '@/shared/ui';
 import { CommentInterviewFormType } from '@/store/form/comment-interview.form';
 

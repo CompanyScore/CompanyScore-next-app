@@ -1,5 +1,5 @@
 import { useCommentWorkSecondaryForm } from '@/store/form';
-import { Checkbox, Radio } from '@/shared';
+import { Checkbox, Radio } from '@/shared/ui';
 import { Title, Tooltip } from '@/shared/ui';
 import { IconInfoCircle } from '@tabler/icons-react';
 import { CommentWorkSecondaryFormType } from '@/store/form/comment-work-secondary.form';

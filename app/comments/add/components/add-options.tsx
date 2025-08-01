@@ -11,7 +11,7 @@ import {
   useCommentTaskForm,
   useCommentWorkPrimaryForm,
 } from '@/store/form';
-import { Checkbox, Radio } from '@/shared';
+import { Checkbox, Radio } from '@/shared/ui';
 import { Button, Card, Title } from '@/shared/ui';
 import { OptionType, Select } from '@/shared/ui/select';
 import { countriesWithCities } from '@/constants/countriesWithCities';

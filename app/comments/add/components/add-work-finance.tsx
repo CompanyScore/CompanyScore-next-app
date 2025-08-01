@@ -1,6 +1,6 @@
 import { Input, Title, Tooltip } from '@/shared/ui';
 import React from 'react';
-import { Checkbox, Radio } from '@/shared';
+import { Checkbox, Radio } from '@/shared/ui';
 import { IconInfoCircle, IconMessage2Exclamation } from '@tabler/icons-react';
 import { useCommentWorkFinanceForm } from '@/store/form';
 import { CommentWorkFinanceFormType } from '@/store/form/comment-work-finance.form';

@@ -1,5 +1,5 @@
 import { useCommentForm } from '@/store/form';
-import { Radio } from '@/shared';
+import { Radio } from '@/shared/ui';
 import { Title } from '@/shared/ui';
 
 export const AddRecommendation = () => {
