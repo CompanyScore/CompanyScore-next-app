@@ -1,5 +1,5 @@
 // api/client/fetchUsersCSR.ts
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
 // types/params.ts
@@ -49,5 +49,29 @@ export const useUsersCSR = (params: GetUsersParams = {}) => {
     enabled: !!enabled,
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useUsersInfinity = () => {
+  return useInfiniteQuery({
+    queryKey: ['users'],
+    queryFn: async ({
+      pageParam = 1,
+      signal,
+    }: {
+      pageParam?: number;
+      signal?: AbortSignal;
+    }) => {
+      const { data } = await useApi.get('/users', {
+        signal,
+        params: { page: pageParam, limit: 10 },
+      });
+      return data;
+    },
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      const totalPages = Math.ceil(lastPage.total / lastPage.limit);
+      return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
+    },
   });
 };
