@@ -23,9 +23,9 @@ export const Steps = () => {
     },
   ];
   return (
-    <div className=" bg-neutral-100 rounded-3xl">
+    <div className="bg-neutral-100 rounded-3xl">
       <Container>
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">
           / КАК ЭТО РАБОТАЕТ /
         </p>
         <Title className="font-semibold">Простые шаги к прозрачности</Title>
@@ -34,7 +34,7 @@ export const Steps = () => {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="flex justify-between items-center flex-wrap gap-4 border-t-amber-700 border-t-2 py-10 px-7"
+              className="flex justify-between items-center flex-wrap gap-4 border-t-amber-700 border-t-[0.5px] py-10 px-7"
             >
               <div className="flex flex-col max-w-[600px]">
                 <h3 className="whitespace-pre-line text-2xl font-medium">
