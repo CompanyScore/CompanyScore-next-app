@@ -34,7 +34,7 @@ export function ThemeController() {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl rounded-box w-52 bg-neutral text-white"
+        className="dropdown-content z-1 p-2 shadow-2xl rounded-box w-52 bg-neutral text-white"
       >
         {['light', 'dark', 'valentine'].map(themeOption => (
           <li key={themeOption}>
