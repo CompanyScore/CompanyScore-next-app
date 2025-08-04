@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCommentInternshipForm } from '@/store/form';
-import { Calendar, Radio, StarRating } from '@/shared';
-import { Title } from '@/ui';
+import { Calendar, Radio, StarRating } from '@/shared/ui';
+import { Title } from '@/shared/ui';
 
 export const AddInternship = () => {
   const { commentInternshipForm, updateCommentInternshipForm } =

@@ -1,7 +1,7 @@
 'use client';
 
 import { useUsersCSR } from '@/api/client/users';
-import { useAuth } from '@/hook/use-auth';
+import { useAuth } from '@/shared/hooks/use-auth';
 import { useUsersFilterStore } from '@/store/users-filter.store';
 
 export const UsersList = ({ users: publicUsers }: { users: any[] }) => {

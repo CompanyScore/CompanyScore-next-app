@@ -1,6 +1,6 @@
 'use client';
 import { CompaniesFilter, CompaniesList } from './components';
-import { Container, Title } from '@/ui';
+import { Container, Title } from '@/shared/ui';
 import { useCompanyStore } from '@/store/api';
 
 export default function CompaniesPage() {

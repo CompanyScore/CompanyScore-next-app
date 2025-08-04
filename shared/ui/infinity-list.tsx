@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
-import { Loading } from '../ui/loading';
+import { Loading } from './loading';
 
 type InfinityListProps = {
   limit: number;

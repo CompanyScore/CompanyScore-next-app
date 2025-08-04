@@ -1,5 +1,5 @@
-import { Button, Carousel, Container, Title } from '@/ui';
-import { Card } from '@/ui/card';
+import { Button, Carousel, Container, Title } from '@/shared/ui';
+import { Card } from '@/shared/ui/card';
 import { IconArrowRight } from '@tabler/icons-react';
 import { IconArrowLeft } from '@tabler/icons-react';
 
@@ -24,18 +24,18 @@ export const Reviews = () => {
 
   return (
     <Container>
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-400">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-neutral-600">
         / ПОСЛЕДНИЕ ОТЗЫВЫ /
       </p>
       <Title className="mb-4">Истории из первых рук</Title>
-      <p className="mb-12 max-w-2xl text-sm leading-relaxed text-neutral-700 sm:text-base">
+      <p className="mb-12 max-w-xl text-xl leading-relaxed text-neutral-700 sm:text-base">
         Здесь&nbsp;
         <span className="font-semibold text-amber-700">делятся опытом</span>
-        &nbsp; и рассказывают о реальных ситуациях — от первых собеседований
+        &nbsp;и рассказывают о реальных ситуациях — от первых собеседований
         до повседневных рабочих будней. Узнайте, что скрывается за официальными
         описаниями вакансий
       </p>
-      {/* className="flex justify-center flex-wrap mt-10 gap-6" */}
+      {/* TODO: написать спросить что значить оставить пустые боксы,  */}
       <Carousel>
         {reviews.map((review, index) => (
           <Card key={index} className="max-w-[300px] md:max-w-[392px]">
@@ -46,13 +46,12 @@ export const Reviews = () => {
       </Carousel>
 
       <div className="hidden md:flex justify-center gap-6 mt-8">
-        <Button className="btn-secondary rounded-full">
+        <Button className="btn-secondary rounded-full w-14 h-14">
           <IconArrowLeft stroke={1} />
         </Button>
-        <Button className="btn-secondary rounded-full">
+        <Button className="btn-secondary rounded-full w-14 h-14">
           <IconArrowRight stroke={1} />
         </Button>
-        {/* <Pagination page={1} total={1} limit={1} onPageChange={() => {}} /> */}
       </div>
     </Container>
   );

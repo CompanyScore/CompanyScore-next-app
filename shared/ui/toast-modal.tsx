@@ -1,4 +1,4 @@
-import { Modal } from '@/ui';
+import { Modal } from '@/shared/ui';
 import React from 'react';
 
 type ToastModalProps = {

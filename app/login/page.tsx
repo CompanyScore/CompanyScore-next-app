@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 
 import LinkedIn from './modals/linkedin-modal';
-import { Auth } from '@/widgets/auth';
-import { Button } from '@/ui';
+import { Auth } from '@/features/auth';
+import { Button } from '@/shared/ui';
 
 export default function LoginPage() {
   const [visible, setVisible] = useState(false);

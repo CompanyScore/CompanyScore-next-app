@@ -1,7 +1,7 @@
-import { Calendar, Radio, StarRating } from '@/shared';
+import { Calendar, Radio, StarRating } from '@/shared/ui';
 import React from 'react';
 import { useCommentWorkPrimaryForm } from '@/store/form';
-import { Input, Title } from '@/ui';
+import { Input, Title } from '@/shared/ui';
 import { IconMessage2Exclamation } from '@tabler/icons-react';
 
 export const AddWorkPrimary = () => {

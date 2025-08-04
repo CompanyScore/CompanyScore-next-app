@@ -1,15 +1,12 @@
 'use client';
 
-import React from 'react';
-
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Button, Container } from '@/ui';
+import { Button, Container } from '@/shared/ui';
 import {
   IconBrandLinkedin,
   IconBrandTelegram,
   IconPhone,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 
 const pages = [
   { href: '/', label: 'Главная' },
@@ -22,36 +19,34 @@ const pages = [
 ];
 
 export function Footer() {
-  const pathname = usePathname();
-
   return (
     <footer className="bg-black text-white">
       <Container>
         <div className="flex items-start justify-between flex-wrap gap-10 w-full">
-          <div className="flex max-w-96 w-full">
-            <img
-              src="/icons/header-logo.svg"
-              alt="Logo"
-              width={32}
-              height={32}
-            />
-            <h1 className="text-2xl">CompanyScore</h1>
+          <div className="flex">
+            <Link href="/">
+              <div className="flex md:w-[500px]">
+                <img
+                  src="/icons/header-logo.svg"
+                  alt="Logo"
+                  width={32}
+                  height={32}
+                />
+                <h1 className="text-2xl">CompanyScore</h1>
+              </div>
+            </Link>
           </div>
 
-          <div>
-            <div className="flex justify-between w-full">
-              <div className="flex flex-col w-48">
+          <div className="flex">
+            <div className="flex w-full gap-24">
+              <div className="flex flex-col">
                 <p className="text-sm text-gray-400">Разделы</p>
                 <ul className="flex flex-col gap-2 mt-6">
                   {pages.map(({ href, label }) => (
                     <li key={href}>
                       <Link
                         href={href}
-                        className={`pb-1 min-w-16 ${
-                          pathname === href
-                            ? 'border-b-2 border-white'
-                            : 'hover:border-b'
-                        }`}
+                        className="pb-1 min-w-16 hover:border-b-2 border-white transition-all"
                       >
                         {label}
                       </Link>
@@ -60,18 +55,14 @@ export function Footer() {
                 </ul>
               </div>
 
-              <div className="flex flex-col w-48">
+              <div className="flex flex-col">
                 <p className="text-sm text-gray-400">О сервисе</p>
                 <ul className="flex flex-col gap-2 mt-6">
                   {pages.map(({ href, label }) => (
                     <li key={href}>
                       <Link
                         href={href}
-                        className={`pb-1 min-w-16 ${
-                          pathname === href
-                            ? 'border-b-2 border-white'
-                            : 'hover:border-b'
-                        }`}
+                        className="pb-1 min-w-16 hover:border-b-2 border-white transition-all"
                       >
                         {label}
                       </Link>
@@ -81,19 +72,30 @@ export function Footer() {
               </div>
             </div>
           </div>
-          <Button className="mt-10 btn-neutral text-xl font-normal">
+          <Button className="btn-neutral text-base font-normal">
             Написать нам
           </Button>
         </div>
 
-        <div className="flex justify-between items-center flex-wrap gap-8 w-full mt-20">
-          <div className="flex w-96 gap-4">
-            <IconBrandLinkedin stroke={1} />
-            <IconBrandTelegram stroke={1} />
-            <IconPhone stroke={1} />
+        <div className="flex justify-between items-center flex-wrap gap-8 w-full mt-14">
+          <div className="flex gap-4">
+            <IconBrandLinkedin
+              className="p-2 border border-white rounded-full w-10 h-10"
+              stroke={1}
+            />
+            <IconBrandTelegram
+              className="p-2 border border-white rounded-full w-10 h-10"
+              stroke={1}
+            />
+            <IconPhone
+              className="p-2 border border-white rounded-full w-10 h-10"
+              stroke={1}
+            />
           </div>
-          <p className="w-96">support@companyscore.ru</p>
-          <p className="text-xs w-96">© 2025 CompanyScore</p>
+          <div className="flex md:flex-row flex-col justify-between md:items-center md:gap-24 gap-8">
+            <p className="text-base w-80">support@companyscore.ru</p>
+            <p className="text-base">© 2025 CompanyScore</p>
+          </div>
         </div>
       </Container>
     </footer>

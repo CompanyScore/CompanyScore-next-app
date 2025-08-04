@@ -1,4 +1,4 @@
-import { Button, Container } from '@/ui';
+import { Button, Container } from '@/shared/ui';
 
 export const Hero = () => {
   const cards = [
@@ -10,7 +10,7 @@ export const Hero = () => {
 
   return (
     <div
-      className="flex items-center justify-center h-screen bg-cover bg-no-repeat rounded-b-3xl"
+      className="flex items-center justify-center h-screen bg-cover bg-no-repeat rounded-b-[50px]"
       style={{
         backgroundImage:
           'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(imgs/hero-bg.svg)',
@@ -28,7 +28,7 @@ export const Hero = () => {
             помогите другим сделать правильный выбор
           </p>
 
-          <Button className="mt-10 btn-primary text-xl font-normal">
+          <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
             Оставить отзыв
           </Button>
         </div>
@@ -55,12 +55,12 @@ const WebHero = ({ cards }: Props) => {
       {cards.map((card, index) => (
         <div
           key={index}
-          className="flex flex-col items-center justify-center rounded-xl border border-amber-300 bg-black/60 p-6 w-40 md:w-72 m-auto"
+          className="mb-24 flex flex-col items-center justify-center rounded-xl border border-amber-100 bg-black/60 px-4 py-6 w-40 md:w-72 m-auto"
         >
-          <span className="mb-1 text-3xl font-bold leading-none">
+          <span className="mb-1 text-4xl font-bold leading-none">
             {card.title}
           </span>
-          <span className="text-sm opacity-80">{card.description}</span>
+          <span className="text-lg opacity-80">{card.description}</span>
         </div>
       ))}
     </div>
@@ -69,14 +69,14 @@ const WebHero = ({ cards }: Props) => {
 
 const MobileHero = ({ cards }: Props) => {
   return (
-    <div className="flex md:hidden flex-col justify-between gap-2 max-w-80 w-full py-4 border border-amber-300 bg-black/60 rounded-xl">
+    <div className="mb-24 flex md:hidden flex-col justify-between gap-2 max-w-80 w-full py-4 border border-amber-100 bg-black/60 rounded-xl">
       {cards.map((card, index) => (
         <div
           key={index}
           className="flex flex-col items-center justify-center m-auto"
         >
-          <span className="text-2xl font-bold leading-none">{card.title}</span>
-          <span className="text-sm mt-1 opacity-80">{card.description}</span>
+          <span className="text-4xl font-bold leading-none">{card.title}</span>
+          <span className="text-lg mt-1 opacity-80">{card.description}</span>
         </div>
       ))}
     </div>

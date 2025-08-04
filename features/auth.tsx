@@ -1,9 +1,9 @@
 'use client';
 
-import { useLoginForm, useRegistrationForm } from '@/hook';
+import { useLoginForm, useRegistrationForm } from '@/shared/hooks';
 import { useAuthApi } from '@/store/api';
-import { Button, Input, Loading } from '@/ui';
-import { NewModal } from '@/ui/new-modal';
+import { Button, Input, Loading } from '@/shared/ui';
+import { NewModal } from '@/shared/ui/new-modal';
 import { useEffect, useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 import classNames from 'classnames';

@@ -22,7 +22,7 @@ import {
   AddInternship,
 } from './components';
 
-import { Button, Toast, useToast } from '@/ui';
+import { Button, Toast, useToast } from '@/shared/ui';
 import {
   useCommentInterviewApi,
   useCommentApi,

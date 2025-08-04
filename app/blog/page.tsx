@@ -1,6 +1,6 @@
 'use client';
 
-import { Container } from '@/ui';
+import { Container } from '@/shared/ui';
 
 export default function BlogPage() {
   return (
