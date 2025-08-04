@@ -1,15 +1,12 @@
 'use client';
 
-import React from 'react';
-
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Button, Container } from '@/ui';
+import { Button, Container } from '@/shared/ui';
 import {
   IconBrandLinkedin,
   IconBrandTelegram,
   IconPhone,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 
 const pages = [
   { href: '/', label: 'Главная' },
