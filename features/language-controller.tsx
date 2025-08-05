@@ -23,7 +23,7 @@ export function LanguageController() {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow-2xl bg-neutral rounded-box w-52"
+        className="dropdown-content z-1 p-2 shadow-2xl bg-neutral rounded-box w-52"
       >
         <li>
           <input

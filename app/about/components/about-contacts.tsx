@@ -34,7 +34,7 @@ export const Contacts = () => {
             {socialIcons.map(social => (
               <Button
                 key={social.name}
-                className="btn-secondary rounded-full w-12 h-10 p-0 md:p-0"
+                className="btn rounded-full w-12 h-10 p-0 md:p-0"
               >
                 {social.icon}
               </Button>

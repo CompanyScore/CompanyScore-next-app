@@ -7,15 +7,12 @@ const blocks: Block[] = [
   {
     title: '12',
     description: 'Энтузиастов в команде',
-    offset: true,
-    mobileOffset: true,
   },
   { title: '20+', description: 'Компетенций' },
   {
     title: '100%',
     description: 'Вовлеченность в развитии продукта',
     smallerFont: true,
-    mobileOffset: true,
   },
 ];
 export const Team = () => {
@@ -60,7 +57,6 @@ const WebTeam = ({ blocks }: BlockProps) => {
           key={index}
           className={`
               flex flex-col text-left justify-center mt-8 w-40 md:w-72 m-auto
-              ${block.offset ? 'mt-22 md:mt-40' : ''}
             `}
         >
           <span className="text-7xl text-neutral-800 font-semibold pt-5 pr-5">
@@ -81,10 +77,7 @@ const MobileTeam = ({ blocks }: BlockProps) => {
   return (
     <div className="flex md:hidden flex-col w-full pt-20 md:pt-0">
       {blocks.map((block, index) => (
-        <div
-          key={index}
-          className={`flex flex-col ${block.mobileOffset ? 'pl-[48vw] pt-16' : ''}`}
-        >
+        <div key={index} className={`flex flex-col`}>
           <span className="text-7xl text-neutral-800 font-semibold">
             {block.title}
           </span>

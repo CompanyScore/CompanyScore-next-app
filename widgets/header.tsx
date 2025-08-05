@@ -57,7 +57,7 @@ export function Header() {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content menu bg-white text-black border border-gray-200 rounded-xl shadow-lg z-[9999] w-96 p-4 space-y-2"
+            className="dropdown-content menu bg-white text-black border border-gray-200 rounded-xl shadow-lg z-9999 w-96 p-4 space-y-2"
           >
             <li className="flex flex-row items-center border-b pb-2">
               <Avatar
