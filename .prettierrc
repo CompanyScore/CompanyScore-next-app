@@ -6,10 +6,10 @@
   "printWidth": 80,
   "endOfLine": "lf",
   "arrowParens": "avoid",
-  "jsxSingleQuote": "false",
-  "bracketSpacing": "true",
-  "bracketSameLine": "false",
-  "useTabs": "false",
+  "jsxSingleQuote": false,
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "useTabs": false,
   "plugins": [
     "prettier-plugin-tailwindcss"
   ]
