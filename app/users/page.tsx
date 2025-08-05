@@ -3,7 +3,7 @@
 import { fetchUsersSSR } from '@/api/server/users';
 import { UsersFilter, UsersList } from './components';
 
-// export const revalidate = 60;
+export const revalidate = 60;
 
 export default async function UsersPage() {
   const data = await fetchUsersSSR();
