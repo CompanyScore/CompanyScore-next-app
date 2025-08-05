@@ -1,5 +1,5 @@
 // api/client/fetchUsersCSR.ts
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
 // types/params.ts
@@ -28,33 +28,9 @@ export type GetUsersResponse = {
   total: number;
 };
 
-export const useUsersCSR = (params: GetUsersParams = {}) => {
-  const { page = 1, limit = 10, search, role, enabled } = params;
-
-  return useQuery<GetUsersResponse>({
-    queryKey: ['users', { page, limit, search, role }], // ✅ влияет на кэш
-    queryFn: async ({ signal }) => {
-      const { data } = await useApi.get(`/users`, {
-        signal,
-        params: {
-          isDeleted: false,
-          page,
-          limit,
-          ...(search ? { search } : {}),
-          ...(role ? { role } : {}),
-        },
-      });
-      return data;
-    },
-    enabled: !!enabled,
-    staleTime: 1000 * 60 * 5,
-    refetchOnWindowFocus: false,
-  });
-};
-
-export const useUsersInfinity = () => {
+export const useUsersInfinity = ({ search, enabled }: GetUsersParams) => {
   return useInfiniteQuery({
-    queryKey: ['users'],
+    queryKey: ['users', { search }],
     queryFn: async ({
       pageParam = 1,
       signal,
@@ -64,10 +40,19 @@ export const useUsersInfinity = () => {
     }) => {
       const { data } = await useApi.get('/users', {
         signal,
-        params: { page: pageParam, limit: 10 },
+        params: {
+          isDeleted: false,
+          page: pageParam,
+          limit: 10,
+          ...(search ? { search } : {}),
+        },
       });
+
       return data;
     },
+    enabled: !!enabled,
+    staleTime: 1000 * 60 * 5,
+    refetchOnWindowFocus: false,
     initialPageParam: 1,
     getNextPageParam: lastPage => {
       const totalPages = Math.ceil(lastPage.total / lastPage.limit);
