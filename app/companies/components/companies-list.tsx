@@ -1,35 +1,48 @@
-// import { useCompanyStore } from '@/store/api';
-// import { CompaniesCard } from './companies-card';
-// import { InfinityList } from '@/shared/ui';
+'use client';
 
-// export function CompaniesList() {
-//   const { companies, limit, total, page, getCompanies, loading } =
-//     useCompanyStore();
+import { CompaniesCard } from './companies-card';
+import { InfinityList, Loading } from '@/shared/ui';
+import { useCompaniesInfinity } from '@/api/client/companies';
 
-//   return (
-//     <div>
-//       <InfinityList
-//         limit={limit}
-//         total={total}
-//         page={page}
-//         getNewElements={getCompanies}
-//         loading={loading}
-//       >
-//         {companies.map(company => {
-//           const { id, name, rating, logo, country, city } = company;
+export function CompaniesList() {
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
+    useCompaniesInfinity();
 
-//           return (
-//             <CompaniesCard
-//               key={id}
-//               name={name}
-//               rating={rating}
-//               logo={logo}
-//               country={country}
-//               city={city}
-//             />
-//           );
-//         })}
-//       </InfinityList>
-//     </div>
-//   );
-// }
+  const companies = data?.pages.flatMap(page => page.data) || [];
+  console.log(companies);
+
+  if (isLoading) {
+    return (
+      <div className="mx-auto">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className="text-center text-red-500">
+        Ошибка загрузки: {String(error)}
+      </div>
+    );
+  }
+
+  return (
+    <InfinityList loading={isFetchingNextPage} fetchNextPage={fetchNextPage}>
+      {companies.map(company => {
+        const { id, name, rating, logo, country, city } = company;
+
+        return (
+          <CompaniesCard
+            key={id}
+            name={name}
+            rating={rating}
+            logo={logo}
+            country={country.name}
+            city={city.name}
+          />
+        );
+      })}
+    </InfinityList>
+  );
+}
