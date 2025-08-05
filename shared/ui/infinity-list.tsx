@@ -1,50 +1,36 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Loading } from './loading';
+import { useInView } from 'react-intersection-observer';
 
 type InfinityListProps = {
-  limit: number;
   children: React.ReactNode;
-  total: number;
-  page: number;
   loading: boolean;
-  getNewElements: (params: { page: number }) => void;
+  fetchNextPage: () => void;
+  isFetching?: boolean;
 };
 
 export const InfinityList = ({
   children,
-  limit,
-  total,
-  page,
   loading,
-  getNewElements,
+  fetchNextPage,
+  isFetching = true,
 }: InfinityListProps) => {
-  const lastElement = useRef<HTMLDivElement | null>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
+  const { ref, inView } = useInView();
 
   useEffect(() => {
-    if (observer.current) observer.current.disconnect();
-
-    if (!loading) {
-      const callback = function (entries: IntersectionObserverEntry[]) {
-        if (entries[0].isIntersecting && page < total / limit) {
-          getNewElements({ page: page + 1 });
-        }
-      };
-
-      observer.current = new IntersectionObserver(callback);
-      if (lastElement.current) {
-        observer.current.observe(lastElement.current);
-      }
+    if (inView && isFetching) {
+      fetchNextPage();
     }
-  }, [loading]);
+  }, [fetchNextPage, inView, isFetching]);
 
   return (
-    <div className="flex flex-col gap-8 items-center">
+    <div className="flex flex-col gap-2 items-center">
       {children}
+
       {loading && <Loading />}
-      <div style={{ height: '20px' }} ref={lastElement} />
+      <div ref={ref} />
     </div>
   );
 };
