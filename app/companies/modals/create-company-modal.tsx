@@ -1,10 +1,10 @@
 'use client';
 
 import { useCompanyStore } from '@/store/api';
-import { countriesWithCities } from '@/constants';
-import { Button, Select, Input, Modal, Title, useToast } from '@/ui';
-import { useState } from 'react';
-import { OptionType } from '@/ui/select';
+import { Button, Select, Input, Modal, Title, useToast } from '@/shared/ui';
+import { useEffect, useState } from 'react';
+import { OptionType } from '@/shared/ui/select';
+import { useCountriesAndCitiesStore } from '@/store/api/countries-cities.api';
 
 type Props = {
   onGetCreatedCompanyId?: (
@@ -17,10 +17,16 @@ type Props = {
 export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   const toast = useToast();
   const { getCompanies, createCompany } = useCompanyStore();
+  const { getCountriesAndCities, countryAndCity } =
+    useCountriesAndCitiesStore();
 
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedName, setSelectedName] = useState('');
+
+  useEffect(() => {
+    getCountriesAndCities();
+  }, [getCountriesAndCities]);
 
   const closeModal = () => {
     const modal = document.getElementById(
@@ -35,19 +41,17 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
     setSelectedName('');
   };
 
-  const countryOptions: OptionType[] = countriesWithCities.map(
-    ({ label, value }) => ({
-      label,
-      value,
-    }),
-  );
+  const countryOptions: OptionType[] = countryAndCity.map(({ name, id }) => ({
+    label: name,
+    value: id,
+  }));
 
   const cityOptions: OptionType[] =
-    countriesWithCities
-      .find(c => c.value === selectedCountry)
-      ?.cities.map(city => ({
-        label: city,
-        value: city,
+    countryAndCity
+      .find(c => c.id === selectedCountry)
+      ?.cities.map(({ name }) => ({
+        label: name,
+        value: name,
       })) || [];
 
   const onSubmit = async (e: React.FormEvent) => {

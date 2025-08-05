@@ -1,3 +1,2 @@
-export { UsersTable } from './users-table';
-export { UsersShowBy } from './users-show-by';
-export { UsersPagination } from './users-pagination';
+export { UsersList } from './users-list';
+export { UsersFilter } from './users-filter';

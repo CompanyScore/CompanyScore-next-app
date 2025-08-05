@@ -1,4 +1,4 @@
-import { Container } from '@/ui';
+import { Container } from '@/shared/ui';
 export const Hero = () => {
   return (
     <Container className="flex flex-col text-neutral-800">

@@ -1,4 +1,4 @@
-import { Card } from '@/ui';
+import { Card } from '@/shared/ui';
 
 type CompaniesCardProps = {
   name: string;

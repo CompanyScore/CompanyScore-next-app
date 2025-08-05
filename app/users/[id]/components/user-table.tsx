@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 // import { redirect } from 'next/navigation';
 import { useCommentApi } from '@/store/api';
 // import moment from 'moment';
-import { Button, Title } from '@/ui';
+import { Button, Title } from '@/shared/ui';
 import Link from 'next/link';
 
 export type CommentType = {

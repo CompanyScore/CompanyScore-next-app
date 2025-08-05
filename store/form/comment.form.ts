@@ -6,6 +6,7 @@ type CommentFormType = {
     country: string;
     city: string;
   };
+  userPositionCategoryId: string;
   userPositionId: string;
   userGradeYears: number;
   userGradeMonths: number;
@@ -27,6 +28,7 @@ export const useCommentForm = create<CommentFormState>(set => ({
       country: '',
       city: '',
     },
+    userPositionCategoryId: '',
     userPositionId: '',
     userGradeYears: 0,
     userGradeMonths: 0,

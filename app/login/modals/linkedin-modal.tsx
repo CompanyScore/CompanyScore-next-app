@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Title, Modal } from '@/ui';
+import { Title, Modal } from '@/shared/ui';
 
 export default function LinkedIn() {
   const redirectToLinkedin = async () => {

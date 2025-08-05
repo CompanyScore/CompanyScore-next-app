@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useCommentApi } from '@/store/api';
 // import moment from 'moment';
 // import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { Button, Title, Toast } from '@/ui';
+import { Button, Title, Toast } from '@/shared/ui';
 import Link from 'next/link';
 
 export type CommentType = {

@@ -1,5 +1,5 @@
 import { type Block, type BlockProps } from '@/app/about/types';
-import { Button, Container, Title } from '@/ui';
+import { Button, Container, Title } from '@/shared/ui';
 import { IconArrowUpRight } from '@tabler/icons-react';
 
 const blocks: Block[] = [

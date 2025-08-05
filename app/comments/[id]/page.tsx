@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { Card, Container, Title } from '@/ui';
+import { Card, Container, Title } from '@/shared/ui';
 import { useEffect } from 'react';
 import { useCommentApi } from '@/store/api';
 import {

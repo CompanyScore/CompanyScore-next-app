@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Input } from '@/ui';
-import { useDebounce } from '@/hook';
+import { Input } from '@/shared/ui';
+import { useDebounce } from '@/shared/hooks';
 
 type SearcherProps = {
   onSearch: (searchValue: string) => void;

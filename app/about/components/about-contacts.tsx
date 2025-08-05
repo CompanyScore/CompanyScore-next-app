@@ -1,5 +1,5 @@
 import { type InputFieldProps, Social } from '@/app/about/types';
-import { Button, Container, Input, Textarea, Title } from '@/ui';
+import { Button, Container, Input, Textarea, Title } from '@/shared/ui';
 import {
   IconBrandLinkedin,
   IconBrandTelegram,

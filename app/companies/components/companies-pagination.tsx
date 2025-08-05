@@ -1,5 +1,5 @@
 'use client';
-import { Pagination } from '@/shared';
+import { Pagination } from '@/shared/ui';
 import { useCompanyStore } from '@/store/api';
 
 export function CompaniesPagination() {

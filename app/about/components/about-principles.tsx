@@ -1,5 +1,5 @@
 import { type Block } from '@/app/about/types';
-import { Container, Title } from '@/ui';
+import { Container, Title } from '@/shared/ui';
 
 const blocks: Block[] = [
   {

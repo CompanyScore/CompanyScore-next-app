@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Error, Title } from '@/ui';
+import { Error, Title } from '@/shared/ui';
 
 import { FaChevronLeft, FaAngleRight } from 'react-icons/fa6';
 import { useCompanyStore } from '@/store/api';

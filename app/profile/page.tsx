@@ -6,7 +6,7 @@ import {
   ProfileShowBy,
   ProfileTable,
 } from './components';
-import { Title } from '@/ui';
+import { Title } from '@/shared/ui';
 import { useCommentApi } from '@/store/api';
 
 export default function ProfilePage() {

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { profileEditSchema } from '@/utils/profileEditSchema';
+import { profileEditSchema } from '@/shared/schema/profileEditSchema';
 
 export const useProfileEditForm = () => {
   return useForm({

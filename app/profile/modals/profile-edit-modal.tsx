@@ -1,12 +1,20 @@
 'use client';
 
-import { Button, Input, Modal, Textarea, Title, Select, useToast } from '@/ui';
+import {
+  Button,
+  Input,
+  Modal,
+  Textarea,
+  Title,
+  Select,
+  useToast,
+} from '@/shared/ui';
 import { positions } from '@/constants';
 import { useProfileApi } from '@/store/api';
 import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { profileEditSchema } from '@/utils/profileEditSchema';
+import { profileEditSchema } from '@/shared/schema/profileEditSchema';
 
 type ProfileEditFormData = {
   name?: string;
