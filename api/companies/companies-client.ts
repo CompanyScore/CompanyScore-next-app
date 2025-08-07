@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useApi } from './use-api';
+import { useApi } from '../use-api';
 
 export const useCompaniesInfinity = () => {
   return useInfiniteQuery({
