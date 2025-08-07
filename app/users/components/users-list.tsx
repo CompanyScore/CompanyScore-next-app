@@ -1,6 +1,6 @@
 'use client';
 
-import { useUsersInfinity } from '@/api/client/users';
+import { GetAllUsersClient } from '@/api/users/users-client';
 import { useAuth } from '@/shared/hooks';
 import { InfinityList } from '@/shared/ui';
 import { useUsersFilterStore } from '@/store/users-filter.store';
@@ -10,7 +10,7 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
   const { isLoggedIn, loading } = useAuth();
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    useUsersInfinity({ search, enabled: isLoggedIn });
+    GetAllUsersClient({ search, enabled: isLoggedIn });
 
   const dataUsers = data?.pages.flatMap(page => page.users);
   const users = isLoggedIn && dataUsers ? dataUsers : publicUsers;

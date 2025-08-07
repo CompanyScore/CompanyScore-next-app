@@ -28,7 +28,7 @@ export type GetUsersResponse = {
   total: number;
 };
 
-export const useUsersInfinity = ({ search, enabled }: GetUsersParams) => {
+export const GetAllUsersClient = ({ search, enabled }: GetUsersParams) => {
   return useInfiniteQuery({
     queryKey: ['users', { search }],
     queryFn: async ({
