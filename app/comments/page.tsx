@@ -1,8 +1,11 @@
 import { Button, Container } from '@/shared/ui';
 import Link from 'next/link';
-import { CommentsTable, FilterComments } from './components';
+import { CommentsList, CommentsFilter } from './components';
+import { GetAllCommentsServer } from '@/api';
 
-export default function CommentsPage() {
+export default async function CommentsPage() {
+  const data = await GetAllCommentsServer();
+
   return (
     <Container className="flex flex-col gap-20">
       <div className="flex justify-between">
@@ -20,8 +23,8 @@ export default function CommentsPage() {
       </Link>
 
       <div className="flex gap-6">
-        <FilterComments />
-        <CommentsTable />
+        <CommentsFilter />
+        <CommentsList comments={data?.comments || []} />
       </div>
     </Container>
   );

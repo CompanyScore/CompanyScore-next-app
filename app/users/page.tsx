@@ -1,18 +1,14 @@
-// app/users/page.tsx
-
 import { GetAllUsersServer } from '@/api/users/users-server';
 import { UsersFilter, UsersList } from './components';
-
-export const revalidate = 60;
+import { Container } from '@/shared/ui';
 
 export default async function UsersPage() {
   const data = await GetAllUsersServer();
 
   return (
-    <section className="flex flex-col gap-8 py-8 md:py-10 m-auto">
-      <div>asd</div>
+    <Container className="flex flex-col gap-20">
       <UsersFilter />
       <UsersList users={data?.users || []} />
-    </section>
+    </Container>
   );
 }
