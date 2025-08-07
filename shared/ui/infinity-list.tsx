@@ -9,6 +9,7 @@ type InfinityListProps = {
   loading: boolean;
   fetchNextPage: () => void;
   isFetching?: boolean;
+  className?: string;
 };
 
 export const InfinityList = ({
@@ -16,6 +17,7 @@ export const InfinityList = ({
   loading,
   fetchNextPage,
   isFetching = true,
+  className,
 }: InfinityListProps) => {
   const { ref, inView } = useInView();
 
@@ -26,7 +28,7 @@ export const InfinityList = ({
   }, [fetchNextPage, inView, isFetching]);
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className={`flex flex-col gap-2 items-center ${className}`}>
       {children}
 
       {loading && <Loading />}

@@ -1,7 +1,7 @@
 'use client';
 
 import { CompaniesCard } from './companies-card';
-import { Container, InfinityList, Loading } from '@/shared/ui';
+import { InfinityList, Loading } from '@/shared/ui';
 import { useCompaniesInfinity } from '@/api/companies/companies-client';
 
 export function CompaniesList() {
@@ -28,23 +28,25 @@ export function CompaniesList() {
   }
 
   return (
-    <Container>
-      <InfinityList loading={isFetchingNextPage} fetchNextPage={fetchNextPage}>
-        {companies.map(company => {
-          const { id, name, rating, logo, country, city } = company;
+    <InfinityList
+      loading={isFetchingNextPage}
+      fetchNextPage={fetchNextPage}
+      className="flex-1"
+    >
+      {companies.map(company => {
+        const { id, name, rating, logo, country, city } = company;
 
-          return (
-            <CompaniesCard
-              key={id}
-              name={name}
-              rating={rating}
-              logo={logo}
-              country={country.name}
-              city={city.name}
-            />
-          );
-        })}
-      </InfinityList>
-    </Container>
+        return (
+          <CompaniesCard
+            key={id}
+            name={name}
+            rating={rating}
+            logo={logo}
+            country={country.name}
+            city={city.name}
+          />
+        );
+      })}
+    </InfinityList>
   );
 }
