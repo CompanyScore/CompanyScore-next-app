@@ -1,13 +1,10 @@
-// api/server/users.ts
-
 export const revalidate = 60;
 
-export async function fetchUsersSSR() {
+export async function GetAllUsersServer() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACK}/users/public?page=1&limit=5`,
       {
-        // cache: 'no-cache',
         next: { revalidate: 60 },
       },
     );

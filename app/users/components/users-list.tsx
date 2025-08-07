@@ -1,6 +1,6 @@
 'use client';
 
-import { useUsersInfinity } from '@/api/client/users';
+import { GetAllUsersClient } from '@/api/users/users-client';
 import { useAuth } from '@/shared/hooks';
 import { InfinityList } from '@/shared/ui';
 import { useUsersFilterStore } from '@/store/users-filter.store';
@@ -10,13 +10,15 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
   const { isLoggedIn, loading } = useAuth();
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    useUsersInfinity({ search, enabled: isLoggedIn });
+    GetAllUsersClient({ search, enabled: isLoggedIn });
 
   const dataUsers = data?.pages.flatMap(page => page.users);
   const users = isLoggedIn && dataUsers ? dataUsers : publicUsers;
 
   if (loading || isLoading) {
-    return <div className="text-center text-gray-500">Загрузка...</div>;
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (isError) {
@@ -27,7 +29,7 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
     );
   }
 
-  if (users.length === 0) {
+  if (!users?.length) {
     return <p className="text-center text-gray-500">Пользователи не найдены</p>;
   }
 

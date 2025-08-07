@@ -1,3 +1,2 @@
-export { CommentsPagination } from './comments-pagination';
-export { CommentsShowBy } from './comments-show-by';
-export { CommentsTable } from './comments-table';
+export { CommentsList } from './comments-list';
+export { CommentsFilter } from './comments-filters';
