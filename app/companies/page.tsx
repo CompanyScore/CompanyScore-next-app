@@ -6,6 +6,7 @@ import {
   CompaniesHero,
   CompaniesList,
   CompaniesSearch,
+  CompaniesSort,
 } from './components';
 // import { useCompanyStore } from '@/store/api';
 
@@ -18,7 +19,10 @@ export default function CompaniesPage() {
       <CompaniesSearch />
       <Container className="flex gap-[24px]">
         <CompaniesFilter />
-        <CompaniesList />
+        <div className="flex flex-col flex-1 gap-[32px]">
+          <CompaniesSort />
+          <CompaniesList />
+        </div>
       </Container>
 
       {/* <section className="flex flex-col items-stretch justify-center gap-8 m-auto">

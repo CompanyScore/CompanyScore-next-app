@@ -28,11 +28,7 @@ export function CompaniesList() {
   }
 
   return (
-    <InfinityList
-      loading={isFetchingNextPage}
-      fetchNextPage={fetchNextPage}
-      className="flex-1"
-    >
+    <InfinityList loading={isFetchingNextPage} fetchNextPage={fetchNextPage}>
       {companies.map(company => {
         const { id, name, rating, logo, country, city } = company;
 
