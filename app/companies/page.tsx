@@ -1,5 +1,5 @@
 'use client';
-import { CompaniesHero, CompaniesSearch } from './components';
+import { CompaniesHero, CompaniesList, CompaniesSearch } from './components';
 // import { useCompanyStore } from '@/store/api';
 
 export default function CompaniesPage() {
@@ -9,6 +9,7 @@ export default function CompaniesPage() {
     <>
       <CompaniesHero />
       <CompaniesSearch />
+      <CompaniesList />
       {/* <section className="flex flex-col items-stretch justify-center gap-8 m-auto">
         <Title>{`Компаний: ${total}`}</Title>
         <CompaniesFilter />
