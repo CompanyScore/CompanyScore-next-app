@@ -1,2 +1,2 @@
-export { CommentsTable } from './comments-table';
-export { FilterComments } from './filters.comments';
+export { CommentsList } from './comments-list';
+export { CommentsFilter } from './comments-filters';

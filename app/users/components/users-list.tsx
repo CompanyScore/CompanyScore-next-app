@@ -16,7 +16,9 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
   const users = isLoggedIn && dataUsers ? dataUsers : publicUsers;
 
   if (loading || isLoading) {
-    return <div className="text-center text-gray-500">Загрузка...</div>;
+    return (
+      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+    );
   }
 
   if (isError) {
@@ -27,7 +29,7 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
     );
   }
 
-  if (users.length === 0) {
+  if (!users?.length) {
     return <p className="text-center text-gray-500">Пользователи не найдены</p>;
   }
 

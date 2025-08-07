@@ -1,4 +1,4 @@
-export function FilterComments() {
+export function CommentsFilter() {
   return (
     <div className="flex flex-col max-w-[288px] w-full">
       <p>Фильтры</p>

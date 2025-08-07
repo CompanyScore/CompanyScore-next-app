@@ -1,9 +1,9 @@
 export const revalidate = 60;
 
-export async function GetAllUsersServer() {
+export async function GetAllCommentsServer() {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACK}/users/public?page=1&limit=5`,
+      `${process.env.NEXT_PUBLIC_BACK}/comments/public?page=1&limit=5`,
       {
         next: { revalidate: 60 },
       },
@@ -15,7 +15,7 @@ export async function GetAllUsersServer() {
 
     return await res.json();
   } catch (error) {
-    console.error('Ошибка при загрузке пользователей (SSR):', error);
+    console.error('Ошибка при загрузке комментариев (SSR):', error);
     return null;
   }
 }

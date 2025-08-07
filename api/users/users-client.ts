@@ -1,8 +1,6 @@
-// api/client/fetchUsersCSR.ts
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
-// types/params.ts
 export type GetUsersParams = {
   page?: number;
   limit?: number;
@@ -11,7 +9,6 @@ export type GetUsersParams = {
   enabled?: boolean;
 };
 
-// types/api.ts
 export type GetUsersResponse = {
   users: {
     id: string;
