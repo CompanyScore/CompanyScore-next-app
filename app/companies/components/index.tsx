@@ -7,3 +7,4 @@ export { CompaniesPagination } from './companies-pagination';
 export { CompaniesCard } from './companies-card';
 export { CompaniesList } from './companies-list';
 export { CompaniesHero } from './companies-hero';
+export { CompaniesSearch } from './companies-search';

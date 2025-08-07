@@ -16,12 +16,17 @@ export function Searcher({ onSearch }: SearcherProps) {
   }, [debouncedValue]);
 
   return (
-    <Input
-      placeholder="Поиск"
-      type="search"
-      value={searchValue}
-      onChange={val => setSearchValue(String(val))}
-      className="[&::-webkit-search-cancel-button]:cursor-pointer"
-    />
+    <div className="flex">
+      <Input
+        placeholder="Поиск"
+        type="search"
+        value={searchValue}
+        onChange={val => setSearchValue(String(val))}
+        className="[&::-webkit-search-cancel-button]:cursor-pointer rounded-l-lg rounded-r-none"
+      />
+      <button className="btn btn-primary rounded-l-none rounded-r-lg text-lg">
+        Поиск
+      </button>
+    </div>
   );
 }
