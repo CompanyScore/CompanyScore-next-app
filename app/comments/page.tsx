@@ -17,9 +17,7 @@ export default async function CommentsPage() {
       <CommentsHero />
       <Container className="flex flex-col gap-20">
         <div className="flex gap-6">
-          {/* <aside className="hidden lg:block w-[288px] shrink-0"> */}
           <CommentsFilter />
-          {/* </aside> */}
 
           <div className="flex flex-col gap-8">
             <CommentsSorting />
