@@ -10,9 +10,7 @@ export function ImageTable({ src, className }: Props) {
     <img
       src={src}
       alt="ImageTable"
-      width={90}
-      height={80}
-      className={classNames('rounded object-contain max-h-20', className)}
+      className={classNames('rounded-full object-cover', className)}
     />
   );
 }
