@@ -1,13 +1,16 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 import { Card, ImageTable } from '@/shared/ui';
 import moment from 'moment';
+import 'moment/locale/ru';
 
 import { FaStar } from 'react-icons/fa';
 import { IconSpy, IconHeart, IconFlag } from '@tabler/icons-react';
 
 export function CommentCard({ comment }: any) {
   const [expanded, setExpanded] = useState(false);
+  moment.locale('ru');
 
   // +++ новый ref на обёртку скрываемого контента
   const collapsibleRef = useRef<HTMLDivElement | null>(null);
@@ -52,12 +55,15 @@ export function CommentCard({ comment }: any) {
           <FaStar className="text-yellow-400 w-6 h-6" />
         </div>
 
-        <div>{moment(comment?.createDate).format('MMM Do YY')}</div>
+        <div>{moment(comment?.createDate).format('D MMMM YYYY')}</div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between items-start">
         <div className="flex flex-col gap-2 w-full">
-          <div className="flex items-center gap-2">
+          <div
+            className="flex items-center gap-2 cursor-pointer"
+            onClick={() => redirect(`/users/${comment?.user.id}`)}
+          >
             {comment?.user?.avatar ? (
               <ImageTable
                 className="max-[650px]:hidden w-14 h-14 rounded-full aspect-square"
@@ -105,7 +111,10 @@ export function CommentCard({ comment }: any) {
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 w-full">
+        <div
+          className="flex items-center justify-end gap-2 w-full cursor-pointer"
+          onClick={() => redirect(`/company/${comment?.company.id}`)}
+        >
           <b>{comment?.company.name}</b>
           <ImageTable
             className="max-[650px]:hidden w-14 h-14"
