@@ -2,7 +2,7 @@
 
 import { CompaniesCard } from './companies-card';
 import { InfinityList, Loading } from '@/shared/ui';
-import { useCompaniesInfinity } from '@/api/client/companies';
+import { useCompaniesInfinity } from '@/api/companies/companies-client';
 
 export function CompaniesList() {
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =

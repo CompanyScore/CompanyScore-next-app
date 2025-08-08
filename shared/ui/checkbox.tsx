@@ -1,5 +1,5 @@
 type CheckboxProps = {
-  label: string;
+  label: React.ReactNode;
   value: string;
   selected: boolean;
   onChange: () => void;
