@@ -1,9 +1,7 @@
 'use client';
 
-// import { redirect } from 'next/navigation';
-
 import { Title, InfinityList } from '@/shared/ui';
-
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/shared/hooks';
 import { GetAllCommentsClient } from '@/api';
 import { CommentCard } from './comments-card';
@@ -14,16 +12,27 @@ export function CommentsList({
   comments: any[];
 }) {
   const { isLoggedIn, loading } = useAuth();
+  const sp = useSearchParams();
+  const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetAllCommentsClient({ enabled: isLoggedIn });
+    GetAllCommentsClient({ enabled: isLoggedIn, sort });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
   const comments = isLoggedIn && dataComments ? dataComments : publicComments;
 
   if (loading || isLoading) {
     return (
-      <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
+      <>
+        {Array(3)
+          .fill(null)
+          .map((_, idx) => (
+            <div
+              key={idx}
+              className="skeleton h-[200px] w-[400px] lg:w-[912px] bg-neutral-500  m-auto"
+            ></div>
+          ))}
+      </>
     );
   }
 
@@ -47,11 +56,7 @@ export function CommentsList({
         isFetching={isLoggedIn}
       >
         {comments.map(comment => (
-          <CommentCard
-            key={comment?.id}
-            comment={comment}
-            // onClick={() => redirect(`/comments/${comment?.id}`)}
-          />
+          <CommentCard key={comment?.id} comment={comment} className="w-full" />
         ))}
       </InfinityList>
 

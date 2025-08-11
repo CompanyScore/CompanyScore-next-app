@@ -26,7 +26,7 @@ export const InfinityList = ({
   }, [fetchNextPage, inView, isFetching]);
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-2 items-center w-full">
       {children}
 
       {loading && <Loading />}

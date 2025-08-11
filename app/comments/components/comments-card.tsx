@@ -59,14 +59,14 @@ export function CommentCard({ comment }: any) {
       </div>
 
       <div className="flex justify-between items-start">
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => redirect(`/users/${comment?.user.id}`)}
           >
             {comment?.user?.avatar ? (
               <ImageTable
-                className="max-[650px]:hidden w-14 h-14 rounded-full aspect-square"
+                className="w-14 h-14 rounded-full aspect-square"
                 src={`${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.user.avatar}`}
               />
             ) : (
@@ -117,7 +117,7 @@ export function CommentCard({ comment }: any) {
         >
           <b>{comment?.company.name}</b>
           <ImageTable
-            className="max-[650px]:hidden w-14 h-14"
+            className="w-14 h-14"
             src={
               comment?.company?.logo
                 ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`

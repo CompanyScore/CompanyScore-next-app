@@ -19,7 +19,7 @@ export default async function CommentsPage() {
         <div className="flex gap-6">
           <CommentsFilter />
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-8 w-full">
             <CommentsSorting />
             <CommentsList comments={data?.comments || []} />
           </div>

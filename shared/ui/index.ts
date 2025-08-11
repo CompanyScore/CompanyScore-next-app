@@ -30,3 +30,4 @@ export { Tab } from './tab';
 export { StarRating } from './star-rating';
 export { Calendar } from './calendar';
 export { InfinityList } from './infinity-list';
+export { FilterCard } from './filter-card';
