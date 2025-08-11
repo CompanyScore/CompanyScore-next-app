@@ -2,14 +2,15 @@
 
 import { CompaniesCard } from './companies-card';
 import { InfinityList, Loading } from '@/shared/ui';
-import { useCompaniesInfinity } from '@/api/companies/companies-client';
+import { GetCompaniesClient } from '@/api/companies/companies-client';
+import { useCompaniesFilterStore } from '@/store/companies-filter.store';
 
 export function CompaniesList() {
+  const search = useCompaniesFilterStore(state => state.search);
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    useCompaniesInfinity();
+    GetCompaniesClient({ search });
 
   const companies = data?.pages.flatMap(page => page.data) || [];
-  console.log(companies);
 
   if (isLoading) {
     return (

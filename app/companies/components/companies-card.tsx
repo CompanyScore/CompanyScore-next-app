@@ -22,7 +22,7 @@ export function CompaniesCard({
         src={
           logo
             ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${logo}`
-            : '/imgs/company-logo.jpg'
+            : '/imgs/company-logo.svg'
         }
         alt={`Logo ${name}`}
       />

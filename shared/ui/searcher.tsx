@@ -1,19 +1,16 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Input } from '@/shared/ui';
-import { useDebounce } from '@/shared/hooks';
 
 type SearcherProps = {
-  onSearch: (searchValue: string) => void;
+  onClick: (searchValue: string) => void;
 };
 
-export function Searcher({ onSearch }: SearcherProps) {
+export function Searcher({ onClick }: SearcherProps) {
   const [searchValue, setSearchValue] = useState('');
-  const debouncedValue = useDebounce(searchValue, 500);
-
-  useEffect(() => {
-    onSearch(debouncedValue);
-  }, [debouncedValue]);
+  const handleClick = () => {
+    onClick(searchValue);
+  };
 
   return (
     <div className="flex">
@@ -22,9 +19,13 @@ export function Searcher({ onSearch }: SearcherProps) {
         type="search"
         value={searchValue}
         onChange={val => setSearchValue(String(val))}
+        onKeyDown={handleClick}
         className="[&::-webkit-search-cancel-button]:cursor-pointer rounded-l-lg rounded-r-none"
       />
-      <button className="btn btn-primary rounded-l-none rounded-r-lg text-lg">
+      <button
+        className="btn btn-primary rounded-l-none rounded-r-lg text-lg"
+        onClick={handleClick}
+      >
         Поиск
       </button>
     </div>
