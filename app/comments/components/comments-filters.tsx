@@ -46,34 +46,7 @@ export function CommentsFilter({ categories, positions }: Props) {
 
         <FilterPositions categories={categories} positions={positions} />
 
-        <FilterCard title={'Тип взаимодействия'}>
-          <div className="flex flex-col gap-5 w-full">
-            <Checkbox
-              value={''}
-              label={'Тестовое'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={'Собеседование'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={'Стажировка'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={'Работа'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-          </div>
-        </FilterCard>
+        <FilterInteractionType />
 
         <FilterCard title={'Aнонимность'}>
           <div className="flex flex-col gap-5 w-full">
@@ -189,7 +162,7 @@ function FilterPositions({ categories, positions }: PositionsProps) {
     <FilterCard title={'Должность'}>
       <div className="max-w-[232px] w-full">
         <Select
-          placeholder="Категория"
+          placeholder="Сфера деятельности"
           isClearable
           options={categoryOptions}
           value={userPositionCategoryId}
@@ -216,6 +189,39 @@ function FilterPositions({ categories, positions }: PositionsProps) {
             else next.delete('userPositionId');
             router.replace(`?${next.toString()}`);
           }}
+        />
+      </div>
+    </FilterCard>
+  );
+}
+
+function FilterInteractionType() {
+  return (
+    <FilterCard title={'Тип взаимодействия'}>
+      <div className="flex flex-col gap-5 w-full">
+        <Checkbox
+          value={''}
+          label={'Тестовое'}
+          selected={false}
+          onChange={() => console.log(1)}
+        />
+        <Checkbox
+          value={''}
+          label={'Собеседование'}
+          selected={false}
+          onChange={() => console.log(1)}
+        />
+        <Checkbox
+          value={''}
+          label={'Стажировка'}
+          selected={false}
+          onChange={() => console.log(1)}
+        />
+        <Checkbox
+          value={''}
+          label={'Работа'}
+          selected={false}
+          onChange={() => console.log(1)}
         />
       </div>
     </FilterCard>
