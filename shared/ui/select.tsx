@@ -5,13 +5,13 @@ import ReactSelect, { SingleValue } from 'react-select';
 
 export interface OptionType {
   label: string;
-  value: string | number;
+  value: string;
 }
 
 interface SelectProps {
   options: OptionType[];
-  value: OptionType | null;
-  onChange: (option: SingleValue<OptionType>) => void;
+  value: string | null;
+  onChange: (value: string | null) => void;
 
   placeholder?: string;
   isClearable?: boolean;
@@ -30,16 +30,20 @@ export function Select({
   isDisabled = false,
   width = 'w-full',
 }: SelectProps) {
+  const selected = value
+    ? (options.find(o => o.value === value) ?? null)
+    : null;
+
   return (
-    <ReactSelect
+    <ReactSelect<OptionType, false>
       className={width}
       placeholder={placeholder}
       isClearable={isClearable}
       isSearchable={isSearchable}
       isDisabled={isDisabled}
       options={options}
-      value={value}
-      onChange={onChange}
+      value={selected}
+      onChange={(opt: SingleValue<OptionType>) => onChange(opt?.value ?? null)}
       menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       styles={{
         control: base => ({

@@ -59,7 +59,7 @@ export function CommentCard({ comment }: any) {
       </div>
 
       <div className="flex justify-between items-start">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 w-full">
           <div
             className="flex items-center gap-2 cursor-pointer"
             onClick={() => redirect(`/users/${comment?.user.id}`)}

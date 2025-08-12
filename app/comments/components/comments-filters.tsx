@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Checkbox, FilterCard, Select } from '@/shared/ui';
 import { OptionType } from '@/shared/ui/select';
 import { useEffect, useMemo, useState } from 'react';
@@ -16,17 +17,16 @@ type Location = {
   cities: City[];
 };
 
-type CommentsFilterProps = {
+type Props = {
+  categories: { id: string; title: string }[];
+  positions: { id: string; title: string; category: { id: string } }[];
   locations: Location[];
 };
 
-export const CommentsFilter = ({ locations }: CommentsFilterProps) => {
-  const [companyCountry, setCompanyCountry] = useState<OptionType | null>(null);
-  const [companyCity, setCompanyCity] = useState<OptionType | null>(null);
+export function CommentsFilter({ categories, positions, locations }: Props) {
+  const [companyCountry, setCompanyCountry] = useState<string | null>(null);
+  const [companyCity, setCompanyCity] = useState<string | null>(null);
   const [citiesOptions, setCitiesOptions] = useState<OptionType[] | []>([]);
-  const [positionCountry, setPositionCountry] = useState<OptionType | null>(
-    null,
-  );
 
   const countriesOptions = useMemo(
     () =>
@@ -39,8 +39,9 @@ export const CommentsFilter = ({ locations }: CommentsFilterProps) => {
 
   useEffect(() => {
     if (companyCountry) {
+      console.log(companyCountry);
       const cities = locations
-        .find(location => location.id === companyCountry.value)
+        .find(location => location.id === companyCountry)
         ?.cities.map(city => ({
           value: city.name,
           label: city.name,
@@ -86,27 +87,7 @@ export const CommentsFilter = ({ locations }: CommentsFilterProps) => {
           </div>
         </FilterCard>
 
-        <FilterCard title={'Должность'}>
-          <div className="max-w-[232px] w-full">
-            <Select
-              placeholder="Компания"
-              isClearable
-              options={[]}
-              value={null}
-              onChange={() => console.log(1)}
-            />
-          </div>
-
-          <div className="max-w-[232px] w-full">
-            <Select
-              placeholder="Страна"
-              isClearable
-              options={countriesOptions}
-              value={positionCountry}
-              onChange={country => setPositionCountry(country)}
-            />
-          </div>
-        </FilterCard>
+        <FilterPositions categories={categories} positions={positions} />
 
         <FilterCard title={'Тип взаимодействия'}>
           <div className="flex flex-col gap-5 w-full">
@@ -217,4 +198,69 @@ export const CommentsFilter = ({ locations }: CommentsFilterProps) => {
       </div>
     </div>
   );
+}
+
+type PositionsProps = {
+  categories: { id: string; title: string }[];
+  positions: { id: string; title: string; category: { id: string } }[];
 };
+
+function FilterPositions({ categories, positions }: PositionsProps) {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  const userPositionCategoryId = sp.get('userPositionCategoryId'); // строка или null
+  const userPositionId = sp.get('userPositionId'); // строка или null
+
+  const categoryOptions = useMemo(
+    () => categories.map(c => ({ label: c.title, value: c.id })),
+    [categories],
+  );
+
+  const positionOptions = useMemo(
+    () =>
+      positions
+        .filter(
+          p =>
+            !userPositionCategoryId || p.category.id === userPositionCategoryId,
+        )
+        .map(p => ({ label: p.title, value: p.id })),
+    [positions, userPositionCategoryId],
+  );
+
+  return (
+    <FilterCard title={'Должность'}>
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Категория"
+          isClearable
+          options={categoryOptions}
+          value={userPositionCategoryId}
+          onChange={id => {
+            const next = new URLSearchParams(sp);
+            if (id) next.set('userPositionCategoryId', id);
+            else next.delete('userPositionCategoryId');
+            next.delete('userPositionId'); // сбросить должность при смене категории
+            router.replace(`?${next.toString()}`);
+          }}
+        />
+      </div>
+
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Должность"
+          isClearable
+          isDisabled={!userPositionCategoryId}
+          options={positionOptions}
+          value={userPositionId}
+          onChange={id => {
+            const next = new URLSearchParams(sp);
+            if (id) next.set('userPositionId', id);
+            else next.delete('userPositionId');
+            router.replace(`?${next.toString()}`);
+          }}
+        />
+      </div>
+    </FilterCard>
+  );
+}

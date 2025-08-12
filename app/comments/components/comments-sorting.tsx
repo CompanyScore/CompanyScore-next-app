@@ -4,7 +4,6 @@ import { Select } from '@/shared/ui';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 type Sort = 'date' | 'rating';
-type Option = { label: string; value: string };
 
 export function CommentsSorting() {
   const router = useRouter();
@@ -16,8 +15,6 @@ export function CommentsSorting() {
     { label: 'Рейтингу', value: 'rating' as const },
   ];
 
-  const toSort = (v: unknown): Sort => (v === 'rating' ? 'rating' : 'date');
-
   return (
     <div className="self-end flex items-center gap-4">
       <p>Сортировать по:</p>
@@ -27,9 +24,9 @@ export function CommentsSorting() {
           isClearable={false}
           isSearchable={false}
           options={options}
-          value={options.find(o => o.value === sort) || options[0]}
-          onChange={opt => {
-            const s = toSort((opt as Option | null)?.value);
+          value={sort}
+          onChange={val => {
+            const s: Sort = val === 'rating' ? 'rating' : 'date';
             const next = new URLSearchParams(sp);
             next.set('sort', s);
             router.replace(`?${next.toString()}`);

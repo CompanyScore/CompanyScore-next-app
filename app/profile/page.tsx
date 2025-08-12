@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  ProfileCard,
-  ProfilePagination,
-  ProfileShowBy,
-  ProfileTable,
-} from './components';
+import { ProfileCard, ProfileTable } from './components';
 import { Title } from '@/shared/ui';
 import { useCommentApi } from '@/store/api';
 
@@ -17,10 +12,6 @@ export default function ProfilePage() {
       <ProfileCard />
       <Title>{`Ваши отзывы: ${total}`}</Title>
       <ProfileTable />
-      <div className="flex justify-between">
-        <ProfileShowBy />
-        <ProfilePagination />
-      </div>
     </section>
   );
 }

@@ -14,9 +14,16 @@ export function CommentsList({
   const { isLoggedIn, loading } = useAuth();
   const sp = useSearchParams();
   const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
+  const userPositionCategoryId = sp.get('userPositionCategoryId') ?? undefined;
+  const userPositionId = sp.get('userPositionId') ?? undefined;
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetAllCommentsClient({ enabled: isLoggedIn, sort });
+    GetAllCommentsClient({
+      enabled: isLoggedIn,
+      sort,
+      userPositionCategoryId,
+      userPositionId,
+    });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
   const comments = isLoggedIn && dataComments ? dataComments : publicComments;
