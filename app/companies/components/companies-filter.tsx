@@ -3,12 +3,9 @@
 import { Button, Card, Checkbox, Select, StarRating } from '@/shared/ui';
 import { useCompanyStore } from '@/store/api';
 import { OptionType } from '@/shared/ui/select';
-import { useState } from 'react';
 
 export function CompaniesFilter() {
   const { cityOptions } = useCompanyStore();
-
-  const [selectedCity] = useState('');
 
   const cityOptionsFormatted: OptionType[] = cityOptions.map(c => ({
     label: c,
@@ -26,10 +23,7 @@ export function CompaniesFilter() {
             placeholder="Город/регион"
             isClearable
             options={cityOptionsFormatted}
-            value={
-              cityOptionsFormatted.find(opt => opt.value === selectedCity) ??
-              null
-            }
+            value={null}
             onChange={() => {}}
           />
 

@@ -8,13 +8,12 @@ type Props = {
 export const Card = ({ children, className, onClick }: Props) => {
   return (
     <div
-      className={classNames(
-        'rounded-xl border p-6 shadow-sm transition hover:shadow-md cursor-pointer',
-        className,
-      )}
+      className={classNames('rounded-xl border p-6 w-full', className)}
       onClick={onClick}
     >
       {children}
     </div>
   );
 };
+
+// shadow-sm transition hover:shadow-md cursor-pointer - тень

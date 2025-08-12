@@ -5,15 +5,24 @@ export type GetCommentsParams = {
   companyId?: string;
   search?: string;
   enabled?: boolean;
+  sort?: 'date' | 'rating';
+  userPositionCategoryId?: string;
+  userPositionId?: string;
 };
 
 export const GetAllCommentsClient = ({
   companyId,
   search,
   enabled,
+  sort = 'date',
+  userPositionCategoryId,
+  userPositionId,
 }: GetCommentsParams) => {
   return useInfiniteQuery({
-    queryKey: ['comments', { companyId, search }],
+    queryKey: [
+      'comments',
+      { companyId, search, sort, userPositionCategoryId, userPositionId },
+    ],
     queryFn: async ({ pageParam = 1, signal }) => {
       const { data } = await useApi.get('/comments', {
         signal,
@@ -22,6 +31,9 @@ export const GetAllCommentsClient = ({
           limit: 2,
           ...(companyId ? { companyId } : {}),
           ...(search ? { search } : {}),
+          ...(userPositionCategoryId ? { userPositionCategoryId } : {}),
+          ...(userPositionId ? { userPositionId } : {}),
+          sort,
         },
       });
 
