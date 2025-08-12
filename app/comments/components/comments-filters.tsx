@@ -50,7 +50,7 @@ export const CommentsFilter = ({ locations }: CommentsFilterProps) => {
         setCitiesOptions(cities);
       }
     }
-  }, [companyCountry]);
+  }, [companyCountry, locations]);
 
   return (
     <div className="hidden lg:block w-[288px] shrink-0 scrollbar-none">
