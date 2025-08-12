@@ -1,16 +1,58 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
 import { Checkbox, FilterCard, Select } from '@/shared/ui';
+import { OptionType } from '@/shared/ui/select';
+import { useEffect, useMemo, useState } from 'react';
 import { FaStar } from 'react-icons/fa';
+
+type City = {
+  id: string;
+  name: string;
+};
+
+type Location = {
+  id: string;
+  name: string;
+  cities: City[];
+};
 
 type Props = {
   categories: { id: string; title: string }[];
   positions: { id: string; title: string; category: { id: string } }[];
+  locations: Location[];
 };
 
-export function CommentsFilter({ categories, positions }: Props) {
+export function CommentsFilter({ categories, positions, locations }: Props) {
+  const [companyCountry, setCompanyCountry] = useState<string | null>(null);
+  const [companyCity, setCompanyCity] = useState<string | null>(null);
+  const [citiesOptions, setCitiesOptions] = useState<OptionType[] | []>([]);
+
+  const countriesOptions = useMemo(
+    () =>
+      locations.map(location => ({
+        value: location.id,
+        label: location.name,
+      })),
+    [locations],
+  );
+
+  useEffect(() => {
+    if (companyCountry) {
+      console.log(companyCountry);
+      const cities = locations
+        .find(location => location.id === companyCountry)
+        ?.cities.map(city => ({
+          value: city.name,
+          label: city.name,
+        }));
+
+      if (cities) {
+        setCitiesOptions(cities);
+      }
+    }
+  }, [companyCountry, locations]);
+
   return (
     <div className="hidden lg:block w-[288px] shrink-0 scrollbar-none">
       <div className="flex flex-col gap-5 max-w-[288px] w-full sticky top-24 max-h-[calc(100vh-6rem)] overflow-auto scrollbar-none">
@@ -28,18 +70,19 @@ export function CommentsFilter({ categories, positions }: Props) {
             <Select
               placeholder="Страна"
               isClearable
-              options={[]}
-              value={null}
-              onChange={() => console.log(1)}
+              options={countriesOptions}
+              value={companyCountry}
+              onChange={country => setCompanyCountry(country)}
             />
           </div>
           <div className="max-w-[232px] w-full">
             <Select
               placeholder="Город"
               isClearable
-              options={[]}
-              value={null}
-              onChange={() => console.log(1)}
+              isDisabled={!companyCountry}
+              options={citiesOptions}
+              value={companyCity}
+              onChange={city => setCompanyCity(city)}
             />
           </div>
         </FilterCard>

@@ -7,3 +7,4 @@ export {
   GetPositionCategoriesServer,
   GetPositionsServer,
 } from './positions/positions-server';
+export { GetLocationsServer } from './locations/locations-server';
