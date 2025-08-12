@@ -28,24 +28,6 @@ export function CompaniesFilter() {
     getCompanies({ searchedCompanyName });
   };
 
-  const onSelectRating = (option: OptionType | null) => {
-    const value = option?.value != null ? String(option.value) : '';
-    setSelectedRating(value);
-    getCompanies({ selectedRating: value });
-  };
-
-  const onSelectCountry = (option: OptionType | null) => {
-    const value = option?.value ? String(option.value) : '';
-    setSelectedCountry(value);
-    getCompanies({ selectedCountry: value });
-  };
-
-  const onSelectCity = (option: OptionType | null) => {
-    const value = option?.value ? String(option.value) : '';
-    setSelectedCity(value);
-    getCompanies({ selectedCity: value });
-  };
-
   const countryOptionsFormatted: OptionType[] = countryOptions.map(c => ({
     label: c,
     value: c,
@@ -66,7 +48,7 @@ export function CompaniesFilter() {
   const openModal = () => {
     const modal = document.getElementById(
       'create_company_modal',
-    ) as HTMLInputElement;
+    ) as HTMLInputElement | null;
     if (modal) {
       modal.checked = true;
     }
@@ -79,17 +61,18 @@ export function CompaniesFilter() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center flex-wrap gap-4 max-w-[750px] w-full">
           <Searcher onSearch={onSearchCompanyByName} />
+
           <div className="flex items-center gap-4 w-full">
             <Select
               placeholder="Все страны"
               isClearable
               options={countryOptionsFormatted}
-              value={
-                countryOptionsFormatted.find(
-                  opt => opt.value === selectedCountry,
-                ) ?? null
-              }
-              onChange={onSelectCountry}
+              value={selectedCountry || null}
+              onChange={val => {
+                setSelectedCountry(val ?? '');
+                setSelectedCity(''); // сбрасываем город при смене страны
+                getCompanies({ selectedCountry: val ?? '' });
+              }}
             />
 
             <Select
@@ -97,21 +80,22 @@ export function CompaniesFilter() {
               isClearable
               isDisabled={!selectedCountry}
               options={cityOptionsFormatted}
-              value={
-                cityOptionsFormatted.find(opt => opt.value === selectedCity) ??
-                null
-              }
-              onChange={onSelectCity}
+              value={selectedCity || null}
+              onChange={val => {
+                setSelectedCity(val ?? '');
+                getCompanies({ selectedCity: val ?? '' });
+              }}
             />
 
             <Select
               placeholder="Все рейтинги"
               isClearable
               options={ratingOptions}
-              value={
-                ratingOptions.find(opt => opt.value === selectedRating) ?? null
-              }
-              onChange={onSelectRating}
+              value={selectedRating || null}
+              onChange={val => {
+                setSelectedRating(val ?? '');
+                getCompanies({ selectedRating: val ?? '' });
+              }}
             />
           </div>
         </div>
@@ -121,6 +105,7 @@ export function CompaniesFilter() {
           <Button onClick={openModal}>Предложить компанию</Button>
         </div>
       </div>
+
       <CreateCompanyModal />
       <Toast />
     </div>

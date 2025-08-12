@@ -109,11 +109,9 @@ export function ProfileEditModal() {
           <Select
             placeholder="Должность"
             options={positionOptions}
-            value={
-              positionOptions.find(p => p.value === watch('position')) ?? null
-            }
-            onChange={option =>
-              setValue('position', String(option?.value), {
+            value={watch('position') || null}
+            onChange={val =>
+              setValue('position', val ?? '', {
                 shouldValidate: false,
                 shouldDirty: true,
               })

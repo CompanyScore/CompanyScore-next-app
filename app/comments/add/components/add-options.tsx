@@ -62,10 +62,7 @@ const Company = () => {
   const { companies, getCompanies } = useCompanyStore();
 
   const countryOptions: OptionType[] = countriesWithCities.map(
-    ({ label, value }) => ({
-      label,
-      value,
-    }),
+    ({ label, value }) => ({ label, value }),
   );
 
   const cityOptions: OptionType[] =
@@ -73,36 +70,54 @@ const Company = () => {
       .find(c => c.value === commentForm.companyLocation.country)
       ?.cities.map(city => ({ label: city, value: city })) || [];
 
-  const onSelectCountry = (option: OptionType | null) => {
-    const value = option?.value ? String(option.value) : '';
-    const label = option?.label || '';
-    updateCommentForm({
-      ...commentForm,
-      companyLocation: {
-        ...commentForm.companyLocation,
-        country: value,
-        city: '',
-      },
-    });
-    getCompanies({ selectedCountry: label });
-  };
-
-  const onSelectCity = (option: OptionType | null) => {
-    const value = option?.value ? String(option.value) : '';
-    updateCommentForm({
-      ...commentForm,
-      companyLocation: {
-        ...commentForm.companyLocation,
-        city: value,
-      },
-    });
-    getCompanies({ selectedCity: value });
-  };
-
-  const companyOptions = companies.map(company => ({
-    label: company.name,
-    value: company.id ?? '',
+  const companyOptions: OptionType[] = companies.map(c => ({
+    label: c.name,
+    value: c.id ?? '',
   }));
+
+  const onSelectCountry = (val: string | null) => {
+    const country = val ?? '';
+    // Нужен label для бэка
+    const countryLabel =
+      countryOptions.find(o => o.value === country)?.label ?? '';
+    updateCommentForm({
+      ...commentForm,
+      companyLocation: {
+        ...commentForm.companyLocation,
+        country,
+        city: '', // сбрасываем город
+      },
+      companyId: '', // опционально: можно сбросить выбранную компанию
+    });
+    getCompanies({ selectedCountry: countryLabel });
+  };
+
+  const onSelectCity = (val: string | null) => {
+    const city = val ?? '';
+    updateCommentForm({
+      ...commentForm,
+      companyLocation: {
+        ...commentForm.companyLocation,
+        city,
+      },
+      // companyId: '' // при желании сбрасывать компанию при смене города
+    });
+    getCompanies({ selectedCity: city });
+  };
+
+  const onSelectCompany = (val: string | null) => {
+    updateCommentForm({
+      ...commentForm,
+      companyId: val ?? '',
+    });
+  };
+
+  const openModal = () => {
+    const modal = document.getElementById(
+      'create_company_modal',
+    ) as HTMLInputElement | null;
+    if (modal) modal.checked = true;
+  };
 
   const onGetCreatedCompanyId = async (
     companyId: string,
@@ -117,26 +132,16 @@ const Company = () => {
     });
   };
 
-  const openModal = () => {
-    const modal = document.getElementById(
-      'create_company_modal',
-    ) as HTMLInputElement;
-    if (modal) modal.checked = true;
-  };
-
   return (
     <div className="flex flex-col gap-4">
       <p className="text-lg">Компания</p>
+
       <div className="flex gap-4">
         <Select
           placeholder="Страна"
           isClearable
           options={countryOptions}
-          value={
-            countryOptions.find(
-              opt => opt.value === commentForm.companyLocation.country,
-            ) ?? null
-          }
+          value={commentForm.companyLocation.country || null}
           onChange={onSelectCountry}
         />
         <Select
@@ -144,38 +149,28 @@ const Company = () => {
           isClearable
           isDisabled={!commentForm.companyLocation.country}
           options={cityOptions}
-          value={
-            cityOptions.find(
-              opt => opt.value === commentForm.companyLocation.city,
-            ) ?? null
-          }
+          value={commentForm.companyLocation.city || null}
           onChange={onSelectCity}
         />
       </div>
+
       <div className="flex gap-4">
         <Select
           placeholder="Компания"
           isClearable
           options={companyOptions}
-          value={
-            companyOptions.find(opt => opt.value === commentForm.companyId) ??
-            null
-          }
-          onChange={option =>
-            updateCommentForm({
-              ...commentForm,
-              companyId: option?.value ? String(option.value) : '',
-            })
-          }
+          value={commentForm.companyId || null}
+          onChange={onSelectCompany}
         />
         <Button onClick={openModal}>Добавить компанию</Button>
       </div>
+
       <CreateCompanyModal onGetCreatedCompanyId={onGetCreatedCompanyId} />
     </div>
   );
 };
 
-const PositionAndWorkExperience = () => {
+export const PositionAndWorkExperience = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
   const { positions, getPositions } = usePositionApi();
   const { categories, getCategories } = usePositionCategoryApi();
@@ -189,29 +184,35 @@ const PositionAndWorkExperience = () => {
     getCategories();
   }, [getPositions, getCategories]);
 
-  const categoryOptions = useMemo(() => {
-    return categories.map(cat => ({
-      label: cat.title,
-      value: cat.id,
-    }));
-  }, [categories]);
+  const categoryOptions = useMemo(
+    () => categories.map(cat => ({ label: cat.title, value: cat.id })),
+    [categories],
+  );
 
-  const filteredPositionOptions = useMemo(() => {
-    return positions
-      .filter(
-        pos => pos.category.id === selectedCategoryId || !selectedCategoryId,
-      )
-      .map(pos => ({
-        label: pos.title,
-        value: pos.id,
-      }));
-  }, [positions, selectedCategoryId]);
+  const filteredPositionOptions = useMemo(
+    () =>
+      positions
+        .filter(
+          p => !selectedCategoryId || p.category.id === selectedCategoryId,
+        )
+        .map(p => ({ label: p.title, value: p.id })),
+    [positions, selectedCategoryId],
+  );
 
-  const yearOptions = [1, 2, 3].map(y => ({ label: `${y}`, value: y }));
-  const monthOptions = Array.from({ length: 12 }, (_, i) => ({
-    label: `${i + 1}`,
-    value: i + 1,
-  }));
+  // Select ожидает строки
+  const yearOptions = useMemo(
+    () => [1, 2, 3].map(y => ({ label: `${y}`, value: `${y}` })),
+    [],
+  );
+
+  const monthOptions = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, i) => {
+        const m = i + 1;
+        return { label: `${m}`, value: `${m}` };
+      }),
+    [],
+  );
 
   return (
     <div className="flex flex-col justify-between gap-6 w-full">
@@ -222,17 +223,13 @@ const PositionAndWorkExperience = () => {
             placeholder="Категория"
             isClearable
             options={categoryOptions}
-            value={
-              categoryOptions.find(opt => opt.value === selectedCategoryId) ??
-              null
-            }
-            onChange={option => {
-              const categoryId = option?.value || null;
-              setSelectedCategoryId(String(categoryId));
+            value={selectedCategoryId}
+            onChange={id => {
+              setSelectedCategoryId(id);
               updateCommentForm({
                 ...commentForm,
-                userPositionCategoryId: String(categoryId) || '',
-                userPositionId: '',
+                userPositionCategoryId: id ?? '',
+                userPositionId: '', // сброс должности при смене категории
               });
             }}
           />
@@ -243,17 +240,13 @@ const PositionAndWorkExperience = () => {
           <Select
             placeholder="Должность"
             isClearable
-            isDisabled={!selectedCategoryId} // 🔒 блокируем если не выбрана категория
+            isDisabled={!selectedCategoryId}
             options={filteredPositionOptions}
-            value={
-              filteredPositionOptions.find(
-                opt => opt.value === commentForm.userPositionId,
-              ) ?? null
-            }
-            onChange={option =>
+            value={commentForm.userPositionId || null}
+            onChange={id =>
               updateCommentForm({
                 ...commentForm,
-                userPositionId: option?.value ? String(option.value) : '',
+                userPositionId: id ?? '',
               })
             }
           />
@@ -271,33 +264,34 @@ const PositionAndWorkExperience = () => {
               isClearable
               options={yearOptions}
               value={
-                yearOptions.find(
-                  opt => opt.value === commentForm.userGradeYears,
-                ) ?? null
+                commentForm.userGradeYears
+                  ? String(commentForm.userGradeYears)
+                  : null
               }
               onChange={val =>
                 updateCommentForm({
                   ...commentForm,
-                  userGradeYears: Number(val?.value),
+                  userGradeYears: val ? Number(val) : 0,
                 })
               }
             />
             <p>лет</p>
           </div>
+
           <div className="flex items-center gap-2 w-full">
             <Select
               placeholder="Месяцев опыта"
               isClearable
               options={monthOptions}
               value={
-                monthOptions.find(
-                  opt => opt.value === commentForm.userGradeMonths,
-                ) ?? null
+                commentForm.userGradeMonths
+                  ? String(commentForm.userGradeMonths)
+                  : null
               }
               onChange={val =>
                 updateCommentForm({
                   ...commentForm,
-                  userGradeMonths: Number(val?.value),
+                  userGradeMonths: val ? Number(val) : 0,
                 })
               }
             />
@@ -308,8 +302,6 @@ const PositionAndWorkExperience = () => {
     </div>
   );
 };
-
-export default PositionAndWorkExperience;
 
 const Forms = () => {
   const { commentTaskForm, updateCommentTaskForm } = useCommentTaskForm();

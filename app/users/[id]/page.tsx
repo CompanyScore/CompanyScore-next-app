@@ -1,6 +1,6 @@
 'use client';
 
-import { UserCard, UserPagination, UserShowBy, UserTable } from './components';
+import { UserCard, UserTable } from './components';
 import { Title } from '@/shared/ui';
 import { useCommentApi } from '@/store/api';
 
@@ -12,10 +12,6 @@ export default function UserPage() {
       <UserCard />
       <Title>{`Отзывы: ${total}`}</Title>
       <UserTable />
-      <div className="flex justify-between">
-        <UserShowBy />
-        <UserPagination />
-      </div>
     </section>
   );
 }
