@@ -1,6 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
+type Interaction = 'test' | 'interview' | 'internship' | 'work';
+
 export type GetCommentsParams = {
   companyId?: string;
   search?: string;
@@ -8,6 +10,7 @@ export type GetCommentsParams = {
   sort?: 'date' | 'rating';
   userPositionCategoryId?: string;
   userPositionId?: string;
+  interaction?: Interaction[];
 };
 
 export const GetAllCommentsClient = ({
@@ -17,11 +20,21 @@ export const GetAllCommentsClient = ({
   sort = 'date',
   userPositionCategoryId,
   userPositionId,
+  interaction,
 }: GetCommentsParams) => {
+  const interactionKey = interaction?.slice().sort();
+
   return useInfiniteQuery({
     queryKey: [
       'comments',
-      { companyId, search, sort, userPositionCategoryId, userPositionId },
+      {
+        companyId,
+        search,
+        sort,
+        userPositionCategoryId,
+        userPositionId,
+        interaction: interactionKey,
+      },
     ],
     queryFn: async ({ pageParam = 1, signal }) => {
       const { data } = await useApi.get('/comments', {
@@ -33,6 +46,9 @@ export const GetAllCommentsClient = ({
           ...(search ? { search } : {}),
           ...(userPositionCategoryId ? { userPositionCategoryId } : {}),
           ...(userPositionId ? { userPositionId } : {}),
+          ...(interactionKey?.length
+            ? { interaction: interactionKey.join(',') }
+            : {}),
           sort,
         },
       });

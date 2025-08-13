@@ -89,7 +89,7 @@ export function CommentsFilter({ categories, positions, locations }: Props) {
 
         <FilterPositions categories={categories} positions={positions} />
 
-        <FilterInteractionType />
+        <FilterInteraction />
 
         <FilterCard title={'Aнонимность'}>
           <div className="flex flex-col gap-5 w-full">
@@ -182,8 +182,8 @@ function FilterPositions({ categories, positions }: PositionsProps) {
   const router = useRouter();
   const sp = useSearchParams();
 
-  const userPositionCategoryId = sp.get('userPositionCategoryId'); // строка или null
-  const userPositionId = sp.get('userPositionId'); // строка или null
+  const userPositionCategoryId = sp.get('position_category'); // строка или null
+  const userPositionId = sp.get('position'); // строка или null
 
   const categoryOptions = useMemo(
     () => categories.map(c => ({ label: c.title, value: c.id })),
@@ -211,9 +211,9 @@ function FilterPositions({ categories, positions }: PositionsProps) {
           value={userPositionCategoryId}
           onChange={id => {
             const next = new URLSearchParams(sp);
-            if (id) next.set('userPositionCategoryId', id);
-            else next.delete('userPositionCategoryId');
-            next.delete('userPositionId'); // сбросить должность при смене категории
+            if (id) next.set('position_category', id);
+            else next.delete('position_category');
+            next.delete('position'); // сбросить должность при смене категории
             router.replace(`?${next.toString()}`);
           }}
         />
@@ -228,8 +228,8 @@ function FilterPositions({ categories, positions }: PositionsProps) {
           value={userPositionId}
           onChange={id => {
             const next = new URLSearchParams(sp);
-            if (id) next.set('userPositionId', id);
-            else next.delete('userPositionId');
+            if (id) next.set('position', id);
+            else next.delete('position');
             router.replace(`?${next.toString()}`);
           }}
         />
@@ -238,33 +238,55 @@ function FilterPositions({ categories, positions }: PositionsProps) {
   );
 }
 
-function FilterInteractionType() {
+function FilterInteraction() {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  type Interaction = 'test' | 'interview' | 'internship' | 'work';
+
+  const selectedSet = useMemo(() => {
+    const raw = sp.get('interaction') || '';
+    return new Set(raw.split(',').filter(Boolean) as Interaction[]);
+  }, [sp]);
+
+  const toggle = (key: Interaction) => {
+    const next = new URLSearchParams(sp);
+    const s = new Set(selectedSet);
+    if (s.has(key)) s.delete(key);
+    else s.add(key);
+
+    if (s.size) next.set('interaction', Array.from(s).join(','));
+    else next.delete('interaction');
+
+    router.replace(`?${next.toString()}`);
+  };
+
   return (
     <FilterCard title={'Тип взаимодействия'}>
       <div className="flex flex-col gap-5 w-full">
         <Checkbox
-          value={''}
-          label={'Тестовое'}
-          selected={false}
-          onChange={() => console.log(1)}
+          value="test"
+          label="Тестовое"
+          selected={selectedSet.has('test')}
+          onChange={() => toggle('test')}
         />
         <Checkbox
-          value={''}
-          label={'Собеседование'}
-          selected={false}
-          onChange={() => console.log(1)}
+          value="interview"
+          label="Собеседование"
+          selected={selectedSet.has('interview')}
+          onChange={() => toggle('interview')}
         />
         <Checkbox
-          value={''}
-          label={'Стажировка'}
-          selected={false}
-          onChange={() => console.log(1)}
+          value="internship"
+          label="Стажировка"
+          selected={selectedSet.has('internship')}
+          onChange={() => toggle('internship')}
         />
         <Checkbox
-          value={''}
-          label={'Работа'}
-          selected={false}
-          onChange={() => console.log(1)}
+          value="work"
+          label="Работа"
+          selected={selectedSet.has('work')}
+          onChange={() => toggle('work')}
         />
       </div>
     </FilterCard>

@@ -6,6 +6,8 @@ import { useAuth } from '@/shared/hooks';
 import { GetAllCommentsClient } from '@/api';
 import { CommentCard } from './comments-card';
 
+type Interaction = 'test' | 'interview' | 'internship' | 'work';
+
 export function CommentsList({
   comments: publicComments,
 }: {
@@ -17,12 +19,18 @@ export function CommentsList({
   const userPositionCategoryId = sp.get('userPositionCategoryId') ?? undefined;
   const userPositionId = sp.get('userPositionId') ?? undefined;
 
+  const interactionParam = sp.get('interaction') || '';
+  const interaction = interactionParam
+    ? (interactionParam.split(',').filter(Boolean) as Interaction[])
+    : undefined;
+
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
     GetAllCommentsClient({
       enabled: isLoggedIn,
       sort,
       userPositionCategoryId,
       userPositionId,
+      interaction,
     });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
