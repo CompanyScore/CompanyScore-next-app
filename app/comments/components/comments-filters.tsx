@@ -1,21 +1,10 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Checkbox, FilterCard, Select } from '@/shared/ui';
+import { Checkbox, FilterCard, Radio, Select } from '@/shared/ui';
 import { OptionType } from '@/shared/ui/select';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { FaStar } from 'react-icons/fa';
-
-type City = {
-  id: string;
-  name: string;
-};
-
-type Location = {
-  id: string;
-  name: string;
-  cities: City[];
-};
 
 type Props = {
   categories: { id: string; title: string }[];
@@ -24,89 +13,16 @@ type Props = {
 };
 
 export function CommentsFilter({ categories, positions, locations }: Props) {
-  const [companyCountry, setCompanyCountry] = useState<string | null>(null);
-  const [companyCity, setCompanyCity] = useState<string | null>(null);
-  const [citiesOptions, setCitiesOptions] = useState<OptionType[] | []>([]);
-
-  const countriesOptions = useMemo(
-    () =>
-      locations.map(location => ({
-        value: location.id,
-        label: location.name,
-      })),
-    [locations],
-  );
-
-  useEffect(() => {
-    if (companyCountry) {
-      console.log(companyCountry);
-      const cities = locations
-        .find(location => location.id === companyCountry)
-        ?.cities.map(city => ({
-          value: city.name,
-          label: city.name,
-        }));
-
-      if (cities) {
-        setCitiesOptions(cities);
-      }
-    }
-  }, [companyCountry, locations]);
-
   return (
     <div className="hidden lg:block w-[288px] shrink-0 scrollbar-none">
       <div className="flex flex-col gap-5 max-w-[288px] w-full sticky top-24 max-h-[calc(100vh-6rem)] overflow-auto scrollbar-none">
-        <FilterCard title={'Компания'}>
-          <div className="max-w-[232px] w-full">
-            <Select
-              placeholder="Компания"
-              isClearable
-              options={[]}
-              value={null}
-              onChange={() => console.log(1)}
-            />
-          </div>
-          <div className="max-w-[232px] w-full">
-            <Select
-              placeholder="Страна"
-              isClearable
-              options={countriesOptions}
-              value={companyCountry}
-              onChange={country => setCompanyCountry(country)}
-            />
-          </div>
-          <div className="max-w-[232px] w-full">
-            <Select
-              placeholder="Город"
-              isClearable
-              isDisabled={!companyCountry}
-              options={citiesOptions}
-              value={companyCity}
-              onChange={city => setCompanyCity(city)}
-            />
-          </div>
-        </FilterCard>
+        <FilterLocations locations={locations} />
 
         <FilterPositions categories={categories} positions={positions} />
 
         <FilterInteraction />
 
-        <FilterCard title={'Aнонимность'}>
-          <div className="flex flex-col gap-5 w-full">
-            <Checkbox
-              value={''}
-              label={'Подписанные отзывы'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={'Анонимные отзывы'}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-          </div>
-        </FilterCard>
+        <FilterAnonym />
 
         <FilterCard title={'Оценка'}>
           <div className="flex flex-col gap-5 w-full px-7">
@@ -170,6 +86,78 @@ export function CommentsFilter({ categories, positions, locations }: Props) {
         </FilterCard>
       </div>
     </div>
+  );
+}
+
+type City = { id: string; name: string };
+type Location = { id: string; name: string; cities: City[] };
+
+type CompaniesProps = {
+  locations: Location[];
+};
+
+function FilterLocations({ locations }: CompaniesProps) {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  const countryId = sp.get('country');
+  const cityId = sp.get('city');
+
+  const replaceParams = (changes: Record<string, string | null>) => {
+    const next = new URLSearchParams(sp);
+    Object.entries(changes).forEach(([k, v]) => {
+      if (v) next.set(k, v);
+      else next.delete(k);
+    });
+    next.delete('page'); // сброс пагинации при смене фильтра
+    router.replace(`?${next.toString()}`, { scroll: false });
+  };
+
+  const countriesOptions = useMemo<OptionType[]>(
+    () => locations.map(l => ({ value: l.id, label: l.name })),
+    [locations],
+  );
+
+  const citiesOptions = useMemo<OptionType[]>(() => {
+    if (!countryId) return [];
+    const loc = locations.find(l => l.id === countryId);
+    // Если нужен id города — используй c.id
+    return (loc?.cities ?? []).map(c => ({ value: c.id, label: c.name }));
+  }, [countryId, locations]);
+
+  return (
+    <FilterCard title="Локация">
+      {/* Страна */}
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Страна"
+          isClearable
+          options={countriesOptions}
+          value={countryId}
+          onChange={(opt: string | OptionType | null) => {
+            const next = typeof opt === 'string' ? opt : (opt?.value ?? null);
+            // При смене страны сбрасываем город и компанию
+            replaceParams({ country: next, city: null, company: null });
+          }}
+        />
+      </div>
+
+      {/* Город */}
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Город"
+          isClearable
+          isDisabled={!countryId}
+          options={citiesOptions}
+          value={cityId}
+          onChange={(opt: string | OptionType | null) => {
+            const next = typeof opt === 'string' ? opt : (opt?.value ?? null);
+            // При смене города сбрасываем компанию
+            replaceParams({ city: next, company: null });
+          }}
+        />
+      </div>
+    </FilterCard>
   );
 }
 
@@ -289,6 +277,41 @@ function FilterInteraction() {
           onChange={() => toggle('work')}
         />
       </div>
+    </FilterCard>
+  );
+}
+
+type AnonymOption = 1 | 0 | 'all';
+
+function FilterAnonym() {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  const urlVal = sp.get('anonym');
+  const selectedValue: AnonymOption =
+    urlVal === '1' ? 1 : urlVal === '0' ? 0 : 'all';
+
+  return (
+    <FilterCard title="Анонимность">
+      <Radio
+        className="flex flex-col gap-5 w-full"
+        options={[
+          { label: 'Анонимные', value: 1 },
+          { label: 'Не анонимные', value: 0 },
+          { label: 'Все', value: 'all' },
+        ]}
+        selectedValue={selectedValue}
+        onChange={(v: string | number | boolean) => {
+          const val: AnonymOption =
+            v === 1 || v === '1' ? 1 : v === 0 || v === '0' ? 0 : 'all';
+
+          const next = new URLSearchParams(sp);
+          if (val === 'all') next.delete('anonym');
+          else next.set('anonym', String(val));
+          next.delete('page');
+          router.replace(`?${next.toString()}`, { scroll: false });
+        }}
+      />
     </FilterCard>
   );
 }

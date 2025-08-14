@@ -15,9 +15,16 @@ export function CommentsList({
 }) {
   const { isLoggedIn, loading } = useAuth();
   const sp = useSearchParams();
+
   const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
-  const userPositionCategoryId = sp.get('userPositionCategoryId') ?? undefined;
-  const userPositionId = sp.get('userPositionId') ?? undefined;
+
+  const companyId = sp.get('company') ?? undefined; // company
+  const countryId = sp.get('country') ?? undefined; // country
+  const cityId = sp.get('city') ?? undefined;
+  const isAnonym = sp.get('anonym') ?? undefined;
+
+  const userPositionCategoryId = sp.get('position_category') ?? undefined;
+  const userPositionId = sp.get('position') ?? undefined;
 
   const interactionParam = sp.get('interaction') || '';
   const interaction = interactionParam
@@ -28,9 +35,13 @@ export function CommentsList({
     GetAllCommentsClient({
       enabled: isLoggedIn,
       sort,
+      companyId,
+      countryId,
+      cityId,
       userPositionCategoryId,
       userPositionId,
       interaction,
+      isAnonym,
     });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
@@ -39,12 +50,12 @@ export function CommentsList({
   if (loading || isLoading) {
     return (
       <>
-        {Array(3)
+        {Array(2)
           .fill(null)
           .map((_, idx) => (
             <div
               key={idx}
-              className="skeleton h-[200px] w-[400px] lg:w-[912px] bg-neutral-500  m-auto"
+              className="skeleton h-[373px] max-w-[912px] w-full bg-neutral-500 m-auto"
             ></div>
           ))}
       </>

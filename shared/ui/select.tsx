@@ -18,6 +18,8 @@ interface SelectProps {
   isSearchable?: boolean;
   isDisabled?: boolean;
   width?: string;
+  isLoading?: boolean; // <-- NEW
+  onInputChange?: (text: string) => void; // <-- NEW
 }
 
 export function Select({
@@ -29,6 +31,8 @@ export function Select({
   isSearchable = true,
   isDisabled = false,
   width = 'w-full',
+  isLoading = false,
+  onInputChange,
 }: SelectProps) {
   const selected = value
     ? (options.find(o => o.value === value) ?? null)
@@ -38,12 +42,14 @@ export function Select({
     <ReactSelect<OptionType, false>
       className={width}
       placeholder={placeholder}
+      isLoading={isLoading}
       isClearable={isClearable}
       isSearchable={isSearchable}
       isDisabled={isDisabled}
       options={options}
       value={selected}
       onChange={(opt: SingleValue<OptionType>) => onChange(opt?.value ?? null)}
+      onInputChange={input => onInputChange?.(input)}
       menuPortalTarget={typeof window !== 'undefined' ? document.body : null}
       styles={{
         control: base => ({

@@ -4,36 +4,42 @@ import { useApi } from '@/api';
 type Interaction = 'test' | 'interview' | 'internship' | 'work';
 
 export type GetCommentsParams = {
-  companyId?: string;
-  search?: string;
   enabled?: boolean;
   sort?: 'date' | 'rating';
+  companyId?: string;
+  countryId?: string;
+  cityId?: string;
   userPositionCategoryId?: string;
   userPositionId?: string;
   interaction?: Interaction[];
+  isAnonym?: string;
 };
 
 export const GetAllCommentsClient = ({
-  companyId,
-  search,
   enabled,
   sort = 'date',
+  companyId,
+  countryId,
+  cityId,
   userPositionCategoryId,
   userPositionId,
   interaction,
+  isAnonym,
 }: GetCommentsParams) => {
-  const interactionKey = interaction?.slice().sort();
+  const interactionKey = interaction?.slice().sort().join(',') || undefined;
 
   return useInfiniteQuery({
     queryKey: [
       'comments',
       {
-        companyId,
-        search,
         sort,
+        companyId,
+        countryId,
+        cityId,
         userPositionCategoryId,
         userPositionId,
         interaction: interactionKey,
+        isAnonym,
       },
     ],
     queryFn: async ({ pageParam = 1, signal }) => {
@@ -43,12 +49,12 @@ export const GetAllCommentsClient = ({
           page: pageParam,
           limit: 2,
           ...(companyId ? { companyId } : {}),
-          ...(search ? { search } : {}),
+          ...(countryId ? { countryId } : {}),
+          ...(cityId ? { cityId } : {}),
           ...(userPositionCategoryId ? { userPositionCategoryId } : {}),
           ...(userPositionId ? { userPositionId } : {}),
-          ...(interactionKey?.length
-            ? { interaction: interactionKey.join(',') }
-            : {}),
+          ...(interactionKey?.length ? { interaction: interactionKey } : {}),
+          ...(isAnonym !== undefined ? { isAnonym } : {}),
           sort,
         },
       });

@@ -112,18 +112,23 @@ export function CommentCard({ comment }: any) {
         </div>
 
         <div
-          className="flex items-center justify-end gap-2 w-full cursor-pointer"
+          className="flex flex-col items-end gap-2 w-full cursor-pointer"
           onClick={() => redirect(`/company/${comment?.company.id}`)}
         >
-          <b>{comment?.company.name}</b>
-          <ImageTable
-            className="w-14 h-14"
-            src={
-              comment?.company?.logo
-                ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`
-                : '/imgs/company-logo.jpg'
-            }
-          />
+          <div className="flex items-center justify-end gap-2">
+            <b>{comment?.company.name}</b>
+            <ImageTable
+              className="w-14 h-14"
+              src={
+                comment?.company?.logo
+                  ? `${process.env.NEXT_PUBLIC_S3_IMAGES}/${comment.company?.logo}`
+                  : '/imgs/company-logo.jpg'
+              }
+            />
+          </div>
+          <p>
+            {comment?.company.country}, {comment?.company.city}
+          </p>
         </div>
       </div>
 
