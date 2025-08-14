@@ -6,7 +6,7 @@ type Interaction = 'test' | 'interview' | 'internship' | 'work';
 export type GetCommentsParams = {
   enabled?: boolean;
   sort?: 'date' | 'rating';
-  companyId?: string;
+  companyName?: string;
   countryId?: string;
   cityId?: string;
   userPositionCategoryId?: string;
@@ -18,7 +18,7 @@ export type GetCommentsParams = {
 export const GetAllCommentsClient = ({
   enabled,
   sort = 'date',
-  companyId,
+  companyName,
   countryId,
   cityId,
   userPositionCategoryId,
@@ -33,7 +33,7 @@ export const GetAllCommentsClient = ({
       'comments',
       {
         sort,
-        companyId,
+        companyName,
         countryId,
         cityId,
         userPositionCategoryId,
@@ -48,7 +48,7 @@ export const GetAllCommentsClient = ({
         params: {
           page: pageParam,
           limit: 2,
-          ...(companyId ? { companyId } : {}),
+          ...(companyName ? { companyName } : {}),
           ...(countryId ? { countryId } : {}),
           ...(cityId ? { cityId } : {}),
           ...(userPositionCategoryId ? { userPositionCategoryId } : {}),

@@ -18,7 +18,7 @@ export function CommentsList({
 
   const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
 
-  const companyId = sp.get('company') ?? undefined; // company
+  const companyName = sp.get('companyName') ?? undefined;
   const countryId = sp.get('country') ?? undefined; // country
   const cityId = sp.get('city') ?? undefined;
   const isAnonym = sp.get('anonym') ?? undefined;
@@ -35,7 +35,7 @@ export function CommentsList({
     GetAllCommentsClient({
       enabled: isLoggedIn,
       sort,
-      companyId,
+      companyName,
       countryId,
       cityId,
       userPositionCategoryId,
