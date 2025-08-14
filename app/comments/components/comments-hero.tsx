@@ -6,7 +6,7 @@ import Link from 'next/link';
 export async function CommentsHero() {
   return (
     <div
-      className="flex items-center justify-center  h-[calc(100vh-360px)] bg-cover bg-no-repeat rounded-b-[50px]"
+      className="flex items-center justify-center h-screen bg-cover bg-no-repeat rounded-b-[50px]"
       style={{
         backgroundImage: 'url(imgs/comments-page-bg.png)',
         backgroundPosition: 'center',

@@ -31,7 +31,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
   const closeModal = () => {
     const modal = document.getElementById(
       'create_company_modal',
-    ) as HTMLInputElement;
+    ) as HTMLInputElement | null;
     if (modal) modal.checked = false;
   };
 
@@ -43,7 +43,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
 
   const countryOptions: OptionType[] = countryAndCity.map(({ name, id }) => ({
     label: name,
-    value: id,
+    value: id, // id страны
   }));
 
   const cityOptions: OptionType[] =
@@ -51,7 +51,7 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
       .find(c => c.id === selectedCountry)
       ?.cities.map(({ name }) => ({
         label: name,
-        value: name,
+        value: name, // значение = название города
       })) || [];
 
   const onSubmit = async (e: React.FormEvent) => {
@@ -95,12 +95,10 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
             placeholder="Страна"
             isClearable
             options={countryOptions}
-            value={
-              countryOptions.find(opt => opt.value === selectedCountry) ?? null
-            }
-            onChange={option => {
-              setSelectedCountry(option?.value ? String(option.value) : '');
-              setSelectedCity('');
+            value={selectedCountry || null}
+            onChange={val => {
+              setSelectedCountry(val ?? '');
+              setSelectedCity(''); // сброс города при смене страны
             }}
           />
 
@@ -109,10 +107,8 @@ export function CreateCompanyModal({ onGetCreatedCompanyId }: Props) {
             isClearable
             isDisabled={!selectedCountry}
             options={cityOptions}
-            value={cityOptions.find(opt => opt.value === selectedCity) ?? null}
-            onChange={option =>
-              setSelectedCity(option?.value ? String(option.value) : '')
-            }
+            value={selectedCity || null}
+            onChange={val => setSelectedCity(val ?? '')}
           />
 
           <Input

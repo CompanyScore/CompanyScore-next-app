@@ -1,27 +1,61 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
+type Interaction = 'test' | 'interview' | 'internship' | 'work';
+
 export type GetCommentsParams = {
-  companyId?: string;
-  search?: string;
   enabled?: boolean;
+  sort?: 'date' | 'rating';
+  companyName?: string;
+  countryId?: string;
+  cityId?: string;
+  userPositionCategoryId?: string;
+  userPositionId?: string;
+  interaction?: Interaction[];
+  isAnonym?: string;
 };
 
 export const GetAllCommentsClient = ({
-  companyId,
-  search,
   enabled,
+  sort = 'date',
+  companyName,
+  countryId,
+  cityId,
+  userPositionCategoryId,
+  userPositionId,
+  interaction,
+  isAnonym,
 }: GetCommentsParams) => {
+  const interactionKey = interaction?.slice().sort().join(',') || undefined;
+
   return useInfiniteQuery({
-    queryKey: ['comments', { companyId, search }],
+    queryKey: [
+      'comments',
+      {
+        sort,
+        companyName,
+        countryId,
+        cityId,
+        userPositionCategoryId,
+        userPositionId,
+        interaction: interactionKey,
+        isAnonym,
+      },
+    ],
     queryFn: async ({ pageParam = 1, signal }) => {
       const { data } = await useApi.get('/comments', {
         signal,
         params: {
           page: pageParam,
           limit: 2,
-          ...(companyId ? { companyId } : {}),
-          ...(search ? { search } : {}),
+          ...(companyName ? { companyName } : {}),
+          ...(countryId ? { countryId } : {}),
+          ...(cityId ? { cityId } : {}),
+          ...(userPositionCategoryId ? { userPositionCategoryId } : {}),
+          ...(userPositionId ? { userPositionId } : {}),
+          ...(interactionKey?.length ? { interaction: interactionKey } : {}),
+          ...(isAnonym !== undefined ? { isAnonym } : {}),
+          sort,
         },
       });
 

@@ -8,7 +8,7 @@ type Props = {
 export const Card = ({ children, className, onClick }: Props) => {
   return (
     <div
-      className={classNames('rounded-xl border p-6', className)}
+      className={classNames('rounded-xl border p-6 w-full', className)}
       onClick={onClick}
     >
       {children}
