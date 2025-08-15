@@ -13,6 +13,7 @@ export type GetCommentsParams = {
   userPositionId?: string;
   interaction?: Interaction[];
   isAnonym?: string;
+  stars?: string;
 };
 
 export const GetAllCommentsClient = ({
@@ -25,6 +26,7 @@ export const GetAllCommentsClient = ({
   userPositionId,
   interaction,
   isAnonym,
+  stars,
 }: GetCommentsParams) => {
   const interactionKey = interaction?.slice().sort().join(',') || undefined;
 
@@ -40,6 +42,7 @@ export const GetAllCommentsClient = ({
         userPositionId,
         interaction: interactionKey,
         isAnonym,
+        stars,
       },
     ],
     queryFn: async ({ pageParam = 1, signal }) => {
@@ -55,6 +58,7 @@ export const GetAllCommentsClient = ({
           ...(userPositionId ? { userPositionId } : {}),
           ...(interactionKey?.length ? { interaction: interactionKey } : {}),
           ...(isAnonym !== undefined ? { isAnonym } : {}),
+          ...(stars !== undefined ? { stars } : {}),
           sort,
         },
       });

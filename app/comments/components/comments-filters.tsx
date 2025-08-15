@@ -24,66 +24,7 @@ export function CommentsFilter({ categories, positions, locations }: Props) {
 
         <FilterAnonym />
 
-        <FilterCard title={'Оценка'}>
-          <div className="flex flex-col gap-5 w-full px-7">
-            <Checkbox
-              value={''}
-              label={<FaStar className="text-yellow-400 w-6 h-6" />}
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={
-                <>
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                </>
-              }
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={
-                <>
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                </>
-              }
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={
-                <>
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                </>
-              }
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-            <Checkbox
-              value={''}
-              label={
-                <>
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                  <FaStar className="text-yellow-400 w-6 h-6" />
-                </>
-              }
-              selected={false}
-              onChange={() => console.log(1)}
-            />
-          </div>
-        </FilterCard>
+        <FilterStars />
       </div>
     </div>
   );
@@ -311,6 +252,54 @@ function FilterAnonym() {
           next.delete('page');
           router.replace(`?${next.toString()}`, { scroll: false });
         }}
+      />
+    </FilterCard>
+  );
+}
+
+// было: function FilterStars() { ... }
+function FilterStars() {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  // выбранное значение: "1" | "2" | ... | "5" | "all"
+  const selected = sp.get('stars') || 'all';
+
+  const setStars = (v: string | number | boolean) => {
+    const val = String(v); // радио всегда вернёт то, что в options.value
+    const next = new URLSearchParams(sp);
+    if (val === 'all') next.delete('stars');
+    else next.set('stars', val);
+    next.delete('page');
+    router.replace(`?${next.toString()}`, { scroll: false });
+  };
+
+  const Stars = ({ n }: { n: 1 | 2 | 3 | 4 | 5 }) => (
+    <div className="flex gap-1">
+      {Array.from({ length: 5 }, (_, i) => i + 1).map(i => (
+        <FaStar
+          key={i}
+          className={`w-6 h-6 ${i <= n ? 'text-yellow-400' : 'text-gray-300'}`}
+        />
+      ))}
+    </div>
+  );
+
+  const options = [
+    { label: 'Все', value: 'all' },
+    ...([5, 4, 3, 2, 1] as const).map(n => ({
+      label: <Stars n={n} />,
+      value: String(n),
+    })),
+  ];
+
+  return (
+    <FilterCard title="Оценка">
+      <Radio
+        className="flex-col gap-5 w-full px-7"
+        options={options}
+        selectedValue={selected}
+        onChange={setStars}
       />
     </FilterCard>
   );
