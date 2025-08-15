@@ -1,8 +1,8 @@
 import classNames from 'classnames';
-import { useId } from 'react';
+import { ReactNode, useId } from 'react';
 
 type Option = {
-  label: string;
+  label: ReactNode;
   value: string | number | boolean;
 };
 

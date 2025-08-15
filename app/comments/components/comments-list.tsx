@@ -31,6 +31,8 @@ export function CommentsList({
     ? (interactionParam.split(',').filter(Boolean) as Interaction[])
     : undefined;
 
+  const stars = sp.get('stars') ?? undefined;
+
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
     GetAllCommentsClient({
       enabled: isLoggedIn,
@@ -42,6 +44,7 @@ export function CommentsList({
       userPositionId,
       interaction,
       isAnonym,
+      stars,
     });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
