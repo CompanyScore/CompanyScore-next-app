@@ -237,9 +237,9 @@ function FilterAnonym() {
       <Radio
         className="flex flex-col gap-5 w-full"
         options={[
+          { label: 'Все', value: 'all' },
           { label: 'Анонимные', value: 1 },
           { label: 'Не анонимные', value: 0 },
-          { label: 'Все', value: 'all' },
         ]}
         selectedValue={selectedValue}
         onChange={(v: string | number | boolean) => {
