@@ -25,6 +25,7 @@ describe('Middleware', () => {
       };
 
       expect(mockRequest.nextUrl.pathname).to.equal('/');
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       expect(mockRequest.cookies.get('keycloak-token')).to.be.null;
     });
 
@@ -70,6 +71,7 @@ describe('Middleware', () => {
       };
 
       expect(mockRequest.nextUrl.pathname).to.equal('/test/user_data');
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       expect(mockRequest.cookies.get('keycloak-token')).to.be.null;
     });
 

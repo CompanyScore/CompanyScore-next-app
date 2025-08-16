@@ -22,6 +22,7 @@ describe('Auth Callback API', () => {
       url: 'http://localhost:3000/api/auth/callback',
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     expect(mockRequest.nextUrl.searchParams.get('code')).to.be.null;
   });
 

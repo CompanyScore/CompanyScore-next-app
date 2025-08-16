@@ -21,5 +21,12 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     '@next/next/no-img-element': 'off',
+    '@typescript-eslint/no-unused-expressions': 'off',
   },
+  ignorePatterns: [
+    '.mocharc.js',
+    '.nycrc.js',
+    '*.config.js',
+    '*.config.ts'
+  ]
 };
