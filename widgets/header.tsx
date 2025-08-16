@@ -4,6 +4,8 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 import { useProfileApi } from '@/store/api';
 import { Avatar } from '@/shared/ui';
+import { UserDataLink } from '@/components/user-data-link';
+import { LogoutButton } from '@/components/logout-button';
 
 import { IconHeart, IconBell } from '@tabler/icons-react';
 
@@ -86,14 +88,17 @@ export function Header() {
               </Link>
             </li>
             <li>
+              <div className="hover:bg-gray-100 rounded px-2 py-1">
+                <UserDataLink />
+              </div>
+            </li>
+            <li>
               <a className="hover:bg-gray-100 rounded px-2 py-1 cursor-pointer">
                 Пароль и безопасность
               </a>
             </li>
             <li>
-              <a className="text-red-500 hover:bg-red-50 rounded px-2 py-1 cursor-pointer">
-                Выйти
-              </a>
+              <LogoutButton variant="text" />
             </li>
           </ul>
         </div>
