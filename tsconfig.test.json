@@ -1,0 +1,23 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": ["mocha", "chai", "node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es2020"
+  },
+  "include": [
+    "test/**/*",
+    "lib/**/*",
+    "app/api/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out"
+  ]
+} 

@@ -1,0 +1,16 @@
+module.exports = {
+  require: ['ts-node/register', '@babel/register'],
+  extension: ['js', 'ts'],
+  spec: 'test/**/*.{js,ts}',
+  timeout: 5000,
+  slow: 100,
+  ui: 'bdd',
+  reporter: 'spec',
+  colors: true,
+  recursive: true,
+  'check-leaks': true,
+  'allow-uncaught': false,
+  'full-trace': false,
+  'inline-diffs': true,
+  'reporter-option': ['maxDiffSize=8192'],
+};
