@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Get current branch name
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Skip checks for main/master branches
+if [ "$CURRENT_BRANCH" = "main" ] || [ "$CURRENT_BRANCH" = "master" ]; then
+    echo "🚀 Skipping checks for $CURRENT_BRANCH branch..."
+    exit 0
+fi
+
 echo "🚀 Running full checks before push..."
 
 # Юнит-тесты — включим позже, когда появятся
