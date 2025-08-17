@@ -134,21 +134,21 @@ export const Interactive: Story = {
       <div className="flex flex-wrap gap-2">
         <Badge
           variant="default"
-          className="cursor-pointer hover:scale-105 transition-transform"
+          className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
           onClick={() => handleClick('default')}
         >
           Кликабельный
         </Badge>
         <Badge
           variant="brand"
-          className="cursor-pointer hover:scale-105 transition-transform"
+          className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
           onClick={() => handleClick('brand')}
         >
           Brand
         </Badge>
         <Badge
           variant="success"
-          className="cursor-pointer hover:scale-105 transition-transform"
+          className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
           onClick={() => handleClick('success')}
         >
           Success

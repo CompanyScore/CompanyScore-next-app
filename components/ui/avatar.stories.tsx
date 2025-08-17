@@ -230,7 +230,7 @@ export const Interactive: Story = {
         fallback="CN"
       />
       <Avatar
-        className="cursor-pointer hover:scale-105 transition-transform"
+        className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
         src="https://github.com/leerob.png"
         alt="@leerob"
         fallback="LR"

@@ -229,10 +229,61 @@ export const InteractiveStates: Story = {
           Hover, focus, and click to see animations
         </p>
         <div className="flex flex-wrap gap-4">
-          <Button>Hover me</Button>
-          <Button variant="secondary">Focus me</Button>
-          <Button variant="outline">Click me</Button>
-          <Button variant="ghost">Active state</Button>
+          <Button onClick={() => alert('Button clicked!')}>Hover me</Button>
+          <Button
+            variant="secondary"
+            onClick={() => alert('Secondary clicked!')}
+          >
+            Focus me
+          </Button>
+          <Button variant="outline" onClick={() => alert('Outline clicked!')}>
+            Click me
+          </Button>
+          <Button variant="ghost" onClick={() => alert('Ghost clicked!')}>
+            Active state
+          </Button>
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const InteractiveWithScale: Story = {
+  render: () => (
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <h3 className="text-lg font-semibold">Interactive with Scale Effect</h3>
+        <p className="text-sm text-gray-600">
+          Buttons with hover scale effect and click handlers
+        </p>
+        <div className="flex flex-wrap gap-4">
+          <Button
+            interactive
+            onClick={() => alert('Interactive button clicked!')}
+          >
+            Interactive
+          </Button>
+          <Button
+            variant="secondary"
+            interactive
+            onClick={() => alert('Secondary interactive clicked!')}
+          >
+            Secondary
+          </Button>
+          <Button
+            variant="outline"
+            interactive
+            onClick={() => alert('Outline interactive clicked!')}
+          >
+            Outline
+          </Button>
+          <Button
+            variant="ghost"
+            interactive
+            onClick={() => alert('Ghost interactive clicked!')}
+          >
+            Ghost
+          </Button>
         </div>
       </div>
     </div>

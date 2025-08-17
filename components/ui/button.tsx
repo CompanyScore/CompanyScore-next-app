@@ -70,6 +70,7 @@ export interface ButtonProps
   short?: boolean;
   onClick?: () => void;
   children?: React.ReactNode;
+  interactive?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -80,16 +81,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size,
       short = false,
       asChild = false,
+      interactive = false,
       children,
       ...props
     },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
+    const isInteractive = interactive || !!props.onClick;
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, short, className }))}
+        className={cn(
+          buttonVariants({ variant, size, short, className }),
+          isInteractive &&
+            'cursor-pointer hover:scale-[var(--scale-hover)] transition-transform',
+        )}
         ref={ref}
         {...props}
       >

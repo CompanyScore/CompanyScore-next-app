@@ -227,7 +227,7 @@ export const InteractiveAvatars: Story = {
             <Avatar
               {...user}
               size="lg"
-              className="cursor-pointer hover:scale-105 transition-transform"
+              className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
               onClick={() => handleAvatarClick(user.id, user.role)}
             />
             <div className="flex-1">
@@ -238,6 +238,7 @@ export const InteractiveAvatars: Story = {
               <Button
                 size="sm"
                 variant="outline"
+                interactive
                 onClick={() => handleAvatarClick(user.id, user.role)}
               >
                 Профиль
@@ -245,6 +246,7 @@ export const InteractiveAvatars: Story = {
               <Button
                 size="sm"
                 variant="ghost"
+                interactive
                 onClick={() => handleAvatarClick(user.id, user.role)}
               >
                 Настройки
@@ -321,6 +323,7 @@ export const AvatarWithStatusAndButton: Story = {
             <Button
               size="sm"
               variant="ghost"
+              interactive
               onClick={() => handleAvatarClick(user.id, user.status)}
             >
               Написать
@@ -461,7 +464,7 @@ export const InteractiveWithAlertDialog: Story = {
                 <Avatar
                   {...user}
                   size="lg"
-                  className="cursor-pointer hover:scale-105 transition-transform"
+                  className="cursor-pointer hover:scale-[var(--scale-hover)] transition-transform"
                 />
               </AlertDialogTrigger>
               <AlertDialogContent>
@@ -641,6 +644,7 @@ export const AvatarWithNotifications: Story = {
               <Button
                 size="xs"
                 variant="ghost"
+                interactive
                 onClick={() =>
                   handleAvatarClick(user.id, user.notifications || 0)
                 }
