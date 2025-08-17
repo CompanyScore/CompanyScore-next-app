@@ -4,13 +4,13 @@ const config: StorybookConfig = {
   stories: [
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   addons: [
     '@storybook/addon-docs',
     '@storybook/addon-a11y',
     '@storybook/addon-themes',
-    '@storybook/addon-viewport',
   ],
   framework: {
     name: '@storybook/nextjs-vite',

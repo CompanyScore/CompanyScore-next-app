@@ -21,9 +21,6 @@ const meta: Meta<typeof Typography> = {
     controls: {
       expanded: false,
     },
-    viewport: {
-      defaultViewport: 'responsive',
-    },
   },
   tags: ['autodocs'],
 };
@@ -42,9 +39,6 @@ export const Mobile: Story = {
   args: {},
   parameters: {
     layout: 'fullscreen',
-    viewport: {
-      defaultViewport: 'mobile1',
-    },
   },
 };
 
@@ -52,9 +46,6 @@ export const Tablet: Story = {
   args: {},
   parameters: {
     layout: 'fullscreen',
-    viewport: {
-      defaultViewport: 'tablet',
-    },
   },
 };
 
@@ -62,8 +53,5 @@ export const Desktop: Story = {
   args: {},
   parameters: {
     layout: 'fullscreen',
-    viewport: {
-      defaultViewport: 'desktop',
-    },
   },
 };

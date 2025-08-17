@@ -49,9 +49,6 @@ export const White: Story = {
   args: {
     variant: 'white',
   },
-  parameters: {
-    backgrounds: { default: 'dark' },
-  },
 };
 
 export const Black: Story = {

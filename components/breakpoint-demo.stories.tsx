@@ -28,28 +28,16 @@ export const Default: Story = {
 
 export const Mobile: Story = {
   args: {},
-  parameters: {
-    viewport: { defaultViewport: 'mobile1' },
-  },
 };
 
 export const Tablet: Story = {
   args: {},
-  parameters: {
-    viewport: { defaultViewport: 'tablet' },
-  },
 };
 
 export const Desktop: Story = {
   args: {},
-  parameters: {
-    viewport: { defaultViewport: 'desktop' },
-  },
 };
 
 export const LargeDesktop: Story = {
   args: {},
-  parameters: {
-    viewport: { defaultViewport: 'desktop' },
-  },
 };
