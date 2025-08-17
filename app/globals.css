@@ -5,6 +5,8 @@
 @layer base {
   :root {
     --radius: 0.5rem;
+    --font-family: 'Inter';
+    --font-family-fallback: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     
     /* Base colors */
     --background: 0 0% 100%;
@@ -235,6 +237,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-family), var(--font-family-fallback);
   }
   
   * {

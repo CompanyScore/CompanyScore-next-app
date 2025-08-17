@@ -1,59 +1,71 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import createMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
+import { routing } from './app/i18n/routing';
 
-export function middleware(request: NextRequest) {
-  const token = request.cookies.get('keycloak-token')?.value;
+const intlMiddleware = createMiddleware({
+  locales: routing.locales,
+  defaultLocale: routing.defaultLocale,
+  localePrefix: 'as-needed',
+});
 
-  const isAuthPage =
-    request.nextUrl.pathname.startsWith('/login') ||
-    request.nextUrl.pathname.startsWith('/register');
-  const isPublicPage =
-    request.nextUrl.pathname === '/' ||
-    request.nextUrl.pathname.startsWith('/about') ||
-    request.nextUrl.pathname.startsWith('/blog') ||
-    request.nextUrl.pathname.startsWith('/api/auth');
-  const isProtectedPage =
-    request.nextUrl.pathname.startsWith('/test/user_data');
+export default function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
 
-  // Public pages are accessible to everyone
-  if (isPublicPage) {
-    return NextResponse.next();
+  // Handle internationalization first
+  const intlResponse = intlMiddleware(request);
+  if (intlResponse) return intlResponse;
+
+  // Get the locale from the pathname
+  const pathnameIsMissingLocale = routing.locales.every(
+    locale => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
+  );
+
+  // Redirect if there is no locale
+  if (pathnameIsMissingLocale) {
+    const locale = routing.defaultLocale;
+    return NextResponse.redirect(new URL(`/${locale}${pathname}`, request.url));
   }
 
-  // Protected pages require authentication
-  if (isProtectedPage && !token) {
-    const keycloakUrl = process.env.KEYCLOAK_URL || 'http://localhost:8081';
-    const realm = process.env.KEYCLOAK_REALM || 'companyScore';
-    const clientId =
-      process.env.KEYCLOAK_FRONTEND_CLIENT_ID || 'companyscore-frontend';
-    const redirectUri = encodeURIComponent(
-      `${request.nextUrl.origin}/api/auth/callback`,
+  // Extract locale from pathname
+  const pathnameHasLocale = routing.locales.some(
+    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`,
+  );
+
+  if (pathnameHasLocale) {
+    const locale = pathname.split('/')[1];
+
+    // Public paths that don't require authentication
+    const publicPaths = [
+      `/${locale}`,
+      `/${locale}/about`,
+      `/${locale}/blog`,
+      `/${locale}/api/auth/callback`,
+      `/${locale}/api/auth/logout`,
+    ];
+
+    // Check if current path is public
+    const isPublicPath = publicPaths.some(
+      path => pathname === path || pathname.startsWith(path + '/'),
     );
 
-    const loginUrl = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid`;
+    if (isPublicPath) {
+      return NextResponse.next();
+    }
 
-    return NextResponse.redirect(loginUrl);
-  }
+    // Check for authentication token
+    const token = request.cookies.get('keycloak-token')?.value;
 
-  // If no token and not auth page, redirect to Keycloak
-  if (!token && !isAuthPage) {
-    const keycloakUrl = process.env.KEYCLOAK_URL || 'http://localhost:8081';
-    const realm = process.env.KEYCLOAK_REALM || 'companyScore';
-    const clientId =
-      process.env.KEYCLOAK_FRONTEND_CLIENT_ID || 'companyscore-frontend';
-    const redirectUri = encodeURIComponent(
-      `${request.nextUrl.origin}/api/auth/callback`,
-    );
+    // If no token and not on login page, redirect to login
+    if (!token && !pathname.includes('/login')) {
+      const loginUrl = `${request.nextUrl.origin}/${locale}/login`;
+      return NextResponse.redirect(new URL(loginUrl));
+    }
 
-    const loginUrl = `${keycloakUrl}/realms/${realm}/protocol/openid-connect/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=openid`;
-
-    return NextResponse.redirect(loginUrl);
-  }
-
-  // If token exists and user is on auth page, redirect to home
-  if (token && isAuthPage) {
-    const homeUrl = new URL('/', request.url);
-    return NextResponse.redirect(homeUrl);
+    // If has token and on login page, redirect to home
+    if (token && pathname.includes('/login')) {
+      const homeUrl = `${request.nextUrl.origin}/${locale}`;
+      return NextResponse.redirect(new URL(homeUrl));
+    }
   }
 
   return NextResponse.next();
@@ -61,12 +73,9 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    // Skip all internal paths (_next)
+    '/((?!_next|api|.*\\..*).*)',
+    // Optional: only run on root (/) URL
+    // '/'
   ],
 };
