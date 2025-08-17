@@ -589,6 +589,76 @@ export const InteractiveAvatarGroup: Story = {
   },
 };
 
+export const AvatarWithNotifications: Story = {
+  render: () => {
+    const users = [
+      {
+        id: 'user1',
+        src: 'https://picsum.photos/200/200?random=1',
+        alt: 'User 1',
+        fallback: 'U1',
+        notifications: 1,
+      },
+      {
+        id: 'user2',
+        src: 'https://picsum.photos/200/200?random=2',
+        alt: 'User 2',
+        fallback: 'U2',
+        notifications: 5,
+      },
+      {
+        id: 'user3',
+        src: 'https://picsum.photos/200/200?random=3',
+        alt: 'User 3',
+        fallback: 'U3',
+        notifications: 12,
+      },
+      {
+        id: 'user4',
+        src: 'https://picsum.photos/200/200?random=4',
+        alt: 'User 4',
+        fallback: 'U4',
+        notifications: 99,
+      },
+    ];
+
+    const handleAvatarClick = (id: string, notifications: number) => {
+      alert(`Кликнут аватар ${id} с ${notifications} уведомлениями`);
+    };
+
+    return (
+      <div className="space-y-4">
+        <div className="flex items-center gap-4">
+          {users.map(user => (
+            <div key={user.id} className="flex flex-col items-center gap-2">
+              <Avatar
+                {...user}
+                className="cursor-pointer hover:opacity-80 transition-opacity"
+                onClick={() =>
+                  handleAvatarClick(user.id, user.notifications || 0)
+                }
+              />
+              <Button
+                size="xs"
+                variant="ghost"
+                onClick={() =>
+                  handleAvatarClick(user.id, user.notifications || 0)
+                }
+              >
+                Уведомления ({user.notifications})
+              </Button>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Button variant="secondary">Управление уведомлениями</Button>
+        </div>
+      </div>
+    );
+  },
+};
+
 export const AvatarGroupWithAlertDialog: Story = {
   render: () => {
     const users = [

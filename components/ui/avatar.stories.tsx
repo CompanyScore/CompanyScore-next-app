@@ -244,3 +244,78 @@ export const Interactive: Story = {
     </div>
   ),
 };
+
+export const WithNotifications: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Avatar
+        src="https://picsum.photos/200/200?random=1"
+        alt="User with 1 notification"
+        notifications={1}
+      />
+      <Avatar
+        src="https://picsum.photos/200/200?random=2"
+        alt="User with 5 notifications"
+        notifications={5}
+      />
+      <Avatar
+        src="https://picsum.photos/200/200?random=3"
+        alt="User with 9 notifications"
+        notifications={9}
+      />
+      <Avatar
+        src="https://picsum.photos/200/200?random=4"
+        alt="User with 12 notifications"
+        notifications={12}
+      />
+      <Avatar
+        src="https://picsum.photos/200/200?random=5"
+        alt="User with 99 notifications"
+        notifications={99}
+      />
+    </div>
+  ),
+};
+
+export const AllSizesWithNotifications: Story = {
+  render: () => (
+    <div className="flex items-center gap-4">
+      <Avatar
+        size="xs"
+        src="https://picsum.photos/200/200?random=1"
+        alt="XS avatar"
+        notifications={3}
+      />
+      <Avatar
+        size="sm"
+        src="https://picsum.photos/200/200?random=2"
+        alt="SM avatar"
+        notifications={5}
+      />
+      <Avatar
+        size="md"
+        src="https://picsum.photos/200/200?random=3"
+        alt="MD avatar"
+        notifications={7}
+      />
+      <Avatar
+        size="lg"
+        src="https://picsum.photos/200/200?random=4"
+        alt="LG avatar"
+        notifications={9}
+      />
+      <Avatar
+        size="xl"
+        src="https://picsum.photos/200/200?random=5"
+        alt="XL avatar"
+        notifications={12}
+      />
+      <Avatar
+        size="2xl"
+        src="https://picsum.photos/200/200?random=6"
+        alt="2XL avatar"
+        notifications={15}
+      />
+    </div>
+  ),
+};
