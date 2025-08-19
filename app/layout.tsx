@@ -22,7 +22,6 @@ export default async function RootLayout({
       <body
         className={`${inter.variable} antialiased flex flex-col min-h-screen font-sans`}
       >
-        {/* <ThemeProvider> */}
         <Tanstack>
           <Header />
           <HeaderMobile />
@@ -32,7 +31,6 @@ export default async function RootLayout({
           <Footer />
           <ReactQueryDevtools initialIsOpen={false} />
         </Tanstack>
-        {/* </ThemeProvider> */}
       </body>
     </html>
   );

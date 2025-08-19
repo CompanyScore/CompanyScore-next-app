@@ -13,3 +13,7 @@ export {
 export { GetLocationsServer } from './locations/locations-server';
 
 export { GetCompanyOptions } from './companies/companies-client';
+
+export { GetProfile } from './profile/profile-client';
+
+export { useAuth } from './auth/auth';
