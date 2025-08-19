@@ -16,7 +16,7 @@ export function CommentsSorting() {
   ];
 
   return (
-    <div className="self-end flex items-center gap-4">
+    <div className="flex items-center gap-4 w-full">
       <p>Сортировать по:</p>
       <div>
         <Select
