@@ -1,16 +1,10 @@
 'use client';
 
-import {
-  Button,
-  Card,
-  Checkbox,
-  FilterCard,
-  Select,
-  StarRating,
-} from '@/shared/ui';
+import { Button, FilterCard, Radio, Select } from '@/shared/ui';
 import { OptionType } from '@/shared/ui/select';
 import { useMemo } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { FaStar } from 'react-icons/fa';
 
 type City = { id: string; name: string };
 type Location = { id: string; name: string; cities: City[] };
@@ -25,54 +19,7 @@ export function CompaniesFilter({ locations }: CompaniesFilterProps) {
   return (
     <div className="w-[288px] flex flex-col gap-[20px]">
       <FilterLocations locations={locations} />
-      {/* <FilterCard title='Компания'>
-          <Select
-            placeholder="Город/регион"
-            isClearable
-            options={cityOptionsFormatted}
-            value={null}
-            onChange={() => {}}
-          />
-
-          <Select
-            placeholder="Отрасль"
-            isClearable
-            options={cityOptionsFormatted}
-            value={null}
-            onChange={() => {}}
-          />
-      </FilterCard> */}
-      <Card>
-        <h4 className="text-lg font-medium pb-6 border-b border-b-neutral-200">
-          Рейтинг
-        </h4>
-        <div className="flex flex-col gap-[24px] pt-6">
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={1000} onChange={() => {}} />
-          </div>
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={750} onChange={() => {}} />
-          </div>
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={500} onChange={() => {}} />
-          </div>
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={250} onChange={() => {}} />
-          </div>
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={50} onChange={() => {}} />
-          </div>
-          <div className="flex gap-[13px]">
-            <Checkbox label="" value="" selected={false} onChange={() => {}} />
-            <StarRating value={0} onChange={() => {}} />
-          </div>
-        </div>
-      </Card>
+      <FilterStars />
       <Button className="text-lg btn-primary" onClick={() => {}}>
         Сбросить фильтры
       </Button>
@@ -136,6 +83,52 @@ function FilterLocations({ locations }: CompaniesFilterProps) {
           }}
         />
       </div>
+    </FilterCard>
+  );
+}
+
+function FilterStars() {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  const selected = sp.get('stars') || 'all';
+
+  const setStars = (v: string | number | boolean) => {
+    const val = String(v);
+    const next = new URLSearchParams(sp);
+    if (val === 'all') next.delete('stars');
+    else next.set('stars', val);
+    next.delete('page');
+    router.replace(`?${next.toString()}`, { scroll: false });
+  };
+
+  const Stars = ({ n }: { n: 1 | 2 | 3 | 4 | 5 }) => (
+    <div className="flex gap-1">
+      {Array.from({ length: 5 }, (_, i) => i + 1).map(i => (
+        <FaStar
+          key={i}
+          className={`w-6 h-6 ${i <= n ? 'text-yellow-400' : 'text-gray-300'}`}
+        />
+      ))}
+    </div>
+  );
+
+  const options = [
+    { label: 'Все', value: 'all' },
+    ...([5, 4, 3, 2, 1] as const).map(n => ({
+      label: <Stars n={n} />,
+      value: String(n),
+    })),
+  ];
+
+  return (
+    <FilterCard title="Рейтинг">
+      <Radio
+        className="flex-col gap-5 w-full px-7"
+        options={options}
+        selectedValue={selected}
+        onChange={setStars}
+      />
     </FilterCard>
   );
 }
