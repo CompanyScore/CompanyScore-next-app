@@ -2,18 +2,18 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '../use-api';
 
 export type GetCompaniesParams = {
-  search?: string;
+  companyName?: string;
   countryId?: string;
   cityId?: string;
 };
 
 export const GetCompaniesClient = ({
-  search,
+  companyName,
   countryId,
   cityId,
 }: GetCompaniesParams) => {
   return useInfiniteQuery({
-    queryKey: ['companies', search, countryId, cityId],
+    queryKey: ['companies', companyName, countryId, cityId],
     queryFn: async ({
       pageParam = 1,
       signal,
@@ -27,7 +27,7 @@ export const GetCompaniesClient = ({
           isDeleted: false,
           limit: 10,
           page: pageParam,
-          ...(search ? { name: search } : {}),
+          ...(companyName ? { name: companyName } : {}),
           ...(countryId ? { country: countryId } : {}),
           ...(cityId ? { city: cityId } : {}),
         },
