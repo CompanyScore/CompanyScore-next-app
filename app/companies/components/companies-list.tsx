@@ -4,11 +4,17 @@ import { CompaniesCard } from './companies-card';
 import { InfinityList, Loading } from '@/shared/ui';
 import { GetCompaniesClient } from '@/api/companies/companies-client';
 import { useCompaniesFilterStore } from '@/store/companies-filter.store';
+import { useSearchParams } from 'next/navigation';
 
 export function CompaniesList() {
-  const search = useCompaniesFilterStore(state => state.search);
+  const sp = useSearchParams();
+
+  const countryId = sp.get('country') ?? undefined;
+  const cityId = sp.get('city') ?? undefined;
+
+  const search = useCompaniesFilterStore(state => state.search); // Тут переделать как со страной скорее всего
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetCompaniesClient({ search });
+    GetCompaniesClient({ search, countryId, cityId });
 
   const companies = data?.pages.flatMap(page => page.data) || [];
 

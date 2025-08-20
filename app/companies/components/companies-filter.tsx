@@ -1,24 +1,31 @@
 'use client';
 
-import { Button, Card, Checkbox, Select, StarRating } from '@/shared/ui';
-import { useCompanyStore } from '@/store/api';
+import {
+  Button,
+  Card,
+  Checkbox,
+  FilterCard,
+  Select,
+  StarRating,
+} from '@/shared/ui';
 import { OptionType } from '@/shared/ui/select';
+import { useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export function CompaniesFilter() {
-  const { cityOptions } = useCompanyStore();
+type City = { id: string; name: string };
+type Location = { id: string; name: string; cities: City[] };
 
-  const cityOptionsFormatted: OptionType[] = cityOptions.map(c => ({
-    label: c,
-    value: c,
-  }));
+type CompaniesFilterProps = {
+  locations: Location[];
+};
+
+export function CompaniesFilter({ locations }: CompaniesFilterProps) {
+  // console.log(locations)
 
   return (
     <div className="w-[288px] flex flex-col gap-[20px]">
-      <Card>
-        <h4 className="text-lg font-medium pb-6 border-b border-b-neutral-200">
-          Компания
-        </h4>
-        <div className="flex flex-col gap-[24px] pt-6">
+      <FilterLocations locations={locations} />
+      {/* <FilterCard title='Компания'>
           <Select
             placeholder="Город/регион"
             isClearable
@@ -34,8 +41,7 @@ export function CompaniesFilter() {
             value={null}
             onChange={() => {}}
           />
-        </div>
-      </Card>
+      </FilterCard> */}
       <Card>
         <h4 className="text-lg font-medium pb-6 border-b border-b-neutral-200">
           Рейтинг
@@ -71,6 +77,66 @@ export function CompaniesFilter() {
         Сбросить фильтры
       </Button>
     </div>
+  );
+}
+
+function FilterLocations({ locations }: CompaniesFilterProps) {
+  const router = useRouter();
+  const sp = useSearchParams();
+
+  const countryId = sp.get('country');
+  const cityId = sp.get('city');
+
+  const replaceParams = (changes: Record<string, string | null>) => {
+    const next = new URLSearchParams(sp);
+    Object.entries(changes).forEach(([k, v]) => {
+      if (v) next.set(k, v);
+      else next.delete(k);
+    });
+    next.delete('page');
+    router.replace(`?${next.toString()}`, { scroll: false });
+  };
+
+  const countriesOptions = useMemo<OptionType[]>(
+    () => locations.map(l => ({ value: l.name, label: l.name })), //потом на value:l.id изменить
+    [locations],
+  );
+
+  const citiesOptions = useMemo<OptionType[]>(() => {
+    if (!countryId) return [];
+    const loc = locations.find(l => l.name === countryId); //потом на l.id изменить
+    return (loc?.cities ?? []).map(c => ({ value: c.name, label: c.name })); //потом на value:c.id изменить
+  }, [countryId, locations]);
+
+  return (
+    <FilterCard title="Компания">
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Страна"
+          isClearable
+          options={countriesOptions}
+          value={countryId}
+          onChange={(opt: string | OptionType | null) => {
+            const next = typeof opt === 'string' ? opt : (opt?.value ?? null);
+            replaceParams({ country: next, city: null, company: null });
+          }}
+        />
+      </div>
+
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Город"
+          isClearable
+          isDisabled={!countryId}
+          options={citiesOptions}
+          value={cityId}
+          onChange={(opt: string | OptionType | null) => {
+            const next = typeof opt === 'string' ? opt : (opt?.value ?? null);
+            replaceParams({ city: next, company: null });
+          }}
+        />
+      </div>
+    </FilterCard>
   );
 }
 

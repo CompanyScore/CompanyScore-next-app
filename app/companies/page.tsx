@@ -1,5 +1,3 @@
-'use client';
-
 import { Container } from '@/shared/ui';
 import {
   CompaniesFilter,
@@ -8,17 +6,19 @@ import {
   CompaniesSearch,
   CompaniesSort,
 } from './components';
+import { GetLocationsServer } from '@/api';
 // import { useCompanyStore } from '@/store/api';
 
-export default function CompaniesPage() {
+export default async function CompaniesPage() {
   // const { total } = useCompanyStore();
+  const locations = await GetLocationsServer();
 
   return (
     <>
       <CompaniesHero />
       <CompaniesSearch />
       <Container className="flex gap-[24px]">
-        <CompaniesFilter />
+        <CompaniesFilter locations={locations} />
         <div className="flex flex-col flex-1 gap-[32px]">
           <CompaniesSort />
           <CompaniesList />

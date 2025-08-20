@@ -3,11 +3,17 @@ import { useApi } from '../use-api';
 
 export type GetCompaniesParams = {
   search?: string;
+  countryId?: string;
+  cityId?: string;
 };
 
-export const GetCompaniesClient = ({ search }: GetCompaniesParams) => {
+export const GetCompaniesClient = ({
+  search,
+  countryId,
+  cityId,
+}: GetCompaniesParams) => {
   return useInfiniteQuery({
-    queryKey: ['companies', search],
+    queryKey: ['companies', search, countryId, cityId],
     queryFn: async ({
       pageParam = 1,
       signal,
@@ -22,6 +28,8 @@ export const GetCompaniesClient = ({ search }: GetCompaniesParams) => {
           limit: 10,
           page: pageParam,
           ...(search ? { name: search } : {}),
+          ...(countryId ? { country: countryId } : {}),
+          ...(cityId ? { city: cityId } : {}),
         },
       });
 

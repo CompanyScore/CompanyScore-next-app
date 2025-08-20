@@ -1,3 +1,5 @@
+'use client';
+
 import { GetCompaniesClient } from '@/api/companies/companies-client';
 import { Searcher } from '@/shared/ui';
 import { useCompaniesFilterStore } from '@/store/companies-filter.store';

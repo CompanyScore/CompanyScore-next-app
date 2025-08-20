@@ -8,7 +8,7 @@ export const UsersFilter = () => {
 
   return (
     <div className="mb-4">
-      <Searcher onClick={val => setSearch(val)} />
+      <Searcher onSearch={val => setSearch(val)} />
     </div>
   );
 };

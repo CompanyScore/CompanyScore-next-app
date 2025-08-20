@@ -12,4 +12,4 @@ export {
 
 export { GetLocationsServer } from './locations/locations-server';
 
-export { GetCompanyOptions } from './companies/companies-client';
+export { GetCompaniesClient } from './companies/companies-client';
