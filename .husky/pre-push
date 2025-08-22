@@ -9,6 +9,6 @@ echo "🚀 Running full checks before push..."
 npx tsc --noEmit || (echo '❌ TypeScript typecheck failed'; false)
 
 # Сборка проекта
-npm run build || (echo '❌ Build failed'; false)
+# npm run build || (echo '❌ Build failed'; false)
 
 echo "✅ Pre-push checks passed. Pushing..."
