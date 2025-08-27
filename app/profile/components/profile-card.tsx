@@ -1,26 +1,27 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { ProfileEditModal } from '../modals';
-import { useProfileApi } from '@/store/api';
+// import { useProfileApi } from '@/store/api';
 import { Error, Toast } from '@/shared/ui';
+import { GetProfile } from '@/api';
 
 export function ProfileCard() {
-  const { profile, loading, error, getProfile } = useProfileApi();
+  // const { profile, loading, error, getProfile } = useProfileApi();
 
-  useEffect(() => {
-    getProfile();
-  }, [getProfile]);
+  // useEffect(() => {
+  //   getProfile();
+  // }, [getProfile]);
 
-  if (loading) {
+  const { data: profile, isLoading, error } = GetProfile();
+
+  if (isLoading) {
     return (
       <div className="skeleton h-[500px] w-[400px] lg:w-[1280px] m-auto"></div>
     );
   }
 
   if (error) {
-    return <Error text={error} />;
+    return <Error text={error.message} />;
   }
 
   return (

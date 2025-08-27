@@ -1,19 +1,20 @@
 'use client';
 
 import { GetAllUsersClient } from '@/api/users/users-client';
-import { useAuth } from '@/shared/hooks';
+import { useAuth } from '@/api';
 import { InfinityList } from '@/shared/ui';
 import { useUsersFilterStore } from '@/store/users-filter.store';
 
 export function UsersList({ users: publicUsers }: { users: any[] }) {
   const search = useUsersFilterStore(state => state.search);
-  const { isLoggedIn, loading } = useAuth();
+  const { isAuth, profileQuery } = useAuth();
+  const loading = profileQuery.isLoading;
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetAllUsersClient({ search, enabled: isLoggedIn });
+    GetAllUsersClient({ search, enabled: isAuth });
 
   const dataUsers = data?.pages.flatMap(page => page.users);
-  const users = isLoggedIn && dataUsers ? dataUsers : publicUsers;
+  const users = isAuth && dataUsers ? dataUsers : publicUsers;
 
   if (loading || isLoading) {
     return (
@@ -38,7 +39,7 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
       <InfinityList
         loading={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
-        isFetching={isLoggedIn}
+        isFetching={isAuth}
       >
         {users.map(user => (
           <div
@@ -51,7 +52,7 @@ export function UsersList({ users: publicUsers }: { users: any[] }) {
         ))}
       </InfinityList>
 
-      {!isLoggedIn && (
+      {!isAuth && (
         <div className="text-center text-sm text-gray-600 mt-4">
           Войдите, чтобы увидеть всех пользователей
         </div>
