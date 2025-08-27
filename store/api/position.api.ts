@@ -1,36 +1,34 @@
-import { create } from 'zustand';
+import { useQuery } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
 type PositionCategoryType = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}
 
 type PositionType = {
-  id: string;
-  title: string;
-  category: PositionCategoryType;
-};
+  id: string
+  title: string
+  category: PositionCategoryType
+}
 
-type PositionStoreType = {
-  positions: PositionType[];
-  loading: boolean;
-  getPositions: () => Promise<void>;
-};
+// хук вместо Zustand стора
+export const usePositionApi = () => {
+  const {
+    data: positions = [],
+    isLoading: loading,
+    refetch: getPositions, 
+  } = useQuery<PositionType[]>({
+    queryKey: ['positions'],
+    queryFn: async () => {
+      const { data } = await useApi.get('/positions')
+      return data
+    },
+  })
 
-export const usePositionApi = create<PositionStoreType>(set => ({
-  positions: [],
-  loading: false,
-
-  getPositions: async () => {
-    set({ loading: true });
-    try {
-      const { data } = await useApi.get('/positions');
-      set({ positions: data });
-    } catch (e) {
-      console.error('Ошибка при загрузке positions:', e);
-    } finally {
-      set({ loading: false });
-    }
-  },
-}));
+  return {
+    positions,
+    loading,
+    getPositions,
+  }
+}

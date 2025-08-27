@@ -1,32 +1,32 @@
-import { create } from 'zustand';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useApi } from '@/api';
 
-type PositionCategoryType = {
-  id: string;
-  title: string;
+export type PositionCategoryType = {
+  id: string
+  title: string
 };
 
-type PositionCategoryStoreType = {
-  categories: PositionCategoryType[];
-  loading: boolean;
-  getCategories: () => Promise<void>;
-};
-
-export const usePositionCategoryApi = create<PositionCategoryStoreType>(
-  set => ({
-    categories: [],
-    loading: false,
-
-    getCategories: async () => {
-      set({ loading: true });
-      try {
-        const { data } = await useApi.get('/position-categories');
-        set({ categories: data });
-      } catch (e) {
-        console.error('Ошибка при загрузке категорий должностей:', e);
-      } finally {
-        set({ loading: false });
-      }
+// Получение категорий 
+export const usePositionCategories = () => {
+  return useQuery<PositionCategoryType[]>({
+    queryKey: ['position-categories'],
+    queryFn: async () => {
+      const { data } = await useApi.get('/position-categories')
+      return data
     },
-  }),
-);
+    staleTime: 1000 * 60 * 5, // хранение в кэше 5 минут
+  });
+};
+
+export const usePositionCategoryApi = () => {
+  const queryClient = useQueryClient()
+  const { data: categories = [], isLoading: loading } = usePositionCategories()
+
+  return {
+    categories,
+    loading,
+    getCategories: async () => { // Оставили функцию getCategories.
+      await queryClient.invalidateQueries({ queryKey: ['position-categories'] })
+    },
+  }
+}
