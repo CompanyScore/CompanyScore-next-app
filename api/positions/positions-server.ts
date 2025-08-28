@@ -1,32 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-import type { PositionType, PositionCategoryType } from '../../store/api/position.api'
-import 'dotenv';
+export const revalidate = 60 * 60 * 24; // 1 день
 
-const API_URL = process.env.NEXT_PUBLIC_BACK;
+export async function GetPositionCategoriesServer() {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BACK}/position-categories`,
+    {
+      next: { revalidate },
+    },
+  );
 
-async function fetcher<T>(url: string): Promise<T> {
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`fetch failed: ${res.status} ${await res.text()}`);
-  }
+  if (!res.ok) throw new Error('position-categories failed');
   return res.json();
 }
 
-// Хук для категорий
-export function GetPositionCategoriesServer() {
-  return useQuery<PositionCategoryType[]>({
-    // Используем дженерики чтобы Юзкуери точно знал что за данные принимает и возвращает.
-    queryKey: ['position-categories'],
-    queryFn: () => fetcher(`${API_URL}/position-categories`),
-    staleTime: 1000 * 60 * 60 * 24, // 1 день кешируются
+export async function GetPositionsServer() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACK}/positions`, {
+    next: { revalidate },
   });
-}
 
-// Хук для позиций
-export function GetPositionsServer() {
-  return useQuery<PositionType[]>({
-    queryKey: ['positions'],
-    queryFn: () => fetcher(`${API_URL}/positions`),
-    staleTime: 1000 * 60 * 60 * 24,
-  });
+  if (!res.ok) throw new Error('positions failed');
+  return res.json();
 }
