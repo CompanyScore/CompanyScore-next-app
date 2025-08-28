@@ -10,7 +10,5 @@ export { useProfileApi } from './profile.api';
 
 export { useCompanyStore } from './company.api';
 
-export { useAuthApi } from './auth.api';
-
 export { usePositionApi } from './position.api';
 export { usePositionCategoryApi } from './position-categories.api';

@@ -1,7 +1,7 @@
 'use client';
 
 import { useLoginForm, useRegistrationForm } from '@/shared/hooks';
-import { useAuthApi } from '@/store/api';
+import { useAuth } from '@/api';
 import { Button, Input, Loading } from '@/shared/ui';
 import { NewModal } from '@/shared/ui/new-modal';
 import { useEffect, useState } from 'react';
@@ -27,7 +27,8 @@ type RegistrationFormData = {
 
 export function Auth({ type, visible, setVisible }: Auth) {
   const [isLoginMode, setLoginMode] = useState(type === 'login');
-  const { loading, isAuth } = useAuthApi();
+  const { isAuth, login, register } = useAuth(true);
+  const loading = login.isPending || register.isPending;
 
   const redirectToLinkedin = async () => {
     const returnUrl = `${process.env.NEXT_PUBLIC_FRONT}/profile`;
@@ -84,7 +85,7 @@ export function Auth({ type, visible, setVisible }: Auth) {
 }
 
 function LoginForm({ visible }: { visible: boolean }) {
-  const { loginUser, error } = useAuthApi();
+  const { login } = useAuth(false);
 
   const {
     setValue,
@@ -101,19 +102,17 @@ function LoginForm({ visible }: { visible: boolean }) {
   }, [visible]);
 
   useEffect(() => {
-    if (error) {
-      setError('email', { type: 'manual', message: error });
-      setError('password', { type: 'manual', message: error });
-    } else {
-      reset();
+    const errMsg =
+      (login.error as any)?.response?.data?.message ||
+      (login.error as Error | undefined)?.message;
+    if (errMsg) {
+      setError('email', { type: 'manual', message: errMsg });
+      setError('password', { type: 'manual', message: errMsg });
     }
-  }, [error, reset, setError]);
+  }, [login.error, setError]);
 
   const onSubmit: SubmitHandler<LoginFormData> = async data => {
-    await loginUser({
-      email: data.email,
-      password: data.password,
-    });
+    await login.mutateAsync({ email: data.email, password: data.password });
   };
 
   const handleValueChange = (type: 'email' | 'password', value: string) => {
@@ -149,13 +148,15 @@ function LoginForm({ visible }: { visible: boolean }) {
         </p>
       </div>
 
-      <Button className="btn-primary mt-2 text-base">Авторизоваться</Button>
+      <Button className="btn-primary mt-2 text-base" disabled={login.isPending}>
+        {login.isPending ? 'Входим…' : 'Авторизоваться'}
+      </Button>
     </form>
   );
 }
 
 function RegistrationForm({ visible }: { visible: boolean }) {
-  const { registrationUser, error } = useAuthApi();
+  const { register } = useAuth(false);
 
   const {
     setValue,
@@ -172,17 +173,18 @@ function RegistrationForm({ visible }: { visible: boolean }) {
   }, [visible]);
 
   useEffect(() => {
-    if (error) {
-      setError('name', { type: 'manual', message: error });
-      setError('email', { type: 'manual', message: error });
-      setError('password', { type: 'manual', message: error });
-    } else {
-      reset();
+    const errMsg =
+      (register.error as any)?.response?.data?.message ||
+      (register.error as Error | undefined)?.message;
+    if (errMsg) {
+      setError('name', { type: 'manual', message: errMsg });
+      setError('email', { type: 'manual', message: errMsg });
+      setError('password', { type: 'manual', message: errMsg });
     }
-  }, [error, reset, setError]);
+  }, [register.error, setError]);
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async data => {
-    await registrationUser({
+    await register.mutateAsync({
       email: data.email,
       password: data.password,
       name: data.name,
@@ -235,7 +237,12 @@ function RegistrationForm({ visible }: { visible: boolean }) {
         </p>
       </div>
 
-      <Button className="btn-primary mt-2 text-base">Зарегистрироваться</Button>
+      <Button
+        className="btn-primary mt-2 text-base"
+        disabled={register.isPending}
+      >
+        {register.isPending ? 'Регистрируем…' : 'Зарегистрироваться'}
+      </Button>
     </form>
   );
 }

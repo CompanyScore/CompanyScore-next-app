@@ -2,8 +2,7 @@
 
 import { Title, InfinityList } from '@/shared/ui';
 import { useSearchParams } from 'next/navigation';
-import { useAuth } from '@/shared/hooks';
-import { GetAllCommentsClient } from '@/api';
+import { GetAllCommentsClient, useAuth } from '@/api';
 import { CommentCard } from './comments-card';
 
 type Interaction = 'test' | 'interview' | 'internship' | 'work';
@@ -13,7 +12,8 @@ export function CommentsList({
 }: {
   comments: any[];
 }) {
-  const { isLoggedIn, loading } = useAuth();
+  const { isAuth, profileQuery } = useAuth();
+  const loading = profileQuery.isLoading;
   const sp = useSearchParams();
 
   const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
@@ -35,7 +35,7 @@ export function CommentsList({
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
     GetAllCommentsClient({
-      enabled: isLoggedIn,
+      enabled: isAuth,
       sort,
       companyName,
       countryId,
@@ -48,7 +48,7 @@ export function CommentsList({
     });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
-  const comments = isLoggedIn && dataComments ? dataComments : publicComments;
+  const comments = isAuth && dataComments ? dataComments : publicComments;
 
   if (loading || isLoading) {
     return (
@@ -82,14 +82,14 @@ export function CommentsList({
       <InfinityList
         loading={isFetchingNextPage}
         fetchNextPage={fetchNextPage}
-        isFetching={isLoggedIn}
+        isFetching={isAuth}
       >
         {comments.map(comment => (
           <CommentCard key={comment?.id} comment={comment} className="w-full" />
         ))}
       </InfinityList>
 
-      {!isLoggedIn && (
+      {!isAuth && (
         <div className="text-center text-sm text-gray-600 mt-4">
           Войдите, чтобы увидеть все отзывы
         </div>
