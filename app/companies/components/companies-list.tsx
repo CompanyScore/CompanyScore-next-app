@@ -8,13 +8,14 @@ import { useSearchParams } from 'next/navigation';
 export function CompaniesList() {
   const sp = useSearchParams();
 
+  const sort = sp.get('sort') ?? undefined;
   const companyName = sp.get('companyName') ?? undefined;
   const countryId = sp.get('country') ?? undefined;
   const cityId = sp.get('city') ?? undefined;
   const stars = sp.get('stars') ?? undefined;
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetCompaniesClient({ companyName, countryId, cityId, stars });
+    GetCompaniesClient({ companyName, countryId, cityId, stars, sort });
 
   const companies = data?.pages.flatMap(page => page.data) || [];
 

@@ -6,6 +6,7 @@ export type GetCompaniesParams = {
   countryId?: string;
   cityId?: string;
   stars?: string;
+  sort?: string;
 };
 
 export const GetCompaniesClient = ({
@@ -13,9 +14,10 @@ export const GetCompaniesClient = ({
   countryId,
   cityId,
   stars,
+  sort,
 }: GetCompaniesParams) => {
   return useInfiniteQuery({
-    queryKey: ['companies', companyName, countryId, cityId, stars],
+    queryKey: ['companies', companyName, countryId, cityId, stars, sort],
     queryFn: async ({
       pageParam = 1,
       signal,
@@ -33,6 +35,7 @@ export const GetCompaniesClient = ({
           ...(countryId ? { country: countryId } : {}),
           ...(cityId ? { city: cityId } : {}),
           ...(stars ? { rating: stars } : {}),
+          ...(sort ? { sortBy: sort, order: 'DESC' } : {}),
         },
       });
 
