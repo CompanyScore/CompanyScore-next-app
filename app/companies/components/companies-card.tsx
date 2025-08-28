@@ -1,11 +1,14 @@
 'use client';
 
-import { Card, StarRating } from '@/shared/ui';
+import { Card } from '@/shared/ui';
+import { FaStar } from 'react-icons/fa';
 
 type CompaniesCardProps = {
   name: string;
   country: string;
   city: string;
+  commentsCount: number;
+  totalScore: number;
   rating?: number;
   logo?: string;
 };
@@ -16,6 +19,8 @@ export function CompaniesCard({
   city,
   rating,
   logo,
+  commentsCount,
+  totalScore,
 }: CompaniesCardProps) {
   return (
     <Card className="flex w-full items-center">
@@ -33,7 +38,7 @@ export function CompaniesCard({
           <h2 className="font-bold text-3xl">{name}</h2>
           <div className="flex items-center font-bold text-2xl">
             <p className="mr-[4px]">{rating}</p>
-            <StarRating value={Number(rating) * 200} onChange={() => {}} />
+            <FaStar className="w-6 h-6 text-yellow-400" />
           </div>
         </div>
 
@@ -43,11 +48,34 @@ export function CompaniesCard({
         </div>
 
         <div className="flex gap-[20px] text-xl font-semibold">
-          <p>28 отзывов</p>
-          <p>18 450/26 000</p>
+          <p>
+            {commentsCount} {getReviewWord(commentsCount)}
+          </p>
+          <p>{totalScore.toLocaleString('ru-RU')}/26 000</p>
         </div>
       </div>
       <a className="self-end text-xl">Подробнее</a>
     </Card>
   );
+}
+
+function getReviewWord(count: number): string {
+  if (count === 0) return 'отзывов';
+
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod100 >= 11 && mod100 <= 14) {
+    return 'отзывов';
+  }
+
+  if (mod10 === 1) {
+    return 'отзыв';
+  }
+
+  if (mod10 >= 2 && mod10 <= 4) {
+    return 'отзыва';
+  }
+
+  return 'отзывов';
 }

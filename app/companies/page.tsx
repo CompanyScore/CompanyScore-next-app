@@ -23,7 +23,7 @@ export default async function CompaniesPage() {
     <>
       <CompaniesHero />
       <CompaniesSearch />
-      <Container className="flex gap-[24px]">
+      <Container className="flex gap-[24px] pt-0 md:pt-0">
         <CompaniesFilter locations={locations} industries={industries} />
         <div className="flex flex-col flex-1 gap-[32px] items-end">
           <CompaniesSort />

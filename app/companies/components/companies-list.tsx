@@ -1,7 +1,7 @@
 'use client';
 
 import { CompaniesCard } from './companies-card';
-import { InfinityList, Loading, Title } from '@/shared/ui';
+import { InfinityList, Loading } from '@/shared/ui';
 import { GetCompaniesClient } from '@/api/companies/companies-client';
 import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/api';
@@ -11,7 +11,7 @@ export function CompaniesList({
 }: {
   companies: any[];
 }) {
-  const { isAuth } = useAuth();
+  const { isAuth, profileQuery } = useAuth();
   const sp = useSearchParams();
 
   const sort = sp.get('sort') ?? undefined;
@@ -34,7 +34,7 @@ export function CompaniesList({
   const dataCompanies = data?.pages.flatMap(page => page.data) || [];
   const companies = isAuth && dataCompanies ? dataCompanies : publicCompanies;
 
-  if (isLoading) {
+  if (isLoading || profileQuery.isLoading) {
     return (
       <div className="mx-auto">
         <Loading />
@@ -50,9 +50,10 @@ export function CompaniesList({
     );
   }
 
-  if (!companies?.length) {
-    return <Title>Список отзывов пуст</Title>;
-  }
+  // console.log(companies, !companies.length)
+  // if (!companies.length) {
+  //   return <Title>Список компаний пуст</Title>;
+  // }
 
   return (
     <div className="flex flex-col gap-10 w-full">
@@ -62,7 +63,16 @@ export function CompaniesList({
         isFetching={isAuth}
       >
         {companies.map(company => {
-          const { id, name, rating, logo, country, city } = company;
+          const {
+            id,
+            name,
+            rating,
+            logo,
+            country,
+            city,
+            commentsIds,
+            totalScore,
+          } = company;
 
           return (
             <CompaniesCard
@@ -72,6 +82,8 @@ export function CompaniesList({
               logo={logo}
               country={country.name}
               city={city.name}
+              commentsCount={commentsIds.length}
+              totalScore={totalScore}
             />
           );
         })}
