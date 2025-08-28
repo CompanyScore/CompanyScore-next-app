@@ -6,10 +6,15 @@ import {
   CompaniesSearch,
   CompaniesSort,
 } from './components';
-import { GetIndustriesServer, GetLocationsServer } from '@/api';
+import {
+  GetCompaniesServer,
+  GetIndustriesServer,
+  GetLocationsServer,
+} from '@/api';
 
 export default async function CompaniesPage() {
-  const [locations, industries] = await Promise.all([
+  const [data, locations, industries] = await Promise.all([
+    GetCompaniesServer(),
     GetLocationsServer(),
     GetIndustriesServer(),
   ]);
@@ -22,7 +27,7 @@ export default async function CompaniesPage() {
         <CompaniesFilter locations={locations} industries={industries} />
         <div className="flex flex-col flex-1 gap-[32px] items-end">
           <CompaniesSort />
-          <CompaniesList />
+          <CompaniesList companies={data.data} />
         </div>
       </Container>
     </>

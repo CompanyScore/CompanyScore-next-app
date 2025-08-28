@@ -1,11 +1,17 @@
 'use client';
 
 import { CompaniesCard } from './companies-card';
-import { InfinityList, Loading } from '@/shared/ui';
+import { InfinityList, Loading, Title } from '@/shared/ui';
 import { GetCompaniesClient } from '@/api/companies/companies-client';
 import { useSearchParams } from 'next/navigation';
+import { useAuth } from '@/api';
 
-export function CompaniesList() {
+export function CompaniesList({
+  companies: publicCompanies,
+}: {
+  companies: any[];
+}) {
+  const { isAuth } = useAuth();
   const sp = useSearchParams();
 
   const sort = sp.get('sort') ?? undefined;
@@ -25,7 +31,8 @@ export function CompaniesList() {
       industryId,
     });
 
-  const companies = data?.pages.flatMap(page => page.data) || [];
+  const dataCompanies = data?.pages.flatMap(page => page.data) || [];
+  const companies = isAuth && dataCompanies ? dataCompanies : publicCompanies;
 
   if (isLoading) {
     return (
@@ -43,22 +50,37 @@ export function CompaniesList() {
     );
   }
 
-  return (
-    <InfinityList loading={isFetchingNextPage} fetchNextPage={fetchNextPage}>
-      {companies.map(company => {
-        const { id, name, rating, logo, country, city } = company;
+  if (!companies?.length) {
+    return <Title>Список отзывов пуст</Title>;
+  }
 
-        return (
-          <CompaniesCard
-            key={id}
-            name={name}
-            rating={rating}
-            logo={logo}
-            country={country.name}
-            city={city.name}
-          />
-        );
-      })}
-    </InfinityList>
+  return (
+    <div className="flex flex-col gap-10 w-full">
+      <InfinityList
+        loading={isFetchingNextPage}
+        fetchNextPage={fetchNextPage}
+        isFetching={isAuth}
+      >
+        {companies.map(company => {
+          const { id, name, rating, logo, country, city } = company;
+
+          return (
+            <CompaniesCard
+              key={id}
+              name={name}
+              rating={rating}
+              logo={logo}
+              country={country.name}
+              city={city.name}
+            />
+          );
+        })}
+      </InfinityList>
+      {!isAuth && (
+        <div className="text-center text-sm text-gray-600 mt-4">
+          Войдите, чтобы увидеть все отзывы
+        </div>
+      )}
+    </div>
   );
 }

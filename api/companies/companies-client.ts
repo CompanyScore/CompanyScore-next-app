@@ -2,6 +2,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useApi } from '../use-api';
 
 export type GetCompaniesParams = {
+  enabled?: boolean;
   companyName?: string;
   countryId?: string;
   cityId?: string;
@@ -11,6 +12,7 @@ export type GetCompaniesParams = {
 };
 
 export const GetCompaniesClient = ({
+  enabled,
   companyName,
   countryId,
   cityId,
@@ -52,6 +54,7 @@ export const GetCompaniesClient = ({
 
       return data;
     },
+    enabled: !!enabled,
     staleTime: 1000 * 60 * 5,
     refetchOnWindowFocus: false,
     initialPageParam: 1,
