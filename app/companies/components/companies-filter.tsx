@@ -19,6 +19,12 @@ export function CompaniesFilter({
   locations,
   industries,
 }: CompaniesFilterProps) {
+  const router = useRouter();
+
+  const filtersReset = () => {
+    router.replace(window.location.pathname, { scroll: false });
+  };
+
   return (
     <div className="w-[288px] flex flex-col gap-[20px]">
       <FilterLocationsAndIndustry
@@ -26,7 +32,7 @@ export function CompaniesFilter({
         industries={industries}
       />
       <FilterStars />
-      <Button className="text-lg btn-primary" onClick={() => {}}>
+      <Button className="text-lg btn-primary" onClick={filtersReset}>
         Сбросить фильтры
       </Button>
     </div>
