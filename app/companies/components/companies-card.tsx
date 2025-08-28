@@ -1,3 +1,5 @@
+'use client';
+
 import { Card, StarRating } from '@/shared/ui';
 
 type CompaniesCardProps = {

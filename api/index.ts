@@ -12,6 +12,8 @@ export {
 
 export { GetLocationsServer } from './locations/locations-server';
 
+export { GetIndustriesServer } from './industries/industries-server';
+
 export { GetCompaniesClient } from './companies/companies-client';
 
 export { GetProfile } from './profile/profile-client';

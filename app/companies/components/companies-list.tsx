@@ -12,10 +12,18 @@ export function CompaniesList() {
   const companyName = sp.get('companyName') ?? undefined;
   const countryId = sp.get('country') ?? undefined;
   const cityId = sp.get('city') ?? undefined;
+  const industryId = sp.get('industry') ?? undefined;
   const stars = sp.get('stars') ?? undefined;
 
   const { data, isLoading, isFetchingNextPage, fetchNextPage, error, isError } =
-    GetCompaniesClient({ companyName, countryId, cityId, stars, sort });
+    GetCompaniesClient({
+      companyName,
+      countryId,
+      cityId,
+      stars,
+      sort,
+      industryId,
+    });
 
   const companies = data?.pages.flatMap(page => page.data) || [];
 

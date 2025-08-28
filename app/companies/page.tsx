@@ -6,30 +6,25 @@ import {
   CompaniesSearch,
   CompaniesSort,
 } from './components';
-import { GetLocationsServer } from '@/api';
-// import { useCompanyStore } from '@/store/api';
+import { GetIndustriesServer, GetLocationsServer } from '@/api';
 
 export default async function CompaniesPage() {
-  // const { total } = useCompanyStore();
-  const locations = await GetLocationsServer();
+  const [locations, industries] = await Promise.all([
+    GetLocationsServer(),
+    GetIndustriesServer(),
+  ]);
 
   return (
     <>
       <CompaniesHero />
       <CompaniesSearch />
       <Container className="flex gap-[24px]">
-        <CompaniesFilter locations={locations} />
+        <CompaniesFilter locations={locations} industries={industries} />
         <div className="flex flex-col flex-1 gap-[32px] items-end">
           <CompaniesSort />
           <CompaniesList />
         </div>
       </Container>
-
-      {/* <section className="flex flex-col items-stretch justify-center gap-8 m-auto">
-        <Title>{`Компаний: ${total}`}</Title>
-        <CompaniesFilter />
-        <CompaniesList />
-      </section> */}
     </>
   );
 }

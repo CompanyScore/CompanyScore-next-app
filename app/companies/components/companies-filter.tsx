@@ -8,17 +8,23 @@ import { FaStar } from 'react-icons/fa';
 
 type City = { id: string; name: string };
 type Location = { id: string; name: string; cities: City[] };
+type Industries = { id: string; title: string };
 
 type CompaniesFilterProps = {
   locations: Location[];
+  industries: Industries[];
 };
 
-export function CompaniesFilter({ locations }: CompaniesFilterProps) {
-  // console.log(locations)
-
+export function CompaniesFilter({
+  locations,
+  industries,
+}: CompaniesFilterProps) {
   return (
     <div className="w-[288px] flex flex-col gap-[20px]">
-      <FilterLocations locations={locations} />
+      <FilterLocationsAndIndustry
+        locations={locations}
+        industries={industries}
+      />
       <FilterStars />
       <Button className="text-lg btn-primary" onClick={() => {}}>
         Сбросить фильтры
@@ -27,12 +33,16 @@ export function CompaniesFilter({ locations }: CompaniesFilterProps) {
   );
 }
 
-function FilterLocations({ locations }: CompaniesFilterProps) {
+function FilterLocationsAndIndustry({
+  locations,
+  industries,
+}: CompaniesFilterProps) {
   const router = useRouter();
   const sp = useSearchParams();
 
   const countryId = sp.get('country');
   const cityId = sp.get('city');
+  const industryId = sp.get('industry');
 
   const replaceParams = (changes: Record<string, string | null>) => {
     const next = new URLSearchParams(sp);
@@ -55,8 +65,25 @@ function FilterLocations({ locations }: CompaniesFilterProps) {
     return (loc?.cities ?? []).map(c => ({ value: c.name, label: c.name })); //потом на value:c.id изменить
   }, [countryId, locations]);
 
+  const industriesOptions = useMemo<OptionType[]>(
+    () => industries.map(i => ({ value: i.id, label: i.title })),
+    [industries],
+  );
   return (
     <FilterCard title="Компания">
+      <div className="max-w-[232px] w-full">
+        <Select
+          placeholder="Отрасли"
+          isClearable
+          options={industriesOptions}
+          value={industryId}
+          onChange={(opt: string | OptionType | null) => {
+            const next = typeof opt === 'string' ? opt : (opt?.value ?? null);
+            replaceParams({ industry: next });
+          }}
+        />
+      </div>
+
       <div className="max-w-[232px] w-full">
         <Select
           placeholder="Страна"
