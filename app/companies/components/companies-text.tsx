@@ -1,3 +1,5 @@
+'use client';
+
 import { Title } from '@/shared/ui';
 import React from 'react';
 

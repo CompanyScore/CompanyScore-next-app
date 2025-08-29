@@ -6,6 +6,7 @@ type InputType = {
   placeholder?: string;
   onChange: (newSearchedValue: string | number) => void;
   className?: string;
+  onKeyDown?: (value: string | number) => void;
 };
 
 export function Input({
@@ -14,6 +15,7 @@ export function Input({
   placeholder,
   onChange,
   className,
+  onKeyDown,
 }: InputType) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
@@ -22,6 +24,12 @@ export function Input({
       onChange(parsed);
     } else {
       onChange(raw);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && onKeyDown) {
+      onKeyDown(e.currentTarget.value);
     }
   };
 
@@ -35,6 +43,7 @@ export function Input({
         className,
       )}
       onChange={handleChange}
+      onKeyDown={handleKeyDown}
     />
   );
 }
