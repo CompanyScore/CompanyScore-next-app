@@ -77,6 +77,7 @@ export function CompaniesList({
           return (
             <CompaniesCard
               key={id}
+              id={id}
               name={name}
               rating={rating}
               logo={logo}

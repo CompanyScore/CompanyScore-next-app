@@ -2,8 +2,10 @@
 
 import { Card } from '@/shared/ui';
 import { FaStar } from 'react-icons/fa';
+import Link from 'next/link';
 
 type CompaniesCardProps = {
+  id: string;
   name: string;
   country: string;
   city: string;
@@ -14,6 +16,7 @@ type CompaniesCardProps = {
 };
 
 export function CompaniesCard({
+  id,
   name,
   country,
   city,
@@ -54,7 +57,9 @@ export function CompaniesCard({
           <p>{totalScore.toLocaleString('ru-RU')}/26 000</p>
         </div>
       </div>
-      <a className="self-end text-xl">Подробнее</a>
+      <Link href={`/companies/${id}`} className="self-end text-xl">
+        Подробнее
+      </Link>
     </Card>
   );
 }

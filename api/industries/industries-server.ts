@@ -3,7 +3,7 @@ export const revalidate = 60 * 60 * 24;
 export async function GetIndustriesServer() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACK}/industry`, {
-      next: { revalidate },
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {

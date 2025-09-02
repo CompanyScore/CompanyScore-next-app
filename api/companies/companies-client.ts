@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useApi } from '../use-api';
 
 export type GetCompaniesParams = {
@@ -9,6 +9,10 @@ export type GetCompaniesParams = {
   stars?: string;
   sort?: string;
   industryId?: string;
+};
+
+type GetCompanyParams = {
+  id: string;
 };
 
 export const GetCompaniesClient = ({
@@ -61,6 +65,19 @@ export const GetCompaniesClient = ({
     getNextPageParam: lastPage => {
       const totalPages = Math.ceil(lastPage.total / lastPage.limit);
       return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
+    },
+  });
+};
+
+export const GetCompanyClient = ({ id }: GetCompanyParams) => {
+  return useQuery({
+    queryKey: ['company', id],
+    queryFn: async ({ signal }: { signal?: AbortSignal }) => {
+      const { data } = await useApi.get(`/companies/${id}`, {
+        signal,
+      });
+
+      return data;
     },
   });
 };
