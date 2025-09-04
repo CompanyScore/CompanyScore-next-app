@@ -2,7 +2,7 @@
 
 import { ProfileCard } from './components';
 import { Container, Title } from '@/shared/ui';
-import { useCommentApi } from '@/store/api';
+import { useCommentApi } from '@/api/index';
 
 export default function ProfilePage() {
   const { total } = useCommentApi();

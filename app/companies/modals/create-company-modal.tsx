@@ -1,10 +1,10 @@
 'use client';
 
-import { useCompanyStore } from '@/store/api';
+import { useCompanyStore } from '@/api/index';
 import { Button, Select, Input, Modal, Title, useToast } from '@/shared/ui';
 import { useEffect, useState } from 'react';
 import { OptionType } from '@/shared/ui/select';
-import { useCountriesAndCitiesStore } from '@/store/api/countries-cities.api';
+import { useCountriesAndCitiesStore } from '@/api/locations/countries-cities.api';
 
 type Props = {
   onGetCreatedCompanyId?: (

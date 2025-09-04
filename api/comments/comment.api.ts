@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
-import { useCommentForm } from '../form';
+import { useCommentForm } from '@/store/form';
 
 export type GetSingleCommentType = GetCommentType & {
   taskScore?: number;

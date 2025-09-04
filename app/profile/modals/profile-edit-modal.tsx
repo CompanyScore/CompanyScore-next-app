@@ -10,7 +10,7 @@ import {
   useToast,
 } from '@/shared/ui';
 import { positions } from '@/constants';
-import { useProfileApi } from '@/store/api';
+import { useProfileApi } from '@/api/index';
 import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';

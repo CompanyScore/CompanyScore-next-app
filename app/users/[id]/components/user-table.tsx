@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 // import { redirect } from 'next/navigation';
-import { useCommentApi } from '@/store/api';
+import { useCommentApi } from '@/api/index';
 // import moment from 'moment';
 import { Button, Title } from '@/shared/ui';
 import Link from 'next/link';

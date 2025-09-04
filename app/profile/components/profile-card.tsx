@@ -1,7 +1,7 @@
 'use client';
 
 import { ProfileEditModal } from '../modals';
-// import { useProfileApi } from '@/store/api';
+// import { useProfileApi } from '@/api/index';
 import { Error, Toast } from '@/shared/ui';
 import { GetProfile } from '@/api';
 

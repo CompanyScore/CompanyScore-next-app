@@ -3,8 +3,8 @@
 import React, { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
-import { useCompanyStore } from '@/store/api';
-import type { CompanyType } from '@/store/api/company.api';
+import { useCompanyStore } from '@/api/index';
+import type { CompanyType } from '@/api/companies/company.api';
 import { Button, ImageTable, Tooltip, Title, Table, Toast } from '@/shared/ui';
 
 export function CompaniesTable() {

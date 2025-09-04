@@ -3,7 +3,7 @@ import {
   useCompanyStore,
   usePositionApi,
   usePositionCategoryApi,
-} from '@/store/api';
+} from '@/api/index';
 import {
   useCommentForm,
   useCommentInternshipForm,

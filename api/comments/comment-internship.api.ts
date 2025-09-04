@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
-import { useCommentInternshipForm } from '../form';
+import { useCommentInternshipForm } from '@/store/form';
 
 interface CommentInternshipFormApiState {
   createInternshipForm: (commentId: string) => Promise<void>;

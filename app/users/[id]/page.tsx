@@ -2,7 +2,7 @@
 
 import { UserCard, UserTable } from './components';
 import { Title } from '@/shared/ui';
-import { useCommentApi } from '@/store/api';
+import { useCommentApi } from '@/api/index';
 
 export default function UserPage() {
   const { total } = useCommentApi();

@@ -1,7 +1,7 @@
 'use client';
 import { CompaniesFilter, CompaniesList } from './components';
 import { Container, Title } from '@/shared/ui';
-import { useCompanyStore } from '@/store/api';
+import { useCompanyStore } from '@/api/index';
 
 export default function CompaniesPage() {
   const { total } = useCompanyStore();

@@ -31,7 +31,7 @@ import {
   useCommentWorkPrimaryApi,
   useCommentWorkSecondaryApi,
   useCommentWorkFinanceApi,
-} from '@/store/api';
+} from '@/api/index';
 import { redirect } from 'next/navigation';
 
 export default function CommentsPage() {

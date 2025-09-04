@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useUser } from '@/store/api/user.api';
+import { useUser } from '@/api/users/user.api';
 
 export function UserCard() {
   const params = useParams();

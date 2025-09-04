@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { useApi } from '@/api';
-import { useCommentWorkSecondaryForm } from '../form';
+import { useCommentWorkSecondaryForm } from '@/store/form';
 
 interface CommentWorkSecondaryFormApiState {
   createCommentWorkSecondaryForm: (commentId: string) => Promise<void>;
