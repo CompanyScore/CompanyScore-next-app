@@ -9,6 +9,7 @@ export {
   GetPositionCategoriesServer,
   GetPositionsServer,
 } from './positions/positions-server';
+export { usePositionsAndCategoriesApi } from './positions/positions-client';
 
 export { GetLocationsServer } from './locations/locations-server';
 
