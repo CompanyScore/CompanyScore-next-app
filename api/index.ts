@@ -9,9 +9,14 @@ export {
   GetPositionCategoriesServer,
   GetPositionsServer,
 } from './positions/positions-server';
-export { usePositionsAndCategoriesApi } from './positions/positions-client';
+export {
+  usePositionsAndCategoriesApi,
+  useCategoriesApi,
+  usePositionsApi,
+} from './positions/positions-client';
 
 export { GetLocationsServer } from './locations/locations-server';
+export { useCountriesApi } from './locations/locations-client';
 
 export { GetCompanyOptions } from './companies/companies-client';
 

@@ -27,7 +27,6 @@ export const useCountriesAndCitiesStore = create<CountriesAndCitiesState>(
       try {
         const response = await useApi.get('/country');
         set({ countryAndCity: response.data });
-        console.log(response.data);
       } catch (error: unknown) {
         const axiosError = error as {
           response?: { data?: { message?: string } };
