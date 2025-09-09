@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import {
   CommentsHero,
   CommentsList,
@@ -27,19 +28,21 @@ export default async function CommentsPage() {
     <>
       <CommentsHero />
       <Container className="flex gap-6">
-        <CommentsFilter
-          categories={categories}
-          positions={positions}
-          locations={locations}
-        />
+        <Suspense fallback={<div>Загрузка...</div>}>
+          <CommentsFilter
+            categories={categories}
+            positions={positions}
+            locations={locations}
+          />
 
-        <div className="flex flex-col gap-8 w-full">
-          <div className="flex items-center gap-5">
-            <CommentsSearcher />
-            <CommentsSorting />
+          <div className="flex flex-col gap-8 w-full">
+            <div className="flex items-center gap-5">
+              <CommentsSearcher />
+              <CommentsSorting />
+            </div>
+            <CommentsList comments={data?.comments || []} />
           </div>
-          <CommentsList comments={data?.comments || []} />
-        </div>
+        </Suspense>
       </Container>
     </>
   );
