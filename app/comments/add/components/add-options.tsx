@@ -1,9 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-  useCompanyStore,
-  usePositionApi,
-  usePositionCategoryApi,
-} from '@/store/api';
+import { useCompanyStore } from '@/store/api';
+import { usePositionsAndCategoriesApi } from '@/api';
 import {
   useCommentForm,
   useCommentInternshipForm,
@@ -172,17 +169,15 @@ const Company = () => {
 
 export const PositionAndWorkExperience = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
-  const { positions, getPositions } = usePositionApi();
-  const { categories, getCategories } = usePositionCategoryApi();
+  const { positions, categories, fetchData } = usePositionsAndCategoriesApi();
 
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     commentForm.userPositionCategoryId || null,
   );
 
   useEffect(() => {
-    getPositions();
-    getCategories();
-  }, [getPositions, getCategories]);
+    fetchData();
+  }, [fetchData]);
 
   const categoryOptions = useMemo(
     () => categories.map(cat => ({ label: cat.title, value: cat.id })),
