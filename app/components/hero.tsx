@@ -1,4 +1,5 @@
 import { Button, Container } from '@/shared/ui';
+import Link from 'next/link';
 
 export const Hero = () => {
   const cards = [
@@ -28,9 +29,11 @@ export const Hero = () => {
             помогите другим сделать правильный выбор
           </p>
 
-          <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
-            Оставить отзыв
-          </Button>
+          <Link href="/comments/add">
+            <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
+              Оставить отзыв
+            </Button>
+          </Link>
         </div>
 
         <WebHero cards={cards} />

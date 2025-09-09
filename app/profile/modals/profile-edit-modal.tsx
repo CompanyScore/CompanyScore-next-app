@@ -9,12 +9,12 @@ import {
   Select,
   useToast,
 } from '@/shared/ui';
-import { positions } from '@/constants';
 import { useProfileApi } from '@/store/api';
 import { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { profileEditSchema } from '@/shared/schema/profileEditSchema';
+import { usePositionsApi } from '@/api';
 
 type ProfileEditFormData = {
   name?: string;
@@ -37,6 +37,7 @@ export const useProfileEditForm = () => {
 
 export function ProfileEditModal() {
   const { getProfile, updateProfile } = useProfileApi();
+  const { positions, isPositionsLoading } = usePositionsApi();
 
   const {
     handleSubmit,
@@ -89,9 +90,9 @@ export function ProfileEditModal() {
     }
   };
 
-  const positionOptions = positions.map(p => ({
-    label: p,
-    value: p,
+  const positionOptions = positions.map(position => ({
+    label: position.title,
+    value: position.id,
   }));
 
   return (
@@ -108,6 +109,7 @@ export function ProfileEditModal() {
 
           <Select
             placeholder="Должность"
+            isLoading={isPositionsLoading}
             options={positionOptions}
             value={watch('position') || null}
             onChange={val =>

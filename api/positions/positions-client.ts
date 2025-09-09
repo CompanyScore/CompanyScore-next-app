@@ -12,27 +12,46 @@ export type PositionType = {
   category: PositionCategoryType;
 };
 
-type PositionsAndCategoriesResponse = {
-  positions: PositionType[];
-  categories: PositionCategoryType[];
+export const usePositionsApi = () => {
+  const { data, isLoading } = useQuery<PositionType[]>({
+    queryKey: ['positions'],
+    queryFn: async () => {
+      const { data } = await useApi.get('/positions');
+      return data;
+    },
+    staleTime: 1000 * 60 * 5, // 5 минут
+  });
+
+  return {
+    positions: data ?? [],
+    isPositionsLoading: isLoading,
+  };
+};
+
+export const useCategoriesApi = () => {
+  const { data, isLoading } = useQuery<PositionCategoryType[]>({
+    queryKey: ['position-categories'],
+    queryFn: async () => {
+      const { data } = await useApi.get('/position-categories');
+      return data;
+    },
+    staleTime: 1000 * 60 * 5, // 5 минут
+  });
+
+  return {
+    categories: data ?? [],
+    isCategoriesLoading: isLoading,
+  };
 };
 
 export const usePositionsAndCategoriesApi = () => {
-  const { data, isLoading, refetch } = useQuery<PositionsAndCategoriesResponse>(
-    {
-      queryKey: ['positions-and-categories'],
-      queryFn: async () => {
-        const { data } = await useApi.get('/positions/with-categories'); // новый эндпоинт
-        return data;
-      },
-      staleTime: 1000 * 60 * 5, // 5 минут
-    },
-  );
+  const { positions, isPositionsLoading } = usePositionsApi();
+  const { categories, isCategoriesLoading } = useCategoriesApi();
 
   return {
-    positions: data?.positions ?? [],
-    categories: data?.categories ?? [],
-    loading: isLoading,
-    fetchData: refetch, // принудительно перезапускает запрос
+    positions,
+    categories,
+    isPositionsLoading,
+    isCategoriesLoading,
   };
 };
