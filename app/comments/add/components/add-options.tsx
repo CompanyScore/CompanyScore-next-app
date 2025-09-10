@@ -1,9 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import {
-  useCompanyStore,
-  usePositionApi,
-  usePositionCategoryApi,
-} from '@/store/api';
+import React, { useMemo } from 'react';
+import { useCompanyStore } from '@/store/api';
+import { useCountriesApi, usePositionsAndCategoriesApi } from '@/api';
 import {
   useCommentForm,
   useCommentInternshipForm,
@@ -14,7 +11,6 @@ import {
 import { Checkbox, Radio } from '@/shared/ui';
 import { Button, Card, Title } from '@/shared/ui';
 import { OptionType, Select } from '@/shared/ui/select';
-import { countriesWithCities } from '@/constants/countriesWithCities';
 import { CreateCompanyModal } from '@/app/companies/modals';
 import { IconChecklist } from '@tabler/icons-react';
 import { IconMicrophone } from '@tabler/icons-react';
@@ -60,15 +56,17 @@ export const AddOptions = () => {
 const Company = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
   const { companies, getCompanies } = useCompanyStore();
+  const { countries, isCountriesLoading } = useCountriesApi();
 
-  const countryOptions: OptionType[] = countriesWithCities.map(
-    ({ label, value }) => ({ label, value }),
-  );
+  const countryOptions: OptionType[] = countries.map(({ id, name }) => ({
+    value: id,
+    label: name,
+  }));
 
   const cityOptions: OptionType[] =
-    countriesWithCities
-      .find(c => c.value === commentForm.companyLocation.country)
-      ?.cities.map(city => ({ label: city, value: city })) || [];
+    countries
+      .find(country => country.id === commentForm.companyLocation.country)
+      ?.cities.map(city => ({ label: city.name, value: city.id })) || [];
 
   const companyOptions: OptionType[] = companies.map(c => ({
     label: c.name,
@@ -140,6 +138,7 @@ const Company = () => {
         <Select
           placeholder="Страна"
           isClearable
+          isLoading={isCountriesLoading}
           options={countryOptions}
           value={commentForm.companyLocation.country || null}
           onChange={onSelectCountry}
@@ -172,20 +171,17 @@ const Company = () => {
 
 export const PositionAndWorkExperience = () => {
   const { commentForm, updateCommentForm } = useCommentForm();
-  const { positions, getPositions } = usePositionApi();
-  const { categories, getCategories } = usePositionCategoryApi();
+  const { positions, categories, isPositionsLoading, isCategoriesLoading } =
+    usePositionsAndCategoriesApi();
 
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-    commentForm.userPositionCategoryId || null,
-  );
-
-  useEffect(() => {
-    getPositions();
-    getCategories();
-  }, [getPositions, getCategories]);
+  const selectedCategoryId = commentForm.userPositionCategoryId;
 
   const categoryOptions = useMemo(
-    () => categories.map(cat => ({ label: cat.title, value: cat.id })),
+    () =>
+      categories.map(category => ({
+        label: category.title,
+        value: category.id,
+      })),
     [categories],
   );
 
@@ -222,10 +218,10 @@ export const PositionAndWorkExperience = () => {
           <Select
             placeholder="Категория"
             isClearable
+            isLoading={isCategoriesLoading}
             options={categoryOptions}
             value={selectedCategoryId}
             onChange={id => {
-              setSelectedCategoryId(id);
               updateCommentForm({
                 ...commentForm,
                 userPositionCategoryId: id ?? '',
@@ -240,6 +236,7 @@ export const PositionAndWorkExperience = () => {
           <Select
             placeholder="Должность"
             isClearable
+            isLoading={!!selectedCategoryId && isPositionsLoading}
             isDisabled={!selectedCategoryId}
             options={filteredPositionOptions}
             value={commentForm.userPositionId || null}

@@ -9,6 +9,3 @@ export { useCommentWorkFinanceApi } from './comment-work-finance.api';
 export { useProfileApi } from './profile.api';
 
 export { useCompanyStore } from './company.api';
-
-export { usePositionApi } from './position.api';
-export { usePositionCategoryApi } from './position-categories.api';
