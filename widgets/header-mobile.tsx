@@ -1,23 +1,39 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useRef } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
+
+import { useAuth } from '@/api';
 
 import { Button } from '@/shared/ui';
+import { Auth } from '@/features';
 
 export function HeaderMobile() {
+  const { isAuth, logout } = useAuth();
+
+  const router = useRouter();
   const pathname = usePathname();
+
+  const [visible, setVisible] = useState(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const pages = [
     { href: '/', label: 'Главная' },
     { href: '/about', label: 'О нас' },
     { href: '/companies', label: 'Компании' },
+    { href: '/comments', label: 'Отзывы' },
     { href: '/users', label: 'Пользователи' },
     { href: '/analytic', label: 'Аналитика' },
     { href: '/blog', label: 'Блог' },
     { href: '/profile', label: 'Профиль' },
   ];
+
+  const onLogout = async () => {
+    await logout.mutateAsync();
+    router.replace('/');
+    router.refresh();
+  };
 
   useEffect(() => {
     const element = document.activeElement;
@@ -63,17 +79,42 @@ export function HeaderMobile() {
                       ? 'text-black font-semibold border-b-2 border-black'
                       : 'hover:text-amber-500'
                   }`}
+                  onClick={e => {
+                    if (
+                      (!isAuth && label === 'Аналитика') ||
+                      label === 'Профиль'
+                    ) {
+                      e.preventDefault();
+                      setVisible(true);
+                    }
+                  }}
                 >
                   {label}
                 </Link>
               </li>
             ))}
-
             <Button className="mt-20 btn-primary text-lg font-normal w-52 m-auto">
               Оставить отзыв
             </Button>
+            {isAuth ? (
+              <Button className="btn-error w-52 m-auto" onClick={onLogout}>
+                Выйти
+              </Button>
+            ) : (
+              <Button
+                className="btn-secondary w-52 m-auto"
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
+                Войти
+              </Button>
+            )}
           </ul>
         </div>
+      </div>
+      <div className=" text-black">
+        <Auth type="login" visible={visible} setVisible={setVisible} />
       </div>
     </div>
   );

@@ -1,20 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Container } from '@/shared/ui';
 
 export default function AccessPage() {
   const [password, setPassword] = useState('');
   const [error] = useState('');
-  const router = useRouter();
-
-  const handleSubmit = () => {
-    if (password) {
-      document.cookie = `hasAccess=${password}; path=/; max-age=3600`;
-      router.push('/comments');
-    }
-  };
 
   return (
     <Container>
