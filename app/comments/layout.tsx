@@ -1,6 +1,4 @@
 import { Metadata } from 'next';
-// import { cookies } from 'next/headers';
-// import { redirect } from 'next/navigation';
 
 export const metadata: Metadata = {
   title: 'CompanyScore | Отзывы',
@@ -12,12 +10,5 @@ export default async function CommentsLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const cookieStore = await cookies();
-  // const hasAccess = cookieStore.get('hasAccess')?.value;
-
-  // if (hasAccess != '777888999') {
-  //   redirect('/access');
-  // }
-
   return <>{children}</>;
 }

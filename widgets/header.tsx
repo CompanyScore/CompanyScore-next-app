@@ -47,7 +47,7 @@ export function Header() {
                 pathname === href ? 'border-b-2 border-white' : 'hover:border-b'
               }`}
               onClick={e => {
-                if (!isAuth) {
+                if (!isAuth && label === 'Аналитика') {
                   e.preventDefault();
                   setVisible(true);
                 }
