@@ -19,7 +19,7 @@ export function CommentsList({
   const sort = (sp.get('sort') as 'date' | 'rating') || 'date';
 
   const companyName = sp.get('companyName') ?? undefined;
-  const countryId = sp.get('country') ?? undefined; // country
+  const countryId = sp.get('country') ?? undefined;
   const cityId = sp.get('city') ?? undefined;
   const isAnonym = sp.get('anonym') ?? undefined;
 
@@ -48,7 +48,11 @@ export function CommentsList({
     });
 
   const dataComments = data?.pages.flatMap(page => page.comments);
-  const comments = isAuth && dataComments ? dataComments : publicComments;
+
+  const comments =
+    isAuth && dataComments && dataComments.length > 0
+      ? dataComments
+      : publicComments;
 
   if (loading || isLoading) {
     return (
