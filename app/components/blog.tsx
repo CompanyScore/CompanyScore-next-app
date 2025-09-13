@@ -2,6 +2,7 @@ import { Button, Carousel, Container, Title } from '@/shared/ui';
 
 import { IconArrowRight, IconEye } from '@tabler/icons-react';
 import { IconBook } from '@tabler/icons-react';
+import Link from 'next/link';
 
 export const Blog = () => {
   const articles = [
@@ -145,9 +146,11 @@ const WebBlog = ({ articles }: Props) => {
               </div>
             ),
         )}
-        <Button className="btn-neutral max-w-56 ml-auto">
-          Перейти в блог <IconArrowRight stroke={1} />
-        </Button>
+        <Link href="/blog">
+          <Button className="btn-neutral max-w-56 ml-auto">
+            Перейти в блог <IconArrowRight stroke={1} />
+          </Button>
+        </Link>
       </div>
     </div>
   );
