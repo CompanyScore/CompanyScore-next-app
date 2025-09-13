@@ -4,3 +4,6 @@ export { CompaniesCarousel } from './companies-carousel';
 export { CompaniesText } from './companies-text';
 export { CompaniesCard } from './companies-card';
 export { CompaniesList } from './companies-list';
+export { CompaniesHero } from './companies-hero';
+export { CompaniesSearch } from './companies-search';
+export { CompaniesSort } from './companies-sort';

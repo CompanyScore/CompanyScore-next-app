@@ -1,17 +1,17 @@
-export const revalidate = 60 * 60 * 24;
+export const revalidate = 60;
 
-export async function GetLocationsServer() {
-  console.log('yes');
+export async function GetCompaniesServer() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACK}/country`, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACK}/companies/public?page=1&limit=5`,
+      {
+        next: { revalidate: 60 },
+      },
+    );
 
     if (!res.ok) {
       throw new Error(`Ошибка ${res.status}: ${res.statusText}`);
     }
-
-    console.log('Response status:', res.status);
 
     return await res.json();
   } catch (error) {

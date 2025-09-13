@@ -1,34 +1,35 @@
-'use client';
-import { CompaniesFilter, CompaniesList } from './components';
-import { Container, Title } from '@/shared/ui';
-import { useCompanyStore } from '@/store/api';
+// import { Container } from '@/shared/ui';
+import {
+  // CompaniesFilter,
+  CompaniesHero,
+  // CompaniesList,
+  // CompaniesSearch,
+  // CompaniesSort,
+} from './components';
+// import {
+//   GetCompaniesServer,
+//   GetIndustriesServer,
+//   GetLocationsServer,
+// } from '@/api';
 
-export default function CompaniesPage() {
-  const { total } = useCompanyStore();
+export default async function CompaniesPage() {
+  // const [data, locations, industries] = await Promise.all([
+  //   GetCompaniesServer(),
+  //   GetLocationsServer(),
+  //   GetIndustriesServer(),
+  // ]);
 
   return (
-    // <section className="flex flex-col items-stretch justify-center gap-8 py-8 md:py-10 m-auto">
-    //   {/* <CompaniesText />
-    //   <Title>Новые компании</Title>
-    //   <CompaniesCarousel />
-    //   <Title>{`Компаний: ${total}`}</Title>
-    //   <CompaniesFilter />
-    //   <CompaniesTable />
-    //   <div className="flex justify-between">
-    //     <CompaniesShowBy />
-    //     <CompaniesPagination />
-    //   </div> */}
-    //   <Title>{`Компаний: ${total}`}</Title>
-    //   <CompaniesFilter />
-    //   <CompaniesCard />
-    //   <CompaniesTable />
-    // </section>
-    <Container>
-      <section className="flex flex-col items-stretch justify-center gap-8 m-auto">
-        <Title>{`Компаний: ${total}`}</Title>
-        <CompaniesFilter />
-        <CompaniesList />
-      </section>
-    </Container>
+    <>
+      <CompaniesHero />
+      {/* <CompaniesSearch />
+      <Container className="flex gap-[24px] pt-0 md:pt-0">
+        <CompaniesFilter locations={locations} industries={industries} />
+        <div className="flex flex-col flex-1 gap-[32px] items-end">
+          <CompaniesSort />
+          <CompaniesList companies={data.data} />
+        </div>
+      </Container> */}
+    </>
   );
 }
