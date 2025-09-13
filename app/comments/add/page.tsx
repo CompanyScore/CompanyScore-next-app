@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+
 import {
   useCommentForm,
   useCommentInternshipForm,
@@ -34,7 +36,13 @@ import {
 } from '@/store/api';
 import { redirect } from 'next/navigation';
 
+import { useAuth } from '@/api';
+import { Auth } from '@/features';
+
 export default function CommentsPage() {
+  const { isAuth } = useAuth();
+  const router = useRouter();
+
   const { commentForm } = useCommentForm();
   const { comments, postComment, error } = useCommentApi();
   const { createInterviewForm } = useCommentInterviewApi();
@@ -119,6 +127,15 @@ export default function CommentsPage() {
     }
   };
 
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!isAuth) {
+      router.replace('/');
+      setVisible(true);
+    }
+  }, [isAuth, router]);
+
   return (
     <section className="flex flex-col justify-center gap-8 py-8 md:py-10 max-w-[1280px] m-auto">
       {currentStep != 0 && (
@@ -166,6 +183,9 @@ export default function CommentsPage() {
         Log form
       </Button>
       <Toast />
+      <div className=" text-black">
+        <Auth type="login" visible={visible} setVisible={setVisible} />
+      </div>
     </section>
   );
 }
