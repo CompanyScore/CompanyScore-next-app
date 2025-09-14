@@ -13,7 +13,9 @@ export async function GetAllCommentsServer() {
       throw new Error(`Ошибка ${res.status}: ${res.statusText}`);
     }
 
-    return await res.json();
+    const json = await res.json();
+
+    return json;
   } catch (error) {
     console.error('Ошибка при загрузке комментариев (SSR):', error);
     return null;
