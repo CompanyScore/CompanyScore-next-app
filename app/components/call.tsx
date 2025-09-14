@@ -1,4 +1,5 @@
 import { Button, Container } from '@/shared/ui';
+import Link from 'next/link';
 
 export const Call = () => {
   return (
@@ -9,9 +10,11 @@ export const Call = () => {
             Ваш отзыв важен — помогите другим сделать правильный выбор
           </h2>
 
-          <Button className="mt-11 py-2 px-6 btn-primary text-xl font-normal">
-            Оставить отзыв
-          </Button>
+          <Link href="/comments/add">
+            <Button className="mt-11 py-2 px-6 btn-primary text-xl font-normal">
+              Оставить отзыв
+            </Button>
+          </Link>
         </Container>
       </div>
     </div>
