@@ -1,5 +1,6 @@
 import { Button, Container, Title } from '@/shared/ui';
 import { IconArrowRight } from '@tabler/icons-react';
+import Link from 'next/link';
 
 export const Steps = () => {
   const steps = [
@@ -40,9 +41,11 @@ export const Steps = () => {
               className="flex justify-between items-center flex-wrap gap-4 border-t-amber-700 border-t-[0.5px] py-10 px-7"
             >
               <div className="flex flex-col max-w-[600px]">
-                <h3 className="whitespace-pre-line text-2xl font-medium">
-                  {step.title}
-                </h3>
+                <Link href={step.href}>
+                  <h3 className="whitespace-pre-line text-2xl font-medium">
+                    {step.title}
+                  </h3>
+                </Link>
                 <p className="mt-3 text-base leading-relaxed text-neutral-700">
                   {step.description}
                 </p>
