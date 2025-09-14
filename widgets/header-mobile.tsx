@@ -93,9 +93,11 @@ export function HeaderMobile() {
                 </Link>
               </li>
             ))}
-            <Button className="mt-20 btn-primary text-lg font-normal w-52 m-auto">
-              Оставить отзыв
-            </Button>
+            <Link href="/comments/add">
+              <Button className="mt-20 btn-primary text-lg font-normal w-52 m-auto">
+                Оставить отзыв
+              </Button>
+            </Link>
             {isAuth ? (
               <Button className="btn-error w-52 m-auto" onClick={onLogout}>
                 Выйти
