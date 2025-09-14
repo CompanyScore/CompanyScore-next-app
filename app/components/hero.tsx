@@ -1,7 +1,13 @@
+import { useState } from 'react';
 import { Button, Container } from '@/shared/ui';
+import { useAuth } from '@/api';
 import Link from 'next/link';
 
 export const Hero = () => {
+  const { isAuth, logout } = useAuth();
+
+  const [visible, setVisible] = useState(false);
+
   const cards = [
     { title: '1 345', description: 'проверенных отзывов' },
     { title: '100+', description: 'новых отзывов ежемесячно' },
@@ -29,11 +35,19 @@ export const Hero = () => {
             помогите другим сделать правильный выбор
           </p>
 
-          <Link href="/comments/add">
-            <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
-              Оставить отзыв
-            </Button>
-          </Link>
+          {isAuth ? ( // добавили проверку на Auth
+            <Link href="/comments/add">
+              <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
+                Оставить отзыв
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/access">
+              <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
+                Авторизоваться
+              </Button>
+            </Link>
+          )}
         </div>
 
         <WebHero cards={cards} />
