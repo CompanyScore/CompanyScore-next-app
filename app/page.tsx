@@ -1,4 +1,6 @@
 import { Metadata } from 'next';
+import { Auth } from '@/features';
+import { useState } from 'react';
 
 import { Hero, Features, Steps, Reviews, Blog, Call } from './components';
 
@@ -8,6 +10,8 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  const [visible, setVisible] = useState(false);
+
   return (
     <section className="flex flex-col items-stretch justify-center">
       <Hero />
@@ -16,6 +20,8 @@ export default async function HomePage() {
       <Reviews />
       <Blog />
       <Call />
+
+      <Auth type="login" visible={visible} setVisible={setVisible} />
     </section>
   );
 }

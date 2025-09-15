@@ -1,6 +1,9 @@
+'use client';
+
 import { useState } from 'react';
 import { Button, Container } from '@/shared/ui';
 import { useAuth } from '@/api';
+import { Auth } from '@/features';
 import Link from 'next/link';
 
 export const Hero = () => {
@@ -43,11 +46,17 @@ export const Hero = () => {
             </Link>
           ) : (
             <Link href="/access">
-              <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
+              <Button
+                className="mt-20 py-2 px-6 btn-primary text-xl font-normal"
+                onClick={() => {
+                  setVisible(true);
+                }}
+              >
                 Авторизоваться
               </Button>
             </Link>
           )}
+          <Auth type="login" visible={visible} setVisible={setVisible} />
         </div>
 
         <WebHero cards={cards} />
