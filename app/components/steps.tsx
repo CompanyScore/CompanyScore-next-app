@@ -51,9 +51,11 @@ export const Steps = () => {
                 </p>
               </div>
               <div className="flex justify-end">
-                <Button className="btn-neutral border border-1-black">
-                  {step.button} <IconArrowRight stroke={1} />
-                </Button>
+                <Link href={step.href}>
+                  <Button className="btn-neutral border border-1-black">
+                    {step.button} <IconArrowRight stroke={1} />
+                  </Button>
+                </Link>
               </div>
             </div>
           ))}
