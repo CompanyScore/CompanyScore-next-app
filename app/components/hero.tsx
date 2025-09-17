@@ -7,7 +7,7 @@ import { Auth } from '@/features';
 import Link from 'next/link';
 
 export const Hero = () => {
-  const { isAuth, logout } = useAuth();
+  const { isAuth } = useAuth();
 
   const [visible, setVisible] = useState(false);
 

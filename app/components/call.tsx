@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Button, Container } from '@/shared/ui';
 import { useAuth } from '@/api';
@@ -5,7 +7,7 @@ import { Auth } from '@/features';
 import Link from 'next/link';
 
 export const Call = () => {
-  const { isAuth, logout } = useAuth();
+  const { isAuth } = useAuth();
 
   const [visible, setVisible] = useState(false); // стейты модалки
 
