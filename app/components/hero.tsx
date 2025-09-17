@@ -58,7 +58,6 @@ export const Hero = () => {
           )}
           <Auth type="login" visible={visible} setVisible={setVisible} />
         </div>
-
         <WebHero cards={cards} />
         <MobileHero cards={cards} />
       </Container>
