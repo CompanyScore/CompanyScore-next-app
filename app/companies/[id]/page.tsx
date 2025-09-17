@@ -19,11 +19,9 @@ export default function CompanyDetail() {
     return <div>Loading...</div>;
   }
 
-  console.log(data);
-
   return (
     <Container>
-      <p>{data.name}</p>
+      <p>{data?.name}</p>
     </Container>
   );
 }

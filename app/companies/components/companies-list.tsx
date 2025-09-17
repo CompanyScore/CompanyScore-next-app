@@ -81,8 +81,8 @@ export function CompaniesList({
               name={name}
               rating={rating}
               logo={logo}
-              country={country.name}
-              city={city.name}
+              country={country?.name}
+              city={city?.name}
               commentsCount={commentsIds.length}
               totalScore={totalScore}
             />
