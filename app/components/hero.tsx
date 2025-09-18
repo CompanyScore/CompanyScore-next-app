@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Container } from '@/shared/ui';
 import { useAuth } from '@/api';
 import Link from 'next/link';
@@ -9,6 +9,10 @@ export const Hero = () => {
   const { isAuth } = useAuth();
 
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    console.log('Visible state changed:', visible);
+  }, [visible]);
 
   const cards = [
     { title: '1 345', description: 'проверенных отзывов' },
