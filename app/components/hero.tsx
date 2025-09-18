@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Button, Container } from '@/shared/ui';
 import { useAuth } from '@/api';
-import { Auth } from '@/features';
 import Link from 'next/link';
 
 export const Hero = () => {
@@ -26,13 +25,13 @@ export const Hero = () => {
           'linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(imgs/hero-bg.svg)',
       }}
     >
-      <Container className="flex flex-col items-center gap-16 text-center text-white">
-        <div>
-          <h1 className="mb-6 text-4xl md:text-7xl text-center font-extrabold leading-tight ">
+      <Container className="flex flex-col items-center gap-16 text-center text-white pt-24 md:pt-0">
+        <div className="flex flex-col items-center justify-center flex-1">
+          <h1 className="mt-10 md:mt-24 lg:mt-40 xl:mt-52 mb-4 md:mb-6 text-4xl md:text-6xl font-extrabold leading-tight text-center">
             Ваш голос меняет рынок труда
           </h1>
 
-          <p className="mx-auto max-w-2xl text-lg md:text-2xl">
+          <p className="mx-auto max-w-2xl text-base md:text-2xl mb-8 md:mb-12 text-center">
             Поделитесь своим отзывом о работе в компании —
             <br />
             помогите другим сделать правильный выбор
@@ -40,23 +39,20 @@ export const Hero = () => {
 
           {isAuth ? (
             <Link href="/comments/add">
-              <Button className="mt-20 py-2 px-6 btn-primary text-xl font-normal">
+              <Button className="mt-6 md:mt-10 py-2 px-6 btn-primary text-xl font-normal">
                 Оставить отзыв
               </Button>
             </Link>
           ) : (
             <Link href="/access">
               <Button
-                className="mt-20 py-2 px-6 btn-primary text-xl font-normal"
-                onClick={() => {
-                  setVisible(true);
-                }}
+                className="mt-6 md:mt-10 py-2 px-6 btn-primary text-xl font-normal"
+                onClick={() => setVisible(true)}
               >
                 Авторизоваться
               </Button>
             </Link>
           )}
-          <Auth type="login" visible={visible} setVisible={setVisible} />
         </div>
         <WebHero cards={cards} />
         <MobileHero cards={cards} />
