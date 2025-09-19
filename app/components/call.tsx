@@ -16,7 +16,14 @@ export const Call = () => {
     <div className="bg-neutral-100">
       <div className="bg-cover bg-no-repeat rounded-t-[50px] text-white bg-[url(/imgs/background.png)]">
         <Container className="flex flex-col items-center">
-          <h2 className="text-3xl md:text-5xl font-semibold md:leading-[1.2] text-center">
+          <h2
+            className="
+            text-3xl md:text-5xl 
+            font-semibold md:leading-[1.2] 
+            text-center 
+            translate-y-[2px] md:translate-y-0
+            "
+          >
             Ваш отзыв важен — помогите другим сделать правильный выбор
           </h2>
 
