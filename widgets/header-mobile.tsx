@@ -68,7 +68,7 @@ export function HeaderMobile() {
 
           <ul
             tabIndex={0}
-            className="menu dropdown-content z-[9999] mt-3 w-screen max-w-screen bg-white text-black shadow-2xl rounded-none px-6 py-4 text-lg space-y-3"
+            className="menu dropdown-content z-[9999] mt-1 w-screen max-w-screen bg-white text-black shadow-2xl rounded-none px-6 py-4 text-lg space-y-3"
           >
             {pages.map(({ href, label }) => (
               <li key={href} className="border-b last:border-none">
@@ -94,7 +94,7 @@ export function HeaderMobile() {
               </li>
             ))}
             <Link href="/comments/add">
-              <Button className="mt-20 btn-primary text-lg font-normal w-52 m-auto">
+              <Button className="mt-20 btn-primary text-lg font-normal w-52 ml-[120px]">
                 Оставить отзыв
               </Button>
             </Link>
